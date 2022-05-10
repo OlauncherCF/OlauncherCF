@@ -21,19 +21,23 @@ import app.olaunchercf.R
 import app.olaunchercf.data.AppModel
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Prefs
+import app.olaunchercf.databinding.FragmentAppDrawerBinding
+import app.olaunchercf.databinding.FragmentSettingsBinding
 import app.olaunchercf.helper.openAppInfo
-import app.olaunchercf.helper.showToastLong
-import app.olaunchercf.helper.showToastShort
-import kotlinx.android.synthetic.main.fragment_app_drawer.*
 
 class AppDrawerFragment : Fragment() {
+
+    private var _binding: FragmentAppDrawerBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.fragment_app_drawer, container, false)
+    ): View {
+        // return inflater.inflate(R.layout.fragment_app_drawer, container, false)
+        _binding = FragmentAppDrawerBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -41,7 +45,7 @@ class AppDrawerFragment : Fragment() {
 
         val flag = arguments?.getInt("flag", Constants.FLAG_LAUNCH_APP) ?: Constants.FLAG_LAUNCH_APP
         val rename = arguments?.getBoolean("rename", false) ?: false
-        if (rename) appRename.setOnClickListener { renameListener(flag) }
+        if (rename) binding.appRename.setOnClickListener { renameListener(flag) }
 
         val viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
@@ -56,17 +60,17 @@ class AppDrawerFragment : Fragment() {
             appRenameListener()
         )
 
-        val searchTextView = search.findViewById<TextView>(R.id.search_src_text)
+        val searchTextView = binding.search.findViewById<TextView>(R.id.search_src_text)
         if (searchTextView != null) searchTextView.gravity = Prefs(requireContext()).appLabelAlignment
 
         initViewModel(flag, viewModel, appAdapter)
 
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = appAdapter
-        recyclerView.addOnScrollListener(getRecyclerViewOnScrollListener())
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        binding.recyclerView.adapter = appAdapter
+        binding.recyclerView.addOnScrollListener(getRecyclerViewOnScrollListener())
 
-        if (flag == Constants.FLAG_HIDDEN_APPS) search.queryHint = "Hidden apps"
-        search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        if (flag == Constants.FLAG_HIDDEN_APPS) binding.search.queryHint = "Hidden apps"
+        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 appAdapter.launchFirstInList()
                 return false
@@ -75,7 +79,7 @@ class AppDrawerFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let {
                     appAdapter.filter.filter(it.trim())
-                    appRename.isVisible = rename && it.trim().isNotEmpty()
+                    binding.appRename.isVisible = rename && it.trim().isNotEmpty()
                 }
                 return false
             }
@@ -103,17 +107,17 @@ class AppDrawerFragment : Fragment() {
         })
 
         viewModel.firstOpen.observe(viewLifecycleOwner, {
-            if (it) appDrawerTip.visibility = View.VISIBLE
+            if (it) binding.appDrawerTip.visibility = View.VISIBLE
         })
     }
 
     override fun onStart() {
         super.onStart()
-        search.showKeyboard()
+        binding.search.showKeyboard()
     }
 
     override fun onStop() {
-        search.hideKeyboard()
+        binding.search.hideKeyboard()
         super.onStop()
     }
 
@@ -132,7 +136,7 @@ class AppDrawerFragment : Fragment() {
 
     private fun populateAppList(apps: List<AppModel>, appAdapter: AppDrawerAdapter) {
         val animation = AnimationUtils.loadLayoutAnimation(requireContext(), R.anim.layout_anim_from_bottom)
-        recyclerView.layoutAnimation = animation
+        binding.recyclerView.layoutAnimation = animation
         appAdapter.setAppList(apps.toMutableList())
     }
 
@@ -174,7 +178,7 @@ class AppDrawerFragment : Fragment() {
         }
 
     private fun renameListener(flag: Int) {
-        val name = search.query.toString().trim()
+        val name = binding.search.query.toString().trim()
         if (name.isEmpty()) return
 
         when (flag) {
@@ -201,17 +205,17 @@ class AppDrawerFragment : Fragment() {
 
                     RecyclerView.SCROLL_STATE_DRAGGING -> {
                         onTop = !recyclerView.canScrollVertically(-1)
-                        if (onTop) search.hideKeyboard()
+                        if (onTop) binding.search.hideKeyboard()
                         if (onTop && !recyclerView.canScrollVertically(1))
                             findNavController().popBackStack()
                     }
 
                     RecyclerView.SCROLL_STATE_IDLE -> {
                         if (!recyclerView.canScrollVertically(1)) {
-                            search.hideKeyboard()
+                            binding.search.hideKeyboard()
                         } else if (!recyclerView.canScrollVertically(-1)) {
                             if (onTop) findNavController().popBackStack()
-                            else search.showKeyboard()
+                            else binding.search.showKeyboard()
                         }
                     }
                 }

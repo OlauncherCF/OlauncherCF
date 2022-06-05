@@ -33,7 +33,11 @@ class Prefs(context: Context) {
     private val ABOUT_CLICKED = "ABOUT_CLICKED"
     private val RATE_CLICKED = "RATE_CLICKED"
 
-    private val APP_NAME_1 = "APP_NAME_1"
+    private val APP_NAME = "APP_NAME"
+    private val APP_PACKAGE = "APP_PACKAGE"
+    private val APP_ALIAS = "APP_USER"
+    private val APP_ACTIVITY = "APP_ACTIVITY"
+    /*private val APP_NAME_1 = "APP_NAME_1"
     private val APP_NAME_2 = "APP_NAME_2"
     private val APP_NAME_3 = "APP_NAME_3"
     private val APP_NAME_4 = "APP_NAME_4"
@@ -56,15 +60,15 @@ class Prefs(context: Context) {
     private val APP_USER_5 = "APP_USER_5"
     private val APP_USER_6 = "APP_USER_6"
     private val APP_USER_7 = "APP_USER_7"
-    private val APP_USER_8 = "APP_USER_8"
-    private val APP_ACTIVITY_1 = "APP_ACTIVITY_1"
+    private val APP_USER_8 = "APP_USER_8"*/
+    /*private val APP_ACTIVITY_1 = "APP_ACTIVITY_1"
     private val APP_ACTIVITY_2 = "APP_ACTIVITY_2"
     private val APP_ACTIVITY_3 = "APP_ACTIVITY_3"
     private val APP_ACTIVITY_4 = "APP_ACTIVITY_4"
     private val APP_ACTIVITY_5 = "APP_ACTIVITY_5"
     private val APP_ACTIVITY_6 = "APP_ACTIVITY_6"
     private val APP_ACTIVITY_7 = "APP_ACTIVITY_7"
-    private val APP_ACTIVITY_8 = "APP_ACTIVITY_8"
+    private val APP_ACTIVITY_8 = "APP_ACTIVITY_8"*/
 
     private val APP_NAME_SWIPE_LEFT = "APP_NAME_SWIPE_LEFT"
     private val APP_NAME_SWIPE_RIGHT = "APP_NAME_SWIPE_RIGHT"
@@ -162,15 +166,46 @@ class Prefs(context: Context) {
         get() = prefs.getInt(SHOW_HINT_COUNTER, 1)
         set(value) = prefs.edit().putInt(SHOW_HINT_COUNTER, value).apply()
 
-    var aboutClicked: Boolean
-        get() = prefs.getBoolean(ABOUT_CLICKED, false)
-        set(value) = prefs.edit().putBoolean(ABOUT_CLICKED, value).apply()
+    fun getHomeAppValues(i: Int): Array<String> {
+        val nameId = "${APP_NAME}_$i"
+        val propId = "${APP_PACKAGE}_$i"
+        val aliasId = "${APP_ALIAS}_$i"
+        val activityId = "${APP_ACTIVITY}_$i"
 
-    var rateClicked: Boolean
-        get() = prefs.getBoolean(RATE_CLICKED, false)
-        set(value) = prefs.edit().putBoolean(RATE_CLICKED, value).apply()
+        val name = prefs.getString(nameId, "").toString()
+        val prop = prefs.getString(propId, "").toString()
+        val alias = prefs.getString(aliasId, "").toString()
+        val activity = prefs.getString(activityId, "").toString()
 
-    var appName1: String
+        return arrayOf(name, prop, alias, activity)
+    }
+
+    fun setHomeAppValues(i: Int, name: String, prop: String, alias: String, activity: String) {
+        val nameId = "${APP_NAME}_$i"
+        val propId = "${APP_PACKAGE}_$i"
+        val aliasId = "${APP_ALIAS}_$i"
+
+        prefs.edit().putString(nameId, name).apply()
+        prefs.edit().putString(propId, prop).apply()
+        prefs.edit().putString(aliasId, alias).apply()
+        prefs.edit().putString(aliasId, activity).apply()
+    }
+
+    fun setHomeAppName(i: Int, name: String) {
+        val nameId = "${APP_NAME}_$i"
+        prefs.edit().putString(nameId, name).apply()
+    }
+
+    // this only resets name and alias because of how this was done before in HomeFragment
+    fun resetHomeAppValues(i: Int) {
+        val nameId = "${APP_NAME}_$i"
+        val aliasId = "${APP_ALIAS}_$i"
+
+        prefs.edit().putString(nameId, "").apply()
+        prefs.edit().putString(aliasId, "").apply()
+    }
+
+    /*var appName1: String
         get() = prefs.getString(APP_NAME_1, "").toString()
         set(value) = prefs.edit().putString(APP_NAME_1, value).apply()
 
@@ -264,9 +299,9 @@ class Prefs(context: Context) {
 
     var appUser8: String
         get() = prefs.getString(APP_USER_8, "").toString()
-        set(value) = prefs.edit().putString(APP_USER_8, value).apply()
+        set(value) = prefs.edit().putString(APP_USER_8, value).apply()*/
 
-    var appActivity1: String
+    /*var appActivity1: String
         get() = prefs.getString(APP_ACTIVITY_1, "").toString()
         set(value) = prefs.edit().putString(APP_ACTIVITY_1, value).apply()
 
@@ -296,7 +331,7 @@ class Prefs(context: Context) {
 
     var appActivity8: String
         get() = prefs.getString(APP_ACTIVITY_8, "").toString()
-        set(value) = prefs.edit().putString(APP_ACTIVITY_8, value).apply()
+        set(value) = prefs.edit().putString(APP_ACTIVITY_8, value).apply()*/
 
     var appNameSwipeLeft: String
         get() = prefs.getString(APP_NAME_SWIPE_LEFT, "Camera").toString()
@@ -367,7 +402,9 @@ class Prefs(context: Context) {
         set(value) = prefs.edit().putFloat(TEXT_SIZE, value).apply()
 
     fun getAppName(location: Int): String {
-        return when (location) {
+        val (name, _, _, _) = this.getHomeAppValues(location)
+        return name
+        /*return when (location) {
             1 -> prefs.getString(APP_NAME_1, "").toString()
             2 -> prefs.getString(APP_NAME_2, "").toString()
             3 -> prefs.getString(APP_NAME_3, "").toString()
@@ -377,7 +414,7 @@ class Prefs(context: Context) {
             7 -> prefs.getString(APP_NAME_7, "").toString()
             8 -> prefs.getString(APP_NAME_8, "").toString()
             else -> ""
-        }
+        }*/
     }
 
     fun getAppAlias(appName: String): String {
@@ -388,7 +425,9 @@ class Prefs(context: Context) {
     }
 
     fun getAppPackage(location: Int): String {
-        return when (location) {
+        val (_, pack, _, _) = this.getHomeAppValues(location)
+        return pack
+        /*return when (location) {
             1 -> prefs.getString(APP_PACKAGE_1, "").toString()
             2 -> prefs.getString(APP_PACKAGE_2, "").toString()
             3 -> prefs.getString(APP_PACKAGE_3, "").toString()
@@ -398,11 +437,13 @@ class Prefs(context: Context) {
             7 -> prefs.getString(APP_PACKAGE_7, "").toString()
             8 -> prefs.getString(APP_PACKAGE_8, "").toString()
             else -> ""
-        }
+        }*/
     }
 
     fun getAppUser(location: Int): String {
-        return when (location) {
+        val (_, _, alias, _) = this.getHomeAppValues(location)
+        return alias
+        /*return when (location) {
             1 -> prefs.getString(APP_USER_1, "").toString()
             2 -> prefs.getString(APP_USER_2, "").toString()
             3 -> prefs.getString(APP_USER_3, "").toString()
@@ -412,11 +453,13 @@ class Prefs(context: Context) {
             7 -> prefs.getString(APP_USER_7, "").toString()
             8 -> prefs.getString(APP_USER_8, "").toString()
             else -> ""
-        }
+        }*/
     }
 
     fun getAppActivity(location: Int): String {
-        return when (location) {
+        val (_, _, _, activity) = this.getHomeAppValues(location)
+        return activity
+        /*return when (location) {
             1 -> prefs.getString(APP_ACTIVITY_1, "").toString()
             2 -> prefs.getString(APP_ACTIVITY_2, "").toString()
             3 -> prefs.getString(APP_ACTIVITY_3, "").toString()
@@ -426,6 +469,6 @@ class Prefs(context: Context) {
             7 -> prefs.getString(APP_ACTIVITY_7, "").toString()
             8 -> prefs.getString(APP_ACTIVITY_8, "").toString()
             else -> ""
-        }
+        }*/
     }
 }

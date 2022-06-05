@@ -2,6 +2,7 @@ package app.olaunchercf.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +42,8 @@ class AppDrawerFragment : Fragment() {
 
         val flag = arguments?.getInt("flag", Constants.FLAG_LAUNCH_APP) ?: Constants.FLAG_LAUNCH_APP
         val rename = arguments?.getBoolean("rename", false) ?: false
-        if (rename) appRename.setOnClickListener { renameListener(flag) }
+        val n = arguments?.getInt("n", 0) ?: 0
+        if (rename) appRename.setOnClickListener { renameListener(n) }
 
         val viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
@@ -50,7 +52,7 @@ class AppDrawerFragment : Fragment() {
         val appAdapter = AppDrawerAdapter(
             flag,
             Prefs(requireContext()).appLabelAlignment,
-            appClickListener(viewModel, flag),
+            appClickListener(viewModel, flag, n),
             appInfoListener(),
             appShowHideListener(),
             appRenameListener()
@@ -136,9 +138,9 @@ class AppDrawerFragment : Fragment() {
         appAdapter.setAppList(apps.toMutableList())
     }
 
-    private fun appClickListener(viewModel: MainViewModel, flag: Int): (appModel: AppModel) -> Unit =
+    private fun appClickListener(viewModel: MainViewModel, flag: Int, n: Int = 0): (appModel: AppModel) -> Unit =
         { appModel ->
-            viewModel.selectedApp(appModel, flag)
+            viewModel.selectedApp(appModel, flag, n)
             findNavController().popBackStack(R.id.mainFragment, false)
         }
 
@@ -173,11 +175,13 @@ class AppDrawerFragment : Fragment() {
             prefs.setAppAlias(appName, appAlias)
         }
 
-    private fun renameListener(flag: Int) {
+    private fun renameListener(i: Int) {
         val name = search.query.toString().trim()
         if (name.isEmpty()) return
 
-        when (flag) {
+        Prefs(requireContext()).setHomeAppName(i, name)
+
+        /*when (flag) {
             Constants.FLAG_SET_HOME_APP_1 -> Prefs(requireContext()).appName1 = name
             Constants.FLAG_SET_HOME_APP_2 -> Prefs(requireContext()).appName2 = name
             Constants.FLAG_SET_HOME_APP_3 -> Prefs(requireContext()).appName3 = name
@@ -186,7 +190,7 @@ class AppDrawerFragment : Fragment() {
             Constants.FLAG_SET_HOME_APP_6 -> Prefs(requireContext()).appName6 = name
             Constants.FLAG_SET_HOME_APP_7 -> Prefs(requireContext()).appName7 = name
             Constants.FLAG_SET_HOME_APP_8 -> Prefs(requireContext()).appName8 = name
-        }
+        }*/
         findNavController().popBackStack()
     }
 

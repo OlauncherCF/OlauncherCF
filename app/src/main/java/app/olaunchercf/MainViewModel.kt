@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.LauncherApps
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -32,7 +33,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val showMessageDialog = MutableLiveData<String>()
     val showSupportDialog = MutableLiveData<Boolean>()
 
-    fun selectedApp(appModel: AppModel, flag: Int) {
+    fun selectedApp(appModel: AppModel, flag: Int, n: Int = 2) {
         when (flag) {
             Constants.FLAG_LAUNCH_APP -> {
                 launchApp(appModel)
@@ -40,7 +41,13 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             Constants.FLAG_HIDDEN_APPS -> {
                 launchApp(appModel)
             }
-            Constants.FLAG_SET_HOME_APP_1 -> {
+            Constants.FLAG_SET_HOME_APP -> {
+                appModel.let {
+                    prefs.setHomeAppValues(n, it.appLabel, it.appPackage, it.user.toString(), it.appActivityName)
+                }
+                refreshHome(false)
+            }
+            /*Constants.FLAG_SET_HOME_APP_1 -> {
                 prefs.appName1 = appModel.appLabel
                 prefs.appPackage1 = appModel.appPackage
                 prefs.appUser1 = appModel.user.toString()
@@ -95,7 +102,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appUser8 = appModel.user.toString()
                 prefs.appActivity8 = appModel.appActivityName
                 refreshHome(false)
-            }
+            }*/
             Constants.FLAG_SET_SWIPE_LEFT_APP -> {
                 prefs.appNameSwipeLeft = appModel.appLabel
                 prefs.appPackageSwipeLeft = appModel.appPackage

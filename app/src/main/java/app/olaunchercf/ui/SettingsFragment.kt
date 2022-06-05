@@ -158,6 +158,7 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         themeDark.setOnClickListener(this)
 
         appLangText.setOnClickListener(this)
+        initLanguageText()
 
         textSizeText.setOnClickListener(this)
         textSizeHuge.setOnClickListener(this)

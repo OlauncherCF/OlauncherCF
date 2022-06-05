@@ -11,9 +11,11 @@ import android.provider.Settings
 import android.util.DisplayMetrics
 import android.view.*
 import android.view.inputmethod.EditorInfo.IME_ACTION_DONE
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.os.bundleOf
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -167,14 +169,15 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         themeDark.setOnClickListener(this)
 
         appLangText.setOnClickListener(this)
-        langSystem.setOnClickListener(this)
+        initLanguageText()
+        /*langSystem.setOnClickListener(this)
         langEn.setOnClickListener(this)
         langDe.setOnClickListener(this)
         langEs.setOnClickListener(this)
         langFr.setOnClickListener(this)
         langIt.setOnClickListener(this)
         langSe.setOnClickListener(this)
-        langTr.setOnClickListener(this)
+        langTr.setOnClickListener(this)*/
 
         textSizeText.setOnClickListener(this)
         textSizeHuge.setOnClickListener(this)
@@ -396,6 +399,32 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
             AppCompatDelegate.MODE_NIGHT_YES -> appThemeText.text = getString(R.string.dark)
             AppCompatDelegate.MODE_NIGHT_NO -> appThemeText.text = getString(R.string.light)
             else -> appThemeText.text = getString(R.string.system_default)
+        }
+    }
+
+    private fun initLanguageText() {
+        val languages = arrayOf(
+            Pair(R.string.lang_system, Constants.LANG_SYSTEM),
+            Pair(R.string.lang_en, Constants.LANG_EN),
+            Pair(R.string.lang_de, Constants.LANG_DE),
+            Pair(R.string.lang_es, Constants.LANG_ES),
+            Pair(R.string.lang_fr, Constants.LANG_FR),
+            Pair(R.string.lang_it, Constants.LANG_IT),
+            Pair(R.string.lang_se, Constants.LANG_SE),
+            Pair(R.string.lang_tr, Constants.LANG_TR),
+        )
+
+        for ((button_text, lang) in languages) {
+            val view = layoutInflater.inflate(R.layout.settings_button, null) as TextView
+            view.apply {
+                text = getString(button_text)
+                setPadding(12)
+                setOnClickListener{
+                    setLang(lang)
+                }
+            }
+
+            lang_layout.addView(view)
         }
     }
 

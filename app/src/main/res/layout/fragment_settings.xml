@@ -510,11 +510,12 @@
                         android:layout_height="wrap_content">
 
                         <androidx.appcompat.widget.LinearLayoutCompat
+                            android:id="@+id/lang_layout"
                             android:orientation="horizontal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
 
-                            <TextView
+                           <!-- <TextView
                                 android:id="@+id/langSystem"
                                 style="@style/TextSmallBold"
                                 android:layout_width="wrap_content"
@@ -592,7 +593,7 @@
                                 android:layout_marginEnd="12dp"
                                 android:gravity="center"
                                 android:paddingVertical="6dp"
-                                android:text="@string/lang_tr" />
+                                android:text="@string/lang_tr" />-->
 
                         </androidx.appcompat.widget.LinearLayoutCompat>
 

@@ -50,7 +50,6 @@
     <string name="close">Κλείσιμο</string>
     <string name="app_language">Γλώσσα Εφαρμογής</string>
     <string name="lang_system">Γλώσσα Συστήματος</string>
-
     <string name="app_text_size">Μέγεθος Γραμματοσειράς</string>
     <string name="text_size_huge">Μεγάλο</string>
     <string name="text_size_normal">Μεσαίο</string>

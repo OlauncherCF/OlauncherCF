@@ -33,7 +33,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val showMessageDialog = MutableLiveData<String>()
     val showSupportDialog = MutableLiveData<Boolean>()
 
-    fun selectedApp(appModel: AppModel, flag: Int, n: Int = 2) {
+    fun selectedApp(appModel: AppModel, flag: Int, n: Int = 0) {
         when (flag) {
             Constants.FLAG_LAUNCH_APP -> {
                 launchApp(appModel)
@@ -47,62 +47,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 refreshHome(false)
             }
-            /*Constants.FLAG_SET_HOME_APP_1 -> {
-                prefs.appName1 = appModel.appLabel
-                prefs.appPackage1 = appModel.appPackage
-                prefs.appUser1 = appModel.user.toString()
-                prefs.appActivity1 = appModel.appActivityName
-                refreshHome(false)
-            }
-            Constants.FLAG_SET_HOME_APP_2 -> {
-                prefs.appName2 = appModel.appLabel
-                prefs.appPackage2 = appModel.appPackage
-                prefs.appUser2 = appModel.user.toString()
-                prefs.appActivity2 = appModel.appActivityName
-                refreshHome(false)
-            }
-            Constants.FLAG_SET_HOME_APP_3 -> {
-                prefs.appName3 = appModel.appLabel
-                prefs.appPackage3 = appModel.appPackage
-                prefs.appUser3 = appModel.user.toString()
-                prefs.appActivity3 = appModel.appActivityName
-                refreshHome(false)
-            }
-            Constants.FLAG_SET_HOME_APP_4 -> {
-                prefs.appName4 = appModel.appLabel
-                prefs.appPackage4 = appModel.appPackage
-                prefs.appUser4 = appModel.user.toString()
-                prefs.appActivity4 = appModel.appActivityName
-                refreshHome(false)
-            }
-            Constants.FLAG_SET_HOME_APP_5 -> {
-                prefs.appName5 = appModel.appLabel
-                prefs.appPackage5 = appModel.appPackage
-                prefs.appUser5 = appModel.user.toString()
-                prefs.appActivity5 = appModel.appActivityName
-                refreshHome(false)
-            }
-            Constants.FLAG_SET_HOME_APP_6 -> {
-                prefs.appName6 = appModel.appLabel
-                prefs.appPackage6 = appModel.appPackage
-                prefs.appUser6 = appModel.user.toString()
-                prefs.appActivity6 = appModel.appActivityName
-                refreshHome(false)
-            }
-            Constants.FLAG_SET_HOME_APP_7 -> {
-                prefs.appName7 = appModel.appLabel
-                prefs.appPackage7 = appModel.appPackage
-                prefs.appUser7 = appModel.user.toString()
-                prefs.appActivity7 = appModel.appActivityName
-                refreshHome(false)
-            }
-            Constants.FLAG_SET_HOME_APP_8 -> {
-                prefs.appName8 = appModel.appLabel
-                prefs.appPackage8 = appModel.appPackage
-                prefs.appUser8 = appModel.user.toString()
-                prefs.appActivity8 = appModel.appActivityName
-                refreshHome(false)
-            }*/
             Constants.FLAG_SET_SWIPE_LEFT_APP -> {
                 prefs.appNameSwipeLeft = appModel.appLabel
                 prefs.appPackageSwipeLeft = appModel.appPackage

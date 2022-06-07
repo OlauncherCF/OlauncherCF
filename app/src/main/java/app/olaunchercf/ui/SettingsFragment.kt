@@ -103,29 +103,11 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
             R.id.themeLight -> updateTheme(AppCompatDelegate.MODE_NIGHT_NO)
             R.id.themeDark -> updateTheme(AppCompatDelegate.MODE_NIGHT_YES)
             R.id.appLangText -> appLangSelectLayout.visibility = View.VISIBLE
-            /*R.id.langSystem -> setLang(Constants.LANG_SYSTEM)
-            R.id.langEn -> setLang(Constants.LANG_EN)
-            R.id.langDe -> setLang(Constants.LANG_DE)
-            R.id.langEs -> setLang(Constants.LANG_ES)
-            R.id.langFr -> setLang(Constants.LANG_FR)
-            R.id.langIt -> setLang(Constants.LANG_IT)
-            R.id.langSe -> setLang(Constants.LANG_SE)
-            R.id.langTr -> setLang(Constants.LANG_TR)*/
 
             R.id.textSizeText -> textSizeLayout.visibility = View.VISIBLE
             R.id.textSizeHuge -> setTextSize(Constants.TEXT_SIZE_HUGE)
             R.id.textSizeNormal -> setTextSize(Constants.TEXT_SIZE_NORMAL)
             R.id.textSizeSmall -> setTextSize(Constants.TEXT_SIZE_SMALL)
-
-            /*R.id.maxApps0 -> updateHomeAppsNum(0)
-            R.id.maxApps1 -> updateHomeAppsNum(1)
-            R.id.maxApps2 -> updateHomeAppsNum(2)
-            R.id.maxApps3 -> updateHomeAppsNum(3)
-            R.id.maxApps4 -> updateHomeAppsNum(4)
-            R.id.maxApps5 -> updateHomeAppsNum(5)
-            R.id.maxApps6 -> updateHomeAppsNum(6)
-            R.id.maxApps7 -> updateHomeAppsNum(7)
-            R.id.maxApps8 -> updateHomeAppsNum(8)*/
 
             R.id.swipeLeftApp -> showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP)
             R.id.swipeRightApp -> showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP)
@@ -181,16 +163,6 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         textSizeHuge.setOnClickListener(this)
         textSizeNormal.setOnClickListener(this)
         textSizeSmall.setOnClickListener(this)
-
-        /*maxApps0.setOnClickListener(this)
-        maxApps1.setOnClickListener(this)
-        maxApps2.setOnClickListener(this)
-        maxApps3.setOnClickListener(this)
-        maxApps4.setOnClickListener(this)
-        maxApps5.setOnClickListener(this)
-        maxApps6.setOnClickListener(this)
-        maxApps7.setOnClickListener(this)
-        maxApps8.setOnClickListener(this)*/
 
         alignment.setOnLongClickListener(this)
         appThemeText.setOnLongClickListener(this)

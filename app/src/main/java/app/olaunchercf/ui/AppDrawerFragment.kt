@@ -43,7 +43,7 @@ class AppDrawerFragment : Fragment() {
         val flag = arguments?.getInt("flag", Constants.FLAG_LAUNCH_APP) ?: Constants.FLAG_LAUNCH_APP
         val rename = arguments?.getBoolean("rename", false) ?: false
         val n = arguments?.getInt("n", 0) ?: 0
-        if (rename) appRename.setOnClickListener { renameListener(n) }
+        if (rename) appRename.setOnClickListener { renameListener(flag, n) }
 
         val viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
@@ -104,9 +104,9 @@ class AppDrawerFragment : Fragment() {
             populateAppList(it, appAdapter)
         })
 
-        viewModel.firstOpen.observe(viewLifecycleOwner, {
+        viewModel.firstOpen.observe(viewLifecycleOwner) {
             if (it) appDrawerTip.visibility = View.VISIBLE
-        })
+        }
     }
 
     override fun onStart() {
@@ -175,22 +175,14 @@ class AppDrawerFragment : Fragment() {
             prefs.setAppAlias(appName, appAlias)
         }
 
-    private fun renameListener(i: Int) {
+    private fun renameListener(flag: Int, i: Int) {
         val name = search.query.toString().trim()
         if (name.isEmpty()) return
 
-        Prefs(requireContext()).setHomeAppName(i, name)
+        if (flag == Constants.FLAG_SET_HOME_APP) {
+            Prefs(requireContext()).setHomeAppName(i, name)
+        }
 
-        /*when (flag) {
-            Constants.FLAG_SET_HOME_APP_1 -> Prefs(requireContext()).appName1 = name
-            Constants.FLAG_SET_HOME_APP_2 -> Prefs(requireContext()).appName2 = name
-            Constants.FLAG_SET_HOME_APP_3 -> Prefs(requireContext()).appName3 = name
-            Constants.FLAG_SET_HOME_APP_4 -> Prefs(requireContext()).appName4 = name
-            Constants.FLAG_SET_HOME_APP_5 -> Prefs(requireContext()).appName5 = name
-            Constants.FLAG_SET_HOME_APP_6 -> Prefs(requireContext()).appName6 = name
-            Constants.FLAG_SET_HOME_APP_7 -> Prefs(requireContext()).appName7 = name
-            Constants.FLAG_SET_HOME_APP_8 -> Prefs(requireContext()).appName8 = name
-        }*/
         findNavController().popBackStack()
     }
 

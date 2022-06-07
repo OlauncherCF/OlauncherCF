@@ -7,8 +7,8 @@
     <string name="experimental_">(expérimental)</string>
     <string name="admin_permission_message">Olauncher promet d\'utiliser l\'autorisation d\'accès au verrouillage de l\'écran de manière responsable.</string>
     <string name="about">À Propos</string>
-    <string name="off">Off</string>
-    <string name="on">On</string>
+    <string name="off">Non</string>
+    <string name="on">Oui</string>
     <string name="black">Noir</string>
     <string name="white">Blanc</string>
     <string name="change_default_launcher">Modifier le lanceur par défaut</string>
@@ -37,7 +37,7 @@
     <string name="show_date_time">Afficher la date et l\'heure</string>
     <string name="appearance">Apparence</string>
     <string name="gestures">Gestuels</string>
-    <string name="theme_mode">Mode du thème</string>
+    <string name="theme_mode">Thème</string>
     <string name="system_default">Identique au Système</string>
     <string name="dark">Obscur</string>
     <string name="light">Clair</string>
@@ -50,13 +50,6 @@
     <string name="close">Fermer</string>
     <string name="app_language">Langue de l'\Interface</string>
     <string name="lang_system">Identique au Système</string>
-    <string name="lang_en" translatable="false">English</string>
-    <string name="lang_de" translatable="false">Deutsch</string>
-    <string name="lang_es" translatable="false">Español</string>
-    <string name="lang_fr" translatable="false">Français</string>
-    <string name="lang_it" translatable="false">Italiano</string>
-    <string name="lang_se" translatable="false">Svenska</string>
-    <string name="lang_tr" translatable="false">Türkçe</string>
     
     <string name="app_text_size">Taille de la police</string>
     <string name="text_size_huge">Grande</string>

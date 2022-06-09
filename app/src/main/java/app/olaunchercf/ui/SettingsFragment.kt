@@ -159,12 +159,6 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
 
         appLangText.setOnClickListener(this)
         initLanguageText()
-
-        textSizeText.setOnClickListener(this)
-        textSizeHuge.setOnClickListener(this)
-        textSizeNormal.setOnClickListener(this)
-        textSizeSmall.setOnClickListener(this)
-
         alignment.setOnLongClickListener(this)
         appThemeText.setOnLongClickListener(this)
         swipeLeftApp.setOnLongClickListener(this)

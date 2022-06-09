@@ -47,7 +47,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 }
                 refreshHome(false)
             }
-            
             Constants.FLAG_SET_SWIPE_LEFT_APP -> {
                 prefs.appNameSwipeLeft = appModel.appLabel
                 prefs.appPackageSwipeLeft = appModel.appPackage

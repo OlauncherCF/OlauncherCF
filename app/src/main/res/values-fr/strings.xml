@@ -48,7 +48,7 @@
     <string name="open">Ouvrir le lien</string>
     <string name="copy">Copier</string>
     <string name="close">Fermer</string>
-    <string name="app_language">Langue de l'\Interface</string>
+    <string name="app_language">Langue de l'\interface</string>
     <string name="lang_system">Identique au Système</string>
     
     <string name="app_text_size">Taille de la police</string>

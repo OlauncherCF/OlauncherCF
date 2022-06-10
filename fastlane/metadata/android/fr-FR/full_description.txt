@@ -1,0 +1,17 @@
+Version modifiée de <a href="https://f-droid.org/packages/app.olauncher/">Olauncher</a>
+     parce que la version originale est bugguée et peu pratique
+
+     Ajout de quelques fonctionnalités
+     * Suppression des bugs
+     * Renommer les applications dans la liste normale des applications
+     * Changer l'application horloge
+     * Changer l'application Calendrier
+     * Prise en charge multilingue:
+       * Chinois
+       * Anglais
+       * Français
+       * Allemand
+       * Italien
+       * Espagnol
+       * Suédois
+       * Turc

@@ -19,8 +19,8 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Prefs
+import app.olaunchercf.databinding.ActivityMainBinding
 import app.olaunchercf.helper.*
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var prefs: Prefs
     private lateinit var navController: NavController
     private lateinit var viewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onBackPressed() {
         if (navController.currentDestination?.id != R.id.mainFragment)
@@ -37,9 +38,15 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         prefs = Prefs(this)
         AppCompatDelegate.setDefaultNightMode(prefs.appTheme)
+        //super.onCreate(savedInstanceState)
+        //setContentView(R.layout.activity_main)
+
         super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
+
         useLanguage()
-        setContentView(R.layout.activity_main)
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
@@ -86,18 +93,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initClickListeners() {
-        okay.setOnClickListener {
-            messageLayout.visibility = View.GONE
+        binding.okay.setOnClickListener {
+            binding.messageLayout.visibility = View.GONE
             viewModel.showMessageDialog("")
         }
-        closeOneLink.setOnClickListener {
+        binding.closeOneLink.setOnClickListener {
             viewModel.showSupportDialog(false)
         }
-        copyOneLink.setOnClickListener {
+        binding.copyOneLink.setOnClickListener {
             this.copyToClipboard(Constants.URL_AFFILIATE)
             viewModel.showSupportDialog(false)
         }
-        openOneLink.setOnClickListener {
+        binding.openOneLink.setOnClickListener {
             this.openUrl(Constants.URL_AFFILIATE)
             viewModel.showSupportDialog(false)
         }
@@ -111,7 +118,7 @@ class MainActivity : AppCompatActivity() {
             showMessage(it)
         })
         viewModel.showSupportDialog.observe(this, {
-            supportOlauncherLayout.isVisible = it
+            binding.supportOlauncherLayout.isVisible = it
         })
     }
 
@@ -152,15 +159,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun showMessage(message: String) {
         if (message.isEmpty()) return
-        messageTextView.text = message
-        messageLayout.visibility = View.VISIBLE
+        binding.messageTextView.text = message
+        binding.messageLayout.visibility = View.VISIBLE
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             Constants.REQUEST_CODE_ENABLE_ADMIN -> {
-                if (resultCode == Activity.RESULT_OK) {
+                if (resultCode == RESULT_OK) {
                     prefs.lockModeOn = true
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
                         showMessage(getString(R.string.double_tap_lock_is_enabled_message))

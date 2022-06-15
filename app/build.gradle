@@ -24,6 +24,15 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    buildFeatures {
+        compose true
+        viewBinding = true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion '1.1.1'
+    }
+
     buildTypes {
         release {
             debuggable false
@@ -46,6 +55,7 @@ android {
     lint {
         abortOnError false
     }
+    namespace 'app.olaunchercf'
 }
 
 dependencies {
@@ -65,4 +75,21 @@ dependencies {
     // Work Manager
     implementation "androidx.work:work-runtime-ktx:2.7.1"
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+
+    // JETPACK
+    // Integration with activities
+    implementation 'androidx.activity:activity-compose:1.4.0'
+    // Compose Material Design
+    implementation 'androidx.compose.material:material:1.1.1'
+    // Animations
+    implementation 'androidx.compose.animation:animation:1.1.1'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
+
+    // Tooling support (Previews, etc.)
+    implementation 'androidx.compose.ui:ui-tooling:1.1.1'
+    // Integration with ViewModels
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1'
+    // UI Tests
+    androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.1'
+
 }

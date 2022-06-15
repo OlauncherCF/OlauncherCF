@@ -5,18 +5,18 @@ import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
-import android.widget.Filter
-import android.widget.Filterable
-import android.widget.TextView
+import android.widget.*
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
 import app.olaunchercf.R
 import app.olaunchercf.data.AppModel
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Prefs
-import kotlinx.android.synthetic.main.adapter_app_drawer.view.*
+import app.olaunchercf.databinding.ActivityMainBinding
+import app.olaunchercf.databinding.AdapterAppDrawerBinding
 import java.text.Normalizer
+import kotlin.coroutines.coroutineContext
 
 class AppDrawerAdapter(
     private var flag: Int,
@@ -30,14 +30,17 @@ class AppDrawerAdapter(
     private var appFilter = createAppFilter()
     var appsList: MutableList<AppModel> = mutableListOf()
     var appFilteredList: MutableList<AppModel> = mutableListOf()
+    private lateinit var binding: AdapterAppDrawerBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.adapter_app_drawer, parent, false)
+        //val view = LayoutInflater.from(parent.context)
+        //    .inflate(R.layout.adapter_app_drawer, parent, false)
 
-        view.appTitle.textSize = Prefs(parent.context).textSize
+        binding = AdapterAppDrawerBinding.inflate(LayoutInflater.from(parent.context))
+        //val view = binding.root
+        binding.appTitle.textSize = Prefs(parent.context).textSize
 
-        return ViewHolder(view)
+        return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -119,10 +122,14 @@ class AppDrawerAdapter(
             clickListener(appFilteredList[0])
     }
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: AdapterAppDrawerBinding) : RecyclerView.ViewHolder(itemView.root) {
         val appHideButton: TextView = itemView.appHide
         val appRenameButton: TextView = itemView.appRename
         val appRenameEdit: EditText = itemView.appRenameEdit
+        private val appHideLayout: ConstraintLayout = itemView.appHideLayout
+        private val appTitle: TextView = itemView.appTitle
+        private val otherProfileIndicator: ImageView = itemView.otherProfileIndicator
+        private val appInfo: ImageView = itemView.appInfo
 
         fun bind(
             flag: Int,

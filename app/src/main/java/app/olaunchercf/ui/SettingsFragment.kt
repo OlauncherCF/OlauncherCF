@@ -7,8 +7,37 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.ClickableText
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
+import androidx.compose.material.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ComposeCompilerApi
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.dp
+import androidx.core.content.res.ResourcesCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -37,10 +66,78 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        // return inflater.inflate(R.layout.fragment_settings, container, false)
+    ): View? {
+        //return inflater.inflate(R.layout.fragment_settings, container, false)
+        /*return ComposeView(requireContext()).apply {
+            setContent {
+                Text(text = "hi")
+            }
+        }*/
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.greeting?.setContent {
+            MaterialTheme {
+                Greeting()
+            }
+        }
+
+        binding.testView?.setContent {
+            SettingsList()
+        }
+
+    }
+
+    @Composable
+    private fun Greeting() {
+        Text(
+            text = stringResource(R.string.app),
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = dimensionResource(R.dimen.app_padding_vertical))
+                .wrapContentWidth(Alignment.CenterHorizontally)
+        )
+    }
+
+    @Composable
+    @Preview
+    private fun SettingsList() {
+        Column(
+            modifier = Modifier
+                .padding(12.dp)
+                .background(Color(R.color.blackInverseTrans50), RoundedCornerShape(20.dp))
+
+        ) {
+            SettingsTitle(text = "Apps on home screen")
+            SettingsItem(text = "Auto show keyboard")
+            SettingsItem(text = "Show status bar")
+        }
+    }
+
+    @Composable
+    private fun SettingsTitle(text: String) {
+        Text(
+            text = text,
+            style = MaterialTheme.typography.h5,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = dimensionResource(R.dimen.app_padding_vertical))
+                .wrapContentWidth(Alignment.CenterHorizontally)
+        )
+    }
+
+    @Composable
+    private fun SettingsItem(text: String) {
+        TextButton(
+            onClick = { toggleStatusBar() }
+        ) {
+            Text(text)
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -68,6 +165,11 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         populateClickApps()
         initClickListeners()
         initObservers()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onClick(view: View) {

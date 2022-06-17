@@ -1,5 +1,6 @@
 package app.olaunchercf.ui
 
+import SettingsTheme
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
@@ -7,37 +8,24 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ComposeCompilerApi
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.res.colorResource
-import androidx.compose.ui.res.dimensionResource
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.res.*
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.core.content.res.ResourcesCompat
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -51,6 +39,7 @@ import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentSettingsBinding
 import app.olaunchercf.helper.*
 import app.olaunchercf.listener.DeviceAdmin
+import app.olaunchercf.style.app_vertical_padding
 
 class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
 
@@ -81,7 +70,7 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         super.onViewCreated(view, savedInstanceState)
 
         binding.greeting?.setContent {
-            MaterialTheme {
+            SettingsTheme {
                 Greeting()
             }
         }
@@ -96,7 +85,6 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
     private fun Greeting() {
         Text(
             text = stringResource(R.string.app),
-            style = MaterialTheme.typography.h5,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = dimensionResource(R.dimen.app_padding_vertical))
@@ -110,12 +98,13 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         Column(
             modifier = Modifier
                 .padding(12.dp)
-                .background(Color(R.color.blackInverseTrans50), RoundedCornerShape(20.dp))
+                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(20.dp))
+                .padding(12.dp)
 
         ) {
             SettingsTitle(text = "Apps on home screen")
-            SettingsItem(text = "Auto show keyboard")
-            SettingsItem(text = "Show status bar")
+            SettingsItem(title = "Auto show keyboard", "on")
+            SettingsItem(title = "Show status bar", "on")
         }
     }
 
@@ -123,20 +112,28 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
     private fun SettingsTitle(text: String) {
         Text(
             text = text,
-            style = MaterialTheme.typography.h5,
+            style = SettingsTheme.typography.title,
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = dimensionResource(R.dimen.app_padding_vertical))
-                .wrapContentWidth(Alignment.CenterHorizontally)
+                .padding(app_vertical_padding)
         )
     }
 
     @Composable
-    private fun SettingsItem(text: String) {
-        TextButton(
-            onClick = { toggleStatusBar() }
-        ) {
-            Text(text)
+    private fun SettingsItem(title: String, opt: String) {
+        ConstraintLayout {
+            Text(
+                title,
+                style = SettingsTheme.typography.item,
+                modifier = Modifier.constr
+            )
+            TextButton(
+                onClick = { toggleStatusBar() }
+            ) {
+                Text(
+                    opt,
+                    style = SettingsTheme.typography.button,
+                )
+            }
         }
     }
 

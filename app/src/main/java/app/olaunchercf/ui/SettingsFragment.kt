@@ -16,15 +16,22 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.res.*
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -69,12 +76,6 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.greeting?.setContent {
-            SettingsTheme {
-                Greeting()
-            }
-        }
-
         binding.testView?.setContent {
             SettingsList()
         }
@@ -82,29 +83,20 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
     }
 
     @Composable
-    private fun Greeting() {
-        Text(
-            text = stringResource(R.string.app),
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = dimensionResource(R.dimen.app_padding_vertical))
-                .wrapContentWidth(Alignment.CenterHorizontally)
-        )
-    }
-
-    @Composable
     @Preview
     private fun SettingsList() {
+        val autoShowKeyboard = remember {SettingsElement() }
+        val open = remember { mutableStateOf(false) }
         Column(
             modifier = Modifier
                 .padding(12.dp)
-                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(20.dp))
+                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(10.dp))
                 .padding(12.dp)
 
         ) {
             SettingsTitle(text = "Apps on home screen")
-            SettingsItem(title = "Auto show keyboard", "on")
-            SettingsItem(title = "Show status bar", "on")
+            SettingsItem(title = "Auto show keyboard", autoShowKeyboard, open) { open.value = true }
+            /*SettingsItem(title = "Show status bar", open,"on") { toggleStatusBar() }*/
         }
     }
 
@@ -119,21 +111,54 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
     }
 
     @Composable
-    private fun SettingsItem(title: String, opt: String) {
-        ConstraintLayout {
-            Text(
-                title,
-                style = SettingsTheme.typography.item,
-                modifier = Modifier.constr
-            )
-            TextButton(
-                onClick = { toggleStatusBar() }
-            ) {
+    private fun SettingsItem(title: String, element: SettingsElement, open: MutableState<Boolean>, onClick: () -> Unit) {
+        ConstraintLayout(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            val (text, button) = createRefs()
+
+            if (open.value) {
+                SettingsSelector()
+            } else {
                 Text(
-                    opt,
-                    style = SettingsTheme.typography.button,
+                    title,
+                    style = SettingsTheme.typography.item,
+                    modifier = Modifier.constrainAs(text) {
+                        start.linkTo(parent.start)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    },
+                    textAlign = TextAlign.Center,
                 )
+                TextButton(
+                    onClick = onClick,
+                    modifier = Modifier.constrainAs(button) {
+                        end.linkTo(parent.end)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    }
+                ) {
+                    Text(
+                        element.opt,
+                        style = SettingsTheme.typography.button
+                    )
+                }
             }
+        }
+    }
+
+    @Composable
+    @Preview
+    private fun SettingsSelector() {
+        Row(
+            modifier = Modifier
+                .padding(12.dp)
+                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(30.dp))
+                .fillMaxWidth()
+        ) {
+            Text("1")
+            Text("2")
+            Text("3")
         }
     }
 

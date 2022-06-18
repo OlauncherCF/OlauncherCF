@@ -1,6 +1,7 @@
 package app.olaunchercf.ui
 
 import SettingsTheme
+import android.annotation.SuppressLint
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
@@ -14,25 +15,17 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.res.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -46,7 +39,8 @@ import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentSettingsBinding
 import app.olaunchercf.helper.*
 import app.olaunchercf.listener.DeviceAdmin
-import app.olaunchercf.style.app_vertical_padding
+import app.olaunchercf.style.APP_VERTICAL_PADDING
+import app.olaunchercf.style.CORNER_RADIUS
 
 class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
 
@@ -73,30 +67,50 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         return binding.root
     }
 
+    @SuppressLint("RtlHardcoded")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val settings = arrayOf(
+            SettingsElement(
+                title = "Apps on home screen",
+                onValueClickAction = { i -> updateHomeAppsNum(i) },
+                optValues = arrayOf(1, 2, 3, 4)
+            ),
+            SettingsElement(
+                title = "App Alignment",
+                onValueClickAction = { i -> viewModel.updateHomeAlignment(i) },
+                optValues = arrayOf(Gravity.LEFT, Gravity.CENTER, Gravity.RIGHT),
+                optValueNames = arrayOf("Left", "Center", "Right")
+            ),
+            SettingsElement(
+                title = "Interface Language",
+                onValueClickAction = { i -> setLang(i) },
+                optValues = arrayOf("English", "Deutsch", "Italiano"),
+            ),
+        )
+
         binding.testView?.setContent {
-            SettingsList()
+            SettingsList(settings)
         }
 
     }
 
     @Composable
-    @Preview
-    private fun SettingsList() {
-        val autoShowKeyboard = remember {SettingsElement() }
-        val open = remember { mutableStateOf(false) }
+    private fun SettingsList(items: Array<SettingsElement>) {
+        val itemsRemember = items.map {remember { it } }
+
         Column(
             modifier = Modifier
                 .padding(12.dp)
-                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(10.dp))
+                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(CORNER_RADIUS))
                 .padding(12.dp)
 
         ) {
             SettingsTitle(text = "Apps on home screen")
-            SettingsItem(title = "Auto show keyboard", autoShowKeyboard, open) { open.value = true }
-            /*SettingsItem(title = "Show status bar", open,"on") { toggleStatusBar() }*/
+            for (item in itemsRemember) {
+                SettingsItem(item)
+            }
         }
     }
 
@@ -106,22 +120,22 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
             text = text,
             style = SettingsTheme.typography.title,
             modifier = Modifier
-                .padding(app_vertical_padding)
+                .padding(APP_VERTICAL_PADDING)
         )
     }
 
     @Composable
-    private fun SettingsItem(title: String, element: SettingsElement, open: MutableState<Boolean>, onClick: () -> Unit) {
+    private fun SettingsItem(element: SettingsElement) {
         ConstraintLayout(
             modifier = Modifier.fillMaxWidth()
         ) {
             val (text, button) = createRefs()
 
-            if (open.value) {
-                SettingsSelector()
+            if (element.open.value) {
+                SettingsSelector(element.optValues, element.names()) { i, n -> element.onValueClick(i,n)}
             } else {
                 Text(
-                    title,
+                    element.title,
                     style = SettingsTheme.typography.item,
                     modifier = Modifier.constrainAs(text) {
                         start.linkTo(parent.start)
@@ -131,7 +145,7 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
                     textAlign = TextAlign.Center,
                 )
                 TextButton(
-                    onClick = onClick,
+                    onClick = { element.onClick() },
                     modifier = Modifier.constrainAs(button) {
                         end.linkTo(parent.end)
                         top.linkTo(parent.top)
@@ -139,7 +153,7 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
                     }
                 ) {
                     Text(
-                        element.opt,
+                        text = element.selected.value,
                         style = SettingsTheme.typography.button
                     )
                 }
@@ -148,17 +162,21 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
     }
 
     @Composable
-    @Preview
-    private fun SettingsSelector() {
+    private fun SettingsSelector(options: Array<Int>, optionNames: Array<String>, onClick: (Int,String) -> Unit) {
         Row(
             modifier = Modifier
                 .padding(12.dp)
-                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(30.dp))
+                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(CORNER_RADIUS))
                 .fillMaxWidth()
         ) {
-            Text("1")
-            Text("2")
-            Text("3")
+            for ((opt, name) in options.zip(optionNames)) {
+                TextButton (
+                    onClick = { onClick(opt, name) },
+                    modifier = Modifier.padding(7.dp, 0.dp)
+                ) {
+                    Text(name)
+                }
+            }
         }
     }
 

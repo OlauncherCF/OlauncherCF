@@ -1,16 +1,30 @@
 package app.olaunchercf.ui
 
-import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 
-class SettingsElement {
-    val text = "Auto Show Keyboard"
+class SettingsElement(
+    val title: String,
+    private val onValueClickAction: (Int) -> Unit,
+    val optValues: Array<Int>,
+    val optValueNames: Array<String> = arrayOf(),
+) {
     var open = mutableStateOf(false)
-    val opt = "on"
+    var selected: MutableState<String> = mutableStateOf(this.names()[0])
 
     fun onClick() {
-        Log.d("compose", "clicked")
         this.open.value = true
+    }
+
+    fun onValueClick(i: T, name: String) {
+        this.open.value = false
+        this.onValueClickAction(i)
+        this.selected.value = name
+    }
+
+    fun names(): Array<String> {
+        return this.optValueNames.ifEmpty {
+            this.optValues.map { it.toString() }.toTypedArray()
+        }
     }
 }

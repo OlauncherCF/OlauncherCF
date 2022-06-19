@@ -16,7 +16,7 @@ class SettingsElement(
         this.open.value = true
     }
 
-    fun onValueClick(i: T, name: String) {
+    fun onValueClick(i: Int, name: String) {
         this.open.value = false
         this.onValueClickAction(i)
         this.selected.value = name

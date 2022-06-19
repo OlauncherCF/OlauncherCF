@@ -31,13 +31,13 @@ object Constants {
     const val TRIPLE_TAP_DELAY_MS = 300
     const val LONG_PRESS_DELAY_MS = 500
 
-    const val LANG_EN = "en"
-    const val LANG_DE = "de"
-    const val LANG_ES = "es"
-    const val LANG_FR = "fr"
-    const val LANG_IT = "it"
-    const val LANG_SE = "se"
-    const val LANG_TR = "tr"
+    const val LANG_EN = 1000//"en"
+    const val LANG_DE = 1001//"de"
+    const val LANG_ES = 1002//"es"
+    const val LANG_FR = 1003//"fr"
+    const val LANG_IT = 1004//"it"
+    const val LANG_SE = 1005//"se"
+    const val LANG_TR = 1006//"tr"
 
     const val TEXT_SIZE_HUGE = 30f
     const val TEXT_SIZE_NORMAL = 22f
@@ -52,4 +52,26 @@ object Constants {
     const val URL_INSTA_OLAUNCHER = "https://instagram.com/olauncherapp"
     const val URL_AFFILIATE = "https://amzn.to/3uftwFW"
 
+    enum class Language {
+        System,
+        English,
+        German,
+        Spanish,
+        French,
+        Italian,
+        Swedish,
+        Turkish
+    }
+
+    enum class Gravity {
+        Left,
+        Center,
+        Right
+    }
+
+    enum class Theme {
+        System,
+        Dark,
+        Light
+    }
 }

@@ -1,9 +1,11 @@
 package app.olaunchercf
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.LauncherApps
+import android.view.Gravity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -28,7 +30,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val hiddenApps = MutableLiveData<List<AppModel>>()
     val isOlauncherDefault = MutableLiveData<Boolean>()
     val launcherResetFailed = MutableLiveData<Boolean>()
-    val homeAppAlignment = MutableLiveData<Int>()
+    val homeAppAlignment = MutableLiveData<Constants.Gravity>()
     val showMessageDialog = MutableLiveData<String>()
     val showSupportDialog = MutableLiveData<Boolean>()
 
@@ -204,9 +206,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         ).contains(".")
     }
 
-    fun updateHomeAlignment(gravity: Int) {
+    @SuppressLint("RtlHardcoded")
+    fun updateHomeAlignment(gravity: Constants.Gravity) {
         prefs.homeAlignment = gravity
-        homeAppAlignment.value = prefs.homeAlignment
+        homeAppAlignment.value = gravity
     }
 
     fun showMessageDialog(message: String) {

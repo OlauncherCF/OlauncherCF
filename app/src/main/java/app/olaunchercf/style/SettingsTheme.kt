@@ -1,3 +1,4 @@
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.shape.ZeroCornerSize
 import androidx.compose.material.MaterialTheme
@@ -5,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
@@ -39,7 +41,7 @@ val LocalSettingsTypography = staticCompositionLocalOf {
         ),
         button = TextStyle(
             fontFamily = FontFamily.SansSerif,
-            fontWeight = FontWeight.Light,
+            fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             color = textColorLight,
             textAlign = TextAlign.End
@@ -47,8 +49,8 @@ val LocalSettingsTypography = staticCompositionLocalOf {
         title = TextStyle(
             fontFamily = FontFamily.SansSerif,
             fontWeight = FontWeight.Light,
-            fontSize = 20.sp,
-            color = textColorLight,
+            fontSize = 30.sp,
+            color = textColorLight
         ),
     )
 }

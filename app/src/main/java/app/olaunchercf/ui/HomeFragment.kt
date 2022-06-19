@@ -157,7 +157,12 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         binding.setDefaultLauncher.setOnClickListener(this)
     }
 
-    private fun setHomeAlignment(gravity: Int) {
+    private fun setHomeAlignment(gravity_const: Constants.Gravity) {
+        val gravity = when(gravity_const) {
+            Constants.Gravity.Left -> Gravity.LEFT
+            Constants.Gravity.Center -> Gravity.CENTER
+            Constants.Gravity.Right -> Gravity.RIGHT
+        }
         binding.dateTimeLayout.gravity = gravity
         binding.homeAppsLayout.gravity = gravity
         binding.homeApp1.gravity = gravity

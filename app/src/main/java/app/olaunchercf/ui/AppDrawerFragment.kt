@@ -2,6 +2,7 @@ package app.olaunchercf.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,9 +52,15 @@ class AppDrawerFragment : Fragment() {
             ViewModelProvider(this).get(MainViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
+        val grav = when(Prefs(requireContext()).appLabelAlignment) {
+            Constants.Gravity.Left -> Gravity.LEFT
+            Constants.Gravity.Center -> Gravity.CENTER
+            Constants.Gravity.Right -> Gravity.RIGHT
+        }
+
         val appAdapter = AppDrawerAdapter(
             flag,
-            Prefs(requireContext()).appLabelAlignment,
+            grav,
             appClickListener(viewModel, flag),
             appInfoListener(),
             appShowHideListener(),
@@ -61,7 +68,7 @@ class AppDrawerFragment : Fragment() {
         )
 
         val searchTextView = binding.search.findViewById<TextView>(R.id.search_src_text)
-        if (searchTextView != null) searchTextView.gravity = Prefs(requireContext()).appLabelAlignment
+        if (searchTextView != null) searchTextView.gravity = grav
 
         initViewModel(flag, viewModel, appAdapter)
 

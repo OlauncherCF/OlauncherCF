@@ -1,14 +1,13 @@
 package app.olaunchercf
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
-import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 import androidx.appcompat.app.AppCompatActivity
@@ -37,7 +36,12 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         prefs = Prefs(this)
-        AppCompatDelegate.setDefaultNightMode(prefs.appTheme)
+        val themeMode = when (prefs.appTheme) {
+            Constants.Theme.Light -> AppCompatDelegate.MODE_NIGHT_NO
+            Constants.Theme.Dark -> AppCompatDelegate.MODE_NIGHT_YES
+            Constants.Theme.System -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+        AppCompatDelegate.setDefaultNightMode(themeMode)
         //super.onCreate(savedInstanceState)
         //setContentView(R.layout.activity_main)
 
@@ -65,7 +69,17 @@ class MainActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     private fun useLanguage() {
-        val locale = Locale(prefs.language)
+        val lang = when(prefs.language) {
+            Constants.Language.System -> Locale(Locale.getDefault().language).toString()
+            Constants.Language.English -> "en"
+            Constants.Language.German -> "de"
+            Constants.Language.Spanish -> "es"
+            Constants.Language.French -> "fr"
+            Constants.Language.Italian -> "it"
+            Constants.Language.Swedish -> "se"
+            Constants.Language.Turkish -> "tr"
+        }
+        val locale = Locale(lang)
         Locale.setDefault(locale)
         val config = resources.configuration
         config.locale = locale

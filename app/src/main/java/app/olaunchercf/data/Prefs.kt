@@ -3,6 +3,7 @@ package app.olaunchercf.data
 import android.content.Context
 import android.content.SharedPreferences
 import android.content.res.Resources
+import android.util.Log
 import android.view.Gravity
 import androidx.appcompat.app.AppCompatDelegate
 import java.util.*
@@ -114,13 +115,25 @@ class Prefs(context: Context) {
         get() = prefs.getInt(HOME_APPS_NUM, 4)
         set(value) = prefs.edit().putInt(HOME_APPS_NUM, value).apply()
 
-    var homeAlignment: Int
-        get() = prefs.getInt(HOME_ALIGNMENT, Gravity.START)
-        set(value) = prefs.edit().putInt(HOME_ALIGNMENT, value).apply()
+    var homeAlignment: Constants.Gravity
+        get() {
+            val string = prefs.getString(
+                HOME_ALIGNMENT,
+                Constants.Gravity.Left.name
+            ).toString()
+            return Constants.Gravity.valueOf(string)
+        }
+        set(value) = prefs.edit().putString(HOME_ALIGNMENT, value.toString()).apply()
 
-    var appLabelAlignment: Int
-        get() = prefs.getInt(APP_LABEL_ALIGNMENT, Gravity.START)
-        set(value) = prefs.edit().putInt(APP_LABEL_ALIGNMENT, value).apply()
+    var appLabelAlignment: Constants.Gravity
+        get() {
+            val string = prefs.getString(
+                APP_LABEL_ALIGNMENT,
+                Constants.Gravity.Right.name
+            ).toString()
+            return Constants.Gravity.valueOf(string)
+        }
+        set(value) = prefs.edit().putString(APP_LABEL_ALIGNMENT, value.name).apply()
 
     var showStatusBar: Boolean
         get() = prefs.getBoolean(STATUS_BAR, false)
@@ -138,13 +151,13 @@ class Prefs(context: Context) {
         get() = prefs.getBoolean(SWIPE_RIGHT_ENABLED, true)
         set(value) = prefs.edit().putBoolean(SWIPE_RIGHT_ENABLED, value).apply()
 
-    var appTheme: Int
-        get() = prefs.getInt(APP_THEME, AppCompatDelegate.MODE_NIGHT_YES)
-        set(value) = prefs.edit().putInt(APP_THEME, value).apply()
+    var appTheme: Constants.Theme
+        get() = Constants.Theme.valueOf(prefs.getString(APP_THEME, Constants.Theme.System.name).toString())
+        set(value) = prefs.edit().putString(APP_THEME, value.name).apply()
 
-    var language: String
-        get() = prefs.getString(APP_LANGUAGE, Constants.LANG_EN).toString()
-        set(value) = prefs.edit().putString(APP_LANGUAGE, value).apply()
+    var language: Constants.Language
+        get() = Constants.Language.valueOf(prefs.getString(APP_LANGUAGE, Constants.Language.English.name).toString())
+        set(value) = prefs.edit().putString(APP_LANGUAGE, value.name).apply()
 
     var screenTimeout: Int
         get() = prefs.getInt(SCREEN_TIMEOUT, 30000) // Default: 30 seconds

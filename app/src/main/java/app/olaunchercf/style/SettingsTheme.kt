@@ -37,14 +37,12 @@ val LocalSettingsTypography = staticCompositionLocalOf {
             fontWeight = FontWeight.Light,
             fontSize = 16.sp,
             color = textColorLight,
-            textAlign = TextAlign.Start
         ),
         button = TextStyle(
             fontFamily = FontFamily.SansSerif,
             fontWeight = FontWeight.Bold,
             fontSize = 16.sp,
             color = textColorLight,
-            textAlign = TextAlign.End
         ),
         title = TextStyle(
             fontFamily = FontFamily.SansSerif,

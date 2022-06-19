@@ -29,6 +29,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import app.olaunchercf.BuildConfig
 import app.olaunchercf.MainActivity
 import app.olaunchercf.MainViewModel
 import app.olaunchercf.R
@@ -41,7 +42,7 @@ import app.olaunchercf.listener.DeviceAdmin
 import app.olaunchercf.style.CORNER_RADIUS
 import app.olaunchercf.data.Constants.Theme.*
 
-class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
+class SettingsFragment : Fragment(), View.OnClickListener {
 
     private lateinit var prefs: Prefs
     private lateinit var viewModel: MainViewModel
@@ -56,12 +57,6 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        //return inflater.inflate(R.layout.fragment_settings, container, false)
-        /*return ComposeView(requireContext()).apply {
-            setContent {
-                Text(text = "hi")
-            }
-        }*/
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -116,11 +111,12 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
                     values = Constants.Language.values(),
                     onSelect = { i -> setLang(i) }
                 )
-                SettingsItem(
-                    title = "Text Size TODO",
+                SettingsNumberItem(
+                    title = "Text Size",
                     currentSelection = remember { mutableStateOf(prefs.textSize) },
-                    values = arrayOf(1),
-                    onSelect = { setTextSize(16.0f) }
+                    min = 16f,
+                    max = 30f,
+                    onSelect = { f -> setTextSize(f) }
                 )
             }
             SettingsArea(title = "Gestures") {
@@ -144,6 +140,10 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
                     currentSelection = remember { mutableStateOf(prefs.appNameClickDate) },
                     onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_DATE_APP) }
                 )
+                SettingsToggle(
+                    title = "Double tap to lock",
+                    state = remember { mutableStateOf(prefs.lockModeOn) }
+                ) { toggleLockMode() }
             }
         }
     }
@@ -201,13 +201,40 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         title: String,
         currentSelection: MutableState<T>,
         values: Array<T>,
-        names: Array<String> = values.map { it.toString() }.toTypedArray(),
         onSelect: (T) -> Unit
     ) {
         val open = remember { mutableStateOf(false) }
 
         if (open.value) {
-            SettingsSelector(values, names ) { i ->
+            SettingsSelector(values) { i ->
+                open.value = false
+                currentSelection.value = i
+                onSelect(i)
+            }
+        } else {
+            SettingsRow(
+                title = title,
+                onClick = { open.value = true },
+                buttonText = currentSelection.value.toString()
+            )
+        }
+    }
+
+    @Composable
+    private fun SettingsNumberItem(
+        title: String,
+        currentSelection: MutableState<Float>,
+        min: Float,
+        max: Float,
+        onSelect: (Float) -> Unit
+    ) {
+        val open = remember { mutableStateOf(false) }
+
+        if (open.value) {
+            SettingsNumberSelector(
+                currentNumber = prefs.textSize,
+                min, max
+            ) { i ->
                 open.value = false
                 currentSelection.value = i
                 onSelect(i)
@@ -269,24 +296,83 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
     }
 
     @Composable
-    private fun <T> SettingsSelector(options: Array<T>, optionNames: Array<String>, onSelect: (T) -> Unit) {
+    private fun <T> SettingsSelector(options: Array<T>, onSelect: (T) -> Unit) {
         LazyRow(
             modifier = Modifier
                 .background(colorResource(R.color.blackTrans50), RoundedCornerShape(CORNER_RADIUS))
                 .fillMaxWidth()
         ) {
-            for ((opt, name) in options.zip(optionNames)) {
+            for (opt in options) {
                 item {
                     TextButton (
                         onClick = { onSelect(opt) },
                         modifier = Modifier.padding(7.dp, 0.dp)
                     ) {
                         Text(
-                            text = name,
+                            text = opt.toString(),
                             style = SettingsTheme.typography.button
                         )
                     }
                 }
+            }
+        }
+    }
+
+    @Composable
+    private fun SettingsNumberSelector(
+        currentNumber: Float,
+        min: Float,
+        max: Float,
+        onCommit: (Float) -> Unit
+    ) {
+        val number = remember { mutableStateOf(currentNumber) }
+
+        ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
+            val (plus, minus, text, button) = createRefs()
+            TextButton(
+                onClick = { if (number.value < max) number.value += 1f},
+                modifier = Modifier.constrainAs(plus) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(parent.start)
+                    end.linkTo(text.start)
+                },
+            ) {
+                Text("+", style = SettingsTheme.typography.button)
+            }
+            Text(
+                text = number.value.toString(),
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .constrainAs(text) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        start.linkTo(plus.end)
+                        end.linkTo(minus.start)
+                    },
+                style = SettingsTheme.typography.item,
+            )
+            TextButton(
+                onClick = { if (number.value > min) number.value -= 1f },
+                modifier = Modifier.constrainAs(minus) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(text.end)
+                    end.linkTo(button.start)
+                },
+            ) {
+                Text("-", style = SettingsTheme.typography.button)
+            }
+            TextButton(
+                onClick = { onCommit(number.value) },
+                modifier = Modifier.constrainAs(button) {
+                    top.linkTo(parent.top)
+                    bottom.linkTo(parent.bottom)
+                    start.linkTo(minus.end)
+                    end.linkTo(parent.end)
+                },
+            ) {
+                Text("Commit", style = SettingsTheme.typography.button)
             }
         }
     }
@@ -303,17 +389,7 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         componentName = ComponentName(requireContext(), DeviceAdmin::class.java)
         checkAdminPermission()
 
-        // binding.homeAppsNum.text = prefs.homeAppsNum.toString()
-        /*populateKeyboardText()
-        populateLockSettings()
-        //  populateAppThemeText()
-        populateAlignment()
-        // populateLanguageText()
-        populateTextSizeText()*/
         populateStatusBar()
-        populateDateTime()
-        /*populateSwipeApps()
-        populateClickApps()*/
         initClickListeners()
         initObservers()
     }
@@ -324,74 +400,11 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
     }
 
     override fun onClick(view: View) {
-       /* binding.appsNumSelectLayout.visibility = View.GONE
-        binding.alignmentSelectLayout.visibility = View.GONE
-        binding.appThemeSelectLayout.visibility = View.GONE
-        binding.appLangSelectLayout.visibility = View.GONE
-        binding.textSizeLayout.visibility = View.GONE
-
         when (view.id) {
             R.id.olauncherHiddenApps -> showHiddenApps()
             R.id.appInfo -> openAppInfo(requireContext(), android.os.Process.myUserHandle(), BuildConfig.APPLICATION_ID)
             R.id.setLauncher -> viewModel.resetDefaultLauncherApp(requireContext())
-            R.id.toggleLock -> toggleLockMode()
-            R.id.autoShowKeyboard -> toggleKeyboardText()
-            R.id.homeAppsNum -> binding.appsNumSelectLayout.visibility = View.VISIBLE
-            R.id.alignment -> binding.alignmentSelectLayout.visibility = View.VISIBLE
-            /*R.id.alignmentLeft -> viewModel.updateHomeAlignment(Gravity.START)
-            R.id.alignmentCenter -> viewModel.updateHomeAlignment(Gravity.CENTER)
-            R.id.alignmentRight -> viewModel.updateHomeAlignment(Gravity.END)*/
-            R.id.statusBar -> toggleStatusBar()
-            R.id.dateTime -> toggleDateTime()
-            R.id.appThemeText -> binding.appThemeSelectLayout.visibility = View.VISIBLE
-            // R.id.themeLight -> updateTheme(AppCompatDelegate.MODE_NIGHT_NO)
-            // R.id.themeDark -> updateTheme(AppCompatDelegate.MODE_NIGHT_YES)
-            R.id.appLangText -> binding.appLangSelectLayout.visibility = View.VISIBLE
-            /*R.id.langEn -> setLang(Constants.LANG_EN)
-            R.id.langDe -> setLang(Constants.LANG_DE)
-            R.id.langEs -> setLang(Constants.LANG_ES)
-            R.id.langFr -> setLang(Constants.LANG_FR)
-            R.id.langIt -> setLang(Constants.LANG_IT)
-            R.id.langSe -> setLang(Constants.LANG_SE)
-            R.id.langTr -> setLang(Constants.LANG_TR)*/
-
-            R.id.textSizeText -> binding.textSizeLayout.visibility = View.VISIBLE
-            R.id.textSizeHuge -> setTextSize(Constants.TEXT_SIZE_HUGE)
-            R.id.textSizeNormal -> setTextSize(Constants.TEXT_SIZE_NORMAL)
-            R.id.textSizeSmall -> setTextSize(Constants.TEXT_SIZE_SMALL)
-
-            R.id.maxApps0 -> updateHomeAppsNum(0)
-            R.id.maxApps1 -> updateHomeAppsNum(1)
-            R.id.maxApps2 -> updateHomeAppsNum(2)
-            R.id.maxApps3 -> updateHomeAppsNum(3)
-            R.id.maxApps4 -> updateHomeAppsNum(4)
-            R.id.maxApps5 -> updateHomeAppsNum(5)
-            R.id.maxApps6 -> updateHomeAppsNum(6)
-            R.id.maxApps7 -> updateHomeAppsNum(7)
-            R.id.maxApps8 -> updateHomeAppsNum(8)
-
-            R.id.swipeLeftApp -> showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP)
-            R.id.swipeRightApp -> showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP)
-            R.id.clockClickApp -> showAppListIfEnabled(Constants.FLAG_SET_CLICK_CLOCK_APP)
-            R.id.dateClickApp -> showAppListIfEnabled(Constants.FLAG_SET_CLICK_DATE_APP)
-        }*/
-    }
-
-    override fun onLongClick(view: View): Boolean {
-       /* when (view.id) {
-            /*R.id.alignment -> {
-                prefs.appLabelAlignment = prefs.homeAlignment
-                findNavController().navigate(R.id.action_settingsFragment_to_appListFragment)
-            }*/
-            // R.id.appThemeText -> updateTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-            R.id.swipeLeftApp -> toggleSwipeLeft()
-            R.id.swipeRightApp -> toggleSwipeRight()
-            R.id.toggleLock -> {
-                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-                deviceManager.removeActiveAdmin(componentName) // for backward compatibility
-            }
-        }*/
-        return true
+        }
     }
 
     private fun initClickListeners() {
@@ -399,54 +412,6 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         binding.scrollLayout.setOnClickListener(this)
         binding.appInfo.setOnClickListener(this)
         binding.setLauncher.setOnClickListener(this)
-        /*binding.autoShowKeyboard.setOnClickListener(this)
-        binding.toggleLock.setOnClickListener(this)
-        binding.homeAppsNum.setOnClickListener(this)
-        binding.alignment.setOnClickListener(this)
-        binding.alignmentLeft.setOnClickListener(this)
-        binding.alignmentCenter.setOnClickListener(this)
-        binding.alignmentRight.setOnClickListener(this)
-        binding.statusBar.setOnClickListener(this)
-        binding.dateTime.setOnClickListener(this)
-        binding.swipeLeftApp.setOnClickListener(this)
-        binding.swipeRightApp.setOnClickListener(this)
-
-        binding.clockClickApp.setOnClickListener(this)
-        binding.dateClickApp.setOnClickListener(this)
-
-        binding.appThemeText.setOnClickListener(this)
-        binding.themeLight.setOnClickListener(this)
-        binding.themeDark.setOnClickListener(this)
-
-        binding.appLangText.setOnClickListener(this)
-        binding.langEn.setOnClickListener(this)
-        binding.langDe.setOnClickListener(this)
-        binding.langEs.setOnClickListener(this)
-        binding.langFr.setOnClickListener(this)
-        binding.langIt.setOnClickListener(this)
-        binding.langSe.setOnClickListener(this)
-        binding.langTr.setOnClickListener(this)
-
-        binding.textSizeText.setOnClickListener(this)
-        binding.textSizeHuge.setOnClickListener(this)
-        binding.textSizeNormal.setOnClickListener(this)
-        binding.textSizeSmall.setOnClickListener(this)
-
-        binding.maxApps0.setOnClickListener(this)
-        binding.maxApps1.setOnClickListener(this)
-        binding.maxApps2.setOnClickListener(this)
-        binding.maxApps3.setOnClickListener(this)
-        binding.maxApps4.setOnClickListener(this)
-        binding.maxApps5.setOnClickListener(this)
-        binding.maxApps6.setOnClickListener(this)
-        binding.maxApps7.setOnClickListener(this)
-        binding.maxApps8.setOnClickListener(this)
-
-        binding.alignment.setOnLongClickListener(this)
-        binding.appThemeText.setOnLongClickListener(this)
-        binding.swipeLeftApp.setOnLongClickListener(this)
-        binding.swipeRightApp.setOnLongClickListener(this)
-        binding.toggleLock.setOnLongClickListener(this)*/
     }
 
     private fun initObservers() {
@@ -500,22 +465,14 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
     private fun populateStatusBar() {
         if (prefs.showStatusBar) {
             showStatusBar()
-            //binding.statusBar.text = getString(R.string.on)
         } else {
             hideStatusBar()
-            //binding.statusBar.text = getString(R.string.off)
         }
     }
 
     private fun toggleDateTime() {
         prefs.showDateTime = !prefs.showDateTime
-        populateDateTime()
         viewModel.toggleDateTime(prefs.showDateTime)
-    }
-
-    private fun populateDateTime() {
-        //if (prefs.showDateTime) binding.dateTime.text = getString(R.string.on)
-        //else binding.dateTime.text = getString(R.string.off)
     }
 
     private fun showStatusBar() {
@@ -622,18 +579,16 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
         }
     }
     private fun setTextSize(size: Float) {
-        if (size == Constants.TEXT_SIZE_HUGE || size == Constants.TEXT_SIZE_NORMAL || size == Constants.TEXT_SIZE_SMALL) {
-            prefs.textSize = size
+        prefs.textSize = size
 
-            // populateTextSizeText(size)
+        // populateTextSizeText(size)
 
-            // restart activity
-            activity?.let {
-                val intent = Intent(context, MainActivity::class.java)
-                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                it.startActivity(intent)
-                it.finish()
-            }
+        // restart activity
+        activity?.let {
+            val intent = Intent(context, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+            it.startActivity(intent)
+            it.finish()
         }
     }
 
@@ -642,65 +597,6 @@ class SettingsFragment : Fragment(), View.OnClickListener, View.OnLongClickListe
 
         requireActivity().recreate()
     }
-
-    /*private fun populateAppThemeText(appTheme: Int = prefs.appTheme) {
-        when (appTheme) {
-            AppCompatDelegate.MODE_NIGHT_YES -> binding.appThemeText.text = getString(R.string.dark)
-            AppCompatDelegate.MODE_NIGHT_NO -> binding.appThemeText.text = getString(R.string.light)
-            else -> binding.appThemeText.text = getString(R.string.system_default)
-        }
-    }*/
-
-    /*private fun populateLanguageText(language: Int = prefs.language) {
-        /*when (language) {
-            Constants.LANG_DE -> binding.appLangText.text = getString(R.string.lang_de)
-            Constants.LANG_ES -> binding.appLangText.text = getString(R.string.lang_es)
-            Constants.LANG_FR -> binding.appLangText.text = getString(R.string.lang_fr)
-            Constants.LANG_IT -> binding.appLangText.text = getString(R.string.lang_it)
-            Constants.LANG_SE -> binding.appLangText.text = getString(R.string.lang_se)
-            Constants.LANG_TR -> binding.appLangText.text = getString(R.string.lang_tr)
-            else -> binding.appLangText.text = getString(R.string.lang_en)
-        }*/
-    }*/
-
-    /* private fun populateTextSizeText(size: Float = prefs.textSize) {
-        when(size) {
-            Constants.TEXT_SIZE_HUGE -> binding.textSizeText.text = getString(R.string.text_size_huge)
-            Constants.TEXT_SIZE_NORMAL -> binding.textSizeText.text = getString(R.string.text_size_normal)
-            Constants.TEXT_SIZE_SMALL -> binding.textSizeText.text = getString(R.string.text_size_small)
-        }
-    }
-
-    private fun populateKeyboardText() {
-        if (prefs.autoShowKeyboard) binding.autoShowKeyboard.text = getString(R.string.on)
-        else binding.autoShowKeyboard.text = getString(R.string.off)
-    }
-
-    private fun populateAlignment() {
-        /*when (prefs.homeAlignment) {
-            Gravity.START -> binding.alignment.text = getString(R.string.left)
-            Gravity.CENTER -> binding.alignment.text = getString(R.string.center)
-            Gravity.END -> binding.alignment.text = getString(R.string.right)
-        }*/
-    }
-
-    private fun populateLockSettings() {
-        if (prefs.lockModeOn) binding.toggleLock.text = getString(R.string.on)
-        else binding.toggleLock.text = getString(R.string.off)
-    }
-
-    private fun populateSwipeApps() {
-        binding.swipeLeftApp.text = prefs.appNameSwipeLeft
-        binding.swipeRightApp.text = prefs.appNameSwipeRight
-        if (!prefs.swipeLeftEnabled)
-            binding.swipeLeftApp.setTextColor(requireContext().getColorFromAttr(R.attr.primaryColorTrans50))
-        if (!prefs.swipeRightEnabled)
-            binding.swipeRightApp.setTextColor(requireContext().getColorFromAttr(R.attr.primaryColorTrans50))
-    }
-    private fun populateClickApps() {
-        binding.clockClickApp.text = prefs.appNameClickClock
-        binding.dateClickApp.text = prefs.appNameClickDate
-    }*/
 
     private fun showAppListIfEnabled(flag: Int) {
         if ((flag == Constants.FLAG_SET_SWIPE_LEFT_APP) and !prefs.swipeLeftEnabled) {

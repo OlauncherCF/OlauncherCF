@@ -17,6 +17,7 @@ class Prefs(context: Context) {
     private val AUTO_SHOW_KEYBOARD = "AUTO_SHOW_KEYBOARD"
     private val HOME_ALIGNMENT = "HOME_ALIGNMENT"
     private val DRAWER_ALIGNMENT = "DRAWER_ALIGNMENT"
+    private val TIME_ALIGNMENT = "TIME_ALIGNMENT"
     private val STATUS_BAR = "STATUS_BAR"
     private val DATE_TIME = "DATE_TIME"
     private val SWIPE_LEFT_ENABLED = "SWIPE_LEFT_ENABLED"
@@ -115,6 +116,16 @@ class Prefs(context: Context) {
             return Constants.Gravity.valueOf(string)
         }
         set(value) = prefs.edit().putString(HOME_ALIGNMENT, value.toString()).apply()
+
+    var timeAlignment: Constants.Gravity
+        get() {
+            val string = prefs.getString(
+                TIME_ALIGNMENT,
+                Constants.Gravity.Left.name
+            ).toString()
+            return Constants.Gravity.valueOf(string)
+        }
+        set(value) = prefs.edit().putString(TIME_ALIGNMENT, value.toString()).apply()
 
     var drawerAlignment: Constants.Gravity
         get() {

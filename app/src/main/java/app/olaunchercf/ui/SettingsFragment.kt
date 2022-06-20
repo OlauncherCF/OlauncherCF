@@ -78,7 +78,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 SettingsItem(
                     title = "Apps on home screen",
                     currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
-                    values = arrayOf(1, 2, 3),
+                    values = (1..8).toList().toTypedArray(),
                     onSelect = { i -> updateHomeAppsNum(i) }
                 )
                 SettingsToggle(
@@ -104,6 +104,12 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
                 values = arrayOf(Left, Center, Right),
                 onSelect = { i -> viewModel.updateDrawerAlignment(i) }
+                )
+                SettingsItem(
+                    title = "TIme Alignment",
+                    currentSelection = remember { mutableStateOf(prefs.timeAlignment) },
+                    values = arrayOf(Left, Center, Right),
+                    onSelect = { i -> viewModel.updateTimeAlignment(i) }
                 )
                 SettingsItem(
                     title = "Theme mode",

@@ -68,6 +68,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
         initObservers()
         setHomeAlignment(prefs.homeAlignment)
+        setTimeAlignment(prefs.timeAlignment)
         initSwipeTouchListener()
         initClickListeners()
     }
@@ -82,8 +83,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.lock -> {
-            }
+            R.id.lock -> {            }
             R.id.clock -> openClickClockApp()
             R.id.date -> openClickDateApp()
             R.id.setDefaultLauncher -> viewModel.resetDefaultLauncherApp(requireContext())
@@ -130,6 +130,12 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             homeAppAlignment.observe(viewLifecycleOwner) {
                 setHomeAlignment(it)
             }
+            /*drawerAppAlignment.observe(viewLifecycleOwner) {
+                setHomeAlignment(it)
+            }*/
+            timeAlignment.observe(viewLifecycleOwner) {
+                setTimeAlignment(it)
+            }
             toggleDateTime.observe(viewLifecycleOwner) {
                 if (it) binding.dateTimeLayout.visibility = View.VISIBLE
                 else binding.dateTimeLayout.visibility = View.GONE
@@ -156,6 +162,17 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         binding.date.setOnClickListener(this)
         binding.setDefaultLauncher.setOnClickListener(this)
     }
+    private fun setTimeAlignment(gravity_const: Constants.Gravity) {
+        val gravity = when(gravity_const) {
+            Constants.Gravity.Left -> Gravity.LEFT
+            Constants.Gravity.Center -> Gravity.CENTER
+            Constants.Gravity.Right -> Gravity.RIGHT
+        }
+        Log.d("alignment", "time ${gravity}")
+
+        binding.dateTimeLayout.gravity = gravity
+        binding.homeAppsLayout.gravity = gravity
+    }
 
     private fun setHomeAlignment(gravity_const: Constants.Gravity) {
         val gravity = when(gravity_const) {
@@ -163,8 +180,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             Constants.Gravity.Center -> Gravity.CENTER
             Constants.Gravity.Right -> Gravity.RIGHT
         }
-        binding.dateTimeLayout.gravity = gravity
-        binding.homeAppsLayout.gravity = gravity
+        Log.d("alignment", "home ${gravity}")
         binding.homeApp1.gravity = gravity
         binding.homeApp2.gravity = gravity
         binding.homeApp3.gravity = gravity

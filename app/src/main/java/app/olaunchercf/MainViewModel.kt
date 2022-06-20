@@ -1,21 +1,17 @@
 package app.olaunchercf
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.LauncherApps
-import android.view.Gravity
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.work.*
 import app.olaunchercf.data.AppModel
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.helper.*
 import kotlinx.coroutines.launch
-import java.util.concurrent.TimeUnit
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val appContext by lazy { application.applicationContext }
@@ -31,7 +27,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val isOlauncherDefault = MutableLiveData<Boolean>()
     val launcherResetFailed = MutableLiveData<Boolean>()
     val homeAppAlignment = MutableLiveData<Constants.Gravity>()
-    val drawerAppAlignment = MutableLiveData<Constants.Gravity>()
+    // val drawerAppAlignment = MutableLiveData<Constants.Gravity>()
+    val timeAlignment = MutableLiveData<Constants.Gravity>()
     val showMessageDialog = MutableLiveData<String>()
     val showSupportDialog = MutableLiveData<Boolean>()
 
@@ -214,7 +211,12 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun updateDrawerAlignment(gravity: Constants.Gravity) {
         prefs.drawerAlignment = gravity
-        drawerAppAlignment.value = gravity
+        // drawerAppAlignment.value = gravity
+    }
+
+    fun updateTimeAlignment(gravity: Constants.Gravity) {
+        prefs.timeAlignment = gravity
+        timeAlignment.value = gravity
     }
 
     fun showMessageDialog(message: String) {

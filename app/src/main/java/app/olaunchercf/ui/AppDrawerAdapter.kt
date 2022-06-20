@@ -2,25 +2,22 @@ package app.olaunchercf.ui
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
-import app.olaunchercf.R
 import app.olaunchercf.data.AppModel
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Prefs
-import app.olaunchercf.databinding.ActivityMainBinding
 import app.olaunchercf.databinding.AdapterAppDrawerBinding
 import java.text.Normalizer
-import kotlin.coroutines.coroutineContext
 
 class AppDrawerAdapter(
     private var flag: Int,
-    private val appLabelGravity: Int,
+    private val gravity: Int,
     private val clickListener: (AppModel) -> Unit,
     private val appInfoListener: (AppModel) -> Unit,
     private val appHideListener: (Int, AppModel) -> Unit,
@@ -36,7 +33,7 @@ class AppDrawerAdapter(
         //val view = LayoutInflater.from(parent.context)
         //    .inflate(R.layout.adapter_app_drawer, parent, false)
 
-        binding = AdapterAppDrawerBinding.inflate(LayoutInflater.from(parent.context))
+        binding = AdapterAppDrawerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         //val view = binding.root
         binding.appTitle.textSize = Prefs(parent.context).textSize
 
@@ -46,7 +43,7 @@ class AppDrawerAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if (appFilteredList.size == 0) return
         val appModel = appFilteredList[holder.adapterPosition]
-        holder.bind(flag, appLabelGravity, appModel, clickListener, appInfoListener)
+        holder.bind(flag, gravity, appModel, clickListener, appInfoListener)
 
         holder.appHideButton.setOnClickListener {
             appFilteredList.removeAt(holder.adapterPosition)

@@ -52,7 +52,7 @@ class AppDrawerFragment : Fragment() {
             ViewModelProvider(this).get(MainViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
 
-        val grav = when(Prefs(requireContext()).appLabelAlignment) {
+        val gravity = when(Prefs(requireContext()).drawerAlignment) {
             Constants.Gravity.Left -> Gravity.LEFT
             Constants.Gravity.Center -> Gravity.CENTER
             Constants.Gravity.Right -> Gravity.RIGHT
@@ -60,7 +60,7 @@ class AppDrawerFragment : Fragment() {
 
         val appAdapter = AppDrawerAdapter(
             flag,
-            grav,
+            gravity,
             appClickListener(viewModel, flag),
             appInfoListener(),
             appShowHideListener(),
@@ -68,7 +68,7 @@ class AppDrawerFragment : Fragment() {
         )
 
         val searchTextView = binding.search.findViewById<TextView>(R.id.search_src_text)
-        if (searchTextView != null) searchTextView.gravity = grav
+        if (searchTextView != null) searchTextView.gravity = gravity
 
         initViewModel(flag, viewModel, appAdapter)
 
@@ -113,9 +113,9 @@ class AppDrawerFragment : Fragment() {
             populateAppList(it, appAdapter)
         })
 
-        viewModel.firstOpen.observe(viewLifecycleOwner, {
+        viewModel.firstOpen.observe(viewLifecycleOwner) {
             if (it) binding.appDrawerTip.visibility = View.VISIBLE
-        })
+        }
     }
 
     override fun onStart() {

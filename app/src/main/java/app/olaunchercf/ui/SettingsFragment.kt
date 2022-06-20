@@ -94,10 +94,16 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     state = remember { mutableStateOf(prefs.showDateTime) }
                 ) { toggleDateTime() }
                 SettingsItem(
-                    title = "App Alignment",
+                    title = "App Alignment Home",
                     currentSelection = remember { mutableStateOf(prefs.homeAlignment) },
                     values = arrayOf(Left, Center, Right),
                     onSelect = { i -> viewModel.updateHomeAlignment(i) }
+                )
+                SettingsItem(
+                        title = "App Alignment Drawer",
+                currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
+                values = arrayOf(Left, Center, Right),
+                onSelect = { i -> viewModel.updateDrawerAlignment(i) }
                 )
                 SettingsItem(
                     title = "Theme mode",

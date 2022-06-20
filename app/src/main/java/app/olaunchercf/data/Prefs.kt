@@ -2,11 +2,6 @@ package app.olaunchercf.data
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.content.res.Resources
-import android.util.Log
-import android.view.Gravity
-import androidx.appcompat.app.AppCompatDelegate
-import java.util.*
 
 class Prefs(context: Context) {
 
@@ -21,7 +16,7 @@ class Prefs(context: Context) {
     private val HOME_APPS_NUM = "HOME_APPS_NUM"
     private val AUTO_SHOW_KEYBOARD = "AUTO_SHOW_KEYBOARD"
     private val HOME_ALIGNMENT = "HOME_ALIGNMENT"
-    private val APP_LABEL_ALIGNMENT = "APP_LABEL_ALIGNMENT"
+    private val DRAWER_ALIGNMENT = "DRAWER_ALIGNMENT"
     private val STATUS_BAR = "STATUS_BAR"
     private val DATE_TIME = "DATE_TIME"
     private val SWIPE_LEFT_ENABLED = "SWIPE_LEFT_ENABLED"
@@ -99,10 +94,6 @@ class Prefs(context: Context) {
         get() = prefs.getBoolean(FIRST_SETTINGS_OPEN, true)
         set(value) = prefs.edit().putBoolean(FIRST_SETTINGS_OPEN, value).apply()
 
-    var firstHide: Boolean
-        get() = prefs.getBoolean(FIRST_HIDE, true)
-        set(value) = prefs.edit().putBoolean(FIRST_HIDE, value).apply()
-
     var lockModeOn: Boolean
         get() = prefs.getBoolean(LOCK_MODE, false)
         set(value) = prefs.edit().putBoolean(LOCK_MODE, value).apply()
@@ -125,15 +116,15 @@ class Prefs(context: Context) {
         }
         set(value) = prefs.edit().putString(HOME_ALIGNMENT, value.toString()).apply()
 
-    var appLabelAlignment: Constants.Gravity
+    var drawerAlignment: Constants.Gravity
         get() {
             val string = prefs.getString(
-                APP_LABEL_ALIGNMENT,
+                DRAWER_ALIGNMENT,
                 Constants.Gravity.Right.name
             ).toString()
             return Constants.Gravity.valueOf(string)
         }
-        set(value) = prefs.edit().putString(APP_LABEL_ALIGNMENT, value.name).apply()
+        set(value) = prefs.edit().putString(DRAWER_ALIGNMENT, value.name).apply()
 
     var showStatusBar: Boolean
         get() = prefs.getBoolean(STATUS_BAR, false)

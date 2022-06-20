@@ -31,6 +31,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val isOlauncherDefault = MutableLiveData<Boolean>()
     val launcherResetFailed = MutableLiveData<Boolean>()
     val homeAppAlignment = MutableLiveData<Constants.Gravity>()
+    val drawerAppAlignment = MutableLiveData<Constants.Gravity>()
     val showMessageDialog = MutableLiveData<String>()
     val showSupportDialog = MutableLiveData<Boolean>()
 
@@ -206,10 +207,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         ).contains(".")
     }
 
-    @SuppressLint("RtlHardcoded")
     fun updateHomeAlignment(gravity: Constants.Gravity) {
         prefs.homeAlignment = gravity
         homeAppAlignment.value = gravity
+    }
+
+    fun updateDrawerAlignment(gravity: Constants.Gravity) {
+        prefs.drawerAlignment = gravity
+        drawerAppAlignment.value = gravity
     }
 
     fun showMessageDialog(message: String) {

@@ -26,6 +26,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.os.bundleOf
+import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -402,6 +403,24 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         checkAdminPermission()
 
         populateStatusBar()
+/*         populateAppsNum()
+ *         initAppsNum()
+ *
+ *         populateKeyboardText()
+ *         populateLockSettings()
+ *         populateAppThemeText()
+ *         populateAlignment()
+ *
+ *         populateLanguageText()
+ *         initLanguageText()
+ *
+ *         populateTextSizeText()
+ *
+ *         populateStatusBar()
+ *         populateDateTime()
+ *         populateSwipeApps()
+ *         populateClickApps()
+ *  */
         initClickListeners()
         initObservers()
     }

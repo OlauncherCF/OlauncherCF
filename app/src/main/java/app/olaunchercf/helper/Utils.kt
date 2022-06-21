@@ -94,9 +94,9 @@ suspend fun getAppsList(context: Context, showHiddenApps: Boolean = false): Muta
 
             appList.sortBy {
                 if (it.appAlias.isEmpty()) {
-                    it.appLabel.toLowerCase(Locale.ROOT)
+                    it.appLabel.lowercase()
                 } else {
-                    it.appAlias.toLowerCase(Locale.ROOT)
+                    it.appAlias.lowercase()
                 }
             }
 
@@ -206,41 +206,6 @@ fun resetDefaultLauncher(context: Context) {
         )
     } catch (e: Exception) {
         e.printStackTrace()
-    }
-}
-
-fun setPlainWallpaperByTheme(context: Context, appTheme: Int) {
-    when (appTheme) {
-        AppCompatDelegate.MODE_NIGHT_YES -> setPlainWallpaper(context, android.R.color.black)
-        AppCompatDelegate.MODE_NIGHT_NO -> setPlainWallpaper(context, android.R.color.white)
-        else -> {
-            if (context.isDarkThemeOn())
-                setPlainWallpaper(context, android.R.color.black)
-            else setPlainWallpaper(context, android.R.color.white)
-        }
-    }
-}
-
-fun setPlainWallpaper(context: Context, color: Int) {
-    try {
-        val bitmap = Bitmap.createBitmap(1000, 2000, Bitmap.Config.ARGB_8888)
-        bitmap.eraseColor(context.getColor(color))
-        val manager = WallpaperManager.getInstance(context)
-        manager.setBitmap(bitmap)
-        bitmap.recycle()
-    } catch (e: Exception) {
-    }
-}
-
-fun getChangedAppTheme(context: Context, currentAppTheme: Int): Int {
-    return when (currentAppTheme) {
-        AppCompatDelegate.MODE_NIGHT_YES -> AppCompatDelegate.MODE_NIGHT_NO
-        AppCompatDelegate.MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_YES
-        else -> {
-            if (context.isDarkThemeOn())
-                AppCompatDelegate.MODE_NIGHT_NO
-            else AppCompatDelegate.MODE_NIGHT_YES
-        }
     }
 }
 

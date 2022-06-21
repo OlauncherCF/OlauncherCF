@@ -168,10 +168,8 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             Constants.Gravity.Center -> Gravity.CENTER
             Constants.Gravity.Right -> Gravity.RIGHT
         }
-        Log.d("alignment", "time ${gravity}")
 
         binding.dateTimeLayout.gravity = gravity
-        binding.homeAppsLayout.gravity = gravity
     }
 
     private fun setHomeAlignment(gravity_const: Constants.Gravity) {
@@ -180,7 +178,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             Constants.Gravity.Center -> Gravity.CENTER
             Constants.Gravity.Right -> Gravity.RIGHT
         }
-        Log.d("alignment", "home ${gravity}")
+        binding.homeAppsLayout.gravity = gravity
         binding.homeApp1.gravity = gravity
         binding.homeApp2.gravity = gravity
         binding.homeApp3.gravity = gravity

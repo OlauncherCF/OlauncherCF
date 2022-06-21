@@ -125,15 +125,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initObservers(viewModel: MainViewModel) {
-        viewModel.launcherResetFailed.observe(this, {
+        viewModel.launcherResetFailed.observe(this) {
             openLauncherChooser(it)
-        })
-        viewModel.showMessageDialog.observe(this, {
+        }
+        viewModel.showMessageDialog.observe(this) {
             showMessage(it)
-        })
-        viewModel.showSupportDialog.observe(this, {
+        }
+        viewModel.showSupportDialog.observe(this) {
             binding.supportOlauncherLayout.isVisible = it
-        })
+        }
     }
 
     @SuppressLint("SourceLockedOrientationActivity")

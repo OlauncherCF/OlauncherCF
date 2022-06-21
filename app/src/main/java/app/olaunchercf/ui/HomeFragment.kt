@@ -87,7 +87,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             else -> {
                 try { // Launch app
                     val appLocation = view.id.toString().toInt()
-                    Log.d("homeapps", "appLocaiton: $appLocation")
                     homeAppClicked(appLocation)
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -135,7 +134,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     }
 
     private fun initHomeApps() {
-        homeAppsLayout.removeAllViews()
+        binding.homeAppsLayout.removeAllViews()
 
         for (i in 0 until prefs.homeAppsNum) {
             val view = layoutInflater.inflate(R.layout.home_app_button, null) as TextView
@@ -146,13 +145,13 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             }
             // swipe
 
-            homeAppsLayout.addView(view)
+            binding.homeAppsLayout.addView(view)
         }
     }
 
     private fun initSwipeTouchListener() {
         val context = requireContext()
-        mainLayout.setOnTouchListener(getSwipeGestureListener(context))
+        binding.mainLayout.setOnTouchListener(getSwipeGestureListener(context))
     }
 
     private fun initClickListeners() {
@@ -185,13 +184,13 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     private fun populateHomeApps(appCountUpdated: Boolean) {
         if (appCountUpdated) initHomeApps()
 
-        if (prefs.showDateTime) dateTimeLayout.visibility = View.VISIBLE
-        else dateTimeLayout.visibility = View.GONE
+        if (prefs.showDateTime) binding.dateTimeLayout.visibility = View.VISIBLE
+        else binding.dateTimeLayout.visibility = View.GONE
 
         val homeAppsNum = prefs.homeAppsNum
         if (homeAppsNum == 0) return // TODO: place clock in center when no apps are shown
 
-        homeAppsLayout.children.forEachIndexed { i, app ->
+        binding.homeAppsLayout.children.forEachIndexed { i, app ->
             val (name, pack, alias) = prefs.getHomeAppValues(i)
             if (!setHomeAppText(app as TextView, name, pack, alias)) {
                 prefs.resetHomeAppValues(i)

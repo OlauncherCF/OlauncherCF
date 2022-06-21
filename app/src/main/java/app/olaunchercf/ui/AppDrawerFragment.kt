@@ -2,6 +2,7 @@ package app.olaunchercf.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -62,7 +63,7 @@ class AppDrawerFragment : Fragment() {
         val appAdapter = AppDrawerAdapter(
             flag,
             gravity,
-            appClickListener(viewModel, flag),
+            appClickListener(viewModel, flag, n),
             appInfoListener(),
             appShowHideListener(),
             appRenameListener()
@@ -188,7 +189,7 @@ class AppDrawerFragment : Fragment() {
     private fun renameListener(flag: Int, i: Int) {
         val name = binding.search.query.toString().trim()
         if (name.isEmpty()) return
-
+        Log.d("homeapps", "$i")
         if (flag == Constants.FLAG_SET_HOME_APP) {
             Prefs(requireContext()).setHomeAppName(i, name)
         }

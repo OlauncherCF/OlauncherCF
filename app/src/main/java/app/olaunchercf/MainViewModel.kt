@@ -23,8 +23,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val toggleDateTime = MutableLiveData<Boolean>()
     val updateSwipeApps = MutableLiveData<Any>()
     val updateClickApps = MutableLiveData<Any>()
-    val appList = MutableLiveData<List<AppModel>>()
-    val hiddenApps = MutableLiveData<List<AppModel>>()
+    val appList = MutableLiveData<List<AppModel>?>()
+    val hiddenApps = MutableLiveData<List<AppModel>?>()
     val isOlauncherDefault = MutableLiveData<Boolean>()
     val launcherResetFailed = MutableLiveData<Boolean>()
     val homeAppAlignment = MutableLiveData<Constants.Gravity>()
@@ -42,6 +42,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 launchApp(appModel)
             }
             Constants.FLAG_SET_HOME_APP -> {
+                Log.d("homeapps", "$n")
                 appModel.let {
                     prefs.setHomeAppValues(n, it.appLabel, it.appPackage, it.user.toString(), it.appActivityName)
                 }

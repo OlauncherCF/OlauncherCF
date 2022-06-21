@@ -114,14 +114,6 @@ class MainActivity : AppCompatActivity() {
         binding.closeOneLink.setOnClickListener {
             viewModel.showSupportDialog(false)
         }
-        binding.copyOneLink.setOnClickListener {
-            this.copyToClipboard(Constants.URL_AFFILIATE)
-            viewModel.showSupportDialog(false)
-        }
-        binding.openOneLink.setOnClickListener {
-            this.openUrl(Constants.URL_AFFILIATE)
-            viewModel.showSupportDialog(false)
-        }
     }
 
     private fun initObservers(viewModel: MainViewModel) {

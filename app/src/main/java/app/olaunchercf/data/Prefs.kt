@@ -251,7 +251,7 @@ class Prefs(context: Context) {
         set(value) = prefs.edit().putString(APP_ACTIVITY_CLICK_DATE, value).apply()
 
     var textSize: Float
-        get() = prefs.getFloat(TEXT_SIZE, Constants.TEXT_SIZE_NORMAL)
+        get() = prefs.getFloat(TEXT_SIZE, 18f)
         set(value) = prefs.edit().putFloat(TEXT_SIZE, value).apply()
 
     fun getAppName(location: Int): String {

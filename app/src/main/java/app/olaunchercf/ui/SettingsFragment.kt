@@ -578,28 +578,23 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun updateHomeAppsNum(num: Int) {
-        //binding.homeAppsNum.text = num.toString()
-        //binding.appsNumSelectLayout.visibility = View.GONE
         prefs.homeAppsNum = num
         viewModel.refreshHome(true)
     }
 
     private fun toggleKeyboardText() {
         prefs.autoShowKeyboard = !prefs.autoShowKeyboard
-        //populateKeyboardText()
     }
 
     private fun setTheme(appTheme: Constants.Theme) {
         // if (AppCompatDelegate.getDefaultNightMode() == appTheme) return // TODO find out what this did
         prefs.appTheme = appTheme
-        // populateAppThemeText(appTheme)
         setAppTheme(appTheme)
     }
 
     private fun setLang(lang_int: Constants.Language) {
 
         prefs.language = lang_int
-        //populateLanguageText(lang_i)
 
         // restart activity
         activity?.let {
@@ -612,8 +607,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     private fun setTextSize(size: Float) {
         prefs.textSize = size
 
-        // populateTextSizeText(size)
-
         // restart activity
         activity?.let {
             val intent = Intent(context, MainActivity::class.java)
@@ -624,7 +617,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun setAppTheme(theme: Constants.Theme) {
-        // if (AppCompatDelegate.getDefaultNightMode() == theme) return
+        // if (AppCompatDelegate.getDefaultNightMode() == theme) return // TODO: find out what this did
 
         requireActivity().recreate()
     }

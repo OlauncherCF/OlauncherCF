@@ -9,14 +9,17 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.view.*
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
@@ -62,7 +65,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -70,106 +73,25 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.testView?.setContent {
-            Settings()
+        binding.testView.setContent {
+
+            val isDark = when (prefs.appTheme) {
+                Light -> false
+                Dark -> true
+                System -> isSystemInDarkTheme()
+            }
+
+            SettingsTheme(isDark) {
+                Settings()
+            }
         }
     }
-
-    data class Option<T>(
-        val title: String,
-        val currentSelection: MutableState<T>,
-        val values: List<T>,
-        val onSelect: (T) -> Unit,
-    )
 
     @Composable
     @Preview
     private fun Settings() {
         // observer
         Column {
-            /*SettingsArea(title = "Appearance") {
-                SettingsNumberItem(
-                    title = "Apps on home screen",
-                    currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
-                    min = 0,
-                    max = 15,
-                    onSelect = { i -> updateHomeAppsNum(i) }
-                )
-                SettingsToggle(
-                    title = "Auto Show Keyboard",
-                    state = remember { mutableStateOf(prefs.autoShowKeyboard) },
-                ) { toggleKeyboardText() }
-                SettingsToggle(
-                    title = "Show status bar",
-                    state = remember { mutableStateOf(prefs.showStatusBar) },
-                ) { toggleStatusBar() }
-                SettingsToggle(
-                    title = "Show date time",
-                    state = remember { mutableStateOf(prefs.showDateTime) }
-                ) { toggleDateTime() }
-                SettingsItem(
-                    title = "App Alignment Home",
-                    currentSelection = remember { mutableStateOf(prefs.homeAlignment) },
-                    values = arrayOf(Left, Center, Right),
-                    onSelect = { i -> viewModel.updateHomeAlignment(i) }
-                )
-                SettingsItem(
-                        title = "App Alignment Drawer",
-                currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
-                values = arrayOf(Left, Center, Right),
-                onSelect = { i -> viewModel.updateDrawerAlignment(i) }
-                )
-                SettingsItem(
-                    title = "TIme Alignment",
-                    currentSelection = remember { mutableStateOf(prefs.timeAlignment) },
-                    values = arrayOf(Left, Center, Right),
-                    onSelect = { i -> viewModel.updateTimeAlignment(i) }
-                )
-                SettingsItem(
-                    title = "Theme mode",
-                    currentSelection = remember { mutableStateOf(prefs.appTheme) },
-                    values = arrayOf(System, Light, Dark),
-                    onSelect = { i -> setTheme(i) }
-                )
-                SettingsItem(
-                    title = "Interface language",
-                    currentSelection = remember { mutableStateOf(prefs.language) },
-                    values = Constants.Language.values(),
-                    onSelect = { i -> setLang(i) }
-                )
-                SettingsNumberItem(
-                    title = "Text Size",
-                    currentSelection = remember { mutableStateOf(prefs.textSize) },
-                    min = 16,
-                    max = 30,
-                    onSelect = { f -> setTextSize(f) }
-                )
-            }
-            SettingsArea(title = "Gestures") {
-                SettingsAppSelector(
-                    title = "Swipe left app",
-                    currentSelection = remember { mutableStateOf(prefs.appNameSwipeLeft) },
-                    onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP) }
-                )
-                SettingsAppSelector(
-                    title = "Swipe right app",
-                    currentSelection = remember { mutableStateOf(prefs.appNameSwipeRight) },
-                    onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP) }
-                )
-                SettingsAppSelector(
-                    title = "Clock click app",
-                    currentSelection = remember { mutableStateOf(prefs.appNameClickClock) },
-                    onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_CLOCK_APP) }
-                )
-                SettingsAppSelector(
-                    title = "Date click app",
-                    currentSelection = remember { mutableStateOf(prefs.appNameClickDate) },
-                    onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_DATE_APP) }
-                )
-                SettingsToggle(
-                    title = "Double tap to lock",
-                    state = remember { mutableStateOf(prefs.lockModeOn) }
-                ) { toggleLockMode() }*/
             SettingsArea(
                 title = "Appearance",
                 arrayOf(
@@ -319,7 +241,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         Column(
             modifier = Modifier
                 .padding(12.dp, 12.dp, 12.dp, 0.dp)
-                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(CORNER_RADIUS))
+                .background(SettingsTheme.color.settings, SettingsTheme.shapes.settings)
                 .border(
                     0.5.dp,
                     colorResource(R.color.blackInverseTrans50),
@@ -328,7 +250,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 .padding(20.dp)
         ) {
             SettingsTitle(text = title)
-            // items()
             items.forEachIndexed { i, item ->
                 item(mutableStateOf(i == selected.value)) { b -> selected.value = if (b) i else -1 }
             }
@@ -468,7 +389,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     end.linkTo(parent.end)
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
-                }
+                },
             ) {
                 Text(
                     text = buttonText,
@@ -482,7 +403,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     private fun <T> SettingsSelector(options: Array<T>, onSelect: (T) -> Unit) {
         LazyRow(
             modifier = Modifier
-                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(CORNER_RADIUS))
+                .background(SettingsTheme.color.selector, SettingsTheme.shapes.settings)
                 .fillMaxWidth()
         ) {
             for (opt in options) {
@@ -510,7 +431,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     ) {
         ConstraintLayout(
             modifier = Modifier
-                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(CORNER_RADIUS))
+                .background(SettingsTheme.color.selector, SettingsTheme.shapes.settings)
                 .fillMaxWidth()
         ) {
             val (plus, minus, text, button) = createRefs()
@@ -523,7 +444,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     end.linkTo(text.start)
                 },
             ) {
-                Text("more", style = SettingsTheme.typography.button)
+                Text("+", style = SettingsTheme.typography.button)
             }
             Text(
                 text = number.value.toString(),
@@ -546,7 +467,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     end.linkTo(button.start)
                 },
             ) {
-                Text("less", style = SettingsTheme.typography.button)
+                Text("-", style = SettingsTheme.typography.button)
             }
             TextButton(
                 onClick = { onCommit(number.value) },
@@ -557,7 +478,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     end.linkTo(parent.end)
                 },
             ) {
-                Text("Commit", style = SettingsTheme.typography.button)
+                Text(stringResource(R.string.commit), style = SettingsTheme.typography.button)
             }
         }
     }
@@ -575,24 +496,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         checkAdminPermission()
 
         populateStatusBar()
-/*         populateAppsNum()
- *         initAppsNum()
- *
- *         populateKeyboardText()
- *         populateLockSettings()
- *         populateAppThemeText()
- *         populateAlignment()
- *
- *         populateLanguageText()
- *         initLanguageText()
- *
- *         populateTextSizeText()
- *
- *         populateStatusBar()
- *         populateDateTime()
- *         populateSwipeApps()
- *         populateClickApps()
- *  */
         initClickListeners()
         initObservers()
     }
@@ -627,15 +530,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 prefs.toShowHintCounter = prefs.toShowHintCounter + 1
             }
         }
-        /*viewModel.homeAppAlignment.observe(viewLifecycleOwner) {
-            populateAlignment()
-        }
-        viewModel.updateSwipeApps.observe(viewLifecycleOwner) {
-            populateSwipeApps()
-        }
-        viewModel.updateClickApps.observe(viewLifecycleOwner) {
-            populateClickApps()
-        }*/
     }
 
     private fun toggleSwipeLeft() {
@@ -761,7 +655,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     private fun setTheme(appTheme: Constants.Theme) {
         // if (AppCompatDelegate.getDefaultNightMode() == appTheme) return // TODO find out what this did
         prefs.appTheme = appTheme
-        setAppTheme(appTheme)
+        requireActivity().recreate()
     }
 
     private fun setLang(lang_int: Constants.Language) {
@@ -788,11 +682,11 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun setAppTheme(theme: Constants.Theme) {
+    /*private fun setAppTheme(theme: Constants.Theme) {
         // if (AppCompatDelegate.getDefaultNightMode() == theme) return // TODO: find out what this did
 
         requireActivity().recreate()
-    }
+    }*/
 
     private fun showAppListIfEnabled(flag: Int) {
         if ((flag == Constants.FLAG_SET_SWIPE_LEFT_APP) and !prefs.swipeLeftEnabled) {

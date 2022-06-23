@@ -85,11 +85,15 @@ class Prefs(context: Context) {
 
     var homeAlignment: Constants.Gravity
         get() {
-            val string = prefs.getString(
-                HOME_ALIGNMENT,
-                Constants.Gravity.Left.name
-            ).toString()
-            return Constants.Gravity.valueOf(string)
+            return try {
+                val string = prefs.getString(
+                    HOME_ALIGNMENT,
+                    Constants.Gravity.Left.name
+                ).toString()
+                Constants.Gravity.valueOf(string)
+            } catch (_: Exception) {
+                Constants.Gravity.Left
+            }
         }
         set(value) = prefs.edit().putString(HOME_ALIGNMENT, value.toString()).apply()
 
@@ -130,11 +134,23 @@ class Prefs(context: Context) {
         set(value) = prefs.edit().putBoolean(SWIPE_RIGHT_ENABLED, value).apply()
 
     var appTheme: Constants.Theme
-        get() = Constants.Theme.valueOf(prefs.getString(APP_THEME, Constants.Theme.System.name).toString())
+        get() {
+            return try {
+                Constants.Theme.valueOf(prefs.getString(APP_THEME, Constants.Theme.System.name).toString())
+            } catch (_: Exception) {
+                Constants.Theme.System
+            }
+        }
         set(value) = prefs.edit().putString(APP_THEME, value.name).apply()
 
     var language: Constants.Language
-        get() = Constants.Language.valueOf(prefs.getString(APP_LANGUAGE, Constants.Language.English.name).toString())
+        get() {
+            return try {
+                Constants.Language.valueOf(prefs.getString(APP_LANGUAGE, Constants.Language.English.name).toString())
+            } catch (_: Exception) {
+                Constants.Language.English
+            }
+        }
         set(value) = prefs.edit().putString(APP_LANGUAGE, value.name).apply()
 
     var hiddenApps: MutableSet<String>

@@ -74,7 +74,13 @@ class Prefs(context: Context) {
         set(value) = prefs.edit().putBoolean(AUTO_SHOW_KEYBOARD, value).apply()
 
     var homeAppsNum: Int
-        get() = prefs.getInt(HOME_APPS_NUM, 4)
+        get() {
+            return try {
+                prefs.getInt(HOME_APPS_NUM, 4)
+            } catch (_: Exception) {
+                4
+            }
+        }
         set(value) = prefs.edit().putInt(HOME_APPS_NUM, value).apply()
 
     var homeAlignment: Constants.Gravity
@@ -250,9 +256,15 @@ class Prefs(context: Context) {
         get() = prefs.getString(APP_ACTIVITY_CLICK_DATE, "").toString()
         set(value) = prefs.edit().putString(APP_ACTIVITY_CLICK_DATE, value).apply()
 
-    var textSize: Float
-        get() = prefs.getFloat(TEXT_SIZE, 18f)
-        set(value) = prefs.edit().putFloat(TEXT_SIZE, value).apply()
+    var textSize: Int
+        get() {
+            return try {
+                prefs.getInt(TEXT_SIZE, 18)
+            } catch (_: Exception) {
+                18
+            }
+        }
+        set(value) = prefs.edit().putInt(TEXT_SIZE, value).apply()
 
     fun getAppName(location: Int): String {
         val (name, _, _, _) = this.getHomeAppValues(location)

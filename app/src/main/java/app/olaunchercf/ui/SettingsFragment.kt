@@ -8,9 +8,12 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.text.Selection
+import android.util.Log
 import android.view.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -20,6 +23,9 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.onFocusChanged
+import androidx.compose.ui.focus.onFocusEvent
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.*
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -28,6 +34,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.olaunchercf.BuildConfig
@@ -42,6 +49,7 @@ import app.olaunchercf.helper.*
 import app.olaunchercf.listener.DeviceAdmin
 import app.olaunchercf.style.CORNER_RADIUS
 import app.olaunchercf.data.Constants.Theme.*
+import kotlin.reflect.typeOf
 
 class SettingsFragment : Fragment(), View.OnClickListener {
 
@@ -68,18 +76,26 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         binding.testView?.setContent {
             Settings()
         }
-
     }
+
+    data class Option<T>(
+        val title: String,
+        val currentSelection: MutableState<T>,
+        val values: List<T>,
+        val onSelect: (T) -> Unit,
+    )
 
     @Composable
     @Preview
     private fun Settings() {
+        // observer
         Column {
             SettingsArea(title = "Appearance") {
-                SettingsItem(
+                SettingsNumberItem(
                     title = "Apps on home screen",
                     currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
-                    values = (1..8).toList().toTypedArray(),
+                    min = 0,
+                    max = 15,
                     onSelect = { i -> updateHomeAppsNum(i) }
                 )
                 SettingsToggle(
@@ -127,8 +143,8 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 SettingsNumberItem(
                     title = "Text Size",
                     currentSelection = remember { mutableStateOf(prefs.textSize) },
-                    min = 16f,
-                    max = 30f,
+                    min = 16,
+                    max = 30,
                     onSelect = { f -> setTextSize(f) }
                 )
             }
@@ -164,7 +180,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     @Composable
     private fun SettingsArea (
         title: String,
-        item: @Composable () -> Unit
+        items: @Composable () -> Unit
     ) {
         Column(
             modifier = Modifier
@@ -178,7 +194,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 .padding(20.dp)
         ) {
             SettingsTitle(text = title)
-            item()
+            items()
         }
     }
 
@@ -214,15 +230,29 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         title: String,
         currentSelection: MutableState<T>,
         values: Array<T>,
-        onSelect: (T) -> Unit
+        onSelect: (T) -> Unit,
     ) {
         val open = remember { mutableStateOf(false) }
 
         if (open.value) {
-            SettingsSelector(values) { i ->
-                open.value = false
-                currentSelection.value = i
-                onSelect(i)
+            Box(
+                modifier = Modifier
+                    .pointerInput(Unit) {
+                        detectTapGestures {
+                            open.value = false
+                        }
+                    }
+                    .onFocusEvent {
+                        if (it.isFocused) {
+                            open.value = false
+                        }
+                    }
+            ) {
+                SettingsSelector(values) { i ->
+                    open.value = false
+                    currentSelection.value = i
+                    onSelect(i)
+                }
             }
         } else {
             SettingsRow(
@@ -236,17 +266,18 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     @Composable
     private fun SettingsNumberItem(
         title: String,
-        currentSelection: MutableState<Float>,
-        min: Float,
-        max: Float,
-        onSelect: (Float) -> Unit
+        currentSelection: MutableState<Int>,
+        min: Int,
+        max: Int,
+        onSelect: (Int) -> Unit
     ) {
         val open = remember { mutableStateOf(false) }
 
         if (open.value) {
             SettingsNumberSelector(
-                currentNumber = prefs.textSize,
-                min, max
+                number = currentSelection,
+                min = min,
+                max = max,
             ) { i ->
                 open.value = false
                 currentSelection.value = i
@@ -333,17 +364,15 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
     @Composable
     private fun SettingsNumberSelector(
-        currentNumber: Float,
-        min: Float,
-        max: Float,
-        onCommit: (Float) -> Unit
+        number: MutableState<Int>,
+        min: Int,
+        max: Int,
+        onCommit: (Int) -> Unit
     ) {
-        val number = remember { mutableStateOf(currentNumber) }
-
-        ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
+        ConstraintLayout {
             val (plus, minus, text, button) = createRefs()
             TextButton(
-                onClick = { if (number.value < max) number.value += 1f},
+                onClick = { if (number.value < max) number.value += 1 },
                 modifier = Modifier.constrainAs(plus) {
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
@@ -351,7 +380,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     end.linkTo(text.start)
                 },
             ) {
-                Text("+", style = SettingsTheme.typography.button)
+                Text("more", style = SettingsTheme.typography.button)
             }
             Text(
                 text = number.value.toString(),
@@ -366,7 +395,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 style = SettingsTheme.typography.item,
             )
             TextButton(
-                onClick = { if (number.value > min) number.value -= 1f },
+                onClick = { if (number.value > min) number.value -= 1 },
                 modifier = Modifier.constrainAs(minus) {
                     top.linkTo(parent.top)
                     bottom.linkTo(parent.bottom)
@@ -374,7 +403,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     end.linkTo(button.start)
                 },
             ) {
-                Text("-", style = SettingsTheme.typography.button)
+                Text("less", style = SettingsTheme.typography.button)
             }
             TextButton(
                 onClick = { onCommit(number.value) },
@@ -604,7 +633,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             it.finish()
         }
     }
-    private fun setTextSize(size: Float) {
+    private fun setTextSize(size: Int) {
         prefs.textSize = size
 
         // restart activity

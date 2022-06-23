@@ -60,11 +60,10 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
 
         initObservers()
+        initHomeApps() // must be before alignments
 
         setHomeAlignment(prefs.homeAlignment)
         setTimeAlignment(prefs.timeAlignment)
-
-        initHomeApps()
 
         initSwipeTouchListener()
         initClickListeners()
@@ -139,7 +138,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         for (i in 0 until prefs.homeAppsNum) {
             val view = layoutInflater.inflate(R.layout.home_app_button, null) as TextView
             view.apply {
-                textSize = prefs.textSize
+                textSize = prefs.textSize.toFloat()
                 id = i
                 setOnTouchListener(getViewSwipeTouchListener(context, this))
             }

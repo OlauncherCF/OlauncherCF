@@ -8,8 +8,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.text.Selection
-import android.util.Log
 import android.view.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -23,7 +21,6 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextButton
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.*
@@ -32,9 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.os.bundleOf
-import androidx.core.view.setPadding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.olaunchercf.BuildConfig
@@ -49,7 +44,6 @@ import app.olaunchercf.helper.*
 import app.olaunchercf.listener.DeviceAdmin
 import app.olaunchercf.style.CORNER_RADIUS
 import app.olaunchercf.data.Constants.Theme.*
-import kotlin.reflect.typeOf
 
 class SettingsFragment : Fragment(), View.OnClickListener {
 
@@ -90,7 +84,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     private fun Settings() {
         // observer
         Column {
-            SettingsArea(title = "Appearance") {
+            /*SettingsArea(title = "Appearance") {
                 SettingsNumberItem(
                     title = "Apps on home screen",
                     currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
@@ -172,16 +166,171 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 SettingsToggle(
                     title = "Double tap to lock",
                     state = remember { mutableStateOf(prefs.lockModeOn) }
-                ) { toggleLockMode() }
-            }
+                ) { toggleLockMode() }*/
+            SettingsArea(
+                title = "Appearance",
+                arrayOf(
+                    { open, onChange ->
+                        SettingsNumberItem(
+                            title = "Apps on home screen",
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
+                            min = 0,
+                            max = 15,
+                            onSelect = { j -> updateHomeAppsNum(j) }
+                        )
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = "Auto Show Keyboard",
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.autoShowKeyboard) },
+                        ) { toggleKeyboardText() }
+                    },
+                    { open, onChange ->
+                        SettingsNumberItem(
+                            title = "Apps on home screen",
+                            currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
+                            open = open,
+                            onChange = onChange,
+                            min = 0,
+                            max = 15,
+                            onSelect = { i -> updateHomeAppsNum(i) }
+                        )
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = "Auto Show Keyboard",
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.autoShowKeyboard) },
+                        ) { toggleKeyboardText() }
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = "Show status bar",
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.showStatusBar) },
+                        ) { toggleStatusBar() }
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = "Show date time",
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.showDateTime) }
+                        ) { toggleDateTime() }
+                    },
+                    { open, onChange ->
+                        SettingsItem(
+                            title = "App Alignment Home",
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.homeAlignment) },
+                            values = arrayOf(Left, Center, Right),
+                            onSelect = { j -> viewModel.updateHomeAlignment(j) }
+                        )
+                    },
+                    { open, onChange ->
+                        SettingsItem(
+                            title = "App Alignment Drawer",
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
+                            values = arrayOf(Left, Center, Right),
+                            onSelect = { j -> viewModel.updateDrawerAlignment(j) }
+                        )
+                    },
+                    { open, onChange ->
+                        SettingsItem(
+                            title = "TIme Alignment",
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.timeAlignment) },
+                            values = arrayOf(Left, Center, Right),
+                            onSelect = { j -> viewModel.updateTimeAlignment(j) }
+                        )
+                    },
+                    { open, onChange ->
+                        SettingsItem(
+                            title = "Theme mode",
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.appTheme) },
+                            values = arrayOf(System, Light, Dark),
+                            onSelect = { j -> setTheme(j) }
+                        )
+                    },
+                    { open, onChange ->
+                        SettingsItem(
+                            open = open,
+                            onChange = onChange,
+                            title = "Interface language",
+                            currentSelection = remember { mutableStateOf(prefs.language) },
+                            values = Constants.Language.values(),
+                            onSelect = { j -> setLang(j) }
+                        )
+                    },
+                    { open, onChange ->
+                        SettingsNumberItem(
+                            title = "Text Size",
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.textSize) },
+                            min = 16,
+                            max = 30,
+                            onSelect = { f -> setTextSize(f) }
+                        )
+                    }
+                )
+            )
+            SettingsArea(title = "Gestures",
+                arrayOf(
+                    { _, _ ->
+                        SettingsAppSelector(
+                            title = "Swipe left app",
+                            currentSelection = remember { mutableStateOf(prefs.appNameSwipeLeft) },
+                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP) }
+                        )
+                    },
+                    { _, _ ->
+                        SettingsAppSelector(
+                            title = "Swipe right app",
+                            currentSelection = remember { mutableStateOf(prefs.appNameSwipeRight) },
+                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP) }
+                        )
+                    },
+                    { _, _ ->
+                        SettingsAppSelector(
+                            title = "Clock click app",
+                            currentSelection = remember { mutableStateOf(prefs.appNameClickClock) },
+                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_CLOCK_APP) }
+                        )
+                    },
+                    { _, _ ->
+                        SettingsAppSelector(
+                            title = "Date click app",
+                            currentSelection = remember { mutableStateOf(prefs.appNameClickDate) },
+                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_DATE_APP) }
+                        )
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = "Double tap to lock",
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.lockModeOn) }
+                        ) { toggleLockMode() }
+                    }
+                )
+            )
         }
     }
 
     @Composable
     private fun SettingsArea (
         title: String,
-        items: @Composable () -> Unit
+        items: Array<@Composable (MutableState<Boolean>, (Boolean) -> Unit ) -> Unit>
     ) {
+        val selected = remember { mutableStateOf(-1) }
         Column(
             modifier = Modifier
                 .padding(12.dp, 12.dp, 12.dp, 0.dp)
@@ -194,7 +343,10 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 .padding(20.dp)
         ) {
             SettingsTitle(text = title)
-            items()
+            // items()
+            items.forEachIndexed { i, item ->
+                item(mutableStateOf(i == selected.value)) { b -> selected.value = if (b) i else -1 }
+            }
         }
     }
 
@@ -212,14 +364,16 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     private fun SettingsToggle(
         title: String,
         state: MutableState<Boolean>,
-        onChange: () -> Unit
+        onChange: (Boolean) -> Unit,
+        onToggle: () -> Unit
     ) {
         val buttonText = if (state.value) "On" else "Off"
         SettingsRow(
             title = title,
             onClick = {
+                onChange(false)
                 state.value = !state.value
-                onChange()
+                onToggle()
             },
             buttonText = buttonText
         )
@@ -230,26 +384,26 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         title: String,
         currentSelection: MutableState<T>,
         values: Array<T>,
+        open: MutableState<Boolean>,
+        onChange: (Boolean) -> Unit,
         onSelect: (T) -> Unit,
     ) {
-        val open = remember { mutableStateOf(false) }
-
         if (open.value) {
             Box(
                 modifier = Modifier
                     .pointerInput(Unit) {
                         detectTapGestures {
-                            open.value = false
+                            onChange(false)
                         }
                     }
                     .onFocusEvent {
                         if (it.isFocused) {
-                            open.value = false
+                            onChange(false)
                         }
                     }
             ) {
                 SettingsSelector(values) { i ->
-                    open.value = false
+                    onChange(false)
                     currentSelection.value = i
                     onSelect(i)
                 }
@@ -257,7 +411,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         } else {
             SettingsRow(
                 title = title,
-                onClick = { open.value = true },
+                onClick = { onChange(true) },
                 buttonText = currentSelection.value.toString()
             )
         }
@@ -269,24 +423,24 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         currentSelection: MutableState<Int>,
         min: Int,
         max: Int,
+        open: MutableState<Boolean>,
+        onChange: (Boolean) -> Unit,
         onSelect: (Int) -> Unit
     ) {
-        val open = remember { mutableStateOf(false) }
-
         if (open.value) {
             SettingsNumberSelector(
                 number = currentSelection,
                 min = min,
                 max = max,
             ) { i ->
-                open.value = false
+                onChange(false)
                 currentSelection.value = i
                 onSelect(i)
             }
         } else {
             SettingsRow(
                 title = title,
-                onClick = { open.value = true },
+                onClick = { onChange(true) },
                 buttonText = currentSelection.value.toString()
             )
         }
@@ -369,7 +523,11 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         max: Int,
         onCommit: (Int) -> Unit
     ) {
-        ConstraintLayout {
+        ConstraintLayout(
+            modifier = Modifier
+                .background(colorResource(R.color.blackTrans50), RoundedCornerShape(CORNER_RADIUS))
+                .fillMaxWidth()
+        ) {
             val (plus, minus, text, button) = createRefs()
             TextButton(
                 onClick = { if (number.value < max) number.value += 1 },

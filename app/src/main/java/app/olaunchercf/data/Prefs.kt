@@ -137,10 +137,6 @@ class Prefs(context: Context) {
         get() = Constants.Language.valueOf(prefs.getString(APP_LANGUAGE, Constants.Language.English.name).toString())
         set(value) = prefs.edit().putString(APP_LANGUAGE, value.name).apply()
 
-    var screenTimeout: Int
-        get() = prefs.getInt(SCREEN_TIMEOUT, 30000) // Default: 30 seconds
-        set(value) = prefs.edit().putInt(SCREEN_TIMEOUT, value).apply()
-
     var hiddenApps: MutableSet<String>
         get() = prefs.getStringSet(HIDDEN_APPS, mutableSetOf()) as MutableSet<String>
         set(value) = prefs.edit().putStringSet(HIDDEN_APPS, value).apply()

@@ -38,12 +38,16 @@ import app.olaunchercf.MainViewModel
 import app.olaunchercf.R
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Constants.Gravity.*
+import app.olaunchercf.data.Constants.MAX_HOME_APPS
+import app.olaunchercf.data.Constants.TEXT_SIZE_MAX
+import app.olaunchercf.data.Constants.TEXT_SIZE_MIN
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentSettingsBinding
 import app.olaunchercf.helper.*
 import app.olaunchercf.listener.DeviceAdmin
 import app.olaunchercf.style.CORNER_RADIUS
 import app.olaunchercf.data.Constants.Theme.*
+import app.olaunchercf.data.Constants.lang
 
 class SettingsFragment : Fragment(), View.OnClickListener {
 
@@ -172,57 +176,39 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 arrayOf(
                     { open, onChange ->
                         SettingsNumberItem(
-                            title = "Apps on home screen",
+                            title = stringResource(R.string.apps_on_home_screen),
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
                             min = 0,
-                            max = 15,
+                            max = MAX_HOME_APPS,
                             onSelect = { j -> updateHomeAppsNum(j) }
                         )
                     },
                     { _, onChange ->
                         SettingsToggle(
-                            title = "Auto Show Keyboard",
-                            onChange = onChange,
-                            state = remember { mutableStateOf(prefs.autoShowKeyboard) },
-                        ) { toggleKeyboardText() }
-                    },
-                    { open, onChange ->
-                        SettingsNumberItem(
-                            title = "Apps on home screen",
-                            currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
-                            open = open,
-                            onChange = onChange,
-                            min = 0,
-                            max = 15,
-                            onSelect = { i -> updateHomeAppsNum(i) }
-                        )
-                    },
-                    { _, onChange ->
-                        SettingsToggle(
-                            title = "Auto Show Keyboard",
+                            title = stringResource(R.string.auto_show_keyboard),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.autoShowKeyboard) },
                         ) { toggleKeyboardText() }
                     },
                     { _, onChange ->
                         SettingsToggle(
-                            title = "Show status bar",
+                            title = stringResource(R.string.status_bar),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.showStatusBar) },
                         ) { toggleStatusBar() }
                     },
                     { _, onChange ->
                         SettingsToggle(
-                            title = "Show date time",
+                            title = stringResource(R.string.show_date_time),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.showDateTime) }
                         ) { toggleDateTime() }
                     },
                     { open, onChange ->
                         SettingsItem(
-                            title = "App Alignment Home",
+                            title = stringResource(R.string.home_alignment),
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.homeAlignment) },
@@ -232,7 +218,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     },
                     { open, onChange ->
                         SettingsItem(
-                            title = "App Alignment Drawer",
+                            title = stringResource(R.string.drawer_alignment),
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
@@ -242,7 +228,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     },
                     { open, onChange ->
                         SettingsItem(
-                            title = "TIme Alignment",
+                            title = stringResource(R.string.clock_alignment),
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.timeAlignment) },
@@ -252,7 +238,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     },
                     { open, onChange ->
                         SettingsItem(
-                            title = "Theme mode",
+                            title = stringResource(R.string.theme_mode),
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.appTheme) },
@@ -264,7 +250,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         SettingsItem(
                             open = open,
                             onChange = onChange,
-                            title = "Interface language",
+                            title = stringResource(R.string.app_language),
                             currentSelection = remember { mutableStateOf(prefs.language) },
                             values = Constants.Language.values(),
                             onSelect = { j -> setLang(j) }
@@ -272,12 +258,12 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     },
                     { open, onChange ->
                         SettingsNumberItem(
-                            title = "Text Size",
+                            title = stringResource(R.string.app_text_size),
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.textSize) },
-                            min = 16,
-                            max = 30,
+                            min = TEXT_SIZE_MIN,
+                            max = TEXT_SIZE_MAX,
                             onSelect = { f -> setTextSize(f) }
                         )
                     }
@@ -287,35 +273,35 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 arrayOf(
                     { _, _ ->
                         SettingsAppSelector(
-                            title = "Swipe left app",
+                            title = stringResource(R.string.swipe_left_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameSwipeLeft) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP) }
                         )
                     },
                     { _, _ ->
                         SettingsAppSelector(
-                            title = "Swipe right app",
+                            title = stringResource(R.string.swipe_right_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameSwipeRight) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP) }
                         )
                     },
                     { _, _ ->
                         SettingsAppSelector(
-                            title = "Clock click app",
+                            title = stringResource(R.string.clock_click_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameClickClock) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_CLOCK_APP) }
                         )
                     },
                     { _, _ ->
                         SettingsAppSelector(
-                            title = "Date click app",
+                            title = stringResource(R.string.date_click_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameClickDate) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_DATE_APP) }
                         )
                     },
                     { _, onChange ->
                         SettingsToggle(
-                            title = "Double tap to lock",
+                            title = stringResource(R.string.double_tap_to_lock_screen),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.lockModeOn) }
                         ) { toggleLockMode() }

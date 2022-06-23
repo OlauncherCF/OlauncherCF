@@ -28,7 +28,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val isOlauncherDefault = MutableLiveData<Boolean>()
     val launcherResetFailed = MutableLiveData<Boolean>()
     val homeAppAlignment = MutableLiveData<Constants.Gravity>()
-    // val drawerAppAlignment = MutableLiveData<Constants.Gravity>()
     val timeAlignment = MutableLiveData<Constants.Gravity>()
     val showMessageDialog = MutableLiveData<String>()
     val showSupportDialog = MutableLiveData<Boolean>()

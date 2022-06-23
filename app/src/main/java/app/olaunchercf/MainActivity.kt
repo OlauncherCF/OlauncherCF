@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import app.olaunchercf.data.Constants
+import app.olaunchercf.data.Constants.value
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.ActivityMainBinding
 import app.olaunchercf.helper.*
@@ -69,17 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     @Suppress("DEPRECATION")
     private fun useLanguage() {
-        val lang = when(prefs.language) {
-            Constants.Language.System -> Locale(Locale.getDefault().language).toString()
-            Constants.Language.English -> "en"
-            Constants.Language.German -> "de"
-            Constants.Language.Spanish -> "es"
-            Constants.Language.French -> "fr"
-            Constants.Language.Italian -> "it"
-            Constants.Language.Swedish -> "se"
-            Constants.Language.Turkish -> "tr"
-        }
-        val locale = Locale(lang)
+        val locale = Locale(prefs.language.value())
         Locale.setDefault(locale)
         val config = resources.configuration
         config.locale = locale

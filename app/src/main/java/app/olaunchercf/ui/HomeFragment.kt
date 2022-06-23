@@ -119,9 +119,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             homeAppAlignment.observe(viewLifecycleOwner) {
                 setHomeAlignment(it)
             }
-            /*drawerAppAlignment.observe(viewLifecycleOwner) {
-                setHomeAlignment(it)
-            }*/
             timeAlignment.observe(viewLifecycleOwner) {
                 setTimeAlignment(it)
             }

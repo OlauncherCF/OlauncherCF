@@ -47,7 +47,6 @@ import app.olaunchercf.helper.*
 import app.olaunchercf.listener.DeviceAdmin
 import app.olaunchercf.style.CORNER_RADIUS
 import app.olaunchercf.data.Constants.Theme.*
-import app.olaunchercf.data.Constants.lang
 
 class SettingsFragment : Fragment(), View.OnClickListener {
 

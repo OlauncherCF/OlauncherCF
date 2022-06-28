@@ -202,14 +202,14 @@ object SettingsComposable {
         ) {
             LazyRow(
                 modifier = Modifier
-                    .align(Alignment.CenterEnd)
+                    .align(Alignment.CenterEnd),
+                horizontalArrangement = Arrangement.SpaceEvenly
             )
             {
                 for (opt in options) {
                     item {
                         TextButton(
                             onClick = { onSelect(opt) },
-                            modifier = Modifier.padding(7.dp, 0.dp)
                         ) {
                             Text(
                                 text = opt.toString(),

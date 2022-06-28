@@ -1,5 +1,6 @@
 package app.olaunchercf.ui.compose
 
+import SettingsTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -18,40 +19,12 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import app.olaunchercf.R
-import app.olaunchercf.data.Constants
 import app.olaunchercf.style.CORNER_RADIUS
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusEvent
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.res.*
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.detectTapGestures
 
-import app.olaunchercf.data.Constants.Gravity.*
-import app.olaunchercf.data.Constants.MAX_HOME_APPS
-import app.olaunchercf.data.Constants.TEXT_SIZE_MAX
-import app.olaunchercf.data.Constants.TEXT_SIZE_MIN
-
-class Settings {
+object SettingsComposable {
     @Composable
     fun SettingsArea (
         title: String,
@@ -173,7 +146,7 @@ class Settings {
     }
 
     @Composable
-    private fun SettingsAppSelector(
+    fun SettingsAppSelector(
         title: String,
         currentSelection: MutableState<String>,
         onClick: () -> Unit,

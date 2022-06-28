@@ -8,29 +8,17 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.view.*
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.gestures.detectTapGestures
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowInsets
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.onFocusEvent
-import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.res.*
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.foundation.layout.Column
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -40,16 +28,19 @@ import app.olaunchercf.MainActivity
 import app.olaunchercf.MainViewModel
 import app.olaunchercf.R
 import app.olaunchercf.data.Constants
-import app.olaunchercf.data.Constants.Gravity.*
-import app.olaunchercf.data.Constants.MAX_HOME_APPS
-import app.olaunchercf.data.Constants.TEXT_SIZE_MAX
-import app.olaunchercf.data.Constants.TEXT_SIZE_MIN
+import app.olaunchercf.data.Constants.Theme.*
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentSettingsBinding
-import app.olaunchercf.helper.*
+import app.olaunchercf.helper.isAccessServiceEnabled
+import app.olaunchercf.helper.openAppInfo
+import app.olaunchercf.helper.showToastLong
+import app.olaunchercf.helper.showToastShort
 import app.olaunchercf.listener.DeviceAdmin
-import app.olaunchercf.style.CORNER_RADIUS
-import app.olaunchercf.data.Constants.Theme.*
+import app.olaunchercf.ui.compose.SettingsComposable.SettingsAppSelector
+import app.olaunchercf.ui.compose.SettingsComposable.SettingsArea
+import app.olaunchercf.ui.compose.SettingsComposable.SettingsItem
+import app.olaunchercf.ui.compose.SettingsComposable.SettingsNumberItem
+import app.olaunchercf.ui.compose.SettingsComposable.SettingsToggle
 
 class SettingsFragment : Fragment(), View.OnClickListener {
 
@@ -102,7 +93,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
                             min = 0,
-                            max = MAX_HOME_APPS,
+                            max = Constants.MAX_HOME_APPS,
                             onSelect = { j -> updateHomeAppsNum(j) }
                         )
                     },
@@ -133,7 +124,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.homeAlignment) },
-                            values = arrayOf(Left, Center, Right),
+                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
                             onSelect = { j -> viewModel.updateHomeAlignment(j) }
                         )
                     },
@@ -143,7 +134,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
-                            values = arrayOf(Left, Center, Right),
+                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
                             onSelect = { j -> viewModel.updateDrawerAlignment(j) }
                         )
                     },
@@ -153,7 +144,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.timeAlignment) },
-                            values = arrayOf(Left, Center, Right),
+                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
                             onSelect = { j -> viewModel.updateTimeAlignment(j) }
                         )
                     },
@@ -183,8 +174,8 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.textSize) },
-                            min = TEXT_SIZE_MIN,
-                            max = TEXT_SIZE_MAX,
+                            min = Constants.TEXT_SIZE_MIN,
+                            max = Constants.TEXT_SIZE_MAX,
                             onSelect = { f -> setTextSize(f) }
                         )
                     }
@@ -229,257 +220,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     }
                 )
             )
-        }
-    }
-
-    @Composable
-    private fun SettingsArea (
-        title: String,
-        items: Array<@Composable (MutableState<Boolean>, (Boolean) -> Unit ) -> Unit>
-    ) {
-        val selected = remember { mutableStateOf(-1) }
-        Column(
-            modifier = Modifier
-                .padding(12.dp, 12.dp, 12.dp, 0.dp)
-                .background(SettingsTheme.color.settings, SettingsTheme.shapes.settings)
-                .border(
-                    0.5.dp,
-                    colorResource(R.color.blackInverseTrans50),
-                    RoundedCornerShape(CORNER_RADIUS),
-                )
-                .padding(20.dp)
-        ) {
-            SettingsTitle(text = title)
-            items.forEachIndexed { i, item ->
-                item(mutableStateOf(i == selected.value)) { b -> selected.value = if (b) i else -1 }
-            }
-        }
-    }
-
-    @Composable
-    private fun SettingsTitle(text: String) {
-        Text(
-            text = text,
-            style = SettingsTheme.typography.title,
-            modifier = Modifier
-                .padding(0.dp, 0.dp, 0.dp, 12.dp)
-        )
-    }
-
-    @Composable
-    private fun SettingsToggle(
-        title: String,
-        state: MutableState<Boolean>,
-        onChange: (Boolean) -> Unit,
-        onToggle: () -> Unit
-    ) {
-        val buttonText = if (state.value) "On" else "Off"
-        SettingsRow(
-            title = title,
-            onClick = {
-                onChange(false)
-                state.value = !state.value
-                onToggle()
-            },
-            buttonText = buttonText
-        )
-    }
-
-    @Composable
-    private fun <T> SettingsItem(
-        title: String,
-        currentSelection: MutableState<T>,
-        values: Array<T>,
-        open: MutableState<Boolean>,
-        onChange: (Boolean) -> Unit,
-        onSelect: (T) -> Unit,
-    ) {
-        if (open.value) {
-            Box(
-                modifier = Modifier
-                    .pointerInput(Unit) {
-                        detectTapGestures {
-                            onChange(false)
-                        }
-                    }
-                    .onFocusEvent {
-                        if (it.isFocused) {
-                            onChange(false)
-                        }
-                    }
-            ) {
-                SettingsSelector(values) { i ->
-                    onChange(false)
-                    currentSelection.value = i
-                    onSelect(i)
-                }
-            }
-        } else {
-            SettingsRow(
-                title = title,
-                onClick = { onChange(true) },
-                buttonText = currentSelection.value.toString()
-            )
-        }
-    }
-
-    @Composable
-    private fun SettingsNumberItem(
-        title: String,
-        currentSelection: MutableState<Int>,
-        min: Int,
-        max: Int,
-        open: MutableState<Boolean>,
-        onChange: (Boolean) -> Unit,
-        onSelect: (Int) -> Unit
-    ) {
-        if (open.value) {
-            SettingsNumberSelector(
-                number = currentSelection,
-                min = min,
-                max = max,
-            ) { i ->
-                onChange(false)
-                currentSelection.value = i
-                onSelect(i)
-            }
-        } else {
-            SettingsRow(
-                title = title,
-                onClick = { onChange(true) },
-                buttonText = currentSelection.value.toString()
-            )
-        }
-    }
-
-    @Composable
-    private fun SettingsAppSelector(
-        title: String,
-        currentSelection: MutableState<String>,
-        onClick: () -> Unit,
-    ) {
-        SettingsRow(
-            title = title,
-            onClick = onClick,
-            buttonText = currentSelection.value
-        )
-    }
-
-    @Composable
-    private fun SettingsRow(
-        title: String,
-        onClick: () -> Unit,
-        buttonText: String,
-    ) {
-        ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
-            val (text, button) = createRefs()
-            Text(
-                title,
-                style = SettingsTheme.typography.item,
-                modifier = Modifier.constrainAs(text) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                },
-                textAlign = TextAlign.Center,
-            )
-            TextButton(
-                onClick = onClick,
-                modifier = Modifier.constrainAs(button) {
-                    end.linkTo(parent.end)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                },
-            ) {
-                Text(
-                    text = buttonText,
-                    style = SettingsTheme.typography.button
-                )
-            }
-        }
-    }
-
-    @Composable
-    private fun <T> SettingsSelector(options: Array<T>, onSelect: (T) -> Unit) {
-        LazyRow(
-            modifier = Modifier
-                .background(SettingsTheme.color.selector, SettingsTheme.shapes.settings)
-                .fillMaxWidth()
-        ) {
-            for (opt in options) {
-                item {
-                    TextButton (
-                        onClick = { onSelect(opt) },
-                        modifier = Modifier.padding(7.dp, 0.dp)
-                    ) {
-                        Text(
-                            text = opt.toString(),
-                            style = SettingsTheme.typography.button
-                        )
-                    }
-                }
-            }
-        }
-    }
-
-    @Composable
-    private fun SettingsNumberSelector(
-        number: MutableState<Int>,
-        min: Int,
-        max: Int,
-        onCommit: (Int) -> Unit
-    ) {
-        ConstraintLayout(
-            modifier = Modifier
-                .background(SettingsTheme.color.selector, SettingsTheme.shapes.settings)
-                .fillMaxWidth()
-        ) {
-            val (plus, minus, text, button) = createRefs()
-            TextButton(
-                onClick = { if (number.value < max) number.value += 1 },
-                modifier = Modifier.constrainAs(plus) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(text.start)
-                },
-            ) {
-                Text("+", style = SettingsTheme.typography.button)
-            }
-            Text(
-                text = number.value.toString(),
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .constrainAs(text) {
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                        start.linkTo(plus.end)
-                        end.linkTo(minus.start)
-                    },
-                style = SettingsTheme.typography.item,
-            )
-            TextButton(
-                onClick = { if (number.value > min) number.value -= 1 },
-                modifier = Modifier.constrainAs(minus) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(text.end)
-                    end.linkTo(button.start)
-                },
-            ) {
-                Text("-", style = SettingsTheme.typography.button)
-            }
-            TextButton(
-                onClick = { onCommit(number.value) },
-                modifier = Modifier.constrainAs(button) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(minus.end)
-                    end.linkTo(parent.end)
-                },
-            ) {
-                Text(stringResource(R.string.commit), style = SettingsTheme.typography.button)
-            }
         }
     }
 

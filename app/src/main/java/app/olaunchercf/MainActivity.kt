@@ -7,7 +7,6 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +19,8 @@ import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Constants.value
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.ActivityMainBinding
-import app.olaunchercf.helper.*
+import app.olaunchercf.helper.isTablet
+import app.olaunchercf.helper.showToastLong
 import java.util.*
 
 class MainActivity : AppCompatActivity() {

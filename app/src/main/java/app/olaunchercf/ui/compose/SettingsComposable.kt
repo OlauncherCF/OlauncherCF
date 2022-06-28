@@ -168,25 +168,42 @@ object SettingsComposable {
         onClick: () -> Unit,
         buttonText: String,
     ) {
-        ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
-            val (text, button) = createRefs()
+        Box(modifier = Modifier.fillMaxWidth()) {
             Text(
                 title,
                 style = SettingsTheme.typography.item,
-                modifier = Modifier
-                    .padding(10.dp, 0.dp)
-                    .constrainAs(text) {
-                        start.linkTo(parent.start)
-                        end.linkTo(button.start)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                    }
-                    .padding(20.dp, 0.dp)
-                    .fillMaxWidth(),
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 3,
+                modifier = Modifier.align(Alignment.CenterStart),
+                /*overflow = TextOverflow.Ellipsis,
+                maxLines = 3,*/
                 textAlign = TextAlign.Left,
             )
+            TextButton(
+                onClick = onClick,
+                modifier = Modifier.align(Alignment.CenterEnd),
+            ) {
+                Text(
+                    text = buttonText,
+                    style = SettingsTheme.typography.button,
+                    textAlign = TextAlign.Right
+                )
+            }
+        }
+        /*ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
+            val (text, button) = createRefs()
+            Text(
+                    title,
+                    style = SettingsTheme.typography.item,
+                    modifier = Modifier
+                        .constrainAs(text) {
+                            start.linkTo(parent.start)
+                            end.linkTo(button.start)
+                            /*top.linkTo(parent.top)
+                            bottom.linkTo(parent.bottom)*/
+                        },
+                    /*overflow = TextOverflow.Ellipsis,
+                    maxLines = 3,
+                    textAlign = TextAlign.Left,*/
+                )
             TextButton(
                 onClick = onClick,
                 modifier = Modifier.constrainAs(button) {
@@ -200,7 +217,7 @@ object SettingsComposable {
                     style = SettingsTheme.typography.button
                 )
             }
-        }
+        }*/
     }
 
     @Composable

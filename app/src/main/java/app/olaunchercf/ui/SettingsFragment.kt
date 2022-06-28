@@ -88,7 +88,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 arrayOf(
                     { open, onChange ->
                         SettingsNumberItem(
-                            title = stringResource(R.string.apps_on_home_screen),
+                            title = "dfjsdklfs jksldf jkdslf jfskhkjfs fskjdf shd hsjdkfs",//stringResource(R.string.apps_on_home_screen),
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },

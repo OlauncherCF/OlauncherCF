@@ -24,7 +24,6 @@ import app.olaunchercf.data.AppModel
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentAppDrawerBinding
-import app.olaunchercf.databinding.FragmentSettingsBinding
 import app.olaunchercf.helper.openAppInfo
 
 class AppDrawerFragment : Fragment() {
@@ -138,9 +137,14 @@ class AppDrawerFragment : Fragment() {
 
     private fun View.showKeyboard() {
         if (!Prefs(requireContext()).autoShowKeyboard) return
-        view?.requestFocus()
+
+        val searchTextView = binding.search.findViewById<TextView>(R.id.search_src_text)
+        searchTextView.requestFocus()
         val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+        searchTextView.postDelayed(Runnable {
+            searchTextView.requestFocus()
+            imm.showSoftInput(searchTextView, InputMethodManager.SHOW_FORCED)
+        }, 100)
     }
 
     private fun populateAppList(apps: List<AppModel>, appAdapter: AppDrawerAdapter) {

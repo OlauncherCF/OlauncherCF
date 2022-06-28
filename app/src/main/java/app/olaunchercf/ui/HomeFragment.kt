@@ -37,7 +37,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     private val binding get() = _binding!!
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        //val view = inflater.inflate(R.layout.fragment_home, container, false)
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val view = binding.root
         prefs = Prefs(requireContext())
@@ -48,7 +47,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        // prefs = Prefs(requireContext())
         viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
@@ -392,11 +390,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                         lockPhone()
                     }
                 }
-            }
-
-            override fun onTripleClick() {
-                super.onTripleClick()
-                // changeAppTheme()
             }
         }
     }

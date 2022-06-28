@@ -8,6 +8,7 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
 import android.provider.Settings
+import android.util.Log
 import android.view.*
 import android.widget.TextView
 import androidx.core.os.bundleOf
@@ -38,6 +39,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+
         val view = binding.root
         prefs = Prefs(requireContext())
 
@@ -58,7 +60,9 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         initHomeApps() // must be before alignments
 
         setHomeAlignment(prefs.homeAlignment)
+        Log.d("time", "1")
         setTimeAlignment(prefs.timeAlignment)
+        Log.d("time", "1")
 
         initSwipeTouchListener()
         initClickListeners()
@@ -151,6 +155,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         binding.date.setOnClickListener(this)
         binding.setDefaultLauncher.setOnClickListener(this)
     }
+    @SuppressLint("RtlHardcoded")
     private fun setTimeAlignment(gravity_const: Constants.Gravity) {
         val gravity = when(gravity_const) {
             Constants.Gravity.Left -> Gravity.LEFT

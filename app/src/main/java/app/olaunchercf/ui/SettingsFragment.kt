@@ -130,22 +130,22 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     },
                     { open, onChange ->
                         SettingsItem(
-                            title = stringResource(R.string.drawer_alignment),
-                            open = open,
-                            onChange = onChange,
-                            currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
-                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
-                            onSelect = { j -> viewModel.updateDrawerAlignment(j) }
-                        )
-                    },
-                    { open, onChange ->
-                        SettingsItem(
                             title = stringResource(R.string.clock_alignment),
                             open = open,
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.timeAlignment) },
                             values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
                             onSelect = { j -> viewModel.updateTimeAlignment(j) }
+                        )
+                    },
+                    { open, onChange ->
+                        SettingsItem(
+                            title = stringResource(R.string.drawer_alignment),
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
+                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
+                            onSelect = { j -> viewModel.updateDrawerAlignment(j) }
                         )
                     },
                     { open, onChange ->

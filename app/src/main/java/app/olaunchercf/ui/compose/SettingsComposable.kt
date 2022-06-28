@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.input.pointer.pointerInput
@@ -194,21 +195,27 @@ object SettingsComposable {
 
     @Composable
     private fun <T> SettingsSelector(options: Array<T>, onSelect: (T) -> Unit) {
-        LazyRow(
+        Box(
             modifier = Modifier
                 .background(SettingsTheme.color.selector, SettingsTheme.shapes.settings)
                 .fillMaxWidth()
         ) {
-            for (opt in options) {
-                item {
-                    TextButton (
-                        onClick = { onSelect(opt) },
-                        modifier = Modifier.padding(7.dp, 0.dp)
-                    ) {
-                        Text(
-                            text = opt.toString(),
-                            style = SettingsTheme.typography.button
-                        )
+            LazyRow(
+                modifier = Modifier
+                    .align(Alignment.CenterEnd)
+            )
+            {
+                for (opt in options) {
+                    item {
+                        TextButton(
+                            onClick = { onSelect(opt) },
+                            modifier = Modifier.padding(7.dp, 0.dp)
+                        ) {
+                            Text(
+                                text = opt.toString(),
+                                style = SettingsTheme.typography.button
+                            )
+                        }
                     }
                 }
             }

@@ -20,6 +20,9 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import app.olaunchercf.R
@@ -170,12 +173,19 @@ object SettingsComposable {
             Text(
                 title,
                 style = SettingsTheme.typography.item,
-                modifier = Modifier.constrainAs(text) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                },
-                textAlign = TextAlign.Center,
+                modifier = Modifier
+                    .padding(10.dp, 0.dp)
+                    .constrainAs(text) {
+                        start.linkTo(parent.start)
+                        end.linkTo(button.start)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                    }
+                    .padding(20.dp, 0.dp)
+                    .fillMaxWidth(),
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 3,
+                textAlign = TextAlign.Left,
             )
             TextButton(
                 onClick = onClick,

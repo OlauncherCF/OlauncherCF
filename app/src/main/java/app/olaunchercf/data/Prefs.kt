@@ -2,8 +2,15 @@ package app.olaunchercf.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.File
+import java.io.FileOutputStream
+import java.io.FileReader
 
-class Prefs(context: Context) {
+
+class Prefs(val context: Context) {
 
     private val APP_LANGUAGE = "app_language"
 
@@ -56,6 +63,78 @@ class Prefs(context: Context) {
     private val TEXT_SIZE = "text_size"
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
+
+    fun saveAll() {
+        val json = JSONObject()
+
+        for ((key, value) in prefs.all) {
+            val entry = JSONObject()
+            entry.put("value", value)
+            Log.d("json", "$key $value")
+            entry.put("type", value!!::class.simpleName)
+            json.put(key, entry)
+        }
+
+        val path = context.getExternalFilesDir(null)
+        val file = File(path, "settings.txt")
+        FileOutputStream(file).use {
+            it.write(json.toString().toByteArray())
+        }
+    }
+
+    fun loadAll() {
+        val path = context.getExternalFilesDir(null)
+        val file = File(path, "settings.txt")
+        FileReader(file).use {
+            val chars = CharArray(file.length().toInt())
+            it.read(chars)
+            val fileContent = String(chars)
+            val json = JSONObject(fileContent)
+            for (key in json.keys()) {
+                val entry = json[key] as JSONObject
+                val type = entry.get("type")
+                val value = entry.get("value")
+                Log.d("json", "$key $value $type")
+
+                val prefs = prefs.edit()
+
+                val v = (json[key] as JSONObject).get("value")
+                Log.d("jsonset", "v $v")
+                when (v) {
+                    is JSONArray -> {
+                        val set = mutableSetOf<String>()
+                        for (i in 0..v.length()) {
+                            set.add(v[i] as String)
+                        }
+                        Log.d("jsonset", "set $set")
+                    }
+                    else ->  Log.d("jsonset", "else $v")
+
+                }
+
+                //@Suppress("UNCHECKED_CAST")
+                /*when (type) {
+                    "String" -> prefs.putString(key, value as String)
+                    "Int" -> prefs.putInt(key, value as Int)
+                    "Boolean" -> prefs.putBoolean(key, value as Boolean)
+                    "HashSet" -> {
+                        // val set: String = JSONObject(value as String) as MutableSet<String>
+                        val set = mutableSetOf<String>()
+                        val array = value as JSONArray
+                        for (i in 0..array.length()) {
+                            set.add(array[i] as String)
+                        }
+                        prefs.putStringSet(key, set)
+
+                        val map = (0 until value.length()).associate { Pair(it.toString(), value[it]) }
+                        JSONObject(map).toMap().values.toList()
+                    }
+                    else -> {}
+                }*/
+                prefs.apply()
+            }
+        }
+    }
 
     var firstOpen: Boolean
         get() = prefs.getBoolean(FIRST_OPEN, true)

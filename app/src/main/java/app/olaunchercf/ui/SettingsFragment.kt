@@ -12,21 +12,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
+import android.widget.Toast
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -44,8 +36,9 @@ import app.olaunchercf.helper.openAppInfo
 import app.olaunchercf.helper.showToastLong
 import app.olaunchercf.helper.showToastShort
 import app.olaunchercf.listener.DeviceAdmin
+import app.olaunchercf.ui.compose.Elements.SimpleButton
 import app.olaunchercf.ui.compose.SettingsComposable
-import app.olaunchercf.ui.compose.SettingsComposable.SettingsAppSelector
+import app.olaunchercf.ui.compose.SettingsComposable.AppSelector
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsArea
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsNumberItem
@@ -192,28 +185,28 @@ class SettingsFragment : Fragment(), View.OnClickListener {
             SettingsArea(title = "Gestures",
                 arrayOf(
                     { _, _ ->
-                        SettingsAppSelector(
+                        AppSelector(
                             title = stringResource(R.string.swipe_left_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameSwipeLeft) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP) }
                         )
                     },
                     { _, _ ->
-                        SettingsAppSelector(
+                        AppSelector(
                             title = stringResource(R.string.swipe_right_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameSwipeRight) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP) }
                         )
                     },
                     { _, _ ->
-                        SettingsAppSelector(
+                        AppSelector(
                             title = stringResource(R.string.clock_click_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameClickClock) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_CLOCK_APP) }
                         )
                     },
                     { _, _ ->
-                        SettingsAppSelector(
+                        AppSelector(
                             title = stringResource(R.string.date_click_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameClickDate) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_DATE_APP) }
@@ -225,6 +218,14 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.lockModeOn) }
                         ) { toggleLockMode() }
+                    },
+                    { _, _ ->
+                        SettingsComposable.TwoButtons(
+                            title1 = stringResource(id = R.string.backup_create),
+                            onClick1 = { createBackup() },
+                            title2 = stringResource(id = R.string.backup_load),
+                            onClick2 = { loadBackup() },
+                        )
                     }
                 )
             )
@@ -435,6 +436,15 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
         requireActivity().recreate()
     }*/
+    private fun loadBackup() {
+        prefs.loadAll()
+        Toast.makeText(context, getString(R.string.done), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun createBackup() {
+        prefs.saveAll()
+        Toast.makeText(context, getString(R.string.done), Toast.LENGTH_SHORT).show()
+    }
 
     private fun showAppListIfEnabled(flag: Int) {
         if ((flag == Constants.FLAG_SET_SWIPE_LEFT_APP) and !prefs.swipeLeftEnabled) {

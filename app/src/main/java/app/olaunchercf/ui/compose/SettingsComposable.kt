@@ -25,6 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import app.olaunchercf.R
 import app.olaunchercf.style.CORNER_RADIUS
 
@@ -45,6 +46,7 @@ object SettingsComposable {
                     RoundedCornerShape(CORNER_RADIUS),
                 )
                 .padding(20.dp)
+                .fillMaxWidth()
         ) {
             SettingsTitle(text = title)
             items.forEachIndexed { i, item ->
@@ -168,42 +170,30 @@ object SettingsComposable {
         onClick: () -> Unit,
         buttonText: String,
     ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                title,
-                style = SettingsTheme.typography.item,
-                modifier = Modifier.align(Alignment.CenterStart),
-                /*overflow = TextOverflow.Ellipsis,
-                maxLines = 3,*/
-                textAlign = TextAlign.Left,
-            )
-            TextButton(
-                onClick = onClick,
-                modifier = Modifier.align(Alignment.CenterEnd),
+        ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
+
+            val (text, button) = createRefs()
+
+            Box(
+                modifier = Modifier
+                    .constrainAs(text) {
+                        start.linkTo(parent.start)
+                        end.linkTo(button.start)
+                        top.linkTo(parent.top)
+                        bottom.linkTo(parent.bottom)
+                        width = Dimension.fillToConstraints
+                    },
             ) {
                 Text(
-                    text = buttonText,
-                    style = SettingsTheme.typography.button,
-                    textAlign = TextAlign.Right
-                )
-            }
-        }
-        /*ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
-            val (text, button) = createRefs()
-            Text(
                     title,
                     style = SettingsTheme.typography.item,
-                    modifier = Modifier
-                        .constrainAs(text) {
-                            start.linkTo(parent.start)
-                            end.linkTo(button.start)
-                            /*top.linkTo(parent.top)
-                            bottom.linkTo(parent.bottom)*/
-                        },
                     /*overflow = TextOverflow.Ellipsis,
                     maxLines = 3,
                     textAlign = TextAlign.Left,*/
+                modifier = Modifier.align(Alignment.CenterStart)
                 )
+            }
+
             TextButton(
                 onClick = onClick,
                 modifier = Modifier.constrainAs(button) {
@@ -217,7 +207,7 @@ object SettingsComposable {
                     style = SettingsTheme.typography.button
                 )
             }
-        }*/
+        }
     }
 
     @Composable

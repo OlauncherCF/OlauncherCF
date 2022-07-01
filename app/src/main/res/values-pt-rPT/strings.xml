@@ -18,7 +18,9 @@
     <string name="left">Esquerda</string>
     <string name="right">Direita</string>
     <string name="center">Centro</string>
-    <string name="home_layout_alignment">Alinhamento dos aplicativos</string>
+    <string name="home_alignment">Alinhamento dos aplicativos</string>
+    <string name="clock_alignment">Alinhamento do relógio</string>
+    <string name="drawer_alignment">Alinhamento da gaveta de aplicações</string>
     <string name="swipe_left_app">Deslize para a esquerda app</string>
     <string name="swipe_right_app">Deslize para a direita app</string>
     <string name="clock_click_app">Aplicativo de relógio</string>
@@ -32,6 +34,7 @@
     <string name="_6" translatable="false">6</string>
     <string name="_7" translatable="false">7</string>
     <string name="_8" translatable="false">8</string>
+    <string name="commit">Commit</string>
     <string name="app_drawer_tips">Dica: Deslize para baixo para dispensar. Scroll para ocultar o teclado.</string>
     <string name="okay">Okay</string>
     <string name="double_tap_lock_is_enabled_message">Se o bloqueio de toque duplo desativar a impressão digital ou o desbloqueio facial, abra as definições do Olauncher, toque em \'experimental\' e siga as instruções. Obrigado.</string>

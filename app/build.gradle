@@ -106,7 +106,14 @@ dependencies {
     // implementation 'com.google.ar.sceneform:rendering:1.17.1' -- non-free take care if uncommenting
 
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
-    implementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    def androidx_test_espresso = "3.4.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidx_test_espresso"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:$androidx_test_espresso"
+    implementation "androidx.test.espresso:espresso-idling-resource:$androidx_test_espresso"
+    implementation "androidx.test.espresso:espresso-idling-resource:3.4.0"
+
 
     // Test rules and transitive dependencies:
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:1.1.1")

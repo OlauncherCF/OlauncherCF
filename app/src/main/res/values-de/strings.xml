@@ -23,7 +23,7 @@
     <string name="swipe_right_app">App öffen (rechts wischen)</string>
     <string name="clock_click_app">App öffnen (Tippen auf Uhr)</string>
     <string name="date_click_app">App öffnen (Tippen auf Datum)</string>
-    <string name="app_drawer_tips">Tipp! Verwerfen: nach unten wischen. Tastatur ausblenden: scrollen.</string>
+    <string name="app_drawer_tips">Tipp! Zurück: nach unten wischen. Tastatur ausblenden: scrollen.</string>
     <string name="okay">OK</string>
     <string name="double_tap_lock_is_enabled_message">Wenn Doppeltippen das Entsperren mittels Fingerabdruck oder Gesicht deaktiviert: Olauncher-Einstellungen öffnen, auf \‘experimentell\' tippen und Anweisungen befolgen. Danke!</string>
     <string name="triple_tap_lock_message">So geht es:

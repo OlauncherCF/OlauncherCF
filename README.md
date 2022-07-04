@@ -57,8 +57,8 @@ _(Renaming apps on the home screen is already supported. Just long-click on an a
 **Olauncher CF is under open source GPL3 license, meaning you can use, study, change and share it at will.**  
 Copyleft ensures it stays that way. From the full source, anyone can build, fork and use as you wish
 
-* Olauncher does not have network access.
-* Olauncher does not transmit any data in any way whatsoever.
+* Olauncher CF does not have network access.
+* Olauncher CF does not transmit any data in any way whatsoever.
 
 Olauncher CF may request permissions necessary for certain functionalities,  
 without however requiring them (for its basic operation); here they are explained:

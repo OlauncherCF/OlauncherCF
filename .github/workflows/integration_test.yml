@@ -53,7 +53,7 @@ jobs:
           disable-animations: true
           arch: 'x86_64'
           profile: Nexus 6
-          target: google_apis or playstore
+          target: google_apis
           # script: ./gradlew connectedAndroidTest --stacktrace
           script: ./gradlew connectedCheck
 

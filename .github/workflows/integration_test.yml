@@ -52,8 +52,8 @@ jobs:
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
           arch: 'x86_64'
-          target: google_apis
           profile: Nexus 6
+          target: google_apis or playstore
           # script: ./gradlew connectedAndroidTest --stacktrace
           script: ./gradlew connectedCheck
 

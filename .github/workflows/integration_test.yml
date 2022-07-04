@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         # api-level: [23, 29, 32]
-        api-level: [32]
+        api-level: [29]
     steps:
       - name: checkout
         uses: actions/checkout@v3

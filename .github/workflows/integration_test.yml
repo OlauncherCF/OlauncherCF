@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         # api-level: [23, 29, 32]

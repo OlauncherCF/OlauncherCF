@@ -61,7 +61,7 @@ Olauncher CF may request permissions necessary for certain functionalities,
 without however requiring them (for its basic operation); here they are explained:
 
 `android.permission.EXPAND_STATUS_BAR` --> Allows an application to expand or collapse the status bar.
-`android.permission.QUERY_ALL_PACKAGES` --> Allows query of any normal app on the device, regardless of manifest declarations. 
-`android.alarm.permission.SET_ALARM` --> Allows an application to broadcast an Intent to set an alarm for the user.
+`android.permission.QUERY_ALL_PACKAGES` --> Allows query of any normal app on the device, regardless of manifest declarations. Used to show the apps list
+`android.alarm.permission.SET_ALARM` --> Allows an application to broadcast an Intent to set an alarm for the user. Used to open the default alarm app if no other clock app is set in the settings.
 
 

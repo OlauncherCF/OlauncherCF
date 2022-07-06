@@ -57,8 +57,7 @@ Copyleft ensures it stays that way. From the full source, anyone can build, fork
 * Olauncher CF does not have network access.
 * Olauncher CF does not transmit any data in any way whatsoever.
 
-Olauncher CF may request permissions necessary for certain functionalities,  
-without however requiring them (for its basic operation); here they are explained:
+Olauncher CF uses the following permissions:
 
 - `android.permission.EXPAND_STATUS_BAR`
 	- Allows an application to expand or collapse the status bar.

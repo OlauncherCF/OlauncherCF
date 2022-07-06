@@ -54,8 +54,8 @@ jobs:
           arch: 'x86_64'
           profile: Nexus 6
           target: google_apis
-          # script: ./gradlew connectedAndroidTest --stacktrace
-          script: ./gradlew connectedCheck
+          script: ./gradlew connectedAndroidTest --stacktrace
+          # script: ./gradlew connectedCheck
 
 # jobs:
 #   test:

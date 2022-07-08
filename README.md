@@ -1,19 +1,22 @@
 <h1 align="center">Olauncher | Minimal CF</h1>
 </p><h3 align="center">Olauncher is a minimal CF launcher app for Android. CF stands for clutter free. :)</h3>
+
+<h1 align="center">Olauncher Fork. Minimal and clutter free</h1>  
+</p><h3 align="center">Olauncher is a minimal app launcher for Android. We try to balance customizability and clutter :)</h3>  
+
+
 <img src="https://github.com/jooooscha/Olauncher/blob/409073e46228fcf4285f62f7ac0314fdf9eee97e/art/Header.png" width="1000">
 
 # Forked with extra features
 
-- Removed clutter
-- Does not require network permission
-- Rename applications in apps drawer
-_(Renaming apps on the home screen is already supported. Just long-click on an app on the home screen and start typing)_
-- Change calendar app
-- Change clock app
-- Change clock alignment
-- Change app drawer alignment
-- Resizable font precisely
-- Multilingual support:
+- Removed clutter, like ads and links
+- You can rename apps in the app-drawer _(Renaming apps on the home screen is already supported. Just long-click on an app on the home screen and start typing)_
+- Ability to change the app when clicking on the clock
+- Ability to change the app when clicking on the date
+- Align clock independently of home apps
+- Change alignment of apps in app-drawer
+- Change font size
+- A lot of people have translated the app to the following languages. Many thanks to you ❤️
   - Chinese
   - English
   - French
@@ -26,6 +29,8 @@ _(Renaming apps on the home screen is already supported. Just long-click on an a
   - Spanish
   - Swedish
   - Turkish
+- Removed internet permission
+
 
 ## Installation
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"

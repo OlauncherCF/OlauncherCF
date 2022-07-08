@@ -1,6 +1,3 @@
-<h1 align="center">Olauncher | Minimal CF</h1>
-</p><h3 align="center">Olauncher is a minimal CF launcher app for Android. CF stands for clutter free. :)</h3>
-
 <h1 align="center">Olauncher Fork. Minimal and clutter free</h1>  
 </p><h3 align="center">Olauncher is a minimal app launcher for Android. We try to balance customizability and clutter :)</h3>  
 

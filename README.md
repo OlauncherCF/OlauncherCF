@@ -26,6 +26,7 @@ _(Renaming apps on the home screen is already supported. Just long-click on an a
   - German
   - Greek
   - Italian
+  - Korean
   - Persian
   - Portuguese (European)
   - Spanish

@@ -3,7 +3,7 @@
 </p><h3 align="center">Olauncher is a minimal CF launcher app for Android. CF stands for clutter free. :)</h3>  
 
 
-<img src="https://github.com/jooooscha/Olauncher/blob/0ec66d40535002fff54852f3b2fd13d1735531c2/art/S20%20Ultra%20Presentation.png" width="1000">
+<img src="https://github.com/jooooscha/Olauncher/blob/f15b56d3d983e144a4308653855f0b12020cd63a/art/Header.png" width="1000">
 
 
 

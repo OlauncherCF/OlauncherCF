@@ -1,8 +1,8 @@
     <a href="https://f-droid.org/packages/app.olauncher/">Olauncher</a> 의 파생 버전입니다
-    왜냐하면 원본 버전이 어수선해졌기 때문입니다.
+    왜냐하면 원본 버전이 난잡해졌기 때문입니다
 
     Also added some features
-    * 어수선한 기능 제거
+    * 난잡한 기능 제거
     * 앱 리스트에서 앱 이름 변경
     * 시계 앱 변경
     * 달력 앱 변경

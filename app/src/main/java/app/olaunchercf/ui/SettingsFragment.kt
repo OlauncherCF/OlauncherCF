@@ -92,7 +92,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         // observer
         Column {
             SettingsArea(
-                title = "Appearance",
+                title = stringResource(R.string.appearance),
                 arrayOf(
                     { open, onChange ->
                         SettingsNumberItem(
@@ -121,10 +121,17 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     },
                     { _, onChange ->
                         SettingsToggle(
-                            title = stringResource(R.string.show_date_time),
+                            title = stringResource(R.string.show_time),
                             onChange = onChange,
-                            state = remember { mutableStateOf(prefs.showDateTime) }
-                        ) { toggleDateTime() }
+                            state = remember { mutableStateOf(prefs.showTime) }
+                        ) { toggleShowTime() }
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.show_date),
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.showDate) }
+                        ) { toggleShowDate() }
                     },
                     { open, onChange ->
                         SettingsItem(
@@ -189,7 +196,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     }
                 )
             )
-            SettingsArea(title = "Gestures",
+            SettingsArea(title = stringResource(R.string.gestures),
                 arrayOf(
                     { _, _ ->
                         SettingsAppSelector(
@@ -315,9 +322,14 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         }
     }
 
-    private fun toggleDateTime() {
-        prefs.showDateTime = !prefs.showDateTime
-        viewModel.toggleDateTime(prefs.showDateTime)
+    private fun toggleShowDate() {
+        prefs.showDate = !prefs.showDate
+        viewModel.setShowDate(prefs.showDate)
+    }
+
+    private fun toggleShowTime() {
+        prefs.showTime = !prefs.showTime
+        viewModel.setShowTime(prefs.showTime)
     }
 
     private fun showStatusBar() {
@@ -409,14 +421,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     private fun setLang(lang_int: Constants.Language) {
 
         prefs.language = lang_int
-
-        // restart activity
-        activity?.let {
-            val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            it.startActivity(intent)
-            it.finish()
-        }
+        requireActivity().recreate()
     }
     private fun setTextSize(size: Int) {
         prefs.textSize = size

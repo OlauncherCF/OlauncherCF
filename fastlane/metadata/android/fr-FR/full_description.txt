@@ -9,12 +9,12 @@
      * Prise en charge multilingue:
        * Allemand
        * Anglais
-	     * Chinois
-	     * Espagnol
+       * Chinois
+       * Espagnol
        * Français
        * Grec
        * Italien
-	     * persan
-	     * Portugais (européen)
+       * Persan
+       * Portugais (européen)
        * Suédois
        * Turc

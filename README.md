@@ -1,18 +1,12 @@
-
-<h1 align="center">Olauncher | Minimal CF</h1>  
-</p><h3 align="center">Olauncher is a minimal CF launcher app for Android. CF stands for clutter free. :)</h3>  
-
-
-<img src="https://github.com/jooooscha/Olauncher/blob/f15b56d3d983e144a4308653855f0b12020cd63a/art/Header.png" width="1000">
-
-
-
+<h1 align="center">Olauncher | Minimal CF</h1>
+</p><h3 align="center">Olauncher is a minimal CF launcher app for Android. CF stands for clutter free. :)</h3>
+<img src="https://github.com/jooooscha/Olauncher/blob/409073e46228fcf4285f62f7ac0314fdf9eee97e/art/Header.png" width="1000">
 
 # Forked with extra features
 
 - Removed clutter
 - Does not require network permission
-- Rename applications in apps drawer  
+- Rename applications in apps drawer
 _(Renaming apps on the home screen is already supported. Just long-click on an app on the home screen and start typing)_
 - Change calendar app
 - Change clock app
@@ -31,8 +25,7 @@ _(Renaming apps on the home screen is already supported. Just long-click on an a
   - Portuguese (European)
   - Spanish
   - Swedish
-  - Turkish 
-
+  - Turkish
 
 ## Installation
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
@@ -54,7 +47,7 @@ _(Renaming apps on the home screen is already supported. Just long-click on an a
 
 ## Licence
 
-**Olauncher CF is under open source GPL3 license, meaning you can use, study, change and share it at will.**  
+**Olauncher CF is under open source GPL3 license, meaning you can use, study, change and share it at will.**
 Copyleft ensures it stays that way. From the full source, anyone can build, fork and use as you wish
 
 * Olauncher CF does not have network access.
@@ -70,5 +63,3 @@ Olauncher CF uses the following permissions:
 	- Allows query of any normal app on the device, regardless of manifest declarations. Used to show the apps list.
 - `android.alarm.permission.SET_ALARM`
 	- Allows an application to broadcast an Intent to set an alarm for the user. Used to open the default alarm app if no other clock app is set in the settings.
-
-

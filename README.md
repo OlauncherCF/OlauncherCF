@@ -14,8 +14,10 @@
 - Does not require network permission
 - Rename applications in apps drawer  
 _(Renaming apps on the home screen is already supported. Just long-click on an app on the home screen and start typing)_
-- Change clock app
 - Change calendar app
+- Change clock app
+- Change clock alignment
+- Change app drawer alignment
 - Resizable font precisely
 - Multilingual support:
   - Chinese

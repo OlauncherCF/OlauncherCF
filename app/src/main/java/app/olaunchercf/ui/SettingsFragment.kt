@@ -13,20 +13,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.WindowInsets
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -44,12 +36,12 @@ import app.olaunchercf.helper.openAppInfo
 import app.olaunchercf.helper.showToastLong
 import app.olaunchercf.helper.showToastShort
 import app.olaunchercf.listener.DeviceAdmin
-import app.olaunchercf.ui.compose.SettingsComposable
-import app.olaunchercf.ui.compose.SettingsComposable.SettingsAppSelector
+import app.olaunchercf.ui.compose.SettingsComposable.AppItem
+import app.olaunchercf.ui.compose.SettingsComposable.ColorItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsArea
-import app.olaunchercf.ui.compose.SettingsComposable.SettingsItem
-import app.olaunchercf.ui.compose.SettingsComposable.SettingsNumberItem
-import app.olaunchercf.ui.compose.SettingsComposable.SettingsToggle
+import app.olaunchercf.ui.compose.SettingsComposable.ListItem
+import app.olaunchercf.ui.compose.SettingsComposable.NumberItem
+import app.olaunchercf.ui.compose.SettingsComposable.ToggleItem
 
 class SettingsFragment : Fragment(), View.OnClickListener {
 
@@ -95,7 +87,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                 title = stringResource(R.string.appearance),
                 arrayOf(
                     { open, onChange ->
-                        SettingsNumberItem(
+                        NumberItem(
                             title = stringResource(R.string.apps_on_home_screen),
                             open = open,
                             onChange = onChange,
@@ -106,35 +98,35 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         )
                     },
                     { _, onChange ->
-                        SettingsToggle(
+                        ToggleItem(
                             title = stringResource(R.string.auto_show_keyboard),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.autoShowKeyboard) },
                         ) { toggleKeyboardText() }
                     },
                     { _, onChange ->
-                        SettingsToggle(
+                        ToggleItem(
                             title = stringResource(R.string.status_bar),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.showStatusBar) },
                         ) { toggleStatusBar() }
                     },
                     { _, onChange ->
-                        SettingsToggle(
+                        ToggleItem(
                             title = stringResource(R.string.show_time),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.showTime) }
                         ) { toggleShowTime() }
                     },
                     { _, onChange ->
-                        SettingsToggle(
+                        ToggleItem(
                             title = stringResource(R.string.show_date),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.showDate) }
                         ) { toggleShowDate() }
                     },
                     { open, onChange ->
-                        SettingsItem(
+                        ListItem(
                             title = stringResource(R.string.home_alignment),
                             open = open,
                             onChange = onChange,
@@ -144,7 +136,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         )
                     },
                     { open, onChange ->
-                        SettingsItem(
+                        ListItem(
                             title = stringResource(R.string.clock_alignment),
                             open = open,
                             onChange = onChange,
@@ -154,7 +146,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         )
                     },
                     { open, onChange ->
-                        SettingsItem(
+                        ListItem(
                             title = stringResource(R.string.drawer_alignment),
                             open = open,
                             onChange = onChange,
@@ -164,7 +156,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         )
                     },
                     { open, onChange ->
-                        SettingsItem(
+                        ListItem(
                             title = stringResource(R.string.theme_mode),
                             open = open,
                             onChange = onChange,
@@ -174,7 +166,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         )
                     },
                     { open, onChange ->
-                        SettingsItem(
+                        ListItem(
                             open = open,
                             onChange = onChange,
                             title = stringResource(R.string.app_language),
@@ -184,7 +176,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         )
                     },
                     { open, onChange ->
-                        SettingsNumberItem(
+                        NumberItem(
                             title = stringResource(R.string.app_text_size),
                             open = open,
                             onChange = onChange,
@@ -193,41 +185,49 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             max = Constants.TEXT_SIZE_MAX,
                             onSelect = { f -> setTextSize(f) }
                         )
+                    },
+                    { open, _ ->
+                        ColorItem(
+                            title = stringResource(R.string.foreground_color),
+                            buttonText = "Color",
+                            colors = arrayOf(Color.White, Color.Black, Color.Red),
+                            open = open,
+                        )
                     }
                 )
             )
             SettingsArea(title = stringResource(R.string.gestures),
                 arrayOf(
                     { _, _ ->
-                        SettingsAppSelector(
+                        AppItem(
                             title = stringResource(R.string.swipe_left_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameSwipeLeft) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP) }
                         )
                     },
                     { _, _ ->
-                        SettingsAppSelector(
+                        AppItem(
                             title = stringResource(R.string.swipe_right_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameSwipeRight) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP) }
                         )
                     },
                     { _, _ ->
-                        SettingsAppSelector(
+                        AppItem(
                             title = stringResource(R.string.clock_click_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameClickClock) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_CLOCK_APP) }
                         )
                     },
                     { _, _ ->
-                        SettingsAppSelector(
+                        AppItem(
                             title = stringResource(R.string.date_click_app),
                             currentSelection = remember { mutableStateOf(prefs.appNameClickDate) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_DATE_APP) }
                         )
                     },
                     { _, onChange ->
-                        SettingsToggle(
+                        ToggleItem(
                             title = stringResource(R.string.double_tap_to_lock_screen),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.lockModeOn) }

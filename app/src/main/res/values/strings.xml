@@ -18,6 +18,7 @@
     <string name="left">Left</string>
     <string name="right">Right</string>
     <string name="center">Center</string>
+    <string name="foreground_color">Foreground color</string>
     <string name="home_alignment">App alignment</string>
     <string name="clock_alignment">Clock alignment</string>
     <string name="drawer_alignment">App drawer alignment</string>

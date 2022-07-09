@@ -4,8 +4,10 @@ import SettingsTheme
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Text
 import androidx.compose.material.TextButton
@@ -16,19 +18,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import app.olaunchercf.R
 import app.olaunchercf.data.EnumOption
 import app.olaunchercf.style.CORNER_RADIUS
+import app.olaunchercf.ui.compose.Selector.ListSelector
+import app.olaunchercf.ui.compose.Selector.NumberSelector
 
 object SettingsComposable {
     @Composable
@@ -67,26 +68,29 @@ object SettingsComposable {
     }
 
     @Composable
-    fun SettingsToggle(
+    fun ToggleItem(
         title: String,
         state: MutableState<Boolean>,
         onChange: (Boolean) -> Unit,
         onToggle: () -> Unit
     ) {
         val buttonText = if (state.value) stringResource(R.string.on) else stringResource(R.string.off)
-        SettingsRow(
+        Entry(
             title = title,
             onClick = {
                 onChange(false)
                 state.value = !state.value
                 onToggle()
             },
-            buttonText = buttonText
-        )
+            buttonText = buttonText,
+            open = remember { mutableStateOf(false) }
+        ) {
+
+        }
     }
 
     @Composable
-    fun <T: EnumOption> SettingsItem(
+    fun <T: EnumOption> ListItem(
         title: String,
         currentSelection: MutableState<T>,
         values: Array<T>,
@@ -94,7 +98,12 @@ object SettingsComposable {
         onChange: (Boolean) -> Unit,
         onSelect: (T) -> Unit,
     ) {
-        if (open.value) {
+        Entry(
+            title = title,
+            onClick = { onChange(true) },
+            buttonText = currentSelection.value.string(),
+            open = open,
+        ) {
             Box(
                 modifier = Modifier
                     .pointerInput(Unit) {
@@ -108,23 +117,17 @@ object SettingsComposable {
                         }
                     }
             ) {
-                SettingsSelector(values) { i ->
+                ListSelector(values) { i ->
                     onChange(false)
                     currentSelection.value = i
                     onSelect(i)
                 }
             }
-        } else {
-            SettingsRow(
-                title = title,
-                onClick = { onChange(true) },
-                buttonText = currentSelection.value.string()
-            )
         }
     }
 
     @Composable
-    fun SettingsNumberItem(
+    fun NumberItem(
         title: String,
         currentSelection: MutableState<Int>,
         min: Int,
@@ -133,8 +136,13 @@ object SettingsComposable {
         onChange: (Boolean) -> Unit,
         onSelect: (Int) -> Unit
     ) {
-        if (open.value) {
-            SettingsNumberSelector(
+        Entry (
+            title = title,
+            buttonText = currentSelection.value.toString(),
+            open = open,
+            onClick = { onChange(true) }
+        ) {
+            NumberSelector(
                 number = currentSelection,
                 min = min,
                 max = max,
@@ -143,157 +151,88 @@ object SettingsComposable {
                 currentSelection.value = i
                 onSelect(i)
             }
-        } else {
-            SettingsRow(
-                title = title,
-                onClick = { onChange(true) },
-                buttonText = currentSelection.value.toString()
+        }
+    }
+
+    @Composable
+    fun ColorItem(
+        title: String,
+        buttonText: String,
+        colors: Array<Color>,
+        open: MutableState<Boolean>,
+        onSelect: (Int) -> Unit
+    ) {
+        Entry(
+            title = title,
+            buttonText = buttonText,
+            open = open,
+        ) {
+            Selector.ColorSelector(
+                colors = colors,
+                onSelect = {  }
             )
         }
     }
 
     @Composable
-    fun SettingsAppSelector(
+    fun AppItem(
         title: String,
         currentSelection: MutableState<String>,
         onClick: () -> Unit,
     ) {
-        SettingsRow(
+        Entry(
             title = title,
+            buttonText = currentSelection.value,
             onClick = onClick,
-            buttonText = currentSelection.value
-        )
+            open = remember { mutableStateOf(false) },
+        ) {
+
+        }
     }
 
     @Composable
-    private fun SettingsRow(
+    internal fun Entry(
         title: String,
-        onClick: () -> Unit,
         buttonText: String,
+        open: MutableState<Boolean>,
+        onClick: () -> Unit,
+        openView: @Composable () -> Unit,
     ) {
-        ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
-
-            val (text, button) = createRefs()
-
-            Box(
-                modifier = Modifier
-                    .constrainAs(text) {
-                        start.linkTo(parent.start)
-                        end.linkTo(button.start)
-                        top.linkTo(parent.top)
-                        bottom.linkTo(parent.bottom)
-                        width = Dimension.fillToConstraints
-                    },
-            ) {
-                Text(
-                    title,
-                    style = SettingsTheme.typography.item,
-                modifier = Modifier.align(Alignment.CenterStart)
-                )
-            }
-
-            TextButton(
-                onClick = onClick,
-                modifier = Modifier.constrainAs(button) {
-                    end.linkTo(parent.end)
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                },
-            ) {
-                Text(
-                    text = buttonText,
-                    style = SettingsTheme.typography.button
-                )
-            }
-        }
-    }
-
-    @Composable
-    private fun <T: EnumOption> SettingsSelector(options: Array<T>, onSelect: (T) -> Unit) {
-        Box(
-            modifier = Modifier
-                .background(SettingsTheme.color.selector, SettingsTheme.shapes.settings)
-                .fillMaxWidth()
-        ) {
-            LazyRow(
-                modifier = Modifier
-                    .align(Alignment.CenterEnd),
-                horizontalArrangement = Arrangement.SpaceEvenly
-            )
-            {
-                for (opt in options) {
-                    item {
-                        TextButton(
-                            onClick = { onSelect(opt) },
-                        ) {
-                            Text(
-                                text = opt.string(),
-                                style = SettingsTheme.typography.button
-                            )
-                        }
-                    }
+        if (open.value) {
+            openView()
+        } else {
+            ConstraintLayout(modifier = Modifier.fillMaxWidth()) {
+                val (text, button) = createRefs()
+                Box(
+                    modifier = Modifier
+                        .constrainAs(text) {
+                            start.linkTo(parent.start)
+                            end.linkTo(button.start)
+                            top.linkTo(parent.top)
+                            bottom.linkTo(parent.bottom)
+                            width = Dimension.fillToConstraints
+                        },
+                ) {
+                    Text(
+                        title,
+                        style = SettingsTheme.typography.item,
+                    modifier = Modifier.align(Alignment.CenterStart)
+                    )
                 }
-            }
-        }
-    }
 
-    @Composable
-    private fun SettingsNumberSelector(
-        number: MutableState<Int>,
-        min: Int,
-        max: Int,
-        onCommit: (Int) -> Unit
-    ) {
-        ConstraintLayout(
-            modifier = Modifier
-                .background(SettingsTheme.color.selector, SettingsTheme.shapes.settings)
-                .fillMaxWidth()
-        ) {
-            val (plus, minus, text, button) = createRefs()
-            TextButton(
-                onClick = { if (number.value < max) number.value += 1 },
-                modifier = Modifier.constrainAs(plus) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(parent.start)
-                    end.linkTo(text.start)
-                },
-            ) {
-                Text("+", style = SettingsTheme.typography.button)
-            }
-            Text(
-                text = number.value.toString(),
-                modifier = Modifier
-                    .fillMaxHeight()
-                    .constrainAs(text) {
+                TextButton(
+                    onClick = onClick,
+                    modifier = Modifier.constrainAs(button) {
+                        end.linkTo(parent.end)
                         top.linkTo(parent.top)
                         bottom.linkTo(parent.bottom)
-                        start.linkTo(plus.end)
-                        end.linkTo(minus.start)
                     },
-                style = SettingsTheme.typography.item,
-            )
-            TextButton(
-                onClick = { if (number.value > min) number.value -= 1 },
-                modifier = Modifier.constrainAs(minus) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(text.end)
-                    end.linkTo(button.start)
-                },
-            ) {
-                Text("-", style = SettingsTheme.typography.button)
-            }
-            TextButton(
-                onClick = { onCommit(number.value) },
-                modifier = Modifier.constrainAs(button) {
-                    top.linkTo(parent.top)
-                    bottom.linkTo(parent.bottom)
-                    start.linkTo(minus.end)
-                    end.linkTo(parent.end)
-                },
-            ) {
-                Text(stringResource(R.string.commit), style = SettingsTheme.typography.button)
+                ) {
+                    Text(
+                        text = buttonText,
+                        style = SettingsTheme.typography.button
+                    )
+                }
             }
         }
     }

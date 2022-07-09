@@ -46,7 +46,8 @@
     <string name="hide">숨기기</string>
     <string name="status_bar">상태 표시줄 보여주기</string>
     <string name="rename">이름 변경</string>
-    <string name="show_date_time">날짜와 시간 보여주기</string>
+    <string name="show_time">시간 보여주기</string>
+    <string name="show_date">날짜 보여주기</string>
     <string name="appearance">외관</string>
     <string name="gestures">제스처</string>
     <string name="theme_mode">테마 모드</string>

@@ -179,6 +179,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         binding.dateTimeLayout.gravity = gravity
     }
 
+    @SuppressLint("RtlHardcoded")
     private fun setHomeAlignment(gravity_const: Constants.Gravity) {
         val gravity = when(gravity_const) {
             Constants.Gravity.Left -> Gravity.LEFT

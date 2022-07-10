@@ -87,6 +87,8 @@ dependencies {
 
     // Tooling support (Previews, etc.)
     implementation 'androidx.compose.ui:ui-tooling:1.1.1'
+    implementation("androidx.navigation:navigation-compose:2.5.0")
+
     // Integration with ViewModels
     implementation 'androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1'
     implementation 'com.google.ar.sceneform:rendering:1.17.1'

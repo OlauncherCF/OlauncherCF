@@ -1,5 +1,7 @@
 package app.olaunchercf.ui
 
+import SettingsTheme
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -11,20 +13,36 @@ import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.isVisible
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import app.olaunchercf.MainViewModel
 import app.olaunchercf.R
 import app.olaunchercf.data.AppModel
-import app.olaunchercf.data.Constants
+import app.olaunchercf.data.Constants.Gravity.*
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentAppDrawerBinding
+import app.olaunchercf.helper.getAppsList
 import app.olaunchercf.helper.openAppInfo
+import app.olaunchercf.ui.compose.AppDrawer.App
+import app.olaunchercf.ui.compose.AppDrawer.Search
+import androidx.compose.runtime.*
+import androidx.core.view.isVisible
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import app.olaunchercf.data.Constants
 
 class AppDrawerFragment : Fragment() {
 
@@ -36,11 +54,48 @@ class AppDrawerFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // return inflater.inflate(R.layout.fragment_app_drawer, container, false)
         _binding = FragmentAppDrawerBinding.inflate(inflater, container, false)
         return binding.root
     }
 
+    @Composable
+    fun AppDrawer(
+        apps: List<AppModel>,
+        viewModel: MainViewModel,
+    ) {
+
+        ConstraintLayout(
+
+        ) {
+            val (search, list) = createRefs()
+
+            Search(
+                modifier = Modifier
+                    .constrainAs(search) {
+                        top.linkTo(parent.top)
+                    }
+                    .fillMaxWidth()
+            )
+
+            LazyColumn(
+                modifier = Modifier
+                    .constrainAs(list) {
+                        top.linkTo(search.bottom)
+                    }
+                    .fillMaxSize()
+            ) {
+                for (app in apps) {
+                    item{
+                        App(app.appLabel) {
+                            viewModel.selectedApp(app, Constants.FLAG_LAUNCH_APP, 0)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @SuppressLint("RtlHardcoded")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -50,35 +105,35 @@ class AppDrawerFragment : Fragment() {
         if (rename) binding.appRename.setOnClickListener { renameListener(flag, n) }
 
         val viewModel = activity?.run {
-            ViewModelProvider(this).get(MainViewModel::class.java)
+            ViewModelProvider(this)[MainViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
         val gravity = when(Prefs(requireContext()).drawerAlignment) {
-            Constants.Gravity.Left -> Gravity.LEFT
-            Constants.Gravity.Center -> Gravity.CENTER
-            Constants.Gravity.Right -> Gravity.RIGHT
+            Left -> Gravity.LEFT
+            Center -> Gravity.CENTER
+            Right -> Gravity.RIGHT
         }
 
-        val appAdapter = AppDrawerAdapter(
+       /*val appAdapter = AppDrawerAdapter(
             flag,
             gravity,
             appClickListener(viewModel, flag, n),
             appInfoListener(),
             appShowHideListener(),
             appRenameListener()
-        )
+        )*/
 
         val searchTextView = binding.search.findViewById<TextView>(R.id.search_src_text)
         if (searchTextView != null) searchTextView.gravity = gravity
 
-        initViewModel(flag, viewModel, appAdapter)
+        initViewModel(flag, viewModel)
 
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = appAdapter
+        //binding.recyclerView.adapter = appAdapter
         binding.recyclerView.addOnScrollListener(getRecyclerViewOnScrollListener())
 
         if (flag == Constants.FLAG_HIDDEN_APPS) binding.search.queryHint = "Hidden apps"
-        binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        /*binding.search.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 appAdapter.launchFirstInList()
                 return false
@@ -91,17 +146,21 @@ class AppDrawerFragment : Fragment() {
                 }
                 return false
             }
-        })
+        })*/
     }
 
-    private fun initViewModel(flag: Int, viewModel: MainViewModel, appAdapter: AppDrawerAdapter) {
+    private fun initViewModel(flag: Int, viewModel: MainViewModel) {
         viewModel.hiddenApps.observe(viewLifecycleOwner, Observer {
             if (flag != Constants.FLAG_HIDDEN_APPS) return@Observer
             if (it.isNullOrEmpty()) {
                 findNavController().popBackStack()
                 return@Observer
             }
-            populateAppList(it, appAdapter)
+            binding.appDrawerView?.setContent {
+                SettingsTheme(false) {
+                    AppDrawer(it, viewModel)
+                }
+            }
         })
 
         viewModel.appList.observe(viewLifecycleOwner, Observer {
@@ -110,8 +169,12 @@ class AppDrawerFragment : Fragment() {
                 findNavController().popBackStack()
                 return@Observer
             }
-            if (it == appAdapter.appsList) return@Observer
-            populateAppList(it, appAdapter)
+            // if (it == appAdapter.appsList) return@Observer
+            binding.appDrawerView?.setContent {
+                SettingsTheme(false) {
+                    AppDrawer(it, viewModel)
+                }
+            }
         })
 
         viewModel.firstOpen.observe(viewLifecycleOwner) {

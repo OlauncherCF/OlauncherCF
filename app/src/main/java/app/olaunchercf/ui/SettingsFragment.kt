@@ -73,7 +73,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.testView.setContent {
+        binding.settingsView.setContent {
 
             val isDark = when (prefs.appTheme) {
                 Light -> false

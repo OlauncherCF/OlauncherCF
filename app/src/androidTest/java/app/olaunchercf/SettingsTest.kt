@@ -1,21 +1,19 @@
 package app.olaunchercf
 
-import android.content.Context
 import android.content.SharedPreferences
-import androidx.compose.ui.test.*
+import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.performClick
 import androidx.navigation.Navigation.findNavController
-import androidx.navigation.fragment.findNavController
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.*
-import app.olaunchercf.R.string.app
+import androidx.test.espresso.matcher.ViewMatchers.hasChildCount
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Constants.PREFS_FILENAME
-import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -51,6 +49,12 @@ class SettingsTest {
             Espresso.pressBack()
             onView(withId(R.id.homeAppsLayout)).check(matches(hasChildCount(i+1)))
         }
+    }
+
+    @Test
+    fun testAlignment() {
+        goToSettings()
+        composeTestRule.onAllNodesWithText("left")
     }
 
     private fun goToSettings() {

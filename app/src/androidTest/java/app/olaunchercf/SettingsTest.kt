@@ -1,17 +1,16 @@
 package app.olaunchercf
 
 import android.content.SharedPreferences
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onNodeWithText
-import androidx.compose.ui.test.performClick
 import androidx.navigation.Navigation.findNavController
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.longClick
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.hasChildCount
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Constants.PREFS_FILENAME
 import org.junit.Before
@@ -51,11 +50,10 @@ class SettingsTest {
         }
     }
 
-    @Test
-    fun testAlignment() {
-        goToSettings()
-        composeTestRule.onAllNodesWithText("left")
-    }
+    /*@Test
+    fun testHomeApps() {
+        onView(withId(0)).perform(longClick())
+    }*/
 
     private fun goToSettings() {
         composeTestRule.activityRule.scenario.onActivity {
@@ -65,7 +63,7 @@ class SettingsTest {
     }
 
     private fun increaseAppNumber(i: Int) {
-        composeTestRule.onAllNodesWithText(i.toString())[0].performClick()
+        composeTestRule.onNode(hasAnySibling(hasText("Apps on home screen"))).performClick()
         composeTestRule.onNodeWithText("+").assertIsDisplayed().performClick()
         composeTestRule.onNodeWithText("Commit").assertIsDisplayed().performClick()
         composeTestRule.onAllNodesWithText((i+1).toString())[0].assertIsDisplayed()

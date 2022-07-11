@@ -30,6 +30,7 @@ import app.olaunchercf.data.EnumOption
 import app.olaunchercf.style.CORNER_RADIUS
 import app.olaunchercf.ui.compose.Selector.ListSelector
 import app.olaunchercf.ui.compose.Selector.NumberSelector
+import app.olaunchercf.ui.compose.Selector.ColorSelector
 
 object SettingsComposable {
     @Composable
@@ -71,14 +72,14 @@ object SettingsComposable {
     fun ToggleItem(
         title: String,
         state: MutableState<Boolean>,
-        onChange: (Boolean) -> Unit,
+        onClick: (Boolean) -> Unit,
         onToggle: () -> Unit
     ) {
         val buttonText = if (state.value) stringResource(R.string.on) else stringResource(R.string.off)
         Entry(
             title = title,
             onClick = {
-                onChange(false)
+                onClick(false)
                 state.value = !state.value
                 onToggle()
             },
@@ -95,12 +96,12 @@ object SettingsComposable {
         currentSelection: MutableState<T>,
         values: Array<T>,
         open: MutableState<Boolean>,
-        onChange: (Boolean) -> Unit,
-        onSelect: (T) -> Unit,
+        onClick: (Boolean) -> Unit,
+        onSelectItem: (T) -> Unit,
     ) {
         Entry(
             title = title,
-            onClick = { onChange(true) },
+            onClick = { onClick(true) },
             buttonText = currentSelection.value.string(),
             open = open,
         ) {
@@ -108,19 +109,19 @@ object SettingsComposable {
                 modifier = Modifier
                     .pointerInput(Unit) {
                         detectTapGestures {
-                            onChange(false)
+                            onClick(false)
                         }
                     }
                     .onFocusEvent {
                         if (it.isFocused) {
-                            onChange(false)
+                            onClick(false)
                         }
                     }
             ) {
                 ListSelector(values) { i ->
-                    onChange(false)
+                    onClick(false)
                     currentSelection.value = i
-                    onSelect(i)
+                    onSelectItem(i)
                 }
             }
         }
@@ -133,23 +134,23 @@ object SettingsComposable {
         min: Int,
         max: Int,
         open: MutableState<Boolean>,
-        onChange: (Boolean) -> Unit,
-        onSelect: (Int) -> Unit
+        onClick: (Boolean) -> Unit,
+        onSelectNumber: (Int) -> Unit
     ) {
         Entry (
             title = title,
             buttonText = currentSelection.value.toString(),
             open = open,
-            onClick = { onChange(true) }
+            onClick = { onClick(true) }
         ) {
             NumberSelector(
                 number = currentSelection,
                 min = min,
                 max = max,
             ) { i ->
-                onChange(false)
+                onClick(false)
                 currentSelection.value = i
-                onSelect(i)
+                onSelectNumber(i)
             }
         }
     }
@@ -160,16 +161,23 @@ object SettingsComposable {
         buttonText: String,
         colors: Array<Color>,
         open: MutableState<Boolean>,
-        onSelect: (Int) -> Unit
+        currentSelection: MutableState<Color>,
+        onSelectColor: (Color) -> Unit,
+        onClick: (Boolean) -> Unit,
     ) {
         Entry(
             title = title,
             buttonText = buttonText,
             open = open,
+            onClick = { onClick(true) },
         ) {
-            Selector.ColorSelector(
+            ColorSelector(
                 colors = colors,
-                onSelect = {  }
+                onSelectColor = { color ->
+                    onClick(false)
+                    currentSelection.value = color
+                    onSelectColor(color)
+                }
             )
         }
     }

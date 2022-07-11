@@ -11,6 +11,8 @@ import android.provider.Settings
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.core.os.bundleOf
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -42,6 +44,8 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
         val view = binding.root
         prefs = Prefs(requireContext())
+
+        Log.d("Color", "${Color.White.toArgb()}")
 
         return view
     }

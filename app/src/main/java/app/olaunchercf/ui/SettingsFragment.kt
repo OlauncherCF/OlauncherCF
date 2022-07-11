@@ -90,38 +90,38 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         NumberItem(
                             title = stringResource(R.string.apps_on_home_screen),
                             open = open,
-                            onChange = onChange,
+                            onClick = onChange,
                             currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
                             min = 0,
                             max = Constants.MAX_HOME_APPS,
-                            onSelect = { j -> updateHomeAppsNum(j) }
+                            onSelectNumber = { j -> updateHomeAppsNum(j) }
                         )
                     },
                     { _, onChange ->
                         ToggleItem(
                             title = stringResource(R.string.auto_show_keyboard),
-                            onChange = onChange,
+                            onClick = onChange,
                             state = remember { mutableStateOf(prefs.autoShowKeyboard) },
                         ) { toggleKeyboardText() }
                     },
                     { _, onChange ->
                         ToggleItem(
                             title = stringResource(R.string.status_bar),
-                            onChange = onChange,
+                            onClick = onChange,
                             state = remember { mutableStateOf(prefs.showStatusBar) },
                         ) { toggleStatusBar() }
                     },
                     { _, onChange ->
                         ToggleItem(
                             title = stringResource(R.string.show_time),
-                            onChange = onChange,
+                            onClick = onChange,
                             state = remember { mutableStateOf(prefs.showTime) }
                         ) { toggleShowTime() }
                     },
                     { _, onChange ->
                         ToggleItem(
                             title = stringResource(R.string.show_date),
-                            onChange = onChange,
+                            onClick = onChange,
                             state = remember { mutableStateOf(prefs.showDate) }
                         ) { toggleShowDate() }
                     },
@@ -129,69 +129,72 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                         ListItem(
                             title = stringResource(R.string.home_alignment),
                             open = open,
-                            onChange = onChange,
+                            onClick = onChange,
                             currentSelection = remember { mutableStateOf(prefs.homeAlignment) },
                             values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
-                            onSelect = { j -> viewModel.updateHomeAlignment(j) }
+                            onSelectItem = { j -> viewModel.updateHomeAlignment(j) }
                         )
                     },
                     { open, onChange ->
                         ListItem(
                             title = stringResource(R.string.clock_alignment),
                             open = open,
-                            onChange = onChange,
+                            onClick = onChange,
                             currentSelection = remember { mutableStateOf(prefs.timeAlignment) },
                             values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
-                            onSelect = { j -> viewModel.updateTimeAlignment(j) }
+                            onSelectItem = { j -> viewModel.updateTimeAlignment(j) }
                         )
                     },
                     { open, onChange ->
                         ListItem(
                             title = stringResource(R.string.drawer_alignment),
                             open = open,
-                            onChange = onChange,
+                            onClick = onChange,
                             currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
                             values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
-                            onSelect = { j -> viewModel.updateDrawerAlignment(j) }
+                            onSelectItem = { j -> viewModel.updateDrawerAlignment(j) }
                         )
                     },
                     { open, onChange ->
                         ListItem(
                             title = stringResource(R.string.theme_mode),
                             open = open,
-                            onChange = onChange,
+                            onClick = onChange,
                             currentSelection = remember { mutableStateOf(prefs.appTheme) },
                             values = arrayOf(System, Light, Dark),
-                            onSelect = { j -> setTheme(j) }
+                            onSelectItem = { j -> setTheme(j) }
                         )
                     },
                     { open, onChange ->
                         ListItem(
                             open = open,
-                            onChange = onChange,
+                            onClick = onChange,
                             title = stringResource(R.string.app_language),
                             currentSelection = remember { mutableStateOf(prefs.language) },
                             values = Constants.Language.values(),
-                            onSelect = { j -> setLang(j) }
+                            onSelectItem = { j -> setLang(j) }
                         )
                     },
                     { open, onChange ->
                         NumberItem(
                             title = stringResource(R.string.app_text_size),
                             open = open,
-                            onChange = onChange,
+                            onClick = onChange,
                             currentSelection = remember { mutableStateOf(prefs.textSize) },
                             min = Constants.TEXT_SIZE_MIN,
                             max = Constants.TEXT_SIZE_MAX,
-                            onSelect = { f -> setTextSize(f) }
+                            onSelectNumber = { f -> setTextSize(f) }
                         )
                     },
-                    { open, _ ->
+                    { open, onChange ->
                         ColorItem(
                             title = stringResource(R.string.foreground_color),
                             buttonText = "Color",
                             colors = arrayOf(Color.White, Color.Black, Color.Red),
+                            currentSelection = remember { mutableStateOf(Color.Red) },
                             open = open,
+                            onSelectColor = { c -> setForegroundColor(c)},
+                            onClick = onChange,
                         )
                     }
                 )
@@ -229,7 +232,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     { _, onChange ->
                         ToggleItem(
                             title = stringResource(R.string.double_tap_to_lock_screen),
-                            onChange = onChange,
+                            onClick = onChange,
                             state = remember { mutableStateOf(prefs.lockModeOn) }
                         ) { toggleLockMode() }
                     }
@@ -416,6 +419,10 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         // if (AppCompatDelegate.getDefaultNightMode() == appTheme) return // TODO find out what this did
         prefs.appTheme = appTheme
         requireActivity().recreate()
+    }
+
+    private fun setForegroundColor(c: Color) {
+
     }
 
     private fun setLang(lang_int: Constants.Language) {

@@ -2,8 +2,16 @@ package app.olaunchercf.data
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Color.parseColor
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
 
-class Prefs(context: Context) {
+class Prefs(val context: Context) {
 
     private val APP_LANGUAGE = "app_language"
 
@@ -28,6 +36,7 @@ class Prefs(context: Context) {
     private val HIDDEN_APPS_UPDATED = "HIDDEN_APPS_UPDATED"
     private val SHOW_HINT_COUNTER = "SHOW_HINT_COUNTER"
     private val APP_THEME = "APP_THEME"
+
 
     private val APP_NAME = "APP_NAME"
     private val APP_PACKAGE = "APP_PACKAGE"
@@ -56,7 +65,11 @@ class Prefs(context: Context) {
 
     private val TEXT_SIZE = "text_size"
 
+    private val FOREGROUND_COLOR = stringPreferencesKey("FOREGROUND_COLOR")
+
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
+    val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
+    val Context.ds by preferencesDataStore(name = "hi")
 
     var firstOpen: Boolean
         get() = prefs.getBoolean(FIRST_OPEN, true)
@@ -147,6 +160,16 @@ class Prefs(context: Context) {
             }
         }
         set(value) = prefs.edit().putString(APP_THEME, value.name).apply()
+
+    var foregroundColor: Color
+        set(value) {
+            suspend {
+                context.dataStore.edit { settings ->
+                    settings[FOREGROUND_COLOR] = value
+                }
+            }
+        }
+    get() = Color.White
 
     var language: Constants.Language
         get() {

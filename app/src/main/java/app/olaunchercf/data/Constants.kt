@@ -1,6 +1,16 @@
 package app.olaunchercf.data
 
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ComposeCompilerApi
+import androidx.compose.ui.res.stringResource
+import app.olaunchercf.R
+import app.olaunchercf.data.Constants.toString
 import java.util.*
+
+interface EnumOption {
+    @Composable
+    fun string(): String
+}
 
 object Constants {
 
@@ -24,24 +34,50 @@ object Constants {
     const val TEXT_SIZE_MIN = 16
     const val TEXT_SIZE_MAX = 30
 
-    enum class Language {
+    enum class Language: EnumOption {
         System,
+        Chinese,
         English,
-        Deutsch,
-        Spanish,
         French,
-        Italian,
-        Swedish,
-        Turkish,
+        German,
         Greek,
-        Chinese
+        Indonesian,
+        Italian,
+        Korean,
+        Persian,
+        Portuguese,
+        Russian,
+        Spanish,
+        Swedish,
+        Turkish;
+
+        @Composable
+        override fun string(): String {
+            return when(this) {
+                System -> stringResource(R.string.lang_system)
+                Chinese -> "中国人"
+                English -> "English"
+                French -> "Français"
+                German -> "Deutsch"
+                Greek -> "Ελληνική"
+                Indonesian -> "Bahasa Indonesia"
+                Italian -> "Italiano"
+                Korean -> "조선말"
+                Persian -> "فارسی"
+                Portuguese -> "Português"
+                Russian -> "Русский"
+                Spanish -> "Español"
+                Swedish -> "Svenska"
+                Turkish -> "Türkçe"
+            }
+        }
     }
 
     fun Language.value(): String {
         return when(this) {
             Language.System -> Locale(Locale.getDefault().language).toString()
             Language.English -> "en"
-            Language.Deutsch -> "de"
+            Language.German -> "de"
             Language.Spanish -> "es"
             Language.French -> "fr"
             Language.Italian -> "it"
@@ -49,18 +85,41 @@ object Constants {
             Language.Turkish -> "tr"
             Language.Greek -> "gr"
             Language.Chinese -> "cn"
+            Language.Persian -> "fa"
+            Language.Portuguese -> "pt"
+            Language.Korean -> "ko"
+            Language.Indonesian -> "id"
+            Language.Russian -> "ru"
         }
     }
 
-    enum class Gravity {
+    enum class Gravity: EnumOption {
         Left,
         Center,
-        Right
+        Right;
+
+        @Composable
+        override fun string(): String {
+            return when(this) {
+                Left -> stringResource(R.string.left)
+                Center -> stringResource(R.string.center)
+                Right -> stringResource(R.string.right)
+            }
+        }
     }
 
-    enum class Theme {
+    enum class Theme: EnumOption {
         System,
         Dark,
-        Light
+        Light;
+
+        @Composable
+        override fun string(): String {
+            return when(this) {
+                System -> stringResource(R.string.lang_system)
+                Dark -> stringResource(R.string.dark)
+                Light -> stringResource(R.string.light)
+            }
+        }
     }
 }

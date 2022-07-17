@@ -25,7 +25,6 @@
     <string name="swipe_right_app">Свайпом вправо открыть</string>
     <string name="clock_click_app">Тапом часов открыть</string>
     <string name="date_click_app">Тапом даты открыть</string>
-
     <string name="commit">Применить</string>
     <string name="app_drawer_tips">Совет: Свайпните вниз, чтобы закрыть. Прокрутите, чтобы скрыть клавиатуру.</string>
     <string name="okay">Хорошо</string>

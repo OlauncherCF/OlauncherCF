@@ -116,7 +116,7 @@ object Constants {
         @Composable
         override fun string(): String {
             return when(this) {
-                System -> stringResource(R.string.lang_system)
+                System -> stringResource(R.string.system_default)
                 Dark -> stringResource(R.string.dark)
                 Light -> stringResource(R.string.light)
             }

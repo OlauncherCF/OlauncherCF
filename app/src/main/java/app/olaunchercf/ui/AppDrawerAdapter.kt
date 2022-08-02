@@ -3,9 +3,8 @@ package app.olaunchercf.ui
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.View.inflate
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
@@ -131,6 +130,9 @@ class AppDrawerAdapter(
         private val otherProfileIndicator: ImageView = itemView.otherProfileIndicator
         private val appInfo: ImageView = itemView.appInfo
 
+        private val appView: FrameLayout = itemView.appView
+        private var appTitleView: FrameLayout = itemView.appTitleView
+
         fun bind(
             flag: Int,
             appLabelGravity: Int,
@@ -180,17 +182,32 @@ class AppDrawerAdapter(
                     appModel.appAlias
                 }
 
-                appTitle.gravity = appLabelGravity
+                //appTitle.gravity = appLabelGravity
+                //appTitleView.foregroundGravity = appLabelGravity
+                /*val params = FrameLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    gravity = appLabelGravity
+                }*/
+                appTitleView = LayoutInflater.from(context).inflate(R.id.appTitleView, itemView.rootView as ViewGroup, false)
+                (appTitleView.layoutParams as FrameLayout.LayoutParams).gravity = appLabelGravity
 
                 if (appModel.user == android.os.Process.myUserHandle())
                     otherProfileIndicator.visibility = View.GONE
                 else otherProfileIndicator.visibility = View.VISIBLE
 
-                appTitle.setOnClickListener { listener(appModel) }
+                /*appTitle.setOnClickListener { listener(appModel) }
                 appTitle.setOnLongClickListener {
                     appHideLayout.visibility = View.VISIBLE
                     true
+                }*/
+                appView.setOnClickListener { listener(appModel) }
+                appView.setOnLongClickListener {
+                    appHideLayout.visibility = View.VISIBLE
+                    true
                 }
+
 
                 appInfo.setOnClickListener { appInfoListener(appModel) }
                 appHideLayout.setOnClickListener { appHideLayout.visibility = View.GONE }

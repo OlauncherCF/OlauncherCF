@@ -18,6 +18,7 @@ We try to balance customizability and clutter :)</h3>
 - A lot of people have translated the app to the following languages. Many thanks to you ❤️
   - Chinese
   - English
+  - Estonian
   - French
   - German
   - Greek

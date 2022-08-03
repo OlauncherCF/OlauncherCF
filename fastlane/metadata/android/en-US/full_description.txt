@@ -10,6 +10,7 @@ Forked from <a href="https://f-droid.org/packages/app.olauncher/">Olauncher</a> 
 - A lot of people have translated the app to the following languages. Many thanks to you ❤️
   - Chinese
   - English
+  - Estonian
   - French
   - German
   - Greek

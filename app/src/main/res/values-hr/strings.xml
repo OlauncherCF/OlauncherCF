@@ -25,15 +25,7 @@
     <string name="swipe_right_app">Aplikacija za desni potez</string>
     <string name="clock_click_app">Apl. otvorena pritiskom na sat</string>
     <string name="date_click_app">Apl. otvorena pritiskom na datum</string>
-    <string name="_0" translatable="false">0</string>
-    <string name="_1" translatable="false">1</string>
-    <string name="_2" translatable="false">2</string>
-    <string name="_3" translatable="false">3</string>
-    <string name="_4" translatable="false">4</string>
-    <string name="_5" translatable="false">5</string>
-    <string name="_6" translatable="false">6</string>
-    <string name="_7" translatable="false">7</string>
-    <string name="_8" translatable="false">8</string>
+    <string name="commit">Commit</string>
     <string name="app_drawer_tips">Savjet: Povuci prema dolje za zatvaranje. Pomakni zaslon za zatvaranje tipkovnice.</string>
     <string name="okay">U redu</string>
     <string name="double_tap_lock_is_enabled_message">Ako zaključavanje dvostrukim dodirom onemogući otključavanje otiskom prsta ili licem, otvori postavke Olaunchera, dodirni \'eksperimentalno\' i slijedi upute. Hvala ti.</string>
@@ -55,10 +47,6 @@
     <string name="light">Svijetla</string>
     <string name="double_tap_lock_uninstall_message">Zaključavanje dvostrukim dodirom je uključeno.
         \n\nPazi: Prije brisanja Olaunchera, prvo ISKLJUČI ovo.</string>
-    <string name="rate_us_message">Ovu poruku više nećeš vidjeti.
-        \n\nBok, ako uživaš u korištenju Olaunchera, možeš li nam dati recenziju s 5 zvijezdica? To nam donosi više korisnika i usrećuje nas.\nHvala ti i sretan ostatak dana!</string>
-    <string name="share_message">Bok, misliš li da bi i tvoji prijatelji voljeli Olauncher?
-        \n\nPodijeli aplikaciju i širi riječ o nama. Hvala ti!</string>
     <string name="accessibility_service_description">Dozvola za pristupačnost potrebna je za omogućavanje zaključavanja dvostrukim dodirom. Bilo koji podatci prikupljeni ovim servisom neće napustiti tvoj uređaj.</string>
     <string name="lock_layout_description">lock layout description to be used a unique id to lock screen</string>
     <string name="open">Otvori poveznicu</string>
@@ -66,9 +54,14 @@
     <string name="close">Zatvori</string>
     <string name="app_language">Jezik sučelja</string>
     <string name="lang_system">Sustav</string>
+    
     <string name="app_text_size">Veličina teksta</string>
+    
     <string name="hidden_apps">Skrivene aplikacije</string>
+    
     <string name="show">Prikaži</string>
     <string name="reset">Ponovno postavi</string>
     <string name="cancel">Odustani</string>
+    
+    
 </resources>

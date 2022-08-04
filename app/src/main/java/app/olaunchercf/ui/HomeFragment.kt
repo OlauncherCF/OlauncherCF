@@ -60,6 +60,8 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         initObservers()
         initHomeApps() // must be before alignments
 
+        populateHomeApps(false)
+
         setHomeAlignment(prefs.homeAlignment)
         Log.d("time", "1")
         setTimeAlignment(prefs.timeAlignment)
@@ -71,7 +73,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     override fun onResume() {
         super.onResume()
-        populateHomeApps(false)
+        // populateHomeApps(false)
         viewModel.isOlauncherDefault()
         if (prefs.showStatusBar) showStatusBar()
         else hideStatusBar()

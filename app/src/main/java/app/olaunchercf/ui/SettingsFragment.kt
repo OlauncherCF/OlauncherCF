@@ -175,10 +175,10 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     },
                     { _, onChange ->
                         SettingsToggle(
-                            title = stringResource(R.string.show_date),
+                            title = stringResource(R.string.lock_home_apps),
                             onChange = onChange,
-                            state = remember { mutableStateOf(prefs.showDate) }
-                        ) { toggleShowDate() }
+                            state = remember { mutableStateOf(prefs.homeLocked) }
+                        ) { prefs.homeLocked = !prefs.homeLocked }
                     },
                 )
             )

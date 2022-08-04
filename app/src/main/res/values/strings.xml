@@ -48,6 +48,7 @@
     <string name="rename">Rename</string>
     <string name="show_time">Show time</string>
     <string name="show_date">Show date</string>
+    <string name="lock_home_apps">Lock Apps</string>
     <string name="appearance">Appearance</string>
     <string name="gestures">Gestures</string>
     <string name="homescreen">Homescreen</string>

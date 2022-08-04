@@ -93,6 +93,7 @@ object Constants {
             Language.Korean -> "ko"
             Language.Indonesian -> "id"
             Language.Russian -> "ru"
+            Language.Croatian -> "hr"
             Language.Estonian -> "et"
         }
     }

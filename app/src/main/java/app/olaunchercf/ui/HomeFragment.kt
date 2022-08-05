@@ -63,10 +63,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         populateHomeApps(false)
 
         setHomeAlignment(prefs.homeAlignment)
-        Log.d("time", "1")
         setTimeAlignment(prefs.timeAlignment)
-        Log.d("time", "1")
-
         initSwipeTouchListener()
         initClickListeners()
     }
@@ -100,7 +97,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         if (prefs.homeLocked) return true
 
         val n = view.id
-        //val (name, _, _, _) = prefs.getHomeAppValues(n)
         val name = prefs.getHomeAppModel(n).appLabel
         showAppList(Constants.FLAG_SET_HOME_APP, name.isNotEmpty(), true, n)
         return true
@@ -141,10 +137,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                     binding.date.visibility = View.GONE
                 }
             }
-            /*toggleDateTime.observe(viewLifecycleOwner) {
-                if (it) binding.dateTimeLayout.visibility = View.VISIBLE
-                else binding.dateTimeLayout.visibility = View.GONE
-            }*/
         }
     }
 
@@ -237,20 +229,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     private fun launchApp(appModel: AppModel) {
         viewModel.selectedApp(appModel, Constants.FLAG_LAUNCH_APP)
     }
-    /*private fun launchApp(appName: String, packageName: String, appActivity: String,
-                          user: UserHandle) {
-        viewModel.selectedApp(
-            AppModel(
-                appName,
-                null,
-                packageName,
-                appActivity,
-                user,
-                Prefs(requireContext()).getAppAlias(appName)
-            ),
-            Constants.FLAG_LAUNCH_APP
-        )
-    }*/
 
     private fun showAppList(flag: Int, rename: Boolean = false, showHiddenApps: Boolean = false, n: Int = 0) {
         viewModel.getAppList(showHiddenApps)

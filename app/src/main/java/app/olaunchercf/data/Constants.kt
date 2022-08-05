@@ -38,6 +38,7 @@ object Constants {
     enum class Language: EnumOption {
         System,
         Chinese,
+        Croatian,
         English,
         Estonian,
         French,
@@ -58,6 +59,7 @@ object Constants {
             return when(this) {
                 System -> stringResource(R.string.lang_system)
                 Chinese -> "中国人"
+                Croatian -> "Hrvatski"
                 English -> "English"
                 Estonian -> "Eesti keel"
                 French -> "Français"

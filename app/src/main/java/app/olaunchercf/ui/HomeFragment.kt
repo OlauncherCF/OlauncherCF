@@ -209,7 +209,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         if (homeAppsNum == 0) return // TODO: place clock in center when no apps are shown
 
         binding.homeAppsLayout.children.forEachIndexed { i, app ->
-            //val (name, pack, alias) = prefs.getHomeAppValues(i)
             val appModel = prefs.getHomeAppModel(i)
             val name = appModel.appLabel
             val pack = appModel.appPackage
@@ -232,15 +231,13 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     private fun homeAppClicked(location: Int) {
         if (prefs.getAppName(location).isEmpty()) showLongPressToast()
-        else launchApp(
-            prefs.getAppName(location),
-            prefs.getAppPackage(location),
-            prefs.getAppActivity(location),
-            prefs.getAppUser(location)
-        )
+        else launchApp(prefs.getHomeAppModel(location))
     }
 
-    private fun launchApp(appName: String, packageName: String, appActivity: String,
+    private fun launchApp(appModel: AppModel) {
+        viewModel.selectedApp(appModel, Constants.FLAG_LAUNCH_APP)
+    }
+    /*private fun launchApp(appName: String, packageName: String, appActivity: String,
                           user: UserHandle) {
         viewModel.selectedApp(
             AppModel(
@@ -253,7 +250,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             ),
             Constants.FLAG_LAUNCH_APP
         )
-    }
+    }*/
 
     private fun showAppList(flag: Int, rename: Boolean = false, showHiddenApps: Boolean = false, n: Int = 0) {
         viewModel.getAppList(showHiddenApps)
@@ -286,47 +283,27 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     private fun openSwipeRightApp() {
         if (!prefs.swipeRightEnabled) return
-        if (prefs.appPackageSwipeRight.isNotEmpty())
-            launchApp(
-                prefs.appNameSwipeRight,
-                prefs.appPackageSwipeRight,
-                prefs.appActivitySwipeRight,
-                android.os.Process.myUserHandle()
-            )
+        if (prefs.appSwipeRight.appPackage.isNotEmpty())
+            launchApp(prefs.appSwipeRight)
         else openDialerApp(requireContext())
     }
 
     private fun openClickClockApp() {
-        if (prefs.appPackageClickClock.isNotEmpty())
-            launchApp(
-                prefs.appNameClickClock,
-                prefs.appPackageClickClock,
-                prefs.appActivityClickClock,
-                android.os.Process.myUserHandle()
-            )
+        if (prefs.appClickClock.appPackage.isNotEmpty())
+            launchApp(prefs.appClickClock)
         else openAlarmApp(requireContext())
     }
 
     private fun openClickDateApp() {
-        if (prefs.appPackageClickDate.isNotEmpty())
-            launchApp(
-                prefs.appNameClickDate,
-                prefs.appPackageClickDate,
-                prefs.appActivityClickDate,
-                android.os.Process.myUserHandle()
-            )
+        if (prefs.appClickDate.appPackage.isNotEmpty())
+            launchApp(prefs.appClickDate)
         else openCalendar(requireContext())
     }
 
     private fun openSwipeLeftApp() {
         if (!prefs.swipeLeftEnabled) return
-        if (prefs.appPackageSwipeLeft.isNotEmpty())
-            launchApp(
-                prefs.appNameSwipeLeft,
-                prefs.appPackageSwipeLeft,
-                prefs.appActivitySwipeLeft,
-                android.os.Process.myUserHandle()
-            )
+        if (prefs.appSwipeLeft.appPackage.isNotEmpty())
+            launchApp(prefs.appSwipeLeft)
         else openCameraApp(requireContext())
     }
 

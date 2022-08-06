@@ -26,11 +26,13 @@ class SettingsTest {
 
     @get:Rule
     val composeTestRule = createAndroidComposeRule<MainActivity>()
+    private lateinit var prefs: Prefs
 
     @Before
     fun clearSharedPreferences() {
-        val prefs: SharedPreferences = composeTestRule.activity.getSharedPreferences(PREFS_FILENAME, 0)
-        prefs.edit().clear().commit()
+        prefs = Prefs(composeTestRule.activity)
+        val shPrefs: SharedPreferences = composeTestRule.activity.getSharedPreferences(PREFS_FILENAME, 0)
+        shPrefs.edit().clear().commit()
     }
 
     @Test
@@ -56,15 +58,56 @@ class SettingsTest {
     }
 
     @Test
-    fun testSwipeApps() {
+    fun hideClock() {
+        goToSettings()
+        composeTestRule.onNode(hasAnySibling(hasText("Show time"))).performClick()
+        assert(!prefs.showTime)
+    }
+
+    @Test
+    fun hideDate() {
+        goToSettings()
+        composeTestRule.onNode(hasAnySibling(hasText("Show date"))).performClick()
+        assert(!prefs.showDate)
+    }
+
+    @Test
+    fun testSwipeLeft() {
         goToSettings()
         composeTestRule.onNode(hasAnySibling(hasText("Swipe left app"))).performClick()
+        pickAppFromList()
+        assert(prefs.appSwipeLeft.name == "Chrome")
+    }
+
+    @Test
+    fun testSwipeRight() {
+        goToSettings()
+        composeTestRule.onNode(hasAnySibling(hasText("Swipe right app"))).performClick()
+        pickAppFromList()
+        assert(Prefs(composeTestRule.activity).appSwipeRight.name == "Chrome")
+    }
+
+    @Test
+    fun testClickClock() {
+        goToSettings()
+        composeTestRule.onNode(hasAnySibling(hasText("Clock click app"))).performClick()
+        pickAppFromList()
+        assert(Prefs(composeTestRule.activity).appClickClock.name == "Chrome")
+    }
+
+    @Test
+    fun testClickDate() {
+        goToSettings()
+        composeTestRule.onNode(hasAnySibling(hasText("Date click app"))).performClick()
+        pickAppFromList()
+        assert(Prefs(composeTestRule.activity).appClickDate.name == "Chrome")
+    }
+
+    private fun pickAppFromList() {
         onView(withId(R.id.recyclerView)).perform(
             RecyclerViewActions
                 .actionOnItemAtPosition<AppDrawerAdapter.ViewHolder>(3, click())
         )
-        onView(withId(R.id.nav_host_fragment)).perform(swipeLeft())
-        Prefs(composeTestRule.activity).appSwipeLef
     }
 
     private fun goToSettings() {

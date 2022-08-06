@@ -10,6 +10,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
@@ -77,18 +78,28 @@ class MainActivity : AppCompatActivity() {
         resources.updateConfiguration(config, resources.displayMetrics)
     }
 
+    override fun onResume() {
+        super.onResume()
+        Toast.makeText(applicationContext, "onResume", Toast.LENGTH_SHORT).show()
+        // backToHomeScreen()
+    }
+
     override fun onStop() {
+        Toast.makeText(applicationContext, "onStop", Toast.LENGTH_SHORT).show()
         backToHomeScreen()
         super.onStop()
     }
 
     override fun onUserLeaveHint() {
-        backToHomeScreen()
+        Toast.makeText(applicationContext, "User leave", Toast.LENGTH_SHORT).show()
+        // backToHomeScreen()
         super.onUserLeaveHint()
     }
 
     override fun onNewIntent(intent: Intent?) {
-        backToHomeScreen()
+        Toast.makeText(applicationContext, "newIntent", Toast.LENGTH_SHORT).show()
+
+        // backToHomeScreen()
         super.onNewIntent(intent)
     }
 

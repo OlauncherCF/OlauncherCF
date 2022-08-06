@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -156,7 +157,7 @@ class AppDrawerFragment : Fragment() {
     private fun appClickListener(viewModel: MainViewModel, flag: Int, n: Int = 0): (appModel: AppModel) -> Unit =
         { appModel ->
             viewModel.selectedApp(appModel, flag, n)
-            findNavController().popBackStack(R.id.mainFragment, false)
+            //findNavController().popBackStack(R.id.mainFragment, false)
         }
 
     private fun appInfoListener(): (appModel: AppModel) -> Unit =

@@ -4,7 +4,7 @@
 We try to balance customizability and clutter :)</h3>  
 
 
-<img src="" width="1000">
+<img src="art/Header.png" width="1000">
 
 # Forked with extra features
 

@@ -147,10 +147,12 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 textSize = prefs.textSize.toFloat()
                 id = i
                 setOnTouchListener(getViewSwipeTouchListener(context, this))
-                layoutParams = ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
+                if (!prefs.extendHomeAppsArea) {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                }
             }
             // swipe
 
@@ -191,11 +193,10 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         } else {
             binding.homeAppsLayout.gravity = gravity or Gravity.CENTER_VERTICAL
         }
-       // binding.homeAppsLayout.gravity = Gravity.RIGHT
-        binding.homeAppsLayout.children.forEach {
+        /*binding.homeAppsLayout.children.forEach {
             //(it as TextView).gravity = gravity
             (it as TextView).gravity = Gravity.RIGHT
-        }
+        }*/
     }
 
     private fun populateHomeApps(appCountUpdated: Boolean) {

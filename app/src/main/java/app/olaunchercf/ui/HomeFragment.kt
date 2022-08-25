@@ -12,6 +12,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.*
 import android.widget.TextView
+import androidx.compose.ui.layout.Layout
 import androidx.core.os.bundleOf
 import androidx.core.view.children
 import androidx.fragment.app.Fragment
@@ -62,11 +63,8 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
         populateHomeApps(false)
 
-        setHomeAlignment(prefs.homeAlignment)
-        Log.d("time", "1")
+        setHomeAlignment(prefs.homeAlignment, prefs.homeAlignmentBottom)
         setTimeAlignment(prefs.timeAlignment)
-        Log.d("time", "1")
-
         initSwipeTouchListener()
         initClickListeners()
     }
@@ -100,7 +98,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         if (prefs.homeLocked) return true
 
         val n = view.id
-        //val (name, _, _, _) = prefs.getHomeAppValues(n)
         val name = prefs.getHomeAppModel(n).appLabel
         showAppList(Constants.FLAG_SET_HOME_APP, name.isNotEmpty(), true, n)
         return true
@@ -121,9 +118,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 if (it) binding.setDefaultLauncher.visibility = View.GONE
                 else binding.setDefaultLauncher.visibility = View.VISIBLE
             })
-            homeAppAlignment.observe(viewLifecycleOwner) {
-                setHomeAlignment(it)
-            }
             timeAlignment.observe(viewLifecycleOwner) {
                 setTimeAlignment(it)
             }
@@ -141,10 +135,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                     binding.date.visibility = View.GONE
                 }
             }
-            /*toggleDateTime.observe(viewLifecycleOwner) {
-                if (it) binding.dateTimeLayout.visibility = View.VISIBLE
-                else binding.dateTimeLayout.visibility = View.GONE
-            }*/
         }
     }
 
@@ -157,6 +147,12 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 textSize = prefs.textSize.toFloat()
                 id = i
                 setOnTouchListener(getViewSwipeTouchListener(context, this))
+                if (!prefs.extendHomeAppsArea) {
+                    layoutParams = ViewGroup.LayoutParams(
+                        ViewGroup.LayoutParams.WRAP_CONTENT,
+                        ViewGroup.LayoutParams.WRAP_CONTENT
+                    )
+                }
             }
             // swipe
 
@@ -185,16 +181,22 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         binding.dateTimeLayout.gravity = gravity
     }
 
-    private fun setHomeAlignment(gravity_const: Constants.Gravity) {
+    @SuppressLint("RtlHardcoded")
+    private fun setHomeAlignment(gravity_const: Constants.Gravity, bottom: Boolean) {
         val gravity = when(gravity_const) {
             Constants.Gravity.Left -> Gravity.LEFT
             Constants.Gravity.Center -> Gravity.CENTER
             Constants.Gravity.Right -> Gravity.RIGHT
         }
-        binding.homeAppsLayout.gravity = gravity
-        binding.homeAppsLayout.children.forEach {
-            (it as TextView).gravity = gravity
+        if (bottom) {
+            binding.homeAppsLayout.gravity = gravity or Gravity.BOTTOM
+        } else {
+            binding.homeAppsLayout.gravity = gravity or Gravity.CENTER_VERTICAL
         }
+        /*binding.homeAppsLayout.children.forEach {
+            //(it as TextView).gravity = gravity
+            (it as TextView).gravity = Gravity.RIGHT
+        }*/
     }
 
     private fun populateHomeApps(appCountUpdated: Boolean) {
@@ -209,7 +211,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         if (homeAppsNum == 0) return // TODO: place clock in center when no apps are shown
 
         binding.homeAppsLayout.children.forEachIndexed { i, app ->
-            //val (name, pack, alias) = prefs.getHomeAppValues(i)
             val appModel = prefs.getHomeAppModel(i)
             val name = appModel.appLabel
             val pack = appModel.appPackage
@@ -232,27 +233,11 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     private fun homeAppClicked(location: Int) {
         if (prefs.getAppName(location).isEmpty()) showLongPressToast()
-        else launchApp(
-            prefs.getAppName(location),
-            prefs.getAppPackage(location),
-            prefs.getAppActivity(location),
-            prefs.getAppUser(location)
-        )
+        else launchApp(prefs.getHomeAppModel(location))
     }
 
-    private fun launchApp(appName: String, packageName: String, appActivity: String,
-                          user: UserHandle) {
-        viewModel.selectedApp(
-            AppModel(
-                appName,
-                null,
-                packageName,
-                appActivity,
-                user,
-                Prefs(requireContext()).getAppAlias(appName)
-            ),
-            Constants.FLAG_LAUNCH_APP
-        )
+    private fun launchApp(appModel: AppModel) {
+        viewModel.selectedApp(appModel, Constants.FLAG_LAUNCH_APP)
     }
 
     private fun showAppList(flag: Int, rename: Boolean = false, showHiddenApps: Boolean = false, n: Int = 0) {
@@ -286,47 +271,27 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     private fun openSwipeRightApp() {
         if (!prefs.swipeRightEnabled) return
-        if (prefs.appPackageSwipeRight.isNotEmpty())
-            launchApp(
-                prefs.appNameSwipeRight,
-                prefs.appPackageSwipeRight,
-                prefs.appActivitySwipeRight,
-                android.os.Process.myUserHandle()
-            )
+        if (prefs.appSwipeRight.appPackage.isNotEmpty())
+            launchApp(prefs.appSwipeRight)
         else openDialerApp(requireContext())
     }
 
     private fun openClickClockApp() {
-        if (prefs.appPackageClickClock.isNotEmpty())
-            launchApp(
-                prefs.appNameClickClock,
-                prefs.appPackageClickClock,
-                prefs.appActivityClickClock,
-                android.os.Process.myUserHandle()
-            )
+        if (prefs.appClickClock.appPackage.isNotEmpty())
+            launchApp(prefs.appClickClock)
         else openAlarmApp(requireContext())
     }
 
     private fun openClickDateApp() {
-        if (prefs.appPackageClickDate.isNotEmpty())
-            launchApp(
-                prefs.appNameClickDate,
-                prefs.appPackageClickDate,
-                prefs.appActivityClickDate,
-                android.os.Process.myUserHandle()
-            )
+        if (prefs.appClickDate.appPackage.isNotEmpty())
+            launchApp(prefs.appClickDate)
         else openCalendar(requireContext())
     }
 
     private fun openSwipeLeftApp() {
         if (!prefs.swipeLeftEnabled) return
-        if (prefs.appPackageSwipeLeft.isNotEmpty())
-            launchApp(
-                prefs.appNameSwipeLeft,
-                prefs.appPackageSwipeLeft,
-                prefs.appActivitySwipeLeft,
-                android.os.Process.myUserHandle()
-            )
+        if (prefs.appSwipeLeft.appPackage.isNotEmpty())
+            launchApp(prefs.appSwipeLeft)
         else openCameraApp(requireContext())
     }
 

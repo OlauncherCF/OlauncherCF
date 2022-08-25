@@ -180,6 +180,13 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             state = remember { mutableStateOf(prefs.homeLocked) }
                         ) { prefs.homeLocked = !prefs.homeLocked }
                     },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.extend_home_apps_area),
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.extendHomeAppsArea) }
+                        ) { prefs.extendHomeAppsArea = !prefs.extendHomeAppsArea }
+                    },
                 )
             )
             SettingsArea(title = stringResource(R.string.alignment),
@@ -194,6 +201,13 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
                             onSelect = { j -> viewModel.updateHomeAlignment(j) }
                         )
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.home_alignment_bottom),
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.homeAlignmentBottom) }
+                        ) { viewModel.toggleHomeAppsBottom() }
                     },
                     { open, onChange ->
                         SettingsItem(
@@ -223,28 +237,34 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     { _, _ ->
                         SettingsAppSelector(
                             title = stringResource(R.string.swipe_left_app),
-                            currentSelection = remember { mutableStateOf(prefs.appNameSwipeLeft) },
+                            currentSelection = remember {
+                                mutableStateOf(prefs.appSwipeLeft.appLabel.ifEmpty { "Camera" })
+                            },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP) }
                         )
                     },
                     { _, _ ->
                         SettingsAppSelector(
                             title = stringResource(R.string.swipe_right_app),
-                            currentSelection = remember { mutableStateOf(prefs.appNameSwipeRight) },
+                            currentSelection = remember {
+                                mutableStateOf(prefs.appSwipeRight.appLabel.ifEmpty { "Phone" })
+                            },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP) }
                         )
                     },
                     { _, _ ->
                         SettingsAppSelector(
                             title = stringResource(R.string.clock_click_app),
-                            currentSelection = remember { mutableStateOf(prefs.appNameClickClock) },
+                            currentSelection =
+                                remember { mutableStateOf(prefs.appClickClock.appLabel.ifEmpty { "Clock" }) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_CLOCK_APP) }
                         )
                     },
                     { _, _ ->
                         SettingsAppSelector(
                             title = stringResource(R.string.date_click_app),
-                            currentSelection = remember { mutableStateOf(prefs.appNameClickDate) },
+                            currentSelection =
+                                remember { mutableStateOf(prefs.appClickDate.appLabel.ifEmpty { "Calendar" }) },
                             onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_DATE_APP) }
                         )
                     },

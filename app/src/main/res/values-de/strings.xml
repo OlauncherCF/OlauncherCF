@@ -28,7 +28,7 @@
     <string name="commit">Bestätigen</string>
     <string name="app_drawer_tips">Tipp! Zurück: nach unten wischen. Tastatur ausblenden: scrollen.</string>
     <string name="okay">OK</string>
-    <string name="double_tap_lock_is_enabled_message">Wenn Doppeltippen das Entsperren mittels Fingerabdruck oder Gesicht deaktiviert: Olauncher-Einstellungen öffnen, auf \‘experimentell\' tippen und Anweisungen befolgen. Danke!</string>
+    <string name="double_tap_lock_is_enabled_message">Wenn Doppeltippen das Entsperren mittels Fingerabdruck oder Gesicht deaktiviert: Olauncher-Einstellungen öffnen, auf \'experimentell\' tippen und Anweisungen befolgen. Danke!</string>
     <string name="triple_tap_lock_message">So geht es:
         \nNach dem Doppeltippen wird der Bildschirm schwarz und nach 5 Sekunden wird das Telefon gesperrt.
         \n\nIn dieser Zeit kann das Telefon durch <b>Doppeltippen entsperrt</b> oder durch Dreifachtippen sofort verriegelt werden.

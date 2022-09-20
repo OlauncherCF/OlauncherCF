@@ -1,11 +1,14 @@
 package app.olaunchercf.helper
 
+import android.app.Activity
 import android.content.*
 import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.NameNotFoundException
 import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.net.Uri
+import android.os.Build
 import android.os.UserHandle
 import android.os.UserManager
 import android.provider.AlarmClock
@@ -16,6 +19,8 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
+import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.AttrRes
@@ -120,21 +125,20 @@ suspend fun getHiddenAppsList(context: Context): MutableList<AppModel> {
         val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
         val collator = Collator.getInstance()
         for (hiddenPackage in hiddenAppsSet) {
+            val appPackage = hiddenPackage.split("|")[0]
+            val userString = hiddenPackage.split("|")[1]
+            var userHandle = android.os.Process.myUserHandle()
+            for (user in userManager.userProfiles) {
+                if (user.toString() == userString) userHandle = user
+            }
             try {
-                val appPackage = hiddenPackage.split("|")[0]
-                val userString = hiddenPackage.split("|")[1]
-                var userHandle = android.os.Process.myUserHandle()
-                for (user in userManager.userProfiles) {
-                    if (user.toString() == userString) userHandle = user
-                }
-
                 val appInfo = pm.getApplicationInfo(appPackage, 0)
                 val appName = pm.getApplicationLabel(appInfo).toString()
                 val appKey = collator.getCollationKey(appName)
                 // TODO: hidden apps settings ignore activity name for backward compatibility. Fix it.
                 appList.add(AppModel(appName, appKey, appPackage, "", userHandle, Prefs(context).getAppAlias(appName)))
-            } catch (e: Exception) {
-                e.printStackTrace()
+            } catch (e: NameNotFoundException) {
+
             }
         }
         appList.sort()
@@ -153,13 +157,6 @@ private fun upgradeHiddenApps(prefs: Prefs) {
     }
     prefs.hiddenApps = newHiddenAppsSet
     prefs.hiddenAppsUpdated = true
-}
-
-fun isPackageInstalled(context: Context, packageName: String, userString: String): Boolean {
-    val launcher = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
-    val activityInfo = launcher.getActivityList(packageName, getUserHandleFromString(context, userString))
-    if (activityInfo.size > 0) return true
-    return false
 }
 
 fun getUserHandleFromString(context: Context, userHandleString: String): UserHandle {
@@ -285,6 +282,27 @@ fun isTablet(context: Context): Boolean {
     val diagonalInches = sqrt(widthInches.toDouble().pow(2.0) + heightInches.toDouble().pow(2.0))
     if (diagonalInches >= 7.0) return true
     return false
+}
+
+fun showStatusBar(activity: Activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        activity.window.insetsController?.show(WindowInsets.Type.statusBars())
+    else
+        @Suppress("DEPRECATION", "InlinedApi")
+        activity.window.decorView.apply {
+            systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
+}
+
+fun hideStatusBar(activity: Activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        activity.window.insetsController?.hide(WindowInsets.Type.statusBars())
+    else {
+        @Suppress("DEPRECATION")
+        activity.window.decorView.apply {
+            systemUiVisibility = View.SYSTEM_UI_FLAG_IMMERSIVE or View.SYSTEM_UI_FLAG_FULLSCREEN
+        }
+    }
 }
 
 fun Context.isDarkThemeOn(): Boolean {

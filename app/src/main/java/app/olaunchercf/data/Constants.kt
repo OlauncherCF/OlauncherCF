@@ -1,6 +1,8 @@
 package app.olaunchercf.data
 
+import android.annotation.SuppressLint
 import android.util.Log
+import android.view.Gravity
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.ComposeCompilerApi
 import androidx.compose.ui.res.stringResource
@@ -58,7 +60,7 @@ object Constants {
         override fun string(): String {
             return when(this) {
                 System -> stringResource(R.string.lang_system)
-                Chinese -> "中国人"
+                Chinese -> "中文"
                 Croatian -> "Hrvatski"
                 English -> "English"
                 Estonian -> "Eesti keel"
@@ -67,7 +69,7 @@ object Constants {
                 Greek -> "Ελληνική"
                 Indonesian -> "Bahasa Indonesia"
                 Italian -> "Italiano"
-                Korean -> "조선말"
+                Korean -> "한국어"
                 Persian -> "فارسی"
                 Portuguese -> "Português"
                 Russian -> "Русский"
@@ -111,6 +113,15 @@ object Constants {
                 Left -> stringResource(R.string.left)
                 Center -> stringResource(R.string.center)
                 Right -> stringResource(R.string.right)
+            }
+        }
+
+        @SuppressLint("RtlHardcoded")
+        fun value(): Int {
+            return when(this) {
+                Left -> android.view.Gravity.LEFT
+                Center -> android.view.Gravity.CENTER
+                Right -> android.view.Gravity.RIGHT
             }
         }
     }

@@ -125,7 +125,7 @@ class AppDrawerAdapter(
 
     class ViewHolder(itemView: AdapterAppDrawerBinding) : RecyclerView.ViewHolder(itemView.root) {
         val appHideButton: TextView = itemView.appHide
-        val appRenameButton: TextView = itemView.appRename
+        val appRenameButton: TextView = itemView.drawerButton
         val appRenameEdit: EditText = itemView.appRenameEdit
         private val appHideLayout: ConstraintLayout = itemView.appHideLayout
         private val appTitle: TextView = itemView.appTitle

@@ -2,7 +2,6 @@ package app.olaunchercf.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -47,12 +46,30 @@ class AppDrawerFragment : Fragment() {
 
         val flagString = arguments?.getString("flag", AppDrawerFlag.LaunchApp.toString()) ?: AppDrawerFlag.LaunchApp.toString()
         val flag = AppDrawerFlag.valueOf(flagString)
-        val rename = arguments?.getBoolean("rename", false) ?: false
         val n = arguments?.getInt("n", 0) ?: 0
-        if (rename) binding.appRename.setOnClickListener { renameListener(flag, n) }
+
+        when (flag) {
+            AppDrawerFlag.SetHomeApp -> {
+                binding.drawerButton.text = getString(R.string.rename)
+                binding.drawerButton.isVisible = true // && it.trim().isNotEmpty()
+                binding.drawerButton.setOnClickListener { renameListener(flag, n) }
+            }
+            AppDrawerFlag.SetSwipeRight,
+                AppDrawerFlag.SetSwipeLeft,
+                AppDrawerFlag.SetClickClock,
+                AppDrawerFlag.SetClickDate -> {
+                    binding.drawerButton.text = getString(R.string.disable)
+                    binding.drawerButton.isVisible = true // && it.trim().isNotEmpty()
+                    binding.drawerButton.setOnClickListener {
+                        disableGesture(flag)
+                        findNavController().popBackStack()
+                    }
+            }
+            else -> {}
+        }
 
         val viewModel = activity?.run {
-            ViewModelProvider(this).get(MainViewModel::class.java)
+            ViewModelProvider(this)[MainViewModel::class.java]
         } ?: throw Exception("Invalid Activity")
 
         val gravity = when(Prefs(requireContext()).drawerAlignment) {
@@ -89,7 +106,6 @@ class AppDrawerFragment : Fragment() {
             override fun onQueryTextChange(newText: String?): Boolean {
                 newText?.let {
                     appAdapter.filter.filter(it.trim())
-                    binding.appRename.isVisible = rename && it.trim().isNotEmpty()
                 }
                 return false
             }
@@ -192,6 +208,25 @@ class AppDrawerFragment : Fragment() {
             val prefs = Prefs(requireContext())
             prefs.setAppAlias(appPackage, appAlias)
         }
+
+    private fun disableGesture(flag: AppDrawerFlag) {
+        val prefs = Prefs(requireContext())
+        when (flag) {
+            AppDrawerFlag.SetSwipeLeft -> {
+                prefs.swipeLeftEnabled = false
+            }
+            AppDrawerFlag.SetSwipeRight -> {
+                prefs.swipeRightEnabled = false
+            }
+            AppDrawerFlag.SetClickClock -> {
+                prefs.clickClockEnabled = false
+            }
+            AppDrawerFlag.SetClickDate -> {
+                prefs.clickDateEnabled = false
+            }
+            else -> {}
+        }
+    }
 
     private fun renameListener(flag: AppDrawerFlag, i: Int) {
         val name = binding.search.query.toString().trim()

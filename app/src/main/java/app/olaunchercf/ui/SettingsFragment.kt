@@ -239,7 +239,8 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             currentSelection = remember {
                                 mutableStateOf(prefs.appSwipeLeft.appLabel.ifEmpty { "Camera" })
                             },
-                            onClick = { showAppListIfEnabled(AppDrawerFlag.SetSwipeLeft) }
+                            onClick = { updateGesture(AppDrawerFlag.SetSwipeLeft) },
+                            active = prefs.swipeLeftEnabled,
                         )
                     },
                     { _, _ ->
@@ -248,7 +249,8 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             currentSelection = remember {
                                 mutableStateOf(prefs.appSwipeRight.appLabel.ifEmpty { "Phone" })
                             },
-                            onClick = { showAppListIfEnabled(AppDrawerFlag.SetSwipeLeft) }
+                            onClick = { updateGesture(AppDrawerFlag.SetSwipeLeft) },
+                            active = prefs.swipeRightEnabled,
                         )
                     },
                     { _, _ ->
@@ -256,7 +258,8 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             title = stringResource(R.string.clock_click_app),
                             currentSelection =
                                 remember { mutableStateOf(prefs.appClickClock.appLabel.ifEmpty { "Clock" }) },
-                            onClick = { showAppListIfEnabled(AppDrawerFlag.SetClickClock) }
+                            onClick = { updateGesture(AppDrawerFlag.SetClickClock) },
+                            active = prefs.clickClockEnabled,
                         )
                     },
                     { _, _ ->
@@ -264,7 +267,8 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             title = stringResource(R.string.date_click_app),
                             currentSelection =
                                 remember { mutableStateOf(prefs.appClickDate.appLabel.ifEmpty { "Calendar" }) },
-                            onClick = { showAppListIfEnabled(AppDrawerFlag.SetClickDate) }
+                            onClick = { updateGesture(AppDrawerFlag.SetClickDate) },
+                            active = prefs.clickDateEnabled,
                         )
                     },
                     { _, onChange ->
@@ -461,14 +465,21 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         requireActivity().recreate()
     }*/
 
-    private fun showAppListIfEnabled(flag: AppDrawerFlag) {
+    private fun updateGesture(flag: AppDrawerFlag) {
         if ((flag == AppDrawerFlag.SetSwipeLeft) and !prefs.swipeLeftEnabled) {
-            showToastShort(requireContext(), "Long press to enable")
-            return
+            prefs.swipeLeftEnabled = true
         }
+
         if ((flag == AppDrawerFlag.SetSwipeRight) and !prefs.swipeRightEnabled) {
-            showToastShort(requireContext(), "Long press to enable")
-            return
+            prefs.swipeRightEnabled = true
+        }
+
+        if ((flag == AppDrawerFlag.SetClickClock) and !prefs.clickClockEnabled) {
+            prefs.clickClockEnabled = true
+        }
+
+        if ((flag == AppDrawerFlag.SetClickDate) and !prefs.clickDateEnabled) {
+            prefs.clickDateEnabled = true
         }
 
         viewModel.getAppList()

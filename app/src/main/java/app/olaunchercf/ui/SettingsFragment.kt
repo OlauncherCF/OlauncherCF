@@ -32,6 +32,7 @@ import app.olaunchercf.MainActivity
 import app.olaunchercf.MainViewModel
 import app.olaunchercf.R
 import app.olaunchercf.data.Constants
+import app.olaunchercf.data.Constants.AppDrawerFlag
 import app.olaunchercf.data.Constants.Theme.*
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentSettingsBinding
@@ -238,7 +239,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             currentSelection = remember {
                                 mutableStateOf(prefs.appSwipeLeft.appLabel.ifEmpty { "Camera" })
                             },
-                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP) }
+                            onClick = { showAppListIfEnabled(AppDrawerFlag.SetSwipeLeft) }
                         )
                     },
                     { _, _ ->
@@ -247,7 +248,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             currentSelection = remember {
                                 mutableStateOf(prefs.appSwipeRight.appLabel.ifEmpty { "Phone" })
                             },
-                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP) }
+                            onClick = { showAppListIfEnabled(AppDrawerFlag.SetSwipeLeft) }
                         )
                     },
                     { _, _ ->
@@ -255,7 +256,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             title = stringResource(R.string.clock_click_app),
                             currentSelection =
                                 remember { mutableStateOf(prefs.appClickClock.appLabel.ifEmpty { "Clock" }) },
-                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_CLOCK_APP) }
+                            onClick = { showAppListIfEnabled(AppDrawerFlag.SetClickClock) }
                         )
                     },
                     { _, _ ->
@@ -263,7 +264,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             title = stringResource(R.string.date_click_app),
                             currentSelection =
                                 remember { mutableStateOf(prefs.appClickDate.appLabel.ifEmpty { "Calendar" }) },
-                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_DATE_APP) }
+                            onClick = { showAppListIfEnabled(AppDrawerFlag.SetClickDate) }
                         )
                     },
                     { _, onChange ->
@@ -380,7 +381,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         viewModel.getHiddenApps()
         findNavController().navigate(
             R.id.action_settingsFragment_to_appListFragment,
-            bundleOf("flag" to Constants.FLAG_HIDDEN_APPS)
+            bundleOf("flag" to AppDrawerFlag.HiddenApps.toString())
         )
     }
 
@@ -460,12 +461,12 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         requireActivity().recreate()
     }*/
 
-    private fun showAppListIfEnabled(flag: Int) {
-        if ((flag == Constants.FLAG_SET_SWIPE_LEFT_APP) and !prefs.swipeLeftEnabled) {
+    private fun showAppListIfEnabled(flag: AppDrawerFlag) {
+        if ((flag == AppDrawerFlag.SetSwipeLeft) and !prefs.swipeLeftEnabled) {
             showToastShort(requireContext(), "Long press to enable")
             return
         }
-        if ((flag == Constants.FLAG_SET_SWIPE_RIGHT_APP) and !prefs.swipeRightEnabled) {
+        if ((flag == AppDrawerFlag.SetSwipeRight) and !prefs.swipeRightEnabled) {
             showToastShort(requireContext(), "Long press to enable")
             return
         }
@@ -473,7 +474,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         viewModel.getAppList()
         findNavController().navigate(
             R.id.action_settingsFragment_to_appListFragment,
-            bundleOf("flag" to flag)
+            bundleOf("flag" to flag.toString())
         )
     }
 }

@@ -8,59 +8,54 @@ import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.io.FileReader
+import android.os.UserHandle
+import android.os.UserManager
+import android.util.Log
+import androidx.core.content.getSystemService
+import app.olaunchercf.helper.getUserHandleFromString
+import java.lang.RuntimeException
 
+private const val APP_LANGUAGE = "app_language"
+private const val PREFS_FILENAME = "app.olauncher"
+
+private const val FIRST_OPEN = "FIRST_OPEN"
+private const val FIRST_SETTINGS_OPEN = "FIRST_SETTINGS_OPEN"
+private const val LOCK_MODE = "LOCK_MODE"
+private const val HOME_APPS_NUM = "HOME_APPS_NUM"
+private const val AUTO_SHOW_KEYBOARD = "AUTO_SHOW_KEYBOARD"
+private const val HOME_ALIGNMENT = "HOME_ALIGNMENT"
+private const val HOME_ALIGNMENT_BOTTOM = "HOME_ALIGNMENT_BOTTOM"
+private const val HOME_CLICK_AREA = "HOME_CLICK_AREA"
+private const val DRAWER_ALIGNMENT = "DRAWER_ALIGNMENT"
+private const val TIME_ALIGNMENT = "TIME_ALIGNMENT"
+private const val STATUS_BAR = "STATUS_BAR"
+private const val SHOW_DATE = "SHOW_DATE"
+private const val HOME_LOCKED = "HOME_LOCKED"
+private const val SHOW_TIME = "SHOW_TIME"
+private const val SWIPE_LEFT_ENABLED = "SWIPE_LEFT_ENABLED"
+private const val SWIPE_RIGHT_ENABLED = "SWIPE_RIGHT_ENABLED"
+private const val CLICK_CLOCK_ENABLED = "CLICK_CLOCK_ENABLED"
+private const val CLICK_DATE_ENABLED = "CLICK_DATE_ENABLED"
+private const val SCREEN_TIMEOUT = "SCREEN_TIMEOUT"
+private const val HIDDEN_APPS = "HIDDEN_APPS"
+private const val HIDDEN_APPS_UPDATED = "HIDDEN_APPS_UPDATED"
+private const val SHOW_HINT_COUNTER = "SHOW_HINT_COUNTER"
+private const val APP_THEME = "APP_THEME"
+
+private const val APP_NAME = "APP_NAME"
+private const val APP_PACKAGE = "APP_PACKAGE"
+private const val APP_USER = "APP_USER"
+private const val APP_ALIAS = "APP_ALIAS"
+private const val APP_ACTIVITY = "APP_ACTIVITY"
+
+private const val SWIPE_RIGHT = "SWIPE_RIGHT"
+private const val SWIPE_LEFT = "SWIPE_LEFT"
+private const val CLICK_CLOCK = "CLICK_CLOCK"
+private const val CLICK_DATE = "CLICK_DATE"
+
+private const val TEXT_SIZE = "text_size"
 
 class Prefs(val context: Context) {
-
-    private val APP_LANGUAGE = "app_language"
-
-    private val PREFS_FILENAME = "app.olauncher"
-
-    private val FIRST_OPEN = "FIRST_OPEN"
-    private val FIRST_SETTINGS_OPEN = "FIRST_SETTINGS_OPEN"
-    private val FIRST_HIDE = "FIRST_HIDE"
-    private val LOCK_MODE = "LOCK_MODE"
-    private val HOME_APPS_NUM = "HOME_APPS_NUM"
-    private val AUTO_SHOW_KEYBOARD = "AUTO_SHOW_KEYBOARD"
-    private val HOME_ALIGNMENT = "HOME_ALIGNMENT"
-    private val DRAWER_ALIGNMENT = "DRAWER_ALIGNMENT"
-    private val TIME_ALIGNMENT = "TIME_ALIGNMENT"
-    private val STATUS_BAR = "STATUS_BAR"
-    private val DATE_TIME = "DATE_TIME"
-    private val SWIPE_LEFT_ENABLED = "SWIPE_LEFT_ENABLED"
-    private val SWIPE_RIGHT_ENABLED = "SWIPE_RIGHT_ENABLED"
-    private val SCREEN_TIMEOUT = "SCREEN_TIMEOUT"
-    private val HIDDEN_APPS = "HIDDEN_APPS"
-    private val HIDDEN_APPS_UPDATED = "HIDDEN_APPS_UPDATED"
-    private val SHOW_HINT_COUNTER = "SHOW_HINT_COUNTER"
-    private val APP_THEME = "APP_THEME"
-
-    private val APP_NAME = "APP_NAME"
-    private val APP_PACKAGE = "APP_PACKAGE"
-    private val APP_ALIAS = "APP_USER"
-    private val APP_ACTIVITY = "APP_ACTIVITY"
-
-    private val APP_NAME_SWIPE_LEFT = "APP_NAME_SWIPE_LEFT"
-    private val APP_NAME_SWIPE_RIGHT = "APP_NAME_SWIPE_RIGHT"
-    private val APP_NAME_CLICK_CLOCK = "APP_NAME_CLICK_CLOCK"
-    private val APP_NAME_CLICK_DATE = "APP_NAME_CLICK_DATE"
-
-    private val APP_PACKAGE_SWIPE_LEFT = "APP_PACKAGE_SWIPE_LEFT"
-    private val APP_PACKAGE_SWIPE_RIGHT = "APP_PACKAGE_SWIPE_RIGHT"
-    private val APP_PACKAGE_CLICK_CLOCK = "APP_PACKAGE_CLICK_CLOCK"
-    private val APP_PACKAGE_CLICK_DATE = "APP_PACKAGE_CLICK_DATE"
-
-    private val APP_USER_SWIPE_LEFT = "APP_USER_SWIPE_LEFT"
-    private val APP_USER_SWIPE_RIGHT = "APP_USER_SWIPE_RIGHT"
-    private val APP_USER_CLICK_CLOCK = "APP_USER_CLICK_CLOCK"
-    private val APP_USER_CLICK_DATE = "APP_USER_CLICK_DATE"
-
-    private val APP_ACTIVITY_SWIPE_LEFT = "APP_ACTIVITY_SWIPE_LEFT"
-    private val APP_ACTIVITY_SWIPE_RIGHT = "APP_ACTIVITY_SWIPE_RIGHT"
-    private val APP_ACTIVITY_CLICK_CLOCK = "APP_ACTIVITY_CLICK_CLOCK"
-    private val APP_ACTIVITY_CLICK_DATE = "APP_ACTIVITY_CLICK_DATE"
-
-    private val TEXT_SIZE = "text_size"
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
 
@@ -144,6 +139,7 @@ class Prefs(val context: Context) {
         get() = prefs.getBoolean(FIRST_SETTINGS_OPEN, true)
         set(value) = prefs.edit().putBoolean(FIRST_SETTINGS_OPEN, value).apply()
 
+
     var lockModeOn: Boolean
         get() = prefs.getBoolean(LOCK_MODE, false)
         set(value) = prefs.edit().putBoolean(LOCK_MODE, value).apply()
@@ -176,7 +172,15 @@ class Prefs(val context: Context) {
         }
         set(value) = prefs.edit().putString(HOME_ALIGNMENT, value.toString()).apply()
 
-    var timeAlignment: Constants.Gravity
+    var homeAlignmentBottom: Boolean
+        get() = prefs.getBoolean(HOME_ALIGNMENT_BOTTOM, false)
+        set(value) = prefs.edit().putBoolean(HOME_ALIGNMENT_BOTTOM, value).apply()
+
+    var extendHomeAppsArea: Boolean
+        get() = prefs.getBoolean(HOME_CLICK_AREA, false)
+        set(value) = prefs.edit().putBoolean(HOME_CLICK_AREA, value).apply()
+
+    var clockAlignment: Constants.Gravity
         get() {
             val string = prefs.getString(
                 TIME_ALIGNMENT,
@@ -200,9 +204,17 @@ class Prefs(val context: Context) {
         get() = prefs.getBoolean(STATUS_BAR, false)
         set(value) = prefs.edit().putBoolean(STATUS_BAR, value).apply()
 
-    var showDateTime: Boolean
-        get() = prefs.getBoolean(DATE_TIME, true)
-        set(value) = prefs.edit().putBoolean(DATE_TIME, value).apply()
+    var showTime: Boolean
+        get() = prefs.getBoolean(SHOW_TIME, true)
+        set(value) = prefs.edit().putBoolean(SHOW_TIME, value).apply()
+
+    var showDate: Boolean
+        get() = prefs.getBoolean(SHOW_DATE, true)
+        set(value) = prefs.edit().putBoolean(SHOW_DATE, value).apply()
+
+    var homeLocked: Boolean
+        get() = prefs.getBoolean(HOME_LOCKED, false)
+        set(value) = prefs.edit().putBoolean(HOME_LOCKED, value).apply()
 
     var swipeLeftEnabled: Boolean
         get() = prefs.getBoolean(SWIPE_LEFT_ENABLED, true)
@@ -211,6 +223,14 @@ class Prefs(val context: Context) {
     var swipeRightEnabled: Boolean
         get() = prefs.getBoolean(SWIPE_RIGHT_ENABLED, true)
         set(value) = prefs.edit().putBoolean(SWIPE_RIGHT_ENABLED, value).apply()
+
+    var clickClockEnabled: Boolean
+        get() = prefs.getBoolean(CLICK_CLOCK_ENABLED, true)
+        set(value) = prefs.edit().putBoolean(CLICK_CLOCK_ENABLED, value).apply()
+
+    var clickDateEnabled: Boolean
+        get() = prefs.getBoolean(CLICK_DATE_ENABLED, true)
+        set(value) = prefs.edit().putBoolean(CLICK_DATE_ENABLED, value).apply()
 
     var appTheme: Constants.Theme
         get() {
@@ -244,29 +264,12 @@ class Prefs(val context: Context) {
         get() = prefs.getInt(SHOW_HINT_COUNTER, 1)
         set(value) = prefs.edit().putInt(SHOW_HINT_COUNTER, value).apply()
 
-    fun getHomeAppValues(i: Int): Array<String> {
-        val nameId = "${APP_NAME}_$i"
-        val propId = "${APP_PACKAGE}_$i"
-        val aliasId = "${APP_ALIAS}_$i"
-        val activityId = "${APP_ACTIVITY}_$i"
-
-        val name = prefs.getString(nameId, "").toString()
-        val prop = prefs.getString(propId, "").toString()
-        val alias = prefs.getString(aliasId, "").toString()
-        val activity = prefs.getString(activityId, "").toString()
-
-        return arrayOf(name, prop, alias, activity)
+    fun getHomeAppModel(i:Int): AppModel {
+        return loadApp("$i")
     }
 
-    fun setHomeAppValues(i: Int, name: String, prop: String, alias: String, activity: String) {
-        val nameId = "${APP_NAME}_$i"
-        val propId = "${APP_PACKAGE}_$i"
-        val aliasId = "${APP_ALIAS}_$i"
-
-        prefs.edit().putString(nameId, name).apply()
-        prefs.edit().putString(propId, prop).apply()
-        prefs.edit().putString(aliasId, alias).apply()
-        prefs.edit().putString(aliasId, activity).apply()
+    fun setHomeAppModel(i: Int, appModel: AppModel) {
+        storeApp("$i", appModel)
     }
 
     fun setHomeAppName(i: Int, name: String) {
@@ -274,78 +277,51 @@ class Prefs(val context: Context) {
         prefs.edit().putString(nameId, name).apply()
     }
 
-    // this only resets name and alias because of how this was done before in HomeFragment
-    fun resetHomeAppValues(i: Int) {
-        val nameId = "${APP_NAME}_$i"
-        val aliasId = "${APP_ALIAS}_$i"
+    var appSwipeRight: AppModel
+        get() = loadApp(SWIPE_RIGHT)
+        set(appModel) = storeApp(SWIPE_RIGHT, appModel)
 
-        prefs.edit().putString(nameId, "").apply()
-        prefs.edit().putString(aliasId, "").apply()
+    var appSwipeLeft: AppModel
+        get() = loadApp(SWIPE_LEFT)
+        set(appModel) = storeApp(SWIPE_LEFT, appModel)
+
+    var appClickClock: AppModel
+        get() = loadApp(CLICK_CLOCK)
+        set(appModel) = storeApp(CLICK_CLOCK, appModel)
+
+    var appClickDate: AppModel
+        get() = loadApp(CLICK_DATE)
+        set(appModel) = storeApp(CLICK_DATE, appModel)
+
+
+    private fun loadApp(id: String): AppModel {
+        val name = prefs.getString("${APP_NAME}_$id", "").toString()
+        val pack = prefs.getString("${APP_PACKAGE}_$id", "").toString()
+        val alias = prefs.getString("${APP_ALIAS}_$id", "").toString()
+        val activity = prefs.getString("${APP_ACTIVITY}_$id", "").toString()
+
+        val userHandleString = try { prefs.getString("${APP_USER}_$id", "").toString() } catch (_: Exception) { "" }
+        val userHandle: UserHandle = getUserHandleFromString(context, userHandleString)
+
+        return AppModel(
+            appLabel = name,
+            appPackage = pack,
+            appAlias = alias,
+            appActivityName = activity,
+            user = userHandle,
+            key = null,
+        )
     }
 
-    var appNameSwipeLeft: String
-        get() = prefs.getString(APP_NAME_SWIPE_LEFT, "Camera").toString()
-        set(value) = prefs.edit().putString(APP_NAME_SWIPE_LEFT, value).apply()
-
-    var appNameSwipeRight: String
-        get() = prefs.getString(APP_NAME_SWIPE_RIGHT, "Phone").toString()
-        set(value) = prefs.edit().putString(APP_NAME_SWIPE_RIGHT, value).apply()
-
-    var appNameClickClock: String
-        get() = prefs.getString(APP_NAME_CLICK_CLOCK, "Clock").toString()
-        set(value) = prefs.edit().putString(APP_NAME_CLICK_CLOCK, value).apply()
-
-    var appNameClickDate: String
-        get() = prefs.getString(APP_NAME_CLICK_DATE, "Calendar").toString()
-        set(value) = prefs.edit().putString(APP_NAME_CLICK_DATE, value).apply()
-
-    var appPackageSwipeLeft: String
-        get() = prefs.getString(APP_PACKAGE_SWIPE_LEFT, "").toString()
-        set(value) = prefs.edit().putString(APP_PACKAGE_SWIPE_LEFT, value).apply()
-
-    var appPackageSwipeRight: String
-        get() = prefs.getString(APP_PACKAGE_SWIPE_RIGHT, "").toString()
-        set(value) = prefs.edit().putString(APP_PACKAGE_SWIPE_RIGHT, value).apply()
-
-    var appPackageClickClock: String
-        get() = prefs.getString(APP_PACKAGE_CLICK_CLOCK, "").toString()
-        set(value) = prefs.edit().putString(APP_PACKAGE_CLICK_CLOCK, value).apply()
-
-    var appPackageClickDate: String
-        get() = prefs.getString(APP_PACKAGE_CLICK_DATE, "").toString()
-        set(value) = prefs.edit().putString(APP_PACKAGE_CLICK_DATE, value).apply()
-
-    var appUserSwipeLeft: String
-        get() = prefs.getString(APP_USER_SWIPE_LEFT, "").toString()
-        set(value) = prefs.edit().putString(APP_USER_SWIPE_LEFT, value).apply()
-
-    var appUserSwipeRight: String
-        get() = prefs.getString(APP_USER_SWIPE_RIGHT, "").toString()
-        set(value) = prefs.edit().putString(APP_USER_SWIPE_RIGHT, value).apply()
-
-    var appUserClickClock: String
-        get() = prefs.getString(APP_USER_CLICK_CLOCK, "").toString()
-        set(value) = prefs.edit().putString(APP_USER_CLICK_CLOCK, value).apply()
-
-    var appUserClickDate: String
-        get() = prefs.getString(APP_USER_CLICK_DATE, "").toString()
-        set(value) = prefs.edit().putString(APP_USER_CLICK_DATE, value).apply()
-
-    var appActivitySwipeLeft: String
-        get() = prefs.getString(APP_ACTIVITY_SWIPE_LEFT, "").toString()
-        set(value) = prefs.edit().putString(APP_ACTIVITY_SWIPE_LEFT, value).apply()
-
-    var appActivitySwipeRight: String
-        get() = prefs.getString(APP_ACTIVITY_SWIPE_RIGHT, "").toString()
-        set(value) = prefs.edit().putString(APP_ACTIVITY_SWIPE_RIGHT, value).apply()
-
-    var appActivityClickClock: String
-        get() = prefs.getString(APP_ACTIVITY_CLICK_CLOCK, "").toString()
-        set(value) = prefs.edit().putString(APP_ACTIVITY_CLICK_CLOCK, value).apply()
-
-    var appActivityClickDate: String
-        get() = prefs.getString(APP_ACTIVITY_CLICK_DATE, "").toString()
-        set(value) = prefs.edit().putString(APP_ACTIVITY_CLICK_DATE, value).apply()
+    private fun storeApp(id: String, appModel: AppModel) {
+        val edit = prefs.edit()
+        edit.putString("${APP_NAME}_$id", appModel.appLabel)
+        edit.putString("${APP_PACKAGE}_$id", appModel.appPackage)
+        edit.putString("${APP_ACTIVITY}_$id", appModel.appActivityName)
+        edit.putString("${APP_ALIAS}_$id", appModel.appAlias)
+        edit.putString("${APP_USER}_$id", appModel.user.toString())
+        edit.apply()
+    }
 
     var textSize: Int
         get() {
@@ -357,30 +333,16 @@ class Prefs(val context: Context) {
         }
         set(value) = prefs.edit().putInt(TEXT_SIZE, value).apply()
 
+
+    // return app label
     fun getAppName(location: Int): String {
-        val (name, _, _, _) = this.getHomeAppValues(location)
-        return name
+        return getHomeAppModel(location).appLabel
     }
 
     fun getAppAlias(appName: String): String {
         return prefs.getString(appName, "").toString()
     }
-    fun setAppAlias(appName: String, appAlias: String) {
-        prefs.edit().putString(appName, appAlias).apply()
-    }
-
-    fun getAppPackage(location: Int): String {
-        val (_, pack, _, _) = this.getHomeAppValues(location)
-        return pack
-    }
-
-    fun getAppUser(location: Int): String {
-        val (_, _, alias, _) = this.getHomeAppValues(location)
-        return alias
-    }
-
-    fun getAppActivity(location: Int): String {
-        val (_, _, _, activity) = this.getHomeAppValues(location)
-        return activity
+    fun setAppAlias(appPackage: String, appAlias: String) {
+        prefs.edit().putString(appPackage, appAlias).apply()
     }
 }

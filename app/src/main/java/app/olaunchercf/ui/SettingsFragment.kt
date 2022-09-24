@@ -19,6 +19,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.res.stringResource
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -28,17 +40,16 @@ import app.olaunchercf.MainActivity
 import app.olaunchercf.MainViewModel
 import app.olaunchercf.R
 import app.olaunchercf.data.Constants
+import app.olaunchercf.data.Constants.AppDrawerFlag
 import app.olaunchercf.data.Constants.Theme.*
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentSettingsBinding
-import app.olaunchercf.helper.isAccessServiceEnabled
-import app.olaunchercf.helper.openAppInfo
-import app.olaunchercf.helper.showToastLong
-import app.olaunchercf.helper.showToastShort
+import app.olaunchercf.helper.*
 import app.olaunchercf.listener.DeviceAdmin
 import app.olaunchercf.ui.compose.Elements.SimpleButton
 import app.olaunchercf.ui.compose.SettingsComposable
 import app.olaunchercf.ui.compose.SettingsComposable.AppSelector
+import app.olaunchercf.ui.compose.SettingsComposable.SettingsAppSelector
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsArea
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsNumberItem
@@ -60,11 +71,20 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        prefs = Prefs(requireContext())
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if (isOlauncherDefault(requireContext())) {
+            binding.setLauncher.text = getString(R.string.change_default_launcher)
+        }
+
+        if (prefs.firstSettingsOpen) {
+            prefs.firstSettingsOpen = false
+        }
 
         binding.testView.setContent {
 
@@ -82,22 +102,12 @@ class SettingsFragment : Fragment(), View.OnClickListener {
 
     @Composable
     private fun Settings() {
-        // observer
+        val selected = remember { mutableStateOf("") }
         Column {
             SettingsArea(
-                title = "Appearance",
+                title = stringResource(R.string.appearance),
+                selected = selected,
                 arrayOf(
-                    { open, onChange ->
-                        SettingsNumberItem(
-                            title = stringResource(R.string.apps_on_home_screen),
-                            open = open,
-                            onChange = onChange,
-                            currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
-                            min = 0,
-                            max = Constants.MAX_HOME_APPS,
-                            onSelect = { j -> updateHomeAppsNum(j) }
-                        )
-                    },
                     { _, onChange ->
                         SettingsToggle(
                             title = stringResource(R.string.auto_show_keyboard),
@@ -111,43 +121,6 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.showStatusBar) },
                         ) { toggleStatusBar() }
-                    },
-                    { _, onChange ->
-                        SettingsToggle(
-                            title = stringResource(R.string.show_date_time),
-                            onChange = onChange,
-                            state = remember { mutableStateOf(prefs.showDateTime) }
-                        ) { toggleDateTime() }
-                    },
-                    { open, onChange ->
-                        SettingsItem(
-                            title = stringResource(R.string.home_alignment),
-                            open = open,
-                            onChange = onChange,
-                            currentSelection = remember { mutableStateOf(prefs.homeAlignment) },
-                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
-                            onSelect = { j -> viewModel.updateHomeAlignment(j) }
-                        )
-                    },
-                    { open, onChange ->
-                        SettingsItem(
-                            title = stringResource(R.string.clock_alignment),
-                            open = open,
-                            onChange = onChange,
-                            currentSelection = remember { mutableStateOf(prefs.timeAlignment) },
-                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
-                            onSelect = { j -> viewModel.updateTimeAlignment(j) }
-                        )
-                    },
-                    { open, onChange ->
-                        SettingsItem(
-                            title = stringResource(R.string.drawer_alignment),
-                            open = open,
-                            onChange = onChange,
-                            currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
-                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
-                            onSelect = { j -> viewModel.updateDrawerAlignment(j) }
-                        )
                     },
                     { open, onChange ->
                         SettingsItem(
@@ -182,34 +155,131 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     }
                 )
             )
-            SettingsArea(title = "Gestures",
+            SettingsArea(title = stringResource(R.string.homescreen),
+                selected = selected,
+                arrayOf(
+                    { open, onChange ->
+                        SettingsNumberItem(
+                            title = stringResource(R.string.apps_on_home_screen),
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
+                            min = 0,
+                            max = Constants.MAX_HOME_APPS,
+                            onSelect = { j -> updateHomeAppsNum(j) }
+                        )
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.show_time),
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.showTime) }
+                        ) { toggleShowTime() }
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.show_date),
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.showDate) }
+                        ) { toggleShowDate() }
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.lock_home_apps),
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.homeLocked) }
+                        ) { prefs.homeLocked = !prefs.homeLocked }
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.extend_home_apps_area),
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.extendHomeAppsArea) }
+                        ) { prefs.extendHomeAppsArea = !prefs.extendHomeAppsArea }
+                    },
+                )
+            )
+            SettingsArea(title = stringResource(R.string.alignment),
+                selected = selected,
+                arrayOf(
+                    { open, onChange ->
+                        SettingsItem(
+                            title = stringResource(R.string.home_alignment),
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.homeAlignment) },
+                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
+                            onSelect = { gravity -> setHomeAlignment(gravity) }
+                        )
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.home_alignment_bottom),
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.homeAlignmentBottom) }
+                        ) { toggleHomeAppsBottom() }
+                    },
+                    { open, onChange ->
+                        SettingsItem(
+                            title = stringResource(R.string.clock_alignment),
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.clockAlignment) },
+                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
+                            onSelect = { gravity -> setClockAlignment(gravity) }
+                        )
+                    },
+                    { open, onChange ->
+                        SettingsItem(
+                            title = stringResource(R.string.drawer_alignment),
+                            open = open,
+                            onChange = onChange,
+                            currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
+                            values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
+                            onSelect = { j -> viewModel.updateDrawerAlignment(j) }
+                        )
+                    },
+                )
+            )
+            SettingsArea(title = stringResource(R.string.gestures),
+                selected = selected,
                 arrayOf(
                     { _, _ ->
                         AppSelector(
                             title = stringResource(R.string.swipe_left_app),
-                            currentSelection = remember { mutableStateOf(prefs.appNameSwipeLeft) },
-                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_LEFT_APP) }
+                            currentSelection = remember {
+                                mutableStateOf(prefs.appSwipeLeft.appLabel.ifEmpty { "Camera" })
+                            },
+                            onClick = { updateGesture(AppDrawerFlag.SetSwipeLeft) },
+                            active = prefs.swipeLeftEnabled,
                         )
                     },
                     { _, _ ->
                         AppSelector(
                             title = stringResource(R.string.swipe_right_app),
-                            currentSelection = remember { mutableStateOf(prefs.appNameSwipeRight) },
-                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_SWIPE_RIGHT_APP) }
+                            currentSelection = remember {
+                                mutableStateOf(prefs.appSwipeRight.appLabel.ifEmpty { "Phone" })
+                            },
+                            onClick = { updateGesture(AppDrawerFlag.SetSwipeRight) },
+                            active = prefs.swipeRightEnabled,
                         )
                     },
                     { _, _ ->
                         AppSelector(
                             title = stringResource(R.string.clock_click_app),
-                            currentSelection = remember { mutableStateOf(prefs.appNameClickClock) },
-                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_CLOCK_APP) }
+                            currentSelection =
+                                remember { mutableStateOf(prefs.appClickClock.appLabel.ifEmpty { "Clock" }) },
+                            onClick = { updateGesture(AppDrawerFlag.SetClickClock) },
+                            active = prefs.clickClockEnabled,
                         )
                     },
                     { _, _ ->
                         AppSelector(
                             title = stringResource(R.string.date_click_app),
-                            currentSelection = remember { mutableStateOf(prefs.appNameClickDate) },
-                            onClick = { showAppListIfEnabled(Constants.FLAG_SET_CLICK_DATE_APP) }
+                            currentSelection =
+                                remember { mutableStateOf(prefs.appClickDate.appLabel.ifEmpty { "Calendar" }) },
+                            onClick = { updateGesture(AppDrawerFlag.SetClickDate) },
+                            active = prefs.clickDateEnabled,
                         )
                     },
                     { _, onChange ->
@@ -229,6 +299,13 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                     }
                 )
             )
+            Text(
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .padding(10.dp, 5.dp),
+                text = "Version: ${requireContext().packageManager.getPackageInfo(requireContext().packageName, 0).versionName}",
+                color = Color.DarkGray
+            )
         }
     }
 
@@ -238,15 +315,14 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         viewModel = activity?.run {
             ViewModelProvider(this).get(MainViewModel::class.java)
         } ?: throw Exception("Invalid Activity")
+
         viewModel.isOlauncherDefault()
 
         deviceManager = context?.getSystemService(Context.DEVICE_POLICY_SERVICE) as DevicePolicyManager
         componentName = ComponentName(requireContext(), DeviceAdmin::class.java)
         checkAdminPermission()
 
-        populateStatusBar()
         initClickListeners()
-        initObservers()
     }
 
     override fun onDestroyView() {
@@ -269,16 +345,21 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         binding.setLauncher.setOnClickListener(this)
     }
 
-    private fun initObservers() {
-        if (prefs.firstSettingsOpen) {
-            prefs.firstSettingsOpen = false
-        }
-        viewModel.isOlauncherDefault.observe(viewLifecycleOwner) {
-            if (it) {
-                binding.setLauncher.text = getString(R.string.change_default_launcher)
-                prefs.toShowHintCounter = prefs.toShowHintCounter + 1
-            }
-        }
+    private fun setHomeAlignment(gravity: Constants.Gravity) {
+        prefs.homeAlignment = gravity
+        viewModel.updateHomeAppsAlignment(gravity, prefs.homeAlignmentBottom)
+    }
+
+    private fun toggleHomeAppsBottom() {
+        val onBottom  = !prefs.homeAlignmentBottom
+
+        prefs.homeAlignmentBottom = onBottom
+        viewModel.updateHomeAppsAlignment(prefs.homeAlignment, onBottom)
+    }
+
+    private fun setClockAlignment(gravity: Constants.Gravity) {
+        prefs.clockAlignment = gravity
+        viewModel.updateClockAlignment(gravity)
     }
 
     private fun toggleSwipeLeft() {
@@ -304,53 +385,26 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     }
 
     private fun toggleStatusBar() {
-        prefs.showStatusBar = !prefs.showStatusBar
-        populateStatusBar()
+        val showStatusbar = !prefs.showStatusBar
+        prefs.showStatusBar = showStatusbar
+        if (showStatusbar) showStatusBar(requireActivity()) else hideStatusBar(requireActivity())
     }
 
-    private fun populateStatusBar() {
-        if (prefs.showStatusBar) {
-            showStatusBar()
-        } else {
-            hideStatusBar()
-        }
+    private fun toggleShowDate() {
+        prefs.showDate = !prefs.showDate
+        viewModel.setShowDate(prefs.showDate)
     }
 
-    private fun toggleDateTime() {
-        prefs.showDateTime = !prefs.showDateTime
-        viewModel.toggleDateTime(prefs.showDateTime)
-    }
-
-    private fun showStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-            requireActivity().window.insetsController?.show(WindowInsets.Type.statusBars())
-        else
-            @Suppress("DEPRECATION", "InlinedApi")
-            requireActivity().window.decorView.apply {
-                systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-            }
-    }
-
-    private fun hideStatusBar() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
-            requireActivity().window.insetsController?.hide(WindowInsets.Type.statusBars())
-        else {
-            @Suppress("DEPRECATION")
-            requireActivity().window.decorView.apply {
-                systemUiVisibility = View.SYSTEM_UI_FLAG_IMMERSIVE or View.SYSTEM_UI_FLAG_FULLSCREEN
-            }
-        }
+    private fun toggleShowTime() {
+        prefs.showTime = !prefs.showTime
+        viewModel.setShowTime(prefs.showTime)
     }
 
     private fun showHiddenApps() {
-        if (prefs.hiddenApps.isEmpty()) {
-            showToastShort(requireContext(), "No hidden apps")
-            return
-        }
         viewModel.getHiddenApps()
         findNavController().navigate(
             R.id.action_settingsFragment_to_appListFragment,
-            bundleOf("flag" to Constants.FLAG_HIDDEN_APPS)
+            bundleOf("flag" to AppDrawerFlag.HiddenApps.toString())
         )
     }
 
@@ -392,9 +446,9 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         //populateLockSettings()
     }
 
-    private fun updateHomeAppsNum(num: Int) {
-        prefs.homeAppsNum = num
-        viewModel.refreshHome(true)
+    private fun updateHomeAppsNum(homeAppsNum: Int) {
+        prefs.homeAppsNum = homeAppsNum
+        viewModel.homeAppsCount.value = homeAppsNum
     }
 
     private fun toggleKeyboardText() {
@@ -410,14 +464,7 @@ class SettingsFragment : Fragment(), View.OnClickListener {
     private fun setLang(lang_int: Constants.Language) {
 
         prefs.language = lang_int
-
-        // restart activity
-        activity?.let {
-            val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            it.startActivity(intent)
-            it.finish()
-        }
+        requireActivity().recreate()
     }
     private fun setTextSize(size: Int) {
         prefs.textSize = size
@@ -446,20 +493,27 @@ class SettingsFragment : Fragment(), View.OnClickListener {
         Toast.makeText(context, getString(R.string.done), Toast.LENGTH_SHORT).show()
     }
 
-    private fun showAppListIfEnabled(flag: Int) {
-        if ((flag == Constants.FLAG_SET_SWIPE_LEFT_APP) and !prefs.swipeLeftEnabled) {
-            showToastShort(requireContext(), "Long press to enable")
-            return
+    private fun updateGesture(flag: AppDrawerFlag) {
+        if ((flag == AppDrawerFlag.SetSwipeLeft) and !prefs.swipeLeftEnabled) {
+            prefs.swipeLeftEnabled = true
         }
-        if ((flag == Constants.FLAG_SET_SWIPE_RIGHT_APP) and !prefs.swipeRightEnabled) {
-            showToastShort(requireContext(), "Long press to enable")
-            return
+
+        if ((flag == AppDrawerFlag.SetSwipeRight) and !prefs.swipeRightEnabled) {
+            prefs.swipeRightEnabled = true
+        }
+
+        if ((flag == AppDrawerFlag.SetClickClock) and !prefs.clickClockEnabled) {
+            prefs.clickClockEnabled = true
+        }
+
+        if ((flag == AppDrawerFlag.SetClickDate) and !prefs.clickDateEnabled) {
+            prefs.clickDateEnabled = true
         }
 
         viewModel.getAppList()
         findNavController().navigate(
             R.id.action_settingsFragment_to_appListFragment,
-            bundleOf("flag" to flag)
+            bundleOf("flag" to flag.toString())
         )
     }
 }

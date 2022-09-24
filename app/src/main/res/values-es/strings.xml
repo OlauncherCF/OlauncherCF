@@ -19,10 +19,14 @@
     <string name="right">Derecha</string>
     <string name="center">Centro</string>
     <string name="home_alignment">Alineación</string>
+    <string name="home_alignment_bottom">Aplicaciones abajo en la pantalla</string>
+    <string name="clock_alignment">Alineación del reloj</string>
+    <string name="drawer_alignment">Alineación de aplicaciones</string>
     <string name="swipe_left_app">Deslizar a izquierda</string>
     <string name="swipe_right_app">Deslizar a derecha</string>
     <string name="clock_click_app">Pulsar reloj</string>
     <string name="date_click_app">Pulsar fecha</string>
+    <string name="commit">Guardar</string>
     <string name="app_drawer_tips">Sugerencia: deslice hacia abajo para descartar. Desplace para ocultar el teclado.</string>
     <string name="okay">OK</string>
     <string name="double_tap_lock_is_enabled_message">Si el bloqueo con doble toque desactiva la huella digital o el desbloqueo facial, abra la configuración de Olauncher, toque \'experimental\' y sigua las instrucciones. Gracias.</string>
@@ -34,9 +38,14 @@
     <string name="hide">Ocultar</string>
     <string name="status_bar">Barra de estado</string>
     <string name="rename">Renombrar</string>
-    <string name="show_date_time">Fecha y hora</string>
+    <string name="show_time">Hora</string>
+    <string name="show_date">Fecha</string>
+    <string name="lock_home_apps">Bloquear aplicaciones</string>
+    <string name="extend_home_apps_area">Ampliar área de las aplicaciones de inicio</string>
     <string name="appearance">Apariencia</string>
     <string name="gestures">Gestos</string>
+    <string name="homescreen">Inicio</string>
+    <string name="alignment">Disposición</string>
     <string name="theme_mode">Tema</string>
     <string name="system_default">Por defecto</string>
     <string name="dark">Oscuro</string>
@@ -49,12 +58,15 @@
     <string name="copy">Copiar</string>
     <string name="close">Cerrar</string>
     <string name="app_language">Idioma</string>
+    <string name="lang_system">Sistema</string>
     
     <string name="app_text_size">Texto en pantalla</string>
-    <string name="text_size_huge">Grande</string>
-    <string name="text_size_normal">Normal</string>
-    <string name="text_size_small">Pequeño</string>
 
     <string name="hidden_apps">Aplicaciones ocultas</string>
+    
+    <string name="show">Show</string>
+    <string name="reset">Reset</string>
+    <string name="cancel">Cancel</string>
+
 
 </resources>

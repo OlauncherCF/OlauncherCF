@@ -2,24 +2,28 @@ package app.olaunchercf.ui
 
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import app.olaunchercf.R
 import app.olaunchercf.data.AppModel
 import app.olaunchercf.data.Constants
+import app.olaunchercf.data.Constants.AppDrawerFlag
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.AdapterAppDrawerBinding
+import kotlinx.coroutines.NonCancellable.cancel
 import java.text.Normalizer
 
 class AppDrawerAdapter(
-    private var flag: Int,
+    private var flag: AppDrawerFlag,
     private val gravity: Int,
     private val clickListener: (AppModel) -> Unit,
     private val appInfoListener: (AppModel) -> Unit,
-    private val appHideListener: (Int, AppModel) -> Unit,
+    private val appHideListener: (AppDrawerFlag, AppModel) -> Unit,
     private val appRenameListener: (String, String) -> Unit
 ) : RecyclerView.Adapter<AppDrawerAdapter.ViewHolder>(), Filterable {
 
@@ -55,11 +59,12 @@ class AppDrawerAdapter(
             val name = holder.appRenameEdit.text.toString().trim()
             appModel.appAlias = name
             notifyItemChanged(holder.adapterPosition)
-            appRenameListener(appModel.appLabel, appModel.appAlias)
+            Log.d("rename", "$appModel")
+            appRenameListener(appModel.appPackage, appModel.appAlias)
         }
 
         try { // Automatically open the app when there's only one search result
-            if ((itemCount == 1) and (flag == Constants.FLAG_LAUNCH_APP))
+            if ((itemCount == 1) and (flag == AppDrawerFlag.LaunchApp))
                 clickListener(appFilteredList[position])
         } catch (e: Exception) {
 
@@ -120,7 +125,7 @@ class AppDrawerAdapter(
 
     class ViewHolder(itemView: AdapterAppDrawerBinding) : RecyclerView.ViewHolder(itemView.root) {
         val appHideButton: TextView = itemView.appHide
-        val appRenameButton: TextView = itemView.appRename
+        val appRenameButton: TextView = itemView.drawerButton
         val appRenameEdit: EditText = itemView.appRenameEdit
         private val appHideLayout: ConstraintLayout = itemView.appHideLayout
         private val appTitle: TextView = itemView.appTitle
@@ -128,7 +133,7 @@ class AppDrawerAdapter(
         private val appInfo: ImageView = itemView.appInfo
 
         fun bind(
-            flag: Int,
+            flag: AppDrawerFlag,
             appLabelGravity: Int,
             appModel: AppModel,
             listener: (AppModel) -> Unit,
@@ -136,7 +141,12 @@ class AppDrawerAdapter(
         ) =
             with(itemView) {
                 appHideLayout.visibility = View.GONE
-                appHideButton.text = (if (flag == Constants.FLAG_HIDDEN_APPS) "SHOW" else "HIDE")
+                appHideButton.text = if (flag == AppDrawerFlag.HiddenApps) {
+                    context.getString(R.string.show)
+                } else {
+                    context.getString(R.string.hide)
+                }
+
 
                 appRenameEdit.addTextChangedListener(object : TextWatcher {
 
@@ -149,11 +159,11 @@ class AppDrawerAdapter(
                     override fun onTextChanged(s: CharSequence, start: Int,
                                                before: Int, count: Int) {
                         if (appRenameEdit.text.isEmpty()) {
-                            appRenameButton.text = "Reset"
+                            appRenameButton.text = context.getString(R.string.reset)
                         } else if (appRenameEdit.text.toString() == appModel.appAlias || appRenameEdit.text.toString() == appModel.appLabel) {
-                            appRenameButton.text = "Cancel"
+                            appRenameButton.text = context.getString(R.string.cancel)
                         } else {
-                            appRenameButton.text = "Rename"
+                            appRenameButton.text = context.getString(R.string.rename)
                         }
                     }
                 })

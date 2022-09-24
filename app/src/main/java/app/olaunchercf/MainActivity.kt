@@ -7,6 +7,7 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 import androidx.appcompat.app.AppCompatActivity
@@ -51,10 +52,10 @@ class MainActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        useLanguage()
+        setLanguage()
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         if (prefs.firstOpen) {
             viewModel.firstOpen(true)
             prefs.firstOpen = false
@@ -69,9 +70,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Suppress("DEPRECATION")
-    private fun useLanguage() {
+    fun setLanguage() {
         val locale = Locale(prefs.language.value())
-        Locale.setDefault(locale)
         val config = resources.configuration
         config.locale = locale
         resources.updateConfiguration(config, resources.displayMetrics)
@@ -102,9 +102,6 @@ class MainActivity : AppCompatActivity() {
             binding.messageLayout.visibility = View.GONE
             viewModel.showMessageDialog("")
         }
-        binding.closeOneLink.setOnClickListener {
-            viewModel.showSupportDialog(false)
-        }
     }
 
     private fun initObservers(viewModel: MainViewModel) {
@@ -113,9 +110,6 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel.showMessageDialog.observe(this) {
             showMessage(it)
-        }
-        viewModel.showSupportDialog.observe(this) {
-            binding.supportOlauncherLayout.isVisible = it
         }
     }
 

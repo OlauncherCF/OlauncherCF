@@ -1,10 +1,23 @@
 package app.olaunchercf.data
 
+import android.annotation.SuppressLint
+import android.util.Log
+import android.view.Gravity
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ComposeCompilerApi
+import androidx.compose.ui.res.stringResource
+import app.olaunchercf.R
+import app.olaunchercf.data.Constants.toString
 import java.util.*
+
+interface EnumOption {
+    @Composable
+    fun string(): String
+}
 
 object Constants {
 
-    const val FLAG_LAUNCH_APP = 100
+    /*const val FLAG_LAUNCH_APP = 100
     const val FLAG_HIDDEN_APPS = 101
 
     const val FLAG_SET_HOME_APP = 1
@@ -13,7 +26,7 @@ object Constants {
     const val FLAG_SET_SWIPE_RIGHT_APP = 12
 
     const val FLAG_SET_CLICK_CLOCK_APP = 13
-    const val FLAG_SET_CLICK_DATE_APP = 14
+    const val FLAG_SET_CLICK_DATE_APP = 14*/
 
     const val REQUEST_CODE_ENABLE_ADMIN = 666
 
@@ -24,24 +37,64 @@ object Constants {
     const val TEXT_SIZE_MIN = 16
     const val TEXT_SIZE_MAX = 30
 
-    enum class Language {
+    enum class AppDrawerFlag {
+        LaunchApp,
+        HiddenApps,
+        SetHomeApp,
+        SetSwipeLeft,
+        SetSwipeRight,
+        SetClickClock,
+        SetClickDate,
+    }
+
+    enum class Language: EnumOption {
         System,
+        Chinese,
+        Croatian,
         English,
-        Deutsch,
-        Spanish,
+        Estonian,
         French,
-        Italian,
-        Swedish,
-        Turkish,
+        German,
         Greek,
-        Chinese
+        Indonesian,
+        Italian,
+        Korean,
+        Persian,
+        Portuguese,
+        Russian,
+        Spanish,
+        Swedish,
+        Turkish;
+
+        @Composable
+        override fun string(): String {
+            return when(this) {
+                System -> stringResource(R.string.lang_system)
+                Chinese -> "中文"
+                Croatian -> "Hrvatski"
+                English -> "English"
+                Estonian -> "Eesti keel"
+                French -> "Français"
+                German -> "Deutsch"
+                Greek -> "Ελληνική"
+                Indonesian -> "Bahasa Indonesia"
+                Italian -> "Italiano"
+                Korean -> "한국어"
+                Persian -> "فارسی"
+                Portuguese -> "Português"
+                Russian -> "Русский"
+                Spanish -> "Español"
+                Swedish -> "Svenska"
+                Turkish -> "Türkçe"
+            }
+        }
     }
 
     fun Language.value(): String {
         return when(this) {
-            Language.System -> Locale(Locale.getDefault().language).toString()
+            Language.System -> Locale.getDefault().language
             Language.English -> "en"
-            Language.Deutsch -> "de"
+            Language.German -> "de"
             Language.Spanish -> "es"
             Language.French -> "fr"
             Language.Italian -> "it"
@@ -49,18 +102,52 @@ object Constants {
             Language.Turkish -> "tr"
             Language.Greek -> "gr"
             Language.Chinese -> "cn"
+            Language.Persian -> "fa"
+            Language.Portuguese -> "pt"
+            Language.Korean -> "ko"
+            Language.Indonesian -> "id"
+            Language.Russian -> "ru"
+            Language.Croatian -> "hr"
+            Language.Estonian -> "et"
         }
     }
 
-    enum class Gravity {
+    enum class Gravity: EnumOption {
         Left,
         Center,
-        Right
+        Right;
+
+        @Composable
+        override fun string(): String {
+            return when(this) {
+                Left -> stringResource(R.string.left)
+                Center -> stringResource(R.string.center)
+                Right -> stringResource(R.string.right)
+            }
+        }
+
+        @SuppressLint("RtlHardcoded")
+        fun value(): Int {
+            return when(this) {
+                Left -> android.view.Gravity.LEFT
+                Center -> android.view.Gravity.CENTER
+                Right -> android.view.Gravity.RIGHT
+            }
+        }
     }
 
-    enum class Theme {
+    enum class Theme: EnumOption {
         System,
         Dark,
-        Light
+        Light;
+
+        @Composable
+        override fun string(): String {
+            return when(this) {
+                System -> stringResource(R.string.lang_system)
+                Dark -> stringResource(R.string.dark)
+                Light -> stringResource(R.string.light)
+            }
+        }
     }
 }

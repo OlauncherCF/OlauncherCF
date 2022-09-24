@@ -183,7 +183,8 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         val string = stringBuilder.toString()
-                        Prefs(applicationContext).deserialize(string)
+                        val json = JSONObject(string)
+                        Prefs(applicationContext).fromJson(json)
                     }
                 }
                 startActivity(Intent.makeRestartActivityTask(this.intent?.component))
@@ -192,9 +193,8 @@ class MainActivity : AppCompatActivity() {
                 data?.data?.also { uri ->
                     applicationContext.contentResolver.openFileDescriptor(uri, "w")?.use { file ->
                         FileOutputStream(file.fileDescriptor).use { stream ->
-                            val text = Prefs(applicationContext).serialize()
+                            val text = Prefs(applicationContext).toJson().toString()
                             stream.write( text.toByteArray() )
-                            stream.channel.truncate(text.length.toLong())
                         }
                     }
                 }

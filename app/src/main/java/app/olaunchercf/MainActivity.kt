@@ -1,6 +1,7 @@
 package app.olaunchercf
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -10,6 +11,7 @@ import android.provider.Settings
 import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
@@ -22,6 +24,10 @@ import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.ActivityMainBinding
 import app.olaunchercf.helper.isTablet
 import app.olaunchercf.helper.showToastLong
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.FileOutputStream
+import java.io.InputStreamReader
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -150,14 +156,47 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode != Activity.RESULT_OK) {
+            showToastLong(applicationContext, "Intent Error")
+            return
+        }
+
         when (requestCode) {
             Constants.REQUEST_CODE_ENABLE_ADMIN -> {
-                if (resultCode == RESULT_OK) {
-                    prefs.lockModeOn = true
-                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
-                        showMessage(getString(R.string.double_tap_lock_is_enabled_message))
-                    else
-                        showMessage(getString(R.string.double_tap_lock_uninstall_message))
+                prefs.lockModeOn = true
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+                    showMessage(getString(R.string.double_tap_lock_is_enabled_message))
+                else
+                    showMessage(getString(R.string.double_tap_lock_uninstall_message))
+            }
+            Constants.BACKUP_READ -> {
+                data?.data?.also { uri ->
+                    applicationContext.contentResolver.openInputStream(uri).use { inputStream ->
+                        val stringBuilder = StringBuilder()
+                        BufferedReader(InputStreamReader(inputStream)).use { reader ->
+                            var line: String? = reader.readLine()
+                            while (line != null) {
+                                stringBuilder.append(line)
+                                line = reader.readLine()
+                            }
+                        }
+
+                        val string = stringBuilder.toString()
+                        val json = JSONObject(string)
+                        Prefs(applicationContext).fromJson(json)
+                    }
+                }
+                startActivity(Intent.makeRestartActivityTask(this.intent?.component))
+            }
+            Constants.BACKUP_WRITE -> {
+                data?.data?.also { uri ->
+                    applicationContext.contentResolver.openFileDescriptor(uri, "w")?.use { file ->
+                        FileOutputStream(file.fileDescriptor).use { stream ->
+                            val text = Prefs(applicationContext).toJson().toString()
+                            stream.write( text.toByteArray() )
+                        }
+                    }
                 }
             }
         }

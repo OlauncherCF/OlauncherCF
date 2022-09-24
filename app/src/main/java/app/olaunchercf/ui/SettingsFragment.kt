@@ -1,6 +1,7 @@
 package app.olaunchercf.ui
 
 import SettingsTheme
+import android.app.Activity
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
@@ -8,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,6 +35,8 @@ import app.olaunchercf.MainViewModel
 import app.olaunchercf.R
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Constants.AppDrawerFlag
+import app.olaunchercf.data.Constants.BACKUP_READ
+import app.olaunchercf.data.Constants.BACKUP_WRITE
 import app.olaunchercf.data.Constants.Theme.*
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentSettingsBinding
@@ -43,6 +47,11 @@ import app.olaunchercf.ui.compose.SettingsComposable.SettingsArea
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsNumberItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsToggle
+import app.olaunchercf.ui.compose.SettingsComposable.SettingsTwoButtonRow
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.FileOutputStream
+import java.io.InputStreamReader
 
 class SettingsFragment : Fragment(), View.OnClickListener {
 
@@ -277,6 +286,19 @@ class SettingsFragment : Fragment(), View.OnClickListener {
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.lockModeOn) }
                         ) { toggleLockMode() }
+                    }
+                )
+            )
+            SettingsArea(title = "Backup",
+                selected = selected,
+                arrayOf(
+                    { _, _ ->
+                        SettingsTwoButtonRow(
+                            firstButtonText = "Load",
+                            secondButtonText = "Store",
+                            firstButtonAction = { loadFile(requireActivity()) },
+                            secondButtonAction = { storeFile(requireActivity()) },
+                        )
                     }
                 )
             )

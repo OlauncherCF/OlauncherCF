@@ -1,13 +1,16 @@
 package app.olaunchercf.data
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.UserHandle
-import android.os.UserManager
 import android.util.Log
-import androidx.core.content.getSystemService
+import androidx.core.app.ActivityCompat.startActivityForResult
 import app.olaunchercf.helper.getUserHandleFromString
-import java.lang.RuntimeException
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.*
 
 private const val APP_LANGUAGE = "app_language"
 private const val PREFS_FILENAME = "app.olauncher"
@@ -52,6 +55,42 @@ private const val TEXT_SIZE = "text_size"
 class Prefs(val context: Context) {
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
+
+    fun toJson(): JSONObject {
+        val json = JSONObject()
+
+        for ((key, value) in prefs.all) {
+            val entry = JSONObject()
+            entry.put("value", value)
+            entry.put("type", value!!::class.simpleName)
+            json.put(key, entry)
+        }
+
+        return json
+    }
+
+    fun fromJson(json: JSONObject) {
+        val editor = prefs.edit()
+        for (key in json.keys()) {
+            val entry = json[key] as JSONObject
+            val type = entry.get("type")
+            val value = entry.get("value")
+
+            when (value) {
+                is JSONArray -> {
+                    val set = mutableSetOf<String>()
+                    for (i in 0..value.length()) {
+                        set.add(value[i] as String)
+                    }
+                }
+                is String -> editor.putString(key, value)
+                is Int -> editor.putInt(key, value)
+                is Boolean -> editor.putBoolean(key, value)
+                else ->  { Log.d("backup", "$value") }
+            }
+        }
+        editor.apply()
+    }
 
     var firstOpen: Boolean
         get() = prefs.getBoolean(FIRST_OPEN, true)

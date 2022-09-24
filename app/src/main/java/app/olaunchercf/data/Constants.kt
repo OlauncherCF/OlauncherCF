@@ -37,6 +37,9 @@ object Constants {
     const val TEXT_SIZE_MIN = 16
     const val TEXT_SIZE_MAX = 30
 
+    const val BACKUP_WRITE = 1
+    const val BACKUP_READ = 2
+
     enum class AppDrawerFlag {
         LaunchApp,
         HiddenApps,

@@ -60,10 +60,8 @@ class Prefs(val context: Context) {
         val json = JSONObject()
 
         for ((key, value) in prefs.all) {
-            val entry = JSONObject()
-            entry.put("value", value)
-            entry.put("type", value!!::class.simpleName)
-            json.put(key, entry)
+            Log.d("backup", "$key, $value")
+            json.put(key, value)
         }
 
         return json
@@ -72,9 +70,8 @@ class Prefs(val context: Context) {
     fun fromJson(json: JSONObject) {
         val editor = prefs.edit()
         for (key in json.keys()) {
-            val entry = json[key] as JSONObject
-            val type = entry.get("type")
-            val value = entry.get("value")
+            val value = json[key] // as JSON
+            Log.d("backup", "$value")
 
             when (value) {
                 is JSONArray -> {
@@ -220,10 +217,6 @@ class Prefs(val context: Context) {
     var hiddenAppsUpdated: Boolean
         get() = prefs.getBoolean(HIDDEN_APPS_UPDATED, false)
         set(value) = prefs.edit().putBoolean(HIDDEN_APPS_UPDATED, value).apply()
-
-    var toShowHintCounter: Int
-        get() = prefs.getInt(SHOW_HINT_COUNTER, 1)
-        set(value) = prefs.edit().putInt(SHOW_HINT_COUNTER, value).apply()
 
     fun getHomeAppModel(i:Int): AppModel {
         return loadApp("$i")

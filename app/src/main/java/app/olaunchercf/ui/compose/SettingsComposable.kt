@@ -177,22 +177,25 @@ object SettingsComposable {
         firstButtonAction: () -> Unit,
         secondButtonAction: () -> Unit,
     ) {
-        TextButton (
-            onClick = firstButtonAction
-        ) {
-            Text(firstButtonText,
-                style = SettingsTheme.typography.item,
-            )
-        }
+        Row {
+            TextButton(
+                onClick = firstButtonAction
+            ) {
+                Text(
+                    firstButtonText,
+                    style = SettingsTheme.typography.item,
+                )
+            }
 
-        TextButton (
-            onClick = secondButtonAction
-        ) {
-            Text(secondButtonText,
-                style = SettingsTheme.typography.item,
-            )
+            TextButton(
+                onClick = secondButtonAction
+            ) {
+                Text(
+                    secondButtonText,
+                    style = SettingsTheme.typography.item,
+                )
+            }
         }
-
     }
 
     @Composable

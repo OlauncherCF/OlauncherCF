@@ -195,6 +195,7 @@ class MainActivity : AppCompatActivity() {
                         FileOutputStream(file.fileDescriptor).use { stream ->
                             val text = Prefs(applicationContext).toJson().toString()
                             stream.write( text.toByteArray() )
+                            stream.channel.truncate(text.length.toLong())
                         }
                     }
                 }

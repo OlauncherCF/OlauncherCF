@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Bundle
 import android.os.UserHandle
 import android.util.Log
 import androidx.core.app.ActivityCompat.startActivityForResult
@@ -11,6 +12,9 @@ import app.olaunchercf.helper.getUserHandleFromString
 import android.util.Log
 import androidx.core.app.ActivityCompat.startActivityForResult
 import app.olaunchercf.helper.getUserHandleFromString
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.*

@@ -114,6 +114,7 @@ suspend fun getAppsList(context: Context, showHiddenApps: Boolean = false): Muta
             }
 
         } catch (e: java.lang.Exception) {
+            Log.d("backup", "$e")
         }
         appList
     }

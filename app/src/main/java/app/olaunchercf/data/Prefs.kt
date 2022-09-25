@@ -4,10 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Bundle
 import android.os.UserHandle
 import android.util.Log
 import androidx.core.app.ActivityCompat.startActivityForResult
 import app.olaunchercf.helper.getUserHandleFromString
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import org.json.JSONArray
 import org.json.JSONObject
 import java.io.*
@@ -56,33 +60,30 @@ class Prefs(val context: Context) {
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
 
-    fun toJson(): JSONObject {
-        val json = JSONObject()
-
-        for ((key, value) in prefs.all) {
-            Log.d("backup", "$key, $value")
-            json.put(key, value)
+    fun serialize(): String {
+        val all: HashMap<String, Any?> = HashMap(prefs.all)
+        val filtered: HashMap<String, Serializable> = HashMap()
+        for ((key, value) in all) {
+            if (value is Serializable) {
+                filtered[key] = value
+            }
         }
-
-        return json
+        val bundle = Bundle().putSerializable("sp", filtered)
+        return Json.encodeToString(bundle)
     }
 
-    fun fromJson(json: JSONObject) {
+    fun deserialize(json: String) {
         val editor = prefs.edit()
-        for (key in json.keys()) {
-            val value = json[key] // as JSON
-            Log.d("backup", "$value")
-
+        val all = Json.decodeFromString(json)
+        for ((key, value) in all) {
             when (value) {
-                is JSONArray -> {
-                    val set = mutableSetOf<String>()
-                    for (i in 0..value.length()) {
-                        set.add(value[i] as String)
-                    }
-                }
                 is String -> editor.putString(key, value)
                 is Int -> editor.putInt(key, value)
                 is Boolean -> editor.putBoolean(key, value)
+                is MutableSet<*> -> {
+                    val list = value.filterIsInstance<String>().toSet()
+                    editor.putStringSet(key, list)
+                }
                 else ->  { Log.d("backup", "$value") }
             }
         }

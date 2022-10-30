@@ -172,18 +172,14 @@ class AppDrawerAdapter(
                     }
                 })
 
-                // set current name as default text in EditText
-                appRenameEdit.text = if (appModel.appAlias.isEmpty()) {
-                    Editable.Factory.getInstance().newEditable(appModel.appLabel);
-                } else {
-                    Editable.Factory.getInstance().newEditable(appModel.appAlias);
+                val appName = appModel.appAlias.ifEmpty {
+                    appModel.appLabel
                 }
 
-                appTitle.text = if (appModel.appAlias.isEmpty()) {
-                    appModel.appLabel
-                } else {
-                    appModel.appAlias
-                }
+                appTitle.text = appName
+
+                // set current name as default text in EditText
+                appRenameEdit.text = Editable.Factory.getInstance().newEditable(appName);
 
                 // set text gravity
                 val params = appTitle.layoutParams as FrameLayout.LayoutParams

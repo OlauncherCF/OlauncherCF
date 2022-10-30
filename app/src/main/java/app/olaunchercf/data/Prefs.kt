@@ -66,25 +66,32 @@ private const val DOUBLE_TAP = "DOUBLE_TAP"
 
 private const val TEXT_SIZE = "text_size"
 
+data class Preference(val value: String, val type: String)
+
 class Prefs(val context: Context) {
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
 
     fun serialize(): String {
         val all: HashMap<String, Any?> = HashMap(prefs.all)
-        val filtered: HashMap<String, Serializable> = HashMap()
+
+        val filtered: HashMap<String, Preference> = HashMap()
         for ((key, value) in all) {
-            if (value is Serializable) {
-                filtered[key] = value
+            val type = when (value) {
+                is Boolean -> "Boolean"
+                is String -> "String"
+                else -> value.toString()
             }
+            filtered[key] = Preference(value.toString(), type)
         }
         val bundle = Bundle().putSerializable("sp", filtered)
+
         return Json.encodeToString(bundle)
     }
 
     fun deserialize(json: String) {
         val editor = prefs.edit()
-        val all = Json.decodeFromString(json)
+        /*val all = Json.decodeFromString(json)
         for ((key, value) in all) {
             when (value) {
                 is String -> editor.putString(key, value)
@@ -96,7 +103,7 @@ class Prefs(val context: Context) {
                 }
                 else ->  { Log.d("backup", "$value") }
             }
-        }
+        }*/
         editor.apply()
     }
 

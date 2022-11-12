@@ -34,8 +34,8 @@ object Constants {
     const val LONG_PRESS_DELAY_MS = 500
 
     const val MAX_HOME_APPS = 15
-    const val TEXT_SIZE_MIN = 16
-    const val TEXT_SIZE_MAX = 30
+    const val TEXT_SIZE_MIN = 10
+    const val TEXT_SIZE_MAX = 60
 
     const val BACKUP_WRITE = 1
     const val BACKUP_READ = 2

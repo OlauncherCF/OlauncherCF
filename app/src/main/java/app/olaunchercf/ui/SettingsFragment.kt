@@ -67,6 +67,8 @@ class SettingsFragment : Fragment() {
     private var _binding: FragmentSettingsBinding? = null
     private val binding get() = _binding!!
 
+    private val offset = 5
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -94,7 +96,7 @@ class SettingsFragment : Fragment() {
             }
 
             SettingsTheme(isDark) {
-                Settings(prefs.textSize.sp)
+                Settings((prefs.textSize - offset).sp)
             }
         }
     }
@@ -184,7 +186,7 @@ class SettingsFragment : Fragment() {
                             currentSelection = remember { mutableStateOf(prefs.textSize) },
                             min = Constants.TEXT_SIZE_MIN,
                             max = Constants.TEXT_SIZE_MAX,
-                            onValueChange = { newSize -> fs.value = newSize.sp },
+                            onValueChange = { newSize -> fs.value = (newSize - offset).sp },
                             onSelect = { f -> setTextSize(f) }
                         )
                     }

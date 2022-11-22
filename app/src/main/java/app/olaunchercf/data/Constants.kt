@@ -1,13 +1,9 @@
 package app.olaunchercf.data
 
 import android.annotation.SuppressLint
-import android.util.Log
-import android.view.Gravity
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ComposeCompilerApi
 import androidx.compose.ui.res.stringResource
 import app.olaunchercf.R
-import app.olaunchercf.data.Constants.toString
 import java.util.*
 
 interface EnumOption {
@@ -88,27 +84,31 @@ object Constants {
                 Turkish -> "Türkçe"
             }
         }
-    }
 
-    fun Language.value(): String {
-        return when(this) {
-            Language.System -> Locale.getDefault().language
-            Language.English -> "en"
-            Language.German -> "de"
-            Language.Spanish -> "es"
-            Language.French -> "fr"
-            Language.Italian -> "it"
-            Language.Swedish -> "se"
-            Language.Turkish -> "tr"
-            Language.Greek -> "gr"
-            Language.Chinese -> "cn"
-            Language.Persian -> "fa"
-            Language.Portuguese -> "pt"
-            Language.Korean -> "ko"
-            Language.Indonesian -> "id"
-            Language.Russian -> "ru"
-            Language.Croatian -> "hr"
-            Language.Estonian -> "et"
+        fun locale(): Locale {
+            return Locale(value())
+        }
+
+        fun value(): String {
+            return when (this) {
+                System -> Locale.getDefault().language
+                English -> "en"
+                German -> "de"
+                Spanish -> "es"
+                French -> "fr"
+                Italian -> "it"
+                Swedish -> "se"
+                Turkish -> "tr"
+                Greek -> "gr"
+                Chinese -> "cn"
+                Persian -> "fa"
+                Portuguese -> "pt"
+                Korean -> "ko"
+                Indonesian -> "id"
+                Russian -> "ru"
+                Croatian -> "hr"
+                Estonian -> "et"
+            }
         }
     }
 

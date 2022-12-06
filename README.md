@@ -16,6 +16,7 @@ We try to balance customizability and clutter :)</h3>
 - Change alignment of apps in app-drawer
 - Change font size
 - A lot of people have translated the app to the following languages. Many thanks to you ❤️
+  - Arabic
   - Chinese
   - Croatian
   - English

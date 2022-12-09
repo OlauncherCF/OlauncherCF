@@ -412,6 +412,17 @@ class SettingsFragment : Fragment() {
             showToastShort(requireContext(), "Swipe right app disabled")
         }
     }
+    
+    private fun toggleSwipeDown() {
+        prefs.swipeDownEnabled = !prefs.swipeDownEnabled
+        if (prefs.swipeDownEnabled) {
+            //binding.swipeDownApp.setTextColor(requireContext().getColorFromAttr(R.attr.primaryColor))
+            showToastShort(requireContext(), "Swipe down app enabled")
+        } else {
+            //binding.swipeDownApp.setTextColor(requireContext().getColorFromAttr(R.attr.primaryColorTrans50))
+            showToastShort(requireContext(), "Swipe down app disabled")
+        }
+    }
 
     private fun toggleStatusBar() {
         val showStatusbar = !prefs.showStatusBar
@@ -520,6 +531,10 @@ class SettingsFragment : Fragment() {
 
         if ((flag == AppDrawerFlag.SetSwipeRight) and !prefs.swipeRightEnabled) {
             prefs.swipeRightEnabled = true
+        }
+        
+        if ((flag == AppDrawerFlag.SetSwipeDown) and !prefs.swipeDownEnabled) {
+            prefs.swipeDownEnabled = true
         }
 
         if ((flag == AppDrawerFlag.SetClickClock) and !prefs.clickClockEnabled) {

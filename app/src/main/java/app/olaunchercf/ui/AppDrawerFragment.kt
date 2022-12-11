@@ -51,19 +51,31 @@ class AppDrawerFragment : Fragment() {
         when (flag) {
             AppDrawerFlag.SetHomeApp -> {
                 binding.drawerButton.text = getString(R.string.rename)
-                binding.drawerButton.isVisible = true // && it.trim().isNotEmpty()
+                binding.drawerButton.isVisible = true
                 binding.drawerButton.setOnClickListener { renameListener(flag, n) }
             }
             AppDrawerFlag.SetSwipeRight,
             AppDrawerFlag.SetSwipeLeft,
-            AppDrawerFlag.SetSwipeDown,
             AppDrawerFlag.SetClickClock,
             AppDrawerFlag.SetClickDate -> {
                 binding.drawerButton.text = getString(R.string.disable)
-                binding.drawerButton.isVisible = true // && it.trim().isNotEmpty()
+                binding.drawerButton.isVisible = true
                 binding.drawerButton.setOnClickListener {
                     disableGesture(flag)
                     findNavController().popBackStack()
+                }
+            }
+            AppDrawerFlag.SetSwipeDown -> {
+                binding.apply {
+
+                    drawerButton.text = getString(R.string.open_notifications)
+                    optionButtons?.isVisible = true
+                    drawerButton.isVisible = true
+
+                    drawerButton.setOnClickListener {
+                        disableGesture(flag)
+                        findNavController().popBackStack()
+                    }
                 }
             }
             else -> {}

@@ -207,6 +207,24 @@ object SettingsComposable {
     }
 
     @Composable
+    fun SettingsGestureSelector(
+        title: String,
+        currentSelection: MutableState<String>,
+        active: Boolean,
+        fontSize: TextUnit = TextUnit.Unspecified,
+        onClick: () -> Unit,
+    ) {
+        SettingsRow(
+            title = title,
+            onClick = onClick,
+            buttonText = currentSelection.value,
+            active = active,
+            fontSize = fontSize,
+            disabledText = stringResource(R.string.disabled)
+        )
+    }
+
+    @Composable
     fun SettingsAppSelector(
         title: String,
         currentSelection: MutableState<String>,

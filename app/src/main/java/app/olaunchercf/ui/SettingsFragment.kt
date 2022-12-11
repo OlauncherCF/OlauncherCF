@@ -8,7 +8,6 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,7 +16,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -26,17 +24,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.isSpecified
 import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import app.olaunchercf.BuildConfig
-import app.olaunchercf.MainActivity
 import app.olaunchercf.MainViewModel
 import app.olaunchercf.R
 import app.olaunchercf.data.Constants
+import app.olaunchercf.data.Constants.Action
 import app.olaunchercf.data.Constants.AppDrawerFlag
 import app.olaunchercf.data.Constants.Theme.*
 import app.olaunchercf.data.Prefs
@@ -288,7 +285,7 @@ class SettingsFragment : Fragment() {
                                 mutableStateOf(prefs.appSwipeLeft.appLabel.ifEmpty { "Camera" })
                             },
 
-                            onClick = { updateGesture(AppDrawerFlag.SetSwipeLeft) },
+                            onClick = { updateGesture(AppDrawerFlag.SetSwipeLeft, Action.OpenApp) },
                             active = prefs.swipeLeftEnabled,
                         )
                     },
@@ -298,20 +295,18 @@ class SettingsFragment : Fragment() {
                             currentSelection = remember {
                                 mutableStateOf(prefs.appSwipeRight.appLabel.ifEmpty { "Phone" })
                             },
-
-                            onClick = { updateGesture(AppDrawerFlag.SetSwipeRight) },
+                            onClick = { updateGesture(AppDrawerFlag.SetSwipeRight, Action.OpenApp) },
                             active = prefs.swipeRightEnabled,
                         )
                     },
-                    { _, _ ->
-                        SettingsAppSelector(
+                    { open, onChange ->
+                        SettingsItem(
+                            open = open,
+                            onChange = onChange,
                             title = stringResource(R.string.swipe_down_app),
-                            currentSelection = remember {
-                                mutableStateOf(prefs.appSwipeDown.appLabel.ifEmpty { "Phone" })
-                            },
-
-                            onClick = { updateGesture(AppDrawerFlag.SetSwipeDown) },
-                            active = prefs.swipeDownEnabled,
+                            currentSelection = remember { mutableStateOf(prefs.swipeDownAction) },
+                            values = Action.values(),
+                            onSelect = { j -> updateGesture(AppDrawerFlag.SetSwipeDown, j) }
                         )
                     },
                     { _, _ ->
@@ -319,7 +314,7 @@ class SettingsFragment : Fragment() {
                             title = stringResource(R.string.clock_click_app),
                             currentSelection =
                                 remember { mutableStateOf(prefs.appClickClock.appLabel.ifEmpty { "Clock" }) },
-                            onClick = { updateGesture(AppDrawerFlag.SetClickClock) },
+                            onClick = { updateGesture(AppDrawerFlag.SetClickClock, Action.OpenApp) },
 
                             active = prefs.clickClockEnabled,
                         )
@@ -329,7 +324,7 @@ class SettingsFragment : Fragment() {
                             title = stringResource(R.string.date_click_app),
                             currentSelection =
                                 remember { mutableStateOf(prefs.appClickDate.appLabel.ifEmpty { "Calendar" }) },
-                            onClick = { updateGesture(AppDrawerFlag.SetClickDate) },
+                            onClick = { updateGesture(AppDrawerFlag.SetClickDate, Action.OpenApp) },
 
                             active = prefs.clickDateEnabled,
                         )
@@ -524,7 +519,7 @@ class SettingsFragment : Fragment() {
         requireActivity().recreate()
     }*/
 
-    private fun updateGesture(flag: AppDrawerFlag) {
+    private fun updateGesture(flag: AppDrawerFlag, action: Action) {
         if ((flag == AppDrawerFlag.SetSwipeLeft) and !prefs.swipeLeftEnabled) {
             prefs.swipeLeftEnabled = true
         }
@@ -545,10 +540,17 @@ class SettingsFragment : Fragment() {
             prefs.clickDateEnabled = true
         }
 
-        viewModel.getAppList()
-        findNavController().navigate(
-            R.id.action_settingsFragment_to_appListFragment,
-            bundleOf("flag" to flag.toString())
-        )
+        prefs.swipeDownAction = action
+
+        when(action) {
+            Action.OpenApp -> {
+                viewModel.getAppList()
+                findNavController().navigate(
+                    R.id.action_settingsFragment_to_appListFragment,
+                    bundleOf("flag" to flag.toString())
+                )
+            }
+            else -> {}
+        }
     }
 }

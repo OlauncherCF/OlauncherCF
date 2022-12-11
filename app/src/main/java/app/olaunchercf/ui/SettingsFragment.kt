@@ -327,14 +327,6 @@ class SettingsFragment : Fragment() {
                         )
                     },
                     { open, onChange ->
-                        /*SettingsAppSelector(
-                            title = stringResource(R.string.date_click_app),
-                            currentSelection =
-                                remember { mutableStateOf(prefs.appClickDate.appLabel.ifEmpty { "Calendar" }) },
-                            onClick = { updateGesture(AppDrawerFlag.SetClickDate, Action.OpenApp) },
-
-                            active = prefs.clickDateAction != Action.Disabled,
-                        )*/
                         SettingsItem(
                             open = open,
                             onChange = onChange,
@@ -487,24 +479,26 @@ class SettingsFragment : Fragment() {
     }
     private fun setTextSize(size: Int) {
         prefs.textSize = size
-
-        // restart activity
-        /* activity?.let {
-            val intent = Intent(context, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-            it.startActivity(intent)
-            it.finish()
-        } */
     }
 
-    /*private fun setAppTheme(theme: Constants.Theme) {
-        // if (AppCompatDelegate.getDefaultNightMode() == theme) return // TODO: find out what this did
-
-        requireActivity().recreate()
-    }*/
-
     private fun updateGesture(flag: AppDrawerFlag, action: Action) {
-        prefs.swipeDownAction = action
+        if ((flag == AppDrawerFlag.SetSwipeLeft)) {
+            prefs.swipeLeftAction = action
+        }
+        if ((flag == AppDrawerFlag.SetSwipeRight)) {
+            prefs.swipeRightAction = action
+        }
+        if ((flag == AppDrawerFlag.SetSwipeDown)) {
+            prefs.swipeDownAction = action
+        }
+
+        if ((flag == AppDrawerFlag.SetClickClock)) {
+            prefs.clickClockAction = action
+        }
+
+        if ((flag == AppDrawerFlag.SetClickDate)) {
+            prefs.clickClockAction = action
+        }
 
         when(action) {
             Action.OpenApp -> {

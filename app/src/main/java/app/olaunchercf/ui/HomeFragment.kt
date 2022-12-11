@@ -224,15 +224,29 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     }
 
     private fun lockPhone() {
-        requireActivity().runOnUiThread {
-            try {
-                deviceManager.lockNow()
-            } catch (e: SecurityException) {
-                showToastLong(requireContext(), "Please turn on double tap to lock")
-                findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-            } catch (e: Exception) {
-                showToastLong(requireContext(), "Olauncher failed to lock device.\nPlease check your app settings.")
-                prefs.lockModeOn = false
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            requireActivity().runOnUiThread {
+                if (isAccessServiceEnabled(requireContext())) {
+                    binding.lock.performClick()
+                } else {
+                    // prefs.lockModeOn = false
+                    showToastLong(
+                        requireContext(),
+                        "Please turn on accessibility service for Olauncher"
+                    )
+                    startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                }
+            }
+        } else {
+            requireActivity().runOnUiThread {
+                try {
+                    deviceManager.lockNow()
+                } catch (e: SecurityException) {
+                    showToastLong(requireContext(), "App does not have the permission to lock the device")
+                } catch (e: Exception) {
+                    showToastLong(requireContext(), "Olauncher failed to lock device.\nPlease check your app settings.")
+                    prefs.lockModeOn = false
+                }
             }
         }
     }
@@ -261,6 +275,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 when(prefs.swipeDownAction) {
                     Action.OpenApp -> openSwipeDownApp()
                     Action.ShowNotification -> expandNotificationDrawer(context)
+                    Action.LockScreen -> lockPhone()
                     else -> { /* TODO: */}
                 }
             }
@@ -277,22 +292,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             override fun onDoubleClick() {
                 super.onDoubleClick()
                 if (prefs.lockModeOn) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-                        requireActivity().runOnUiThread {
-                            if (isAccessServiceEnabled(requireContext())) {
-                                binding.lock.performClick()
-                            } else {
-                                // prefs.lockModeOn = false
-                                showToastLong(
-                                    requireContext(),
-                                    "Please turn on accessibility service for Olauncher"
-                                )
-                                startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
-                            }
-                        }
-                    } else {
-                        lockPhone()
-                    }
+                    lockPhone()
                 }
             }
         }

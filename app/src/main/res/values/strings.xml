@@ -84,5 +84,9 @@
     <string name="enabled">Enabled</string>
     <string name="disabled">Disabled</string>
 
+    <string name="show_notifications">Show Notification</string>
+    <string name="open_app">Open App</string>
+    <string name="lock_screen">Lock Screen</string>
+
 
 </resources>

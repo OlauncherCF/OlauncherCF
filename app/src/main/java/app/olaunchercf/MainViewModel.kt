@@ -64,6 +64,9 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 prefs.appClickDate = appModel
                 updateClickApps()
             }
+            AppDrawerFlag.SetDoubleTap -> {
+                prefs.appDoubleTap = appModel
+            }
         }
     }
 

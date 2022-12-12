@@ -25,8 +25,9 @@
     <string name="swipe_left_app">Swipe left</string>
     <string name="swipe_right_app">Swipe right</string>
     <string name="swipe_down_app">Swipe down</string>
-    <string name="clock_click_app">Clock click</string>
-    <string name="date_click_app">Date click</string>
+    <string name="clock_click_app">Click on Clock</string>
+    <string name="date_click_app">Click on Date</string>
+    <string name="double_tap">Double Tap</string>
     <string name="_0" translatable="false">0</string>
     <string name="_1" translatable="false">1</string>
     <string name="_2" translatable="false">2</string>
@@ -85,6 +86,7 @@
     <string name="disabled">Disabled</string>
 
     <string name="show_notifications">Show Notification</string>
+    <string name="show_app_list">Show App List</string>
     <string name="open_app">Open App</string>
     <string name="lock_screen">Lock Screen</string>
 

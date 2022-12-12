@@ -42,6 +42,7 @@ object Constants {
         SetSwipeDown,
         SetClickClock,
         SetClickDate,
+        SetDoubleTap,
     }
 
     enum class Language: EnumOption {
@@ -143,6 +144,7 @@ object Constants {
         Disabled,
         OpenApp,
         LockScreen,
+        ShowAppList,
         ShowNotification;
 
         @Composable
@@ -151,6 +153,7 @@ object Constants {
                 OpenApp -> stringResource(R.string.open_app)
                 LockScreen -> stringResource(R.string.lock_screen)
                 ShowNotification -> stringResource(R.string.show_notifications)
+                ShowAppList -> stringResource(R.string.show_app_list)
                 Disabled -> stringResource(R.string.disabled)
             }
         }

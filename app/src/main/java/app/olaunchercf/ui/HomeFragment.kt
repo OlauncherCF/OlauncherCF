@@ -85,8 +85,18 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     override fun onClick(view: View) {
         when (view.id) {
             R.id.lock -> { }
-            R.id.clock -> openClickClockApp()
-            R.id.date -> openClickDateApp()
+            R.id.clock -> {
+                when (val action = prefs.clickClockAction) {
+                    Action.OpenApp -> openClickClockApp()
+                    else -> handleOtherAction(action)
+                }
+            }
+            R.id.date -> {
+                when (val action = prefs.clickDateAction) {
+                    Action.OpenApp -> openClickDateApp()
+                    else -> handleOtherAction(action)
+                }
+            }
             R.id.setDefaultLauncher -> viewModel.resetDefaultLauncherApp(requireContext())
             else -> {
                 try { // Launch app
@@ -218,6 +228,24 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         else openCameraApp(requireContext())
     }
 
+    private fun openDoubleTapApp() {
+        if (prefs.appDoubleTap.appPackage.isNotEmpty())
+            launchApp(prefs.appDoubleTap)
+        else openCameraApp(requireContext())
+    }
+
+    // This function handles all swipe actions that a independent of the actual swipe direction
+    private fun handleOtherAction(action: Action) {
+        when(action) {
+            Action.ShowNotification -> expandNotificationDrawer(requireContext())
+            Action.LockScreen -> lockPhone()
+            Action.ShowAppList -> showAppList(AppDrawerFlag.LaunchApp)
+            Action.OpenApp -> {} // this should be handled in the respective onSwipe[Down,Right,Left] functions
+            Action.Disabled -> {}
+        }
+
+    }
+
     private fun lockPhone() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             requireActivity().runOnUiThread {
@@ -256,12 +284,18 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         return object : OnSwipeTouchListener(context) {
             override fun onSwipeLeft() {
                 super.onSwipeLeft()
-                openSwipeLeftApp()
+                when(val action = prefs.swipeLeftAction) {
+                    Action.OpenApp -> openSwipeLeftApp()
+                    else -> handleOtherAction(action)
+                }
             }
 
             override fun onSwipeRight() {
                 super.onSwipeRight()
-                openSwipeRightApp()
+                when(val action = prefs.swipeRightAction) {
+                    Action.OpenApp -> openSwipeRightApp()
+                    else -> handleOtherAction(action)
+                }
             }
 
             override fun onSwipeUp() {
@@ -271,11 +305,9 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
             override fun onSwipeDown() {
                 super.onSwipeDown()
-                when(prefs.swipeDownAction) {
+                when(val action = prefs.swipeDownAction) {
                     Action.OpenApp -> openSwipeDownApp()
-                    Action.ShowNotification -> expandNotificationDrawer(context)
-                    Action.LockScreen -> lockPhone()
-                    else -> { /* TODO: */}
+                    else -> handleOtherAction(action)
                 }
             }
 
@@ -290,8 +322,9 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
             override fun onDoubleClick() {
                 super.onDoubleClick()
-                if (prefs.lockModeOn) {
-                    lockPhone()
+                when(val action = prefs.doubleTapAction) {
+                    Action.OpenApp -> openDoubleTapApp()
+                    else -> handleOtherAction(action)
                 }
             }
         }

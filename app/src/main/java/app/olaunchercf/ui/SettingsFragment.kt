@@ -328,12 +328,20 @@ class SettingsFragment : Fragment() {
                             appLabel = prefs.appClickDate.appLabel.ifEmpty { "Calendar" },
                         )
                     },
-                    { _, onChange ->
-                        SettingsToggle(
+                    { open, onChange ->
+                        SettingsGestureItem(
+                            title = stringResource(R.string.double_tap),
+                            open = open,
+                            onChange = onChange,
+                            currentAction = prefs.doubleTapAction,
+                            onSelect = { j -> updateGesture(AppDrawerFlag.SetDoubleTap, j) },
+                            appLabel = prefs.appClickDate.appLabel
+                        )
+                        /*SettingsToggle(
                             title = stringResource(R.string.double_tap_to_lock_screen),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.lockModeOn) }
-                        ) { toggleLockMode() }
+                        ) { toggleLockMode() }*/
                     }
                 )
             )
@@ -471,13 +479,16 @@ class SettingsFragment : Fragment() {
     }
 
     private fun updateGesture(flag: AppDrawerFlag, action: Action) {
-        when (flag){
+        when (flag) {
             AppDrawerFlag.SetSwipeLeft -> prefs.swipeLeftAction = action
             AppDrawerFlag.SetSwipeRight -> prefs.swipeRightAction = action
             AppDrawerFlag.SetSwipeDown -> prefs.swipeDownAction = action
             AppDrawerFlag.SetClickClock -> prefs.clickClockAction = action
-            AppDrawerFlag.SetClickDate -> prefs.clickClockAction = action
-            else -> {}
+            AppDrawerFlag.SetClickDate -> prefs.clickDateAction = action
+            AppDrawerFlag.SetDoubleTap -> prefs.doubleTapAction = action
+            AppDrawerFlag.SetHomeApp,
+                AppDrawerFlag.HiddenApps,
+                AppDrawerFlag.LaunchApp -> {}
         }
 
         when(action) {

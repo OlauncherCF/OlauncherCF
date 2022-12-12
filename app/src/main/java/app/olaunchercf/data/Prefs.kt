@@ -27,6 +27,7 @@ private const val SWIPE_RIGHT_ACTION = "SWIPE_RIGHT_ACTION"
 private const val SWIPE_LEFT_ACTION = "SWIPE_LEFT_ACTION"
 private const val CLICK_CLOCK_ACTION = "CLICK_CLOCK_ACTION"
 private const val CLICK_DATE_ACTION = "CLICK_DATE_ACTION"
+private const val DOUBLE_TAP_ACTION = "DOUBLE_TAP_ACTION"
 private const val SCREEN_TIMEOUT = "SCREEN_TIMEOUT"
 private const val HIDDEN_APPS = "HIDDEN_APPS"
 private const val HIDDEN_APPS_UPDATED = "HIDDEN_APPS_UPDATED"
@@ -44,6 +45,7 @@ private const val SWIPE_LEFT = "SWIPE_LEFT"
 private const val SWIPE_DOWN = "SWIPE_DOWN"
 private const val CLICK_CLOCK = "CLICK_CLOCK"
 private const val CLICK_DATE = "CLICK_DATE"
+private const val DOUBLE_TAP = "CLICK_DATE"
 
 private const val TEXT_SIZE = "text_size"
 
@@ -174,6 +176,10 @@ class Prefs(val context: Context) {
         get() = loadAction(CLICK_DATE_ACTION, Constants.Action.OpenApp)
         set(value) = storeAction(CLICK_DATE_ACTION, value)
 
+    var doubleTapAction: Constants.Action
+        get() = loadAction(DOUBLE_TAP_ACTION, Constants.Action.LockScreen)
+        set(value) = storeAction(DOUBLE_TAP_ACTION, value)
+
     private fun loadAction(prefString: String, default: Constants.Action): Constants.Action {
         val string = prefs.getString(
             prefString,
@@ -251,6 +257,9 @@ class Prefs(val context: Context) {
         get() = loadApp(CLICK_DATE)
         set(appModel) = storeApp(CLICK_DATE, appModel)
 
+    var appDoubleTap: AppModel
+        get() = loadApp(DOUBLE_TAP)
+        set(appModel) = storeApp(DOUBLE_TAP, appModel)
 
     private fun loadApp(id: String): AppModel {
         val name = prefs.getString("${APP_NAME}_$id", "").toString()

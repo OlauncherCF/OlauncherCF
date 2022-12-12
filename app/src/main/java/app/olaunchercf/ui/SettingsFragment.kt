@@ -285,7 +285,7 @@ class SettingsFragment : Fragment() {
                             onChange = onChange,
                             currentAction = prefs.swipeLeftAction,
                             onSelect = { j -> updateGesture(AppDrawerFlag.SetSwipeLeft, j) },
-                            appLabel = prefs.appSwipeLeft.appLabel
+                            appLabel = prefs.appSwipeLeft.appLabel.ifEmpty { "Camera" },
                         )
                     },
                     { open, onChange ->

@@ -341,6 +341,35 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 super.onClick(view)
                 textOnClick(view)
             }
+            
+            override fun onSwipeLeft() {
+                super.onSwipeLeft()
+                when(val action = prefs.swipeLeftAction) {
+                    Action.OpenApp -> openSwipeLeftApp()
+                    else -> handleOtherAction(action)
+                }
+            }
+
+            override fun onSwipeRight() {
+                super.onSwipeRight()
+                when(val action = prefs.swipeRightAction) {
+                    Action.OpenApp -> openSwipeRightApp()
+                    else -> handleOtherAction(action)
+                }
+            }
+
+            override fun onSwipeUp() {
+                super.onSwipeUp()
+                showAppList(AppDrawerFlag.LaunchApp)
+            }
+
+            override fun onSwipeDown() {
+                super.onSwipeDown()
+                when(val action = prefs.swipeDownAction) {
+                    Action.OpenApp -> openSwipeDownApp()
+                    else -> handleOtherAction(action)
+                }
+            }
         }
     }
 

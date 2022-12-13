@@ -1,13 +1,9 @@
 package app.olaunchercf.data
 
 import android.annotation.SuppressLint
-import android.util.Log
-import android.view.Gravity
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ComposeCompilerApi
 import androidx.compose.ui.res.stringResource
 import app.olaunchercf.R
-import app.olaunchercf.data.Constants.toString
 import java.util.*
 
 interface EnumOption {
@@ -43,8 +39,10 @@ object Constants {
         SetHomeApp,
         SetSwipeLeft,
         SetSwipeRight,
+        SetSwipeDown,
         SetClickClock,
         SetClickDate,
+        SetDoubleTap,
     }
 
     enum class Language: EnumOption {
@@ -138,6 +136,25 @@ object Constants {
                 Left -> android.view.Gravity.LEFT
                 Center -> android.view.Gravity.CENTER
                 Right -> android.view.Gravity.RIGHT
+            }
+        }
+    }
+
+    enum class Action: EnumOption {
+        Disabled,
+        OpenApp,
+        LockScreen,
+        ShowAppList,
+        ShowNotification;
+
+        @Composable
+        override fun string(): String {
+            return when(this) {
+                OpenApp -> stringResource(R.string.open_app)
+                LockScreen -> stringResource(R.string.lock_screen)
+                ShowNotification -> stringResource(R.string.show_notifications)
+                ShowAppList -> stringResource(R.string.show_app_list)
+                Disabled -> stringResource(R.string.disabled)
             }
         }
     }

@@ -1,5 +1,6 @@
 package app.olaunchercf.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.Gravity
@@ -41,6 +42,7 @@ class AppDrawerFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("RtlHardcoded")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -51,19 +53,17 @@ class AppDrawerFragment : Fragment() {
         when (flag) {
             AppDrawerFlag.SetHomeApp -> {
                 binding.drawerButton.text = getString(R.string.rename)
-                binding.drawerButton.isVisible = true // && it.trim().isNotEmpty()
+                binding.drawerButton.isVisible = true
                 binding.drawerButton.setOnClickListener { renameListener(flag, n) }
             }
             AppDrawerFlag.SetSwipeRight,
-                AppDrawerFlag.SetSwipeLeft,
-                AppDrawerFlag.SetClickClock,
-                AppDrawerFlag.SetClickDate -> {
-                    binding.drawerButton.text = getString(R.string.disable)
-                    binding.drawerButton.isVisible = true // && it.trim().isNotEmpty()
-                    binding.drawerButton.setOnClickListener {
-                        disableGesture(flag)
-                        findNavController().popBackStack()
-                    }
+            AppDrawerFlag.SetSwipeLeft,
+            AppDrawerFlag.SetSwipeDown,
+            AppDrawerFlag.SetClickClock,
+            AppDrawerFlag.SetClickDate -> {
+                binding.drawerButton.setOnClickListener {
+                    findNavController().popBackStack()
+                }
             }
             else -> {}
         }
@@ -208,25 +208,6 @@ class AppDrawerFragment : Fragment() {
             val prefs = Prefs(requireContext())
             prefs.setAppAlias(appPackage, appAlias)
         }
-
-    private fun disableGesture(flag: AppDrawerFlag) {
-        val prefs = Prefs(requireContext())
-        when (flag) {
-            AppDrawerFlag.SetSwipeLeft -> {
-                prefs.swipeLeftEnabled = false
-            }
-            AppDrawerFlag.SetSwipeRight -> {
-                prefs.swipeRightEnabled = false
-            }
-            AppDrawerFlag.SetClickClock -> {
-                prefs.clickClockEnabled = false
-            }
-            AppDrawerFlag.SetClickDate -> {
-                prefs.clickDateEnabled = false
-            }
-            else -> {}
-        }
-    }
 
     private fun renameListener(flag: AppDrawerFlag, i: Int) {
         val name = binding.search.query.toString().trim()

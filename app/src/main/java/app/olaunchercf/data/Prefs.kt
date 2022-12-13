@@ -3,11 +3,7 @@ package app.olaunchercf.data
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.UserHandle
-import android.os.UserManager
-import android.util.Log
-import androidx.core.content.getSystemService
 import app.olaunchercf.helper.getUserHandleFromString
-import java.lang.RuntimeException
 
 private const val APP_LANGUAGE = "app_language"
 private const val PREFS_FILENAME = "app.olauncher"
@@ -26,10 +22,12 @@ private const val STATUS_BAR = "STATUS_BAR"
 private const val SHOW_DATE = "SHOW_DATE"
 private const val HOME_LOCKED = "HOME_LOCKED"
 private const val SHOW_TIME = "SHOW_TIME"
-private const val SWIPE_LEFT_ENABLED = "SWIPE_LEFT_ENABLED"
-private const val SWIPE_RIGHT_ENABLED = "SWIPE_RIGHT_ENABLED"
-private const val CLICK_CLOCK_ENABLED = "CLICK_CLOCK_ENABLED"
-private const val CLICK_DATE_ENABLED = "CLICK_DATE_ENABLED"
+private const val SWIPE_DOWN_ACTION = "SWIPE_DOWN_ACTION"
+private const val SWIPE_RIGHT_ACTION = "SWIPE_RIGHT_ACTION"
+private const val SWIPE_LEFT_ACTION = "SWIPE_LEFT_ACTION"
+private const val CLICK_CLOCK_ACTION = "CLICK_CLOCK_ACTION"
+private const val CLICK_DATE_ACTION = "CLICK_DATE_ACTION"
+private const val DOUBLE_TAP_ACTION = "DOUBLE_TAP_ACTION"
 private const val SCREEN_TIMEOUT = "SCREEN_TIMEOUT"
 private const val HIDDEN_APPS = "HIDDEN_APPS"
 private const val HIDDEN_APPS_UPDATED = "HIDDEN_APPS_UPDATED"
@@ -44,8 +42,10 @@ private const val APP_ACTIVITY = "APP_ACTIVITY"
 
 private const val SWIPE_RIGHT = "SWIPE_RIGHT"
 private const val SWIPE_LEFT = "SWIPE_LEFT"
+private const val SWIPE_DOWN = "SWIPE_DOWN"
 private const val CLICK_CLOCK = "CLICK_CLOCK"
 private const val CLICK_DATE = "CLICK_DATE"
+private const val DOUBLE_TAP = "CLICK_DATE"
 
 private const val TEXT_SIZE = "text_size"
 
@@ -138,6 +138,7 @@ class Prefs(val context: Context) {
         get() = prefs.getBoolean(HOME_LOCKED, false)
         set(value) = prefs.edit().putBoolean(HOME_LOCKED, value).apply()
 
+    /*
     var swipeLeftEnabled: Boolean
         get() = prefs.getBoolean(SWIPE_LEFT_ENABLED, true)
         set(value) = prefs.edit().putBoolean(SWIPE_LEFT_ENABLED, value).apply()
@@ -153,6 +154,43 @@ class Prefs(val context: Context) {
     var clickDateEnabled: Boolean
         get() = prefs.getBoolean(CLICK_DATE_ENABLED, true)
         set(value) = prefs.edit().putBoolean(CLICK_DATE_ENABLED, value).apply()
+     */
+
+    var swipeLeftAction: Constants.Action
+        get() = loadAction(SWIPE_LEFT_ACTION, Constants.Action.OpenApp)
+        set(value) = storeAction(SWIPE_LEFT_ACTION, value)
+
+    var swipeRightAction: Constants.Action
+        get() = loadAction(SWIPE_RIGHT_ACTION, Constants.Action.OpenApp)
+        set(value) = storeAction(SWIPE_RIGHT_ACTION, value)
+
+    var swipeDownAction: Constants.Action
+        get() = loadAction(SWIPE_DOWN_ACTION, Constants.Action.ShowNotification)
+        set(value) = storeAction(SWIPE_DOWN_ACTION, value)
+
+    var clickClockAction: Constants.Action
+        get() = loadAction(CLICK_CLOCK_ACTION, Constants.Action.OpenApp)
+        set(value) = storeAction(CLICK_CLOCK_ACTION, value)
+
+    var clickDateAction: Constants.Action
+        get() = loadAction(CLICK_DATE_ACTION, Constants.Action.OpenApp)
+        set(value) = storeAction(CLICK_DATE_ACTION, value)
+
+    var doubleTapAction: Constants.Action
+        get() = loadAction(DOUBLE_TAP_ACTION, Constants.Action.LockScreen)
+        set(value) = storeAction(DOUBLE_TAP_ACTION, value)
+
+    private fun loadAction(prefString: String, default: Constants.Action): Constants.Action {
+        val string = prefs.getString(
+            prefString,
+            default.toString()
+        ).toString()
+        return Constants.Action.valueOf(string)
+    }
+
+    private fun storeAction(prefString: String, value: Constants.Action) {
+        prefs.edit().putString(prefString, value.name).apply()
+    }
 
     var appTheme: Constants.Theme
         get() {
@@ -207,6 +245,10 @@ class Prefs(val context: Context) {
         get() = loadApp(SWIPE_LEFT)
         set(appModel) = storeApp(SWIPE_LEFT, appModel)
 
+    var appSwipeDown: AppModel
+        get() = loadApp(SWIPE_DOWN)
+        set(appModel) = storeApp(SWIPE_DOWN, appModel)
+
     var appClickClock: AppModel
         get() = loadApp(CLICK_CLOCK)
         set(appModel) = storeApp(CLICK_CLOCK, appModel)
@@ -215,6 +257,9 @@ class Prefs(val context: Context) {
         get() = loadApp(CLICK_DATE)
         set(appModel) = storeApp(CLICK_DATE, appModel)
 
+    var appDoubleTap: AppModel
+        get() = loadApp(DOUBLE_TAP)
+        set(appModel) = storeApp(DOUBLE_TAP, appModel)
 
     private fun loadApp(id: String): AppModel {
         val name = prefs.getString("${APP_NAME}_$id", "").toString()

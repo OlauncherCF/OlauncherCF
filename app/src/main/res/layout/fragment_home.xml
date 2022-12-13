@@ -8,6 +8,12 @@
     android:orientation="vertical"
     tools:context=".ui.HomeFragment">
 
+    <FrameLayout
+        android:id="@+id/touchArea"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <!-- Placeholder layout for locking screen-->
     <FrameLayout
         android:id="@+id/lock"

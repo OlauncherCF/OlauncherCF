@@ -120,7 +120,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     private fun initSwipeTouchListener() {
         val context = requireContext()
-        binding.mainLayout.setOnTouchListener(getSwipeGestureListener(context))
+        binding.touchArea.setOnTouchListener(getSwipeGestureListener(context))
     }
 
     private fun initClickListeners() {

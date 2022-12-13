@@ -10,8 +10,9 @@ We try to balance customizability and clutter :)</h3>
 
 - Removed clutter, like ads and links
 - You can rename apps in the app-drawer _(Renaming apps on the home screen is already supported. Just long-click on an app on the home screen and start typing)_
-- Ability to change the app when clicking on the clock
-- Ability to change the app when clicking on the date
+- Ability to change the app that opens when clicking on the clock
+- Ability to change the app that opens when clicking on the date
+- Much more customizability on home screen gestures
 - Align clock independently of home apps
 - Change alignment of apps in app-drawer
 - Change font size

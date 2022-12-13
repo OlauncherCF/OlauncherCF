@@ -26,15 +26,15 @@ We try to balance customizability and clutter :)</h3>
   - Greek
   - Indonesian
   - Italian
+  - Japanese
   - Korean
   - Persian
   - Portuguese (European)
   - Russian
   - Spanish
   - Swedish
-  - Turkish
-  - Japanese
   - Thai
+  - Turkish
 - Removed internet permission
 
 

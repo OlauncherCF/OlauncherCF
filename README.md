@@ -33,6 +33,8 @@ We try to balance customizability and clutter :)</h3>
   - Spanish
   - Swedish
   - Turkish
+  - Japanese
+  - Thai
 - Removed internet permission
 
 

@@ -61,12 +61,14 @@ object Constants {
         Greek,
         Indonesian,
         Italian,
+        Japanese,
         Korean,
         Persian,
         Portuguese,
         Russian,
         Spanish,
         Swedish,
+        Thai,
         Turkish;
 
         @Composable
@@ -84,12 +86,14 @@ object Constants {
                 Greek -> "Ελληνική"
                 Indonesian -> "Bahasa Indonesia"
                 Italian -> "Italiano"
+                Japanese -> "日本"
                 Korean -> "한국어"
                 Persian -> "فارسی"
                 Portuguese -> "Português"
                 Russian -> "Русский"
                 Spanish -> "Español"
                 Swedish -> "Svenska"
+                Thai -> "ไทย"
                 Turkish -> "Türkçe"
             }
         }
@@ -104,8 +108,10 @@ object Constants {
             Language.Spanish -> "es"
             Language.French -> "fr"
             Language.Italian -> "it"
+            Language.Japanese -> "ja"
             Language.Swedish -> "se"
             Language.Turkish -> "tr"
+            Language.Thai -> "th"
             Language.Greek -> "gr"
             Language.Chinese -> "cn"
             Language.Persian -> "fa"

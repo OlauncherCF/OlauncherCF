@@ -22,10 +22,12 @@
     <string name="home_alignment_bottom">应用主屏底部</string>
     <string name="clock_alignment">时钟和日期</string>
     <string name="drawer_alignment">抽屉内的应用</string>
-    <string name="swipe_left_app">左滑应用</string>
-    <string name="swipe_right_app">右滑应用</string>
+    <string name="swipe_left_app">左滑启动的应用</string>
+    <string name="swipe_right_app">右滑启动的应用</string>
+    <string name="swipe_down_app">下滑启动的应用</string>
     <string name="clock_click_app">单击时钟启动的应用</string>
     <string name="date_click_app">单击日期启动的应用</string>
+    <string name="double_tap">轻按两次启动的应用</string>
     <string name="_0" translatable="false">0</string>
     <string name="_1" translatable="false">1</string>
     <string name="_2" translatable="false">2</string>
@@ -83,5 +85,10 @@
     <string name="enabled">已开启</string>
     <string name="disabled">已禁用</string>
     
+    <string name="show_notifications">显示通知</string>
+    <string name="show_app_list">显示应用列表</string>
+    <string name="open_app">打开应用</string>
+    <string name="lock_screen">锁定屏幕</string>
+    		
     
 </resources>

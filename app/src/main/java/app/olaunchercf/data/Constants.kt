@@ -60,6 +60,7 @@ object Constants {
         Italian,
         Japanese,
         Korean,
+        Lithuanian,
         Persian,
         Portuguese,
         Russian,
@@ -85,6 +86,7 @@ object Constants {
                 Italian -> "Italiano"
                 Japanese -> "日本"
                 Korean -> "한국어"
+                Lithuanian -> "Lietuvių"
                 Persian -> "فارسی"
                 Portuguese -> "Português"
                 Russian -> "Русский"
@@ -114,6 +116,7 @@ object Constants {
             Language.Persian -> "fa"
             Language.Portuguese -> "pt"
             Language.Korean -> "ko"
+            Language.Lithuanian -> "lt"
             Language.Indonesian -> "id"
             Language.Russian -> "ru"
             Language.Croatian -> "hr"

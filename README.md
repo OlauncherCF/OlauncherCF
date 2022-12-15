@@ -29,6 +29,7 @@ We try to balance customizability and clutter :)</h3>
   - Italian
   - Japanese
   - Korean
+  - Lithuanian
   - Persian
   - Portuguese (European)
   - Russian

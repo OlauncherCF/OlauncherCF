@@ -1,6 +1,5 @@
 package app.olaunchercf.helper
 
-import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.Activity
 import android.content.*
 import android.content.pm.LauncherApps
@@ -25,7 +24,6 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
-import android.view.accessibility.AccessibilityManager
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
@@ -285,9 +283,24 @@ fun isTablet(context: Context): Boolean {
     return false
 }
 
+fun initActionService(context: Context): ActionService? {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        val actionService = ActionService.instance()
+        if (actionService != null) {
+            return actionService
+        } else {
+            openAccessibilitySettings(context)
+        }
+    } else {
+        showToastLong(context, "This action requires Android P (9) or higher" )
+    }
+
+    return null
+}
+
 fun openAccessibilitySettings(context: Context) {
     val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
-    val cs = ComponentName(context.packageName, LockScreenService::class.java.name).flattenToString()
+    val cs = ComponentName(context.packageName, ActionService::class.java.name).flattenToString()
     val bundle = Bundle()
     bundle.putString(":settings:fragment_args_key", cs)
     intent.apply {

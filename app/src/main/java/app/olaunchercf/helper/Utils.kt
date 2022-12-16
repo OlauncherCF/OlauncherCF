@@ -1,5 +1,6 @@
 package app.olaunchercf.helper
 
+import android.accessibilityservice.AccessibilityServiceInfo
 import android.app.Activity
 import android.content.*
 import android.content.pm.LauncherApps
@@ -10,6 +11,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
+import android.os.Bundle
 import android.os.UserHandle
 import android.os.UserManager
 import android.provider.AlarmClock
@@ -23,10 +25,10 @@ import android.view.Gravity
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.view.accessibility.AccessibilityManager
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
-import androidx.core.content.ContextCompat
 import app.olaunchercf.BuildConfig
 import app.olaunchercf.R
 import app.olaunchercf.data.AppModel
@@ -37,6 +39,7 @@ import java.text.Collator
 import java.util.*
 import kotlin.math.pow
 import kotlin.math.sqrt
+
 
 fun showToastLong(context: Context, message: String) {
     val toast = Toast.makeText(context.applicationContext, message, Toast.LENGTH_LONG)
@@ -264,17 +267,6 @@ fun openCalendar(context: Context) {
     }
 }
 
-fun isAccessServiceEnabled(context: Context): Boolean {
-    val enabled =
-        Settings.Secure.getInt(context.applicationContext.contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED)
-    if (enabled == 1) {
-        val prefString: String =
-            Settings.Secure.getString(context.contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
-        return prefString.contains(context.packageName + "/" + MyAccessibilityService::class.java.name)
-    }
-    return false
-}
-
 fun isTablet(context: Context): Boolean {
     val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     val metrics = DisplayMetrics()
@@ -284,6 +276,19 @@ fun isTablet(context: Context): Boolean {
     val diagonalInches = sqrt(widthInches.toDouble().pow(2.0) + heightInches.toDouble().pow(2.0))
     if (diagonalInches >= 7.0) return true
     return false
+}
+
+fun openAccessibilitySettings(context: Context) {
+    val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+    val cs = ComponentName(context.packageName, LockScreenService::class.java.name).flattenToString()
+    val bundle = Bundle()
+    bundle.putString(":settings:fragment_args_key", cs)
+    intent.apply {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        putExtra(":settings:fragment_args_key", cs)
+        putExtra(":settings:show_fragment_args", bundle)
+    }
+    context.startActivity(intent)
 }
 
 fun showStatusBar(activity: Activity) {

@@ -53,7 +53,6 @@
     <string name="double_tap_lock_uninstall_message">Kilitlemek için iki kez etkindir.
          \n\nNot: Olauncher ı silmeye karar verirseniz, önce bunu KAPATIN.</string>
     <string name="accessibility_service_description">Kilitlemek için çift dokunmayı etkinleştirmek için erişilebilirlik izni gereklidir. Servis tarafından alınan hiçbir veri cihazınızdan çıkmayacak.</string>
-    <string name="lock_layout_description">ekranı kilitlemek için benzersiz bir kimlik kullanılacak kilit düzeni açıklaması</string>
     <string name="open">Linki aç</string>
     <string name="copy">Kopyala</string>
     <string name="close">Kapat</string>

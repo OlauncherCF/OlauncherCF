@@ -2,13 +2,17 @@ package app.olaunchercf.ui
 
 import android.annotation.SuppressLint
 import android.app.admin.DevicePolicyManager
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
 import android.provider.Settings
-import android.view.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.core.view.children
@@ -26,6 +30,7 @@ import app.olaunchercf.databinding.FragmentHomeBinding
 import app.olaunchercf.helper.*
 import app.olaunchercf.listener.OnSwipeTouchListener
 import app.olaunchercf.listener.ViewSwipeTouchListener
+
 
 class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
 
@@ -84,7 +89,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     override fun onClick(view: View) {
         when (view.id) {
-            R.id.lock -> { }
             R.id.clock -> {
                 when (val action = prefs.clickClockAction) {
                     Action.OpenApp -> openClickClockApp()
@@ -120,11 +124,10 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     private fun initSwipeTouchListener() {
         val context = requireContext()
-        binding.touchArea.setOnTouchListener(getSwipeGestureListener(context))
+        binding.touchArea.setOnTouchListener(getHomeScreenGestureListener(context))
     }
 
     private fun initClickListeners() {
-        binding.lock.setOnClickListener(this)
         binding.clock.setOnClickListener(this)
         binding.date.setOnClickListener(this)
         binding.setDefaultLauncher.setOnClickListener(this)
@@ -249,15 +252,11 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     private fun lockPhone() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             requireActivity().runOnUiThread {
-                if (isAccessServiceEnabled(requireContext())) {
-                    binding.lock.performClick()
+                val lockScreenService = LockScreenService.instance()
+                if (lockScreenService != null) {
+                    lockScreenService.lockScreen()
                 } else {
-                    // prefs.lockModeOn = false
-                    showToastLong(
-                        requireContext(),
-                        "Please turn on accessibility service for Olauncher"
-                    )
-                    startActivity(Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS))
+                    openAccessibilitySettings(requireContext())
                 }
             }
         } else {
@@ -280,7 +279,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     private fun textOnLongClick(view: View) = onLongClick(view)
 
-    private fun getSwipeGestureListener(context: Context): View.OnTouchListener {
+    private fun getHomeScreenGestureListener(context: Context): View.OnTouchListener {
         return object : OnSwipeTouchListener(context) {
             override fun onSwipeLeft() {
                 super.onSwipeLeft()
@@ -330,7 +329,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         }
     }
 
-    private fun getViewSwipeTouchListener(context: Context, view: View): View.OnTouchListener {
+    private fun getHomeAppsGestureListener(context: Context, view: View): View.OnTouchListener {
         return object : ViewSwipeTouchListener(context, view) {
             override fun onLongClick(view: View) {
                 super.onLongClick(view)
@@ -391,7 +390,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                     textSize = prefs.textSize.toFloat()
                     id = i
                     text = prefs.getHomeAppModel(i).appLabel
-                    setOnTouchListener(getViewSwipeTouchListener(context, this))
+                    setOnTouchListener(getHomeAppsGestureListener(context, this))
                     if (!prefs.extendHomeAppsArea) {
                         layoutParams = ViewGroup.LayoutParams(
                             ViewGroup.LayoutParams.WRAP_CONTENT,

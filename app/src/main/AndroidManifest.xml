@@ -62,7 +62,7 @@
         </receiver>
 
         <service
-            android:name="app.olaunchercf.helper.LockScreenService"
+            android:name="app.olaunchercf.helper.ActionService"
             android:label="@string/accessibility_service_name"
             android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
             android:exported="false">

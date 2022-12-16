@@ -154,6 +154,8 @@ object Constants {
         OpenApp,
         LockScreen,
         ShowAppList,
+        OpenQuickSettings,
+        ShowRecents,
         ShowNotification;
 
         @Composable
@@ -163,6 +165,8 @@ object Constants {
                 LockScreen -> stringResource(R.string.lock_screen)
                 ShowNotification -> stringResource(R.string.show_notifications)
                 ShowAppList -> stringResource(R.string.show_app_list)
+                OpenQuickSettings -> stringResource(R.string.open_quick_settings)
+                ShowRecents -> stringResource(R.string.show_recents)
                 Disabled -> stringResource(R.string.disabled)
             }
         }

@@ -2,13 +2,10 @@ package app.olaunchercf.ui
 
 import android.annotation.SuppressLint
 import android.app.admin.DevicePolicyManager
-import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.os.Vibrator
-import android.provider.Settings
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -238,26 +235,26 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     }
 
     // This function handles all swipe actions that a independent of the actual swipe direction
+    @SuppressLint("NewApi")
     private fun handleOtherAction(action: Action) {
         when(action) {
             Action.ShowNotification -> expandNotificationDrawer(requireContext())
             Action.LockScreen -> lockPhone()
             Action.ShowAppList -> showAppList(AppDrawerFlag.LaunchApp)
             Action.OpenApp -> {} // this should be handled in the respective onSwipe[Down,Right,Left] functions
+            Action.OpenQuickSettings -> initActionService(requireContext())?.openQuickSettings()
+            Action.ShowRecents -> initActionService(requireContext())?.showRecents()
             Action.Disabled -> {}
         }
-
     }
 
     private fun lockPhone() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            requireActivity().runOnUiThread {
-                val lockScreenService = LockScreenService.instance()
-                if (lockScreenService != null) {
-                    lockScreenService.lockScreen()
-                } else {
-                    openAccessibilitySettings(requireContext())
-                }
+            val actionService = ActionService.instance()
+            if (actionService != null) {
+                actionService.lockScreen()
+            } else {
+                openAccessibilitySettings(requireContext())
             }
         } else {
             requireActivity().runOnUiThread {

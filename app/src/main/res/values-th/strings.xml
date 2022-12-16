@@ -62,7 +62,6 @@
     <string name="double_tap_lock_uninstall_message">แตะสองครั้งเพื่อล็อคเปิดใช้งาน
         \n\nหมายเหตุ: ให้ปิดการทำงานนี้ก่อน หากคุณตัดสินใจที่จะลบ Olauncher</string>
     <string name="accessibility_service_description">ต้องได้รับอนุญาตการเข้าถึงเพื่อเปิดใช้งานการแตะสองครั้งเพื่อล็อค ข้อมูลใด ๆ ที่ได้รับจากบริการจะไม่ออกจากอุปกรณ์ของคุณ</string>
-    <string name="lock_layout_description">ล็อคคำอธิบายเค้าโครงเพื่อใช้รหัสเฉพาะเพื่อล็อคหน้าจอ</string>
     <string name="open">เปิดลิ้งค์</string>
     <string name="copy">สำเนา</string>
     <string name="close">ปิด I</string>

@@ -47,7 +47,6 @@
     <string name="double_tap_lock_uninstall_message">Ενεργοποιημένο το διπλό πάτημα για κλείδωμα.
         \n\nΣημείωση: ΑΠΕΝΕΡΓΟΠΟΙΗΣΤΕ τη συγκεκριμένη επιλογή πριν απεγκαταστήσετε τον Olauncher.</string>
     <string name="accessibility_service_description">Το δικαίωμα προσβασιμότητας είναι απαραίτητο για την ενεργοποίηση του διπλού πατήματος για κλείδωμα. Ό,τι δεδομένα αποκτηθούνε από αυτή τη λειτουργία αυτή δεν θα φύγουν από την συσκευή σας.</string>
-    <string name="lock_layout_description">περιγραφή διάταξης κλειδώματος που θα χρησιμοποιηθεί μοναδικό id για το κλείδωμα οθόνης.</string>
     <string name="open">Άνοιγμα συνδέσμου</string>
     <string name="copy">Αντιγραφή</string>
     <string name="close">Κλείσιμο</string>

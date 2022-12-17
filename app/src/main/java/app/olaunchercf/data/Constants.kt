@@ -60,6 +60,7 @@ object Constants {
         Italian,
         Japanese,
         Korean,
+        Lithuanian,
         Persian,
         Portuguese,
         Russian,
@@ -85,6 +86,7 @@ object Constants {
                 Italian -> "Italiano"
                 Japanese -> "日本"
                 Korean -> "한국어"
+                Lithuanian -> "Lietuvių"
                 Persian -> "فارسی"
                 Portuguese -> "Português"
                 Russian -> "Русский"
@@ -114,6 +116,7 @@ object Constants {
             Language.Persian -> "fa"
             Language.Portuguese -> "pt"
             Language.Korean -> "ko"
+            Language.Lithuanian -> "lt"
             Language.Indonesian -> "id"
             Language.Russian -> "ru"
             Language.Croatian -> "hr"
@@ -151,6 +154,8 @@ object Constants {
         OpenApp,
         LockScreen,
         ShowAppList,
+        OpenQuickSettings,
+        ShowRecents,
         ShowNotification;
 
         @Composable
@@ -160,6 +165,8 @@ object Constants {
                 LockScreen -> stringResource(R.string.lock_screen)
                 ShowNotification -> stringResource(R.string.show_notifications)
                 ShowAppList -> stringResource(R.string.show_app_list)
+                OpenQuickSettings -> stringResource(R.string.open_quick_settings)
+                ShowRecents -> stringResource(R.string.show_recents)
                 Disabled -> stringResource(R.string.disabled)
             }
         }

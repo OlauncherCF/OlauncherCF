@@ -61,8 +61,7 @@
     <string name="system_default">النظام</string>
     <string name="dark">مظلم</string>
     <string name="light">مضيء</string>
-    <string name="double_tap_lock_uninstall_message">"ملاحظة: ألغي هذا الخيار أولاً اذا اردت حذف Olauncher"</string>
-    <string name="accessibility_service_description">إذن إمكانية الوصول مطلوب لتفعيل قفل الشاشة بالنقر المزدوج. لن تغادر جهازك أي بيانات تجمعها هذه الخدمة.</string>
+    <string name="accessibility_service_description">تتيح خدمة إمكانية الوصول هذه لـ OlauncherCF القيام ببعض الإجراءات مثل قفل الشاشة أو فتح الإعدادات السريعة.</string>
     <string name="open">فتح الرابط</string>
     <string name="copy">نسخ</string>
     <string name="close">أغلق</string>
@@ -82,6 +81,15 @@
     <string name="disable">تعطيل</string>
     <string name="enabled">مُفعل</string>
     <string name="disabled">مُعطل</string>
+    <string name="show_notifications">إظهار الإشعارات</string>
+    <string name="show_app_list">إظهار قائمة التطبيقات</string>
+    <string name="double_tap">اضغط مرتين</string>
+    <string name="open_app">فتح تطبيق</string>
+    <string name="lock_screen">قفل الشاشة</string>
+    <string name="open_quick_settings">فتح الاعدادت السريعة</string>
+    <string name="show_recents">إظهار اخر التطبيقات</string>
+    <string name="swipe_down_app">السحب لأسفل</string>
+    <string name="accessibility_service_name">خدمة إجراءات OlauncherCF</string>
 
 
 </resources>

@@ -336,6 +336,19 @@ class SettingsFragment : Fragment() {
                     }
                 )
             )
+            SettingsArea(title = stringResource(R.string.extras),
+                selected = selected,
+                items = arrayOf(
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.auto_open_apps),
+                            onChange = onChange,
+
+                            state = remember { mutableStateOf(prefs.autoOpenApp) },
+                        ) { toggleAutoOpenApp() }
+                    },
+                )
+            )
             Text(
                 modifier = Modifier
                     .align(Alignment.End)
@@ -420,6 +433,10 @@ class SettingsFragment : Fragment() {
 
     private fun toggleKeyboardText() {
         prefs.autoShowKeyboard = !prefs.autoShowKeyboard
+    }
+
+    private fun toggleAutoOpenApp() {
+        prefs.autoOpenApp = !prefs.autoOpenApp
     }
 
     private fun setTheme(appTheme: Constants.Theme) {

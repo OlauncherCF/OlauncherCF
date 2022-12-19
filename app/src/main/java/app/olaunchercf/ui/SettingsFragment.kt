@@ -131,7 +131,6 @@ class SettingsFragment : Fragment() {
                         SettingsToggle(
                             title = stringResource(R.string.auto_show_keyboard),
                             onChange = onChange,
-
                             state = remember { mutableStateOf(prefs.autoShowKeyboard) },
                         ) { toggleKeyboardText() }
                     },
@@ -139,7 +138,6 @@ class SettingsFragment : Fragment() {
                         SettingsToggle(
                             title = stringResource(R.string.status_bar),
                             onChange = onChange,
-
                             state = remember { mutableStateOf(prefs.showStatusBar) },
                         ) { toggleStatusBar() }
                     },
@@ -148,7 +146,6 @@ class SettingsFragment : Fragment() {
                             title = stringResource(R.string.theme_mode),
                             open = open,
                             onChange = onChange,
-
                             currentSelection = remember { mutableStateOf(prefs.appTheme) },
                             values = arrayOf(System, Light, Dark),
                             onSelect = { j -> setTheme(j) }
@@ -158,7 +155,6 @@ class SettingsFragment : Fragment() {
                         SettingsItem(
                             open = open,
                             onChange = onChange,
-
                             title = stringResource(R.string.app_language),
                             currentSelection = remember { mutableStateOf(prefs.language) },
                             values = Constants.Language.values(),
@@ -169,7 +165,6 @@ class SettingsFragment : Fragment() {
                         SettingsNumberItem(
                             title = stringResource(R.string.app_text_size),
                             open = open,
-
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.textSize) },
                             min = Constants.TEXT_SIZE_MIN,
@@ -187,7 +182,6 @@ class SettingsFragment : Fragment() {
                         SettingsNumberItem(
                             title = stringResource(R.string.apps_on_home_screen),
                             open = open,
-
                             onChange = onChange,
                             currentSelection = remember { mutableStateOf(prefs.homeAppsNum) },
                             min = 0,
@@ -199,7 +193,6 @@ class SettingsFragment : Fragment() {
                         SettingsToggle(
                             title = stringResource(R.string.show_time),
                             onChange = onChange,
-
                             state = remember { mutableStateOf(prefs.showTime) }
                         ) { toggleShowTime() }
                     },
@@ -207,7 +200,6 @@ class SettingsFragment : Fragment() {
                         SettingsToggle(
                             title = stringResource(R.string.show_date),
                             onChange = onChange,
-
                             state = remember { mutableStateOf(prefs.showDate) }
                         ) { toggleShowDate() }
                     },
@@ -215,7 +207,6 @@ class SettingsFragment : Fragment() {
                         SettingsToggle(
                             title = stringResource(R.string.lock_home_apps),
                             onChange = onChange,
-
                             state = remember { mutableStateOf(prefs.homeLocked) }
                         ) { prefs.homeLocked = !prefs.homeLocked }
                     },
@@ -223,7 +214,6 @@ class SettingsFragment : Fragment() {
                         SettingsToggle(
                             title = stringResource(R.string.extend_home_apps_area),
                             onChange = onChange,
-
                             state = remember { mutableStateOf(prefs.extendHomeAppsArea) }
                         ) { prefs.extendHomeAppsArea = !prefs.extendHomeAppsArea }
                     },
@@ -237,7 +227,6 @@ class SettingsFragment : Fragment() {
                             title = stringResource(R.string.home_alignment),
                             open = open,
                             onChange = onChange,
-
                             currentSelection = remember { mutableStateOf(prefs.homeAlignment) },
                             values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
                             onSelect = { gravity -> setHomeAlignment(gravity) }
@@ -247,7 +236,6 @@ class SettingsFragment : Fragment() {
                         SettingsToggle(
                             title = stringResource(R.string.home_alignment_bottom),
                             onChange = onChange,
-
                             state = remember { mutableStateOf(prefs.homeAlignmentBottom) }
                         ) { toggleHomeAppsBottom() }
                     },
@@ -256,7 +244,6 @@ class SettingsFragment : Fragment() {
                             title = stringResource(R.string.clock_alignment),
                             open = open,
                             onChange = onChange,
-
                             currentSelection = remember { mutableStateOf(prefs.clockAlignment) },
                             values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
                             onSelect = { gravity -> setClockAlignment(gravity) }
@@ -267,7 +254,6 @@ class SettingsFragment : Fragment() {
                             title = stringResource(R.string.drawer_alignment),
                             open = open,
                             onChange = onChange,
-
                             currentSelection = remember { mutableStateOf(prefs.drawerAlignment) },
                             values = arrayOf(Constants.Gravity.Left, Constants.Gravity.Center, Constants.Gravity.Right),
                             onSelect = { j -> viewModel.updateDrawerAlignment(j) }
@@ -347,11 +333,6 @@ class SettingsFragment : Fragment() {
                             onSelect = { j -> updateGesture(AppDrawerFlag.SetDoubleTap, j) },
                             appLabel = prefs.appClickDate.appLabel
                         )
-                        /*SettingsToggle(
-                            title = stringResource(R.string.double_tap_to_lock_screen),
-                            onChange = onChange,
-                            state = remember { mutableStateOf(prefs.lockModeOn) }
-                        ) { toggleLockMode() }*/
                     }
                 )
             )

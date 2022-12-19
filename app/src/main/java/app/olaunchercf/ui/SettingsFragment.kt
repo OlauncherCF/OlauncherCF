@@ -129,13 +129,6 @@ class SettingsFragment : Fragment() {
                 items = arrayOf(
                     { _, onChange ->
                         SettingsToggle(
-                            title = stringResource(R.string.auto_show_keyboard),
-                            onChange = onChange,
-                            state = remember { mutableStateOf(prefs.autoShowKeyboard) },
-                        ) { toggleKeyboardText() }
-                    },
-                    { _, onChange ->
-                        SettingsToggle(
                             title = stringResource(R.string.status_bar),
                             onChange = onChange,
                             state = remember { mutableStateOf(prefs.showStatusBar) },
@@ -173,6 +166,25 @@ class SettingsFragment : Fragment() {
                             onSelect = { f -> setTextSize(f) }
                         )
                     }
+                )
+            )
+            SettingsArea(title = stringResource(R.string.behavior),
+                selected = selected,
+                items = arrayOf(
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.auto_show_keyboard),
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.autoShowKeyboard) },
+                        ) { toggleKeyboardText() }
+                    },
+                    { _, onChange ->
+                        SettingsToggle(
+                            title = stringResource(R.string.auto_open_apps),
+                            onChange = onChange,
+                            state = remember { mutableStateOf(prefs.autoOpenApp) },
+                        ) { toggleAutoOpenApp() }
+                    },
                 )
             )
             SettingsArea(title = stringResource(R.string.homescreen),
@@ -420,6 +432,10 @@ class SettingsFragment : Fragment() {
 
     private fun toggleKeyboardText() {
         prefs.autoShowKeyboard = !prefs.autoShowKeyboard
+    }
+
+    private fun toggleAutoOpenApp() {
+        prefs.autoOpenApp = !prefs.autoOpenApp
     }
 
     private fun setTheme(appTheme: Constants.Theme) {

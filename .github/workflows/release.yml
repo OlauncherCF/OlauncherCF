@@ -8,40 +8,42 @@ on:
   
 
 jobs:
-  Gradle:
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-    - name: checkout code
-      uses: actions/checkout@v3
-    - name: setup jdk
-      uses: actions/setup-java@v1
+    - uses: actions/checkout@v3
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
       with:
-        java-version: 11
-    - name: Make Gradle executable
-      run: chmod +x ./gradlew
-    - name: Prepare Secrets
-      run: |
-        if [ ! -z "${{ secrets.KEY_STORE }}" ]; then
-          echo storeFile='keystore.jks' > release.properties
-          echo ${{ secrets.KEY_STORE }} \| base64 --decode > keystore.jks
-          echo storePassword='${{ secrets.KEY_STORE_PASSWORD }}' >> release.properties
-          echo keyAlias='${{ secrets.ALIAS }}' >> release.properties
-          echo keyPassword='${{ secrets.KEY_PASSWORD }}' >> release.properties
-        fi
-    - name: Build Release APK
-      run: ./gradlew assembleRelease
-    - name: Where output
-      run: |
-        ls ./app/build/outputs/apk/release/
-        echo
-        echo
-        tree
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+    - name: Build with Gradle
+      run: ./gradlew build
+    - name: Sign app APK
+      uses: r0adkll/sign-android-release@v1
+      # ID used to access action output
+      id: sign_app
+      with:
+        releaseDirectory: app/build/outputs/apk/release
+        signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+        alias: ${{ secrets.ALIAS }}
+        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
+      env:
+        # override default build-tools version (29.0.3) -- optional
+        BUILD_TOOLS_VERSION: "30.0.2"
     - name: Release to GitHub
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ./app/build/outputs/apk/release/app-release.apk
-        asset_name: Olauncher.apk
+        file: ${{steps.sign_app.outputs.signedReleaseFile}}
+        asset_name: mLauncher-${{ github.ref_name }}.apk
         tag: ${{ github.ref }}
         overwrite: true
-        body: "Olauncher.apk Release"
+        body: "mLauncher.apk Release"

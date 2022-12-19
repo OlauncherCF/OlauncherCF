@@ -71,11 +71,16 @@ class AppDrawerAdapter(
             appRenameListener(appModel.appPackage, appModel.appAlias)
         }
 
-        try { // Automatically open the app when there's only one search result
-            if ((itemCount == 1) and (flag == AppDrawerFlag.LaunchApp) and (prefs.autoOpenApp))
+        // open app if only one app matches
+        val lastMatch = itemCount == 1
+        val openApp = flag == AppDrawerFlag.LaunchApp
+        val autoOpenApp = prefs.autoOpenApp
+        if (lastMatch && openApp && autoOpenApp) {
+            try {
                 clickListener(appFilteredList[position])
-        } catch (e: Exception) {
-            e.printStackTrace() // good to have this but remove it if you don't.
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

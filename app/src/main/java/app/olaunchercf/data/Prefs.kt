@@ -74,7 +74,7 @@ class Prefs(val context: Context) {
         set(value) = prefs.edit().putBoolean(AUTO_SHOW_KEYBOARD, value).apply()
 
     var autoOpenApp: Boolean
-        get() = prefs.getBoolean(AUTO_OPEN_APP, false)
+        get() = prefs.getBoolean(AUTO_OPEN_APP, true)
         set(value) = prefs.edit().putBoolean(AUTO_OPEN_APP, value).apply()
 
     var homeAppsNum: Int

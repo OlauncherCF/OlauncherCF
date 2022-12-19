@@ -23,7 +23,7 @@ jobs:
       run: |
         if [ ! -z "${{ secrets.KEY_STORE }}" ]; then
           echo storeFile='keystore.jks' > release.properties
-          echo ${{ secrets.KEY_STORE }} | base64 --decode > keystore.jks
+          echo ${{ secrets.KEY_STORE }} \| base64 --decode > keystore.jks
           echo storePassword='${{ secrets.KEY_STORE_PASSWORD }}' >> release.properties
           echo keyAlias='${{ secrets.ALIAS }}' >> release.properties
           echo keyPassword='${{ secrets.KEY_PASSWORD }}' >> release.properties

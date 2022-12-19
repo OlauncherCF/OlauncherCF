@@ -19,13 +19,28 @@ jobs:
         java-version: 11
     - name: Make Gradle executable
       run: chmod +x ./gradlew
+    - name: Prepare Secrets
+      run: |
+        if [ ! -z "${{ secrets.KEY_STORE }}" ]; then
+          echo storeFile='keystore.jks' > release.properties
+          echo ${{ secrets.KEY_STORE }} | base64 --decode > keystore.jks
+          echo storePassword='${{ secrets.KEY_STORE_PASSWORD }}' >> release.properties
+          echo keyAlias='${{ secrets.ALIAS }}' >> release.properties
+          echo keyPassword='${{ secrets.KEY_PASSWORD }}' >> release.properties
+        fi
     - name: Build Release APK
       run: ./gradlew assembleRelease
+    - name: Where output
+      run: |
+        ls ./app/build/outputs/apk/release/
+        echo
+        echo
+        tree
     - name: Release to GitHub
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ./app/build/outputs/apk/release/app-release-unsigned.apk
+        file: ./app/build/outputs/apk/release/app-release.apk
         asset_name: Olauncher.apk
         tag: ${{ github.ref }}
         overwrite: true

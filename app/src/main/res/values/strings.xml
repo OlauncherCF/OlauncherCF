@@ -26,6 +26,7 @@
     <string name="swipe_left_app">Swipe left</string>
     <string name="swipe_right_app">Swipe right</string>
     <string name="swipe_down_app">Swipe down</string>
+    <string name="swipe_up_app">Swipe Up</string>
     <string name="clock_click_app">Click on Clock</string>
     <string name="date_click_app">Click on Date</string>
     <string name="double_tap">Double Tap</string>

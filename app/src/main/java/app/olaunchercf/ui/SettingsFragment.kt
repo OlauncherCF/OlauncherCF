@@ -300,6 +300,16 @@ class SettingsFragment : Fragment() {
                     },
                     { open, onChange ->
                         SettingsGestureItem(
+                            title = stringResource(R.string.swipe_up_app),
+                            open = open,
+                            onChange = onChange,
+                            currentAction = prefs.swipeUpAction,
+                            onSelect = { j -> updateGesture(AppDrawerFlag.SetSwipeUp, j) },
+                            appLabel = prefs.appSwipeUp.appLabel,
+                        )
+                    },
+                    { open, onChange ->
+                        SettingsGestureItem(
                             title = stringResource(R.string.swipe_down_app),
                             open = open,
                             onChange = onChange,
@@ -450,6 +460,7 @@ class SettingsFragment : Fragment() {
         when (flag) {
             AppDrawerFlag.SetSwipeLeft -> prefs.swipeLeftAction = action
             AppDrawerFlag.SetSwipeRight -> prefs.swipeRightAction = action
+            AppDrawerFlag.SetSwipeUp -> prefs.swipeUpAction = action
             AppDrawerFlag.SetSwipeDown -> prefs.swipeDownAction = action
             AppDrawerFlag.SetClickClock -> prefs.clickClockAction = action
             AppDrawerFlag.SetClickDate -> prefs.clickDateAction = action

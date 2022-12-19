@@ -45,8 +45,8 @@ class AppDrawerAdapter(
 
         binding = AdapterAppDrawerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         //val view = binding.root
-        binding.appTitle.textSize = Prefs(parent.context).textSize.toFloat()
         prefs = Prefs(parent.context)
+        binding.appTitle.textSize = prefs.textSize.toFloat()
 
         return ViewHolder(binding)
     }

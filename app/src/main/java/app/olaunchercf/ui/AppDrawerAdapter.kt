@@ -33,6 +33,7 @@ class AppDrawerAdapter(
     private val appRenameListener: (String, String) -> Unit
 ) : RecyclerView.Adapter<AppDrawerAdapter.ViewHolder>(), Filterable {
 
+    private lateinit var prefs: Prefs
     private var appFilter = createAppFilter()
     var appsList: MutableList<AppModel> = mutableListOf()
     var appFilteredList: MutableList<AppModel> = mutableListOf()
@@ -44,7 +45,8 @@ class AppDrawerAdapter(
 
         binding = AdapterAppDrawerBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         //val view = binding.root
-        binding.appTitle.textSize = Prefs(parent.context).textSize.toFloat()
+        prefs = Prefs(parent.context)
+        binding.appTitle.textSize = prefs.textSize.toFloat()
 
         return ViewHolder(binding)
     }
@@ -69,11 +71,16 @@ class AppDrawerAdapter(
             appRenameListener(appModel.appPackage, appModel.appAlias)
         }
 
-        try { // Automatically open the app when there's only one search result
-            if ((itemCount == 1) and (flag == AppDrawerFlag.LaunchApp))
+        // open app if only one app matches
+        val lastMatch = itemCount == 1
+        val openApp = flag == AppDrawerFlag.LaunchApp
+        val autoOpenApp = prefs.autoOpenApp
+        if (lastMatch && openApp && autoOpenApp) {
+            try {
                 clickListener(appFilteredList[position])
-        } catch (e: Exception) {
-
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
         }
     }
 

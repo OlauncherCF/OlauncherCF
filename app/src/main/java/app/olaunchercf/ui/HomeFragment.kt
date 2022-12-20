@@ -210,6 +210,12 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         else openDialerApp(requireContext())
     }
 
+    private fun openSwipeUpApp() {
+        if (prefs.appSwipeUp.appPackage.isNotEmpty())
+            launchApp(prefs.appSwipeUp)
+        else showAppList(AppDrawerFlag.LaunchApp)
+    }
+
     private fun openClickClockApp() {
         if (prefs.appClickClock.appPackage.isNotEmpty())
             launchApp(prefs.appClickClock)
@@ -296,7 +302,10 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
             override fun onSwipeUp() {
                 super.onSwipeUp()
-                showAppList(AppDrawerFlag.LaunchApp)
+                when(val action = prefs.swipeUpAction) {
+                    Action.OpenApp -> openSwipeUpApp()
+                    else -> handleOtherAction(action)
+                }
             }
 
             override fun onSwipeDown() {
@@ -356,7 +365,10 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
             override fun onSwipeUp() {
                 super.onSwipeUp()
-                showAppList(AppDrawerFlag.LaunchApp)
+                when(val action = prefs.swipeUpAction) {
+                    Action.OpenApp -> openSwipeUpApp()
+                    else -> handleOtherAction(action)
+                }
             }
 
             override fun onSwipeDown() {

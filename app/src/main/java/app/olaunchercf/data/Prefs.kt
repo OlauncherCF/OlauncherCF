@@ -13,6 +13,7 @@ private const val FIRST_SETTINGS_OPEN = "FIRST_SETTINGS_OPEN"
 private const val LOCK_MODE = "LOCK_MODE"
 private const val HOME_APPS_NUM = "HOME_APPS_NUM"
 private const val AUTO_SHOW_KEYBOARD = "AUTO_SHOW_KEYBOARD"
+private const val AUTO_OPEN_APP = "AUTO_OPEN_APP"
 private const val HOME_ALIGNMENT = "HOME_ALIGNMENT"
 private const val HOME_ALIGNMENT_BOTTOM = "HOME_ALIGNMENT_BOTTOM"
 private const val HOME_CLICK_AREA = "HOME_CLICK_AREA"
@@ -23,6 +24,7 @@ private const val SHOW_DATE = "SHOW_DATE"
 private const val HOME_LOCKED = "HOME_LOCKED"
 private const val SHOW_TIME = "SHOW_TIME"
 private const val SWIPE_DOWN_ACTION = "SWIPE_DOWN_ACTION"
+private const val SWIPE_UP_ACTION = "SWIPE_UP_ACTION"
 private const val SWIPE_RIGHT_ACTION = "SWIPE_RIGHT_ACTION"
 private const val SWIPE_LEFT_ACTION = "SWIPE_LEFT_ACTION"
 private const val CLICK_CLOCK_ACTION = "CLICK_CLOCK_ACTION"
@@ -43,6 +45,7 @@ private const val APP_ACTIVITY = "APP_ACTIVITY"
 private const val SWIPE_RIGHT = "SWIPE_RIGHT"
 private const val SWIPE_LEFT = "SWIPE_LEFT"
 private const val SWIPE_DOWN = "SWIPE_DOWN"
+private const val SWIPE_UP = "SWIPE_UP"
 private const val CLICK_CLOCK = "CLICK_CLOCK"
 private const val CLICK_DATE = "CLICK_DATE"
 private const val DOUBLE_TAP = "CLICK_DATE"
@@ -69,6 +72,10 @@ class Prefs(val context: Context) {
     var autoShowKeyboard: Boolean
         get() = prefs.getBoolean(AUTO_SHOW_KEYBOARD, true)
         set(value) = prefs.edit().putBoolean(AUTO_SHOW_KEYBOARD, value).apply()
+
+    var autoOpenApp: Boolean
+        get() = prefs.getBoolean(AUTO_OPEN_APP, true)
+        set(value) = prefs.edit().putBoolean(AUTO_OPEN_APP, value).apply()
 
     var homeAppsNum: Int
         get() {
@@ -167,6 +174,10 @@ class Prefs(val context: Context) {
     var swipeDownAction: Constants.Action
         get() = loadAction(SWIPE_DOWN_ACTION, Constants.Action.ShowNotification)
         set(value) = storeAction(SWIPE_DOWN_ACTION, value)
+    
+    var swipeUpAction: Constants.Action
+        get() = loadAction(SWIPE_UP_ACTION, Constants.Action.ShowAppList)
+        set(value) = storeAction(SWIPE_UP_ACTION, value)
 
     var clickClockAction: Constants.Action
         get() = loadAction(CLICK_CLOCK_ACTION, Constants.Action.OpenApp)
@@ -248,6 +259,10 @@ class Prefs(val context: Context) {
     var appSwipeDown: AppModel
         get() = loadApp(SWIPE_DOWN)
         set(appModel) = storeApp(SWIPE_DOWN, appModel)
+
+    var appSwipeUp: AppModel
+        get() = loadApp(SWIPE_UP)
+        set(appModel) = storeApp(SWIPE_UP, appModel)
 
     var appClickClock: AppModel
         get() = loadApp(CLICK_CLOCK)

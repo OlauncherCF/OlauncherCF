@@ -26,6 +26,7 @@
     <string name="swipe_left_app">左滑启动的应用</string>
     <string name="swipe_right_app">右滑启动的应用</string>
     <string name="swipe_down_app">下滑启动的应用</string>
+    <string name="swipe_up_app">上滑启动的应用</string>
     <string name="clock_click_app">单击时钟启动的应用</string>
     <string name="date_click_app">单击日期启动的应用</string>
     <string name="double_tap">轻按两次启动的应用</string>
@@ -56,6 +57,7 @@
     <string name="extend_home_apps_area">扩展主屏应用可点击空间</string>
     <string name="appearance">外观</string>
     <string name="gestures">手势</string>
+    <string name="behavior">行为</string>
     <string name="homescreen">主屏幕</string>
     <string name="alignment">对齐</string>
     <string name="theme_mode">主题模式</string>
@@ -75,6 +77,7 @@
     <string name="drawer_list_empty_hint">未找到应用</string>
     
     <string name="hidden_apps">隐藏的应用</string>
+    <string name="auto_open_apps">自动打开应用</string>
     
     <string name="show">显示</string>
     <string name="reset">重置</string>

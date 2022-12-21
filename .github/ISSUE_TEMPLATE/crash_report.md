@@ -27,4 +27,9 @@ Describe what you were doing that could've led to the crash.
 
 #### Additional elements
 
-<!-- Paste the generated crash log below where applicable or screenshot, screen recording etc... -->
+<details>
+  <summary>Context</summary>
+
+Add your long texts or screenshots here
+
+</details>

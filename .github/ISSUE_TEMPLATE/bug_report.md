@@ -28,4 +28,9 @@ assignees: ''
 
 #### Additional context (that might help us to solve your problem)
 
-- Screenshots or other context
+<details>
+  <summary>Context</summary>
+
+Add your long texts or screenshots here
+
+</details>

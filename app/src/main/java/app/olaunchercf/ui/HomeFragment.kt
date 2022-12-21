@@ -16,6 +16,7 @@ import androidx.core.view.children
 import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import app.olaunchercf.MainViewModel
 import app.olaunchercf.R
@@ -27,6 +28,7 @@ import app.olaunchercf.databinding.FragmentHomeBinding
 import app.olaunchercf.helper.*
 import app.olaunchercf.listener.OnSwipeTouchListener
 import app.olaunchercf.listener.ViewSwipeTouchListener
+import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener {
@@ -171,17 +173,19 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
     private fun showAppList(flag: AppDrawerFlag, showHiddenApps: Boolean = false, n: Int = 0) {
         viewModel.getAppList(showHiddenApps)
-        try {
-            findNavController().navigate(
-                R.id.action_mainFragment_to_appListFragment,
-                bundleOf("flag" to flag.toString(), "n" to n)
-            )
-        } catch (e: Exception) {
-            findNavController().navigate(
-                R.id.appListFragment,
-                bundleOf("flag" to flag.toString())
-            )
-            e.printStackTrace()
+        lifecycleScope.launch {
+            try {
+                findNavController().navigate(
+                    R.id.action_mainFragment_to_appListFragment,
+                    bundleOf("flag" to flag.toString(), "n" to n)
+                )
+            } catch (e: Exception) {
+                findNavController().navigate(
+                    R.id.appListFragment,
+                    bundleOf("flag" to flag.toString())
+                )
+                e.printStackTrace()
+            }
         }
     }
 

@@ -40,6 +40,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/appRename"
+            android:imeOptions="actionDone"
             android:padding="@dimen/app_padding_vertical"
             android:inputType="textShortMessage"
             android:importantForAutofill="no" />

@@ -5,14 +5,13 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.util.TypedValue
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.startActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.RecyclerView
 import app.olaunchercf.R
 import app.olaunchercf.data.AppModel
@@ -63,11 +62,24 @@ class AppDrawerAdapter(
             appHideListener(flag, appModel)
         }
 
-        holder.appRenameButton.setOnClickListener {
+
+        val renameCommit = {
             val name = holder.appRenameEdit.text.toString().trim()
             appModel.appAlias = name
             notifyItemChanged(holder.absoluteAdapterPosition)
             appRenameListener(appModel.appPackage, appModel.appAlias)
+        }
+
+        holder.appRenameButton.setOnClickListener { renameCommit() }
+        holder.appRenameEdit.setOnEditorActionListener { _, actionId, event ->
+            Log.d("rename", "$actionId, $event")
+            if ( actionId == EditorInfo.IME_ACTION_DONE ||
+                event != null &&
+                event.action == KeyEvent.ACTION_DOWN) {
+                renameCommit()
+                return@setOnEditorActionListener true
+            }
+            false
         }
 
         // open app if only one app matches
@@ -189,7 +201,7 @@ class AppDrawerAdapter(
                 appTitle.text = appName
 
                 // set current name as default text in EditText
-                appRenameEdit.text = Editable.Factory.getInstance().newEditable(appName);
+                appRenameEdit.text = Editable.Factory.getInstance().newEditable(appName)
 
                 // set text gravity
                 val params = appTitle.layoutParams as FrameLayout.LayoutParams
@@ -202,15 +214,15 @@ class AppDrawerAdapter(
                     val icon = AppCompatResources.getDrawable(context, R.drawable.work_profile)
                     val prefs = Prefs(context)
                     val px = dp2px(resources, prefs.textSize)
-                    icon?.setBounds(0, 0, px, px);
+                    icon?.setBounds(0, 0, px, px)
                     if (appLabelGravity == Gravity.LEFT) {
-                        appTitle.setCompoundDrawables(null, null, icon, null);
+                        appTitle.setCompoundDrawables(null, null, icon, null)
                     } else {
-                        appTitle.setCompoundDrawables(icon, null, null, null);
+                        appTitle.setCompoundDrawables(icon, null, null, null)
                     }
                     appTitle.compoundDrawablePadding = 20
                 } else {
-                    appTitle.setCompoundDrawables(null, null, null, null);
+                    appTitle.setCompoundDrawables(null, null, null, null)
                 }
 
                 appTitleFrame.setOnClickListener { listener(appModel) }

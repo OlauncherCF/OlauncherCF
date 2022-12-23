@@ -58,6 +58,8 @@
     <string name="lang_system">Identique au Système</string>
     
     <string name="app_text_size">Taille de la police</string>
+    <string name="show_notifications">Montrer les notifications</string>
+    <string name="show_app_list">Afficher la liste des applications</string>
     
     <string name="hidden_apps">Applications masquées</string>
 

@@ -48,7 +48,7 @@ private const val SWIPE_DOWN = "SWIPE_DOWN"
 private const val SWIPE_UP = "SWIPE_UP"
 private const val CLICK_CLOCK = "CLICK_CLOCK"
 private const val CLICK_DATE = "CLICK_DATE"
-private const val DOUBLE_TAP = "CLICK_DATE"
+private const val DOUBLE_TAP = "DOUBLE_TAP"
 
 private const val TEXT_SIZE = "text_size"
 

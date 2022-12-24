@@ -3,20 +3,27 @@ package app.olaunchercf
 import android.content.SharedPreferences
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.fragment.app.testing.launchFragmentInContainer
+import androidx.navigation.Navigation
 import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.testing.TestNavHostController
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.CursorMatchers.withRowString
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import app.olaunchercf.data.AppModel
 import app.olaunchercf.data.Constants
-import app.olaunchercf.data.Constants.PREFS_FILENAME
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.ui.AppDrawerAdapter
+import app.olaunchercf.ui.HomeFragment
 import org.hamcrest.core.IsAnything.anything
 import org.junit.Before
 import org.junit.Rule
@@ -31,7 +38,7 @@ class SettingsTest {
     @Before
     fun clearSharedPreferences() {
         prefs = Prefs(composeTestRule.activity)
-        val shPrefs: SharedPreferences = composeTestRule.activity.getSharedPreferences(PREFS_FILENAME, 0)
+        val shPrefs: SharedPreferences = composeTestRule.activity.getSharedPreferences("app.olauncher", 0)
         shPrefs.edit().clear().commit()
     }
 
@@ -110,15 +117,33 @@ class SettingsTest {
         )
     }
 
-    private fun goToSettings() {
-        composeTestRule.activityRule.scenario.onActivity {
-            findNavController(it, R.id.nav_host_fragment)
-                .navigate(R.id.action_mainFragment_to_settingsFragment)
+    @Test
+    fun goToSettings() {
+        // Create a TestNavHostController
+        val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
+        // Create a graphical FragmentScenario for the TitleScreen
+        val titleScenario = launchFragmentInContainer<HomeFragment>()
+        titleScenario.onFragment { fragment ->
+            // Set the graph on the TestNavHostController
+            navController.setGraph(R.navigation.nav_graph)
+            // Make the NavController available via the findNavController() APIs
+            Navigation.setViewNavController(fragment.requireView(), navController)
         }
+
+        // Verify that performing a click changes the NavController’s state
+        onView(withId(R.id.touchArea)).perform(longClick())
+        assert(navController.currentDestination?.id == R.id.settingsFragment)
+        //assertThat(navController.currentDestination?.id).isEqualTo(R.id.in_game)
+
+        /*composeTestRule.activityRule.scenario.onActivity {
+            //findNavController(it, R.id.nav_host_fragment).navigate(R.id.action_mainFragment_to_settingsFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+        }*/
+        composeTestRule.onNode(hasAnySibling(hasText("Number of shortcuts"))).assertIsDisplayed()
     }
 
     private fun increaseAppNumber(i: Int) {
-        composeTestRule.onNode(hasAnySibling(hasText("Number of shortcuts"))).performClick()
+        composeTestRule.onNode(hasAnySibling(hasText("Number of shortcuts"))).assertIsDisplayed().performClick()
         composeTestRule.onNodeWithText("+").assertIsDisplayed().performClick()
         composeTestRule.onNodeWithText("Save").assertIsDisplayed().performClick()
         composeTestRule.onAllNodesWithText((i+1).toString())[0].assertIsDisplayed()

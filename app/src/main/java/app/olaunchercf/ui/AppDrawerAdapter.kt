@@ -20,6 +20,7 @@ import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.AdapterAppDrawerBinding
 import app.olaunchercf.helper.dp2px
 import app.olaunchercf.helper.uninstallApp
+import org.jetbrains.annotations.TestOnly
 import java.text.Normalizer
 
 

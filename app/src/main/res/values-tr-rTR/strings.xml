@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Olauncher Clutter Free</string>
+    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
     <string name="app">Uygulama</string>
     <string name="set_as_default_launcher">Varsayılan başlatıcı olarak ayarla</string>
     <string name="app_text_color">Metin rengi</string>
@@ -24,8 +26,11 @@
     <string name="drawer_alignment">Uygulama çekmecesi hizalaması</string>
     <string name="swipe_left_app">Uygulamayı sola kaydırın</string>
     <string name="swipe_right_app">Uygulamayı sağa kaydırın</string>
+    <string name="swipe_down_app">Swipe down</string>
+    <string name="swipe_up_app">Swipe Up</string>
     <string name="clock_click_app">Saat tıklama uygulaması</string>
     <string name="date_click_app">Tarih tıklama uygulaması</string>
+    <string name="double_tap">Double Tap</string>
     <string name="save">Kaydet</string>
     <string name="app_drawer_tips">İpucu: Kapatmak için aşağı kaydırın. Klavyeyi gizlemek için kaydırın.</string>
     <string name="okay">Tamam</string>
@@ -44,6 +49,7 @@
     <string name="extend_home_apps_area">Genişletilmiş tıklanılabilir alan</string>
     <string name="appearance">Görünüm</string>
     <string name="gestures">Kaydırma</string>
+    <string name="behavior">Behavior</string>
     <string name="homescreen">Ana Ekran</string>
     <string name="alignment">Hizalama</string>
     <string name="theme_mode">Tema modu</string>
@@ -58,14 +64,24 @@
     <string name="close">Kapat</string>
     <string name="app_language">Arayüz dili</string>
     <string name="lang_system">Sistem</string>
-
     <string name="app_text_size">Yazı tipi boyutu</string>
-
+    <string name="drawer_list_empty_hint">No apps found</string>
     <string name="hidden_apps">Gizli uygulamalar</string>
-
+    <string name="auto_open_apps">Auto open apps</string>
     <string name="show">Göster</string>
     <string name="reset">Sıfırla</string>
     <string name="cancel">İptal</string>
-    
-    
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="show_notifications">Show Notification</string>
+    <string name="show_app_list">Show App List</string>
+    <string name="open_app">Open App</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="open_quick_settings">Quick Settings</string>
+    <string name="show_recents">Show Recents</string>
+    <string name="backup">Backup</string>
+    <string name="load_backup">Load Backup</string>
+    <string name="store_backup">Store Backup</string>
 </resources>

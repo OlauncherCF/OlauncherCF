@@ -52,8 +52,6 @@
     <string name="system_default">系统</string>
     <string name="dark">深色</string>
     <string name="light">浅色</string>
-    <string name="double_tap_lock_uninstall_message">已启用“轻按两次解锁”
-        \n\n注意：若你决定删除Olauncher, 请先关闭此选项。</string>
     <string name="accessibility_service_description">此无障碍服务允许 OlauncherCF 执行特定操作，如锁定屏幕或打开快速设置。</string>
     <string name="open">打开链接</string>
     <string name="copy">复制</string>

@@ -154,7 +154,7 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (resultCode != Activity.RESULT_OK) {
-            showToastLong(applicationContext, "Intent Error")
+            // showToastLong(applicationContext, "Intent Error")
             return
         }
 

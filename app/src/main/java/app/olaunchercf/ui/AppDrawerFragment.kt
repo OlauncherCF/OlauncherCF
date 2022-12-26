@@ -127,7 +127,6 @@ class AppDrawerFragment : Fragment() {
             if (it == appAdapter.appsList) return@Observer
             it?.let { appList ->
                 binding.listEmptyHint.visibility = if (appList.isEmpty()) View.VISIBLE else View.GONE
-                Log.d("backup", "$appList")
                 populateAppList(appList, appAdapter)
             }
         })

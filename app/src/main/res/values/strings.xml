@@ -95,6 +95,7 @@
     <string name="open_quick_settings">Quick Settings</string>
     <string name="show_recents">Show Recents</string>
 
+    <string name="backup">Backup</string>
     <string name="load_backup">Load Backup</string>
     <string name="store_backup">Store Backup</string>
 

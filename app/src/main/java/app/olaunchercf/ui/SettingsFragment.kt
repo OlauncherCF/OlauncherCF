@@ -32,7 +32,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -42,8 +41,6 @@ import app.olaunchercf.R
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Constants.Action
 import app.olaunchercf.data.Constants.AppDrawerFlag
-import app.olaunchercf.data.Constants.BACKUP_READ
-import app.olaunchercf.data.Constants.BACKUP_WRITE
 import app.olaunchercf.data.Constants.Theme.*
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentSettingsBinding
@@ -360,7 +357,7 @@ class SettingsFragment : Fragment() {
                     }
                 )
             )
-            SettingsArea(title = "Backup",
+            SettingsArea(title = getString(R.string.backup),
                 selected = selected,
                 items = arrayOf(
                     { _, _ ->

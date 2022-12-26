@@ -52,8 +52,6 @@
     <string name="system_default">Sistema</string>
     <string name="dark">Escuro</string>
     <string name="light">Claro</string>
-    <string name="double_tap_lock_uninstall_message">Toque duplo para bloquear ligado.
-        \n\nNota: Desliga isto se decidires remover o Olauncher.</string>
     <string name="accessibility_service_description">A permissão de acessibilidade é necessária para ativar o toque duplo para bloquear. Quaisquer dados adquiridos pelo serviço não sairão do seu dispositivo.</string>
     <string name="open">Abrir link</string>
     <string name="copy">Copiar</string>

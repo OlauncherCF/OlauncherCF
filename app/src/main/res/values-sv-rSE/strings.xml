@@ -49,7 +49,6 @@
     <string name="system_default">System</string>
     <string name="dark">Mörkt</string>
     <string name="light">Ljust</string>
-    <string name="double_tap_lock_uninstall_message">Dubbeltryck för aktiverad låsning. \n\nNotera: Stäng AV detta först om du vill avinstallera Olauncher.</string>
     <string name="accessibility_service_description">Åtkomsttillstånd krävs för att aktivera dubbeltryckning för låsning. Ingen av de uppgifter som tjänsten kommer åt kommer att lämna din enhet.</string>
     <string name="open">Öppna länk</string>
     <string name="copy">Kopiera</string>

@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">Postavi kao zadani pokretač</string>
     <string name="app_text_color">Boja teksta</string>
     <string name="double_tap_to_lock_screen">Dvostruki dodir za zaključavanje</string>
-    <string name="experimental_">(eksperimentalno)</string>
-    <string name="admin_permission_message">Olauncher obećava da će odgovorno koristiti dozvolu za zaključavanje zaslona.</string>
-    <string name="about">Informacije</string>
     <string name="off">Isklj.</string>
     <string name="on">Uklj.</string>
     <string name="black">Crno</string>
@@ -34,7 +31,6 @@
     <string name="save">Save</string>
     <string name="app_drawer_tips">Savjet: Povuci prema dolje za zatvaranje. Pomakni zaslon za zatvaranje tipkovnice.</string>
     <string name="okay">U redu</string>
-    <string name="double_tap_lock_is_enabled_message">Ako zaključavanje dvostrukim dodirom onemogući otključavanje otiskom prsta ili licem, otvori postavke Olaunchera, dodirni \'eksperimentalno\' i slijedi upute. Hvala ti.</string>
     <string name="triple_tap_lock_message">Kako funkcionira:
         \nNakon dvostrukog dodira, zaslon se isključuje i uređaj se zaključava nakon 5 sekundi.
         \n\nTijekom tog vremena može dva puta dodirnuti zaslon za <b>otključavanje</b> ili triputa dotaknuti bilo kada da se uređaj odmah potpuno zaključa.

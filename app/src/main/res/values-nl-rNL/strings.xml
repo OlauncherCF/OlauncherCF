@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">Stel in als standaard launcher</string>
     <string name="app_text_color">Tekst kleur</string>
     <string name="double_tap_to_lock_screen">Dubbel tik om te vergrendelen</string>
-    <string name="experimental_">(experimenteel)</string>
-    <string name="admin_permission_message">Olauncher belooft de toestemming voor het vergrendelingsscherm verantwoord te gebruiken.</string>
-    <string name="about">Over</string>
     <string name="off">Uit</string>
     <string name="on">Aan</string>
     <string name="black">Zwart</string>
@@ -34,7 +31,6 @@
     <string name="save">Opslaan</string>
     <string name="app_drawer_tips">Tip: Veeg naar beneden om te verwerpen. Veeg naar beneden om het toetsenbord te verbergen.</string>
     <string name="okay">Ok</string>
-    <string name="double_tap_lock_is_enabled_message">Als dubbeltikvergrendeling de vingerafdruk of gezichtsontgrendeling uitschakelt, open dan de instellingen van Olauncher, tik op \'experimenteel\' en volg de instructies. Bedankt.</string>
     <string name="triple_tap_lock_message">Hoe het werkt:
         \nZodra je dubbel tikt, zal het scherm donker worden en de telefoon zal zichzel vergrendelen binnen 5 seconden.
         \n\nTijdens deze tijd kun je dubbel tikken om te  <b>ontgrendelen</b> of drie maal tikken om de telefoon onmiddelijk te vergrendelen.

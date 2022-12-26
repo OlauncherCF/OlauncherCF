@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">Varsayılan başlatıcı olarak ayarla</string>
     <string name="app_text_color">Metin rengi</string>
     <string name="double_tap_to_lock_screen">Kilitlemek için iki kez dokunun</string>
-    <string name="experimental_">(deneysel)</string>
-    <string name="admin_permission_message">Olauncher, kilit ekranı iznini sorumlu bir şekilde kullanmayı vaat ediyor.</string>
-    <string name="about">Hakkımızda</string>
     <string name="off">Kapalı</string>
     <string name="on">Açık</string>
     <string name="black">Siyah</string>
@@ -34,7 +31,6 @@
     <string name="save">Kaydet</string>
     <string name="app_drawer_tips">İpucu: Kapatmak için aşağı kaydırın. Klavyeyi gizlemek için kaydırın.</string>
     <string name="okay">Tamam</string>
-    <string name="double_tap_lock_is_enabled_message">Çift dokunma kilidi parmak izini veya yüzle kilit açmayı devre dışı bırakırsa, Olauncher ayarlarını açın, \'deneysel\' üzerine dokunun ve talimatları izleyin. Teşekkürler.</string>
     <string name="triple_tap_lock_message">Nasıl çalışır:
        \nÇift dokunduğunuzda ekran kararır ve telefon 5 saniye içinde kendini kilitler.
          \n\nBu süre boyunca, telefonu hemen tamamen kilitlemek için <b>kilidini açmak</b> için iki kez veya istediğiniz zaman üç kez dokunabilirsiniz.

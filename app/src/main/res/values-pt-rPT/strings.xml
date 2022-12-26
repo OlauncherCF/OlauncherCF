@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Olauncher Livre de Desordem</string>
+    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
     <string name="app">App</string>
     <string name="set_as_default_launcher">Definir como launcher predefinido</string>
     <string name="app_text_color">Cor do texto</string>
@@ -19,13 +21,17 @@
     <string name="right">Direita</string>
     <string name="center">Centro</string>
     <string name="home_alignment">Alinhamento dos aplicativos</string>
+    <string name="home_alignment_bottom">Apps home screen bottom</string>
     <string name="clock_alignment">Alinhamento do relógio</string>
     <string name="drawer_alignment">Alinhamento da gaveta de aplicações</string>
     <string name="swipe_left_app">Deslize para a esquerda app</string>
     <string name="swipe_right_app">Deslize para a direita app</string>
+    <string name="swipe_down_app">Swipe down</string>
+    <string name="swipe_up_app">Swipe Up</string>
     <string name="clock_click_app">Aplicativo de relógio</string>
     <string name="date_click_app">Aplicativo de calendário</string>
-    <string name="commit">Commit</string>
+    <string name="double_tap">Double Tap</string>
+    <string name="save">Save</string>
     <string name="app_drawer_tips">Dica: Deslize para baixo para dispensar. Scroll para ocultar o teclado.</string>
     <string name="okay">Okay</string>
     <string name="double_tap_lock_is_enabled_message">Se o bloqueio de toque duplo desativar a impressão digital ou o desbloqueio facial, abra as definições do Olauncher, toque em \'experimental\' e siga as instruções. Obrigado.</string>
@@ -39,8 +45,13 @@
     <string name="rename">Renomear</string>
     <string name="show_time">Show time</string>
     <string name="show_date">Show date</string>
+    <string name="lock_home_apps">Lock Apps</string>
+    <string name="extend_home_apps_area">Extend clickable area on home apps</string>
     <string name="appearance">Aparência</string>
     <string name="gestures">Gestos</string>
+    <string name="behavior">Behavior</string>
+    <string name="homescreen">Homescreen</string>
+    <string name="alignment">Alignment</string>
     <string name="theme_mode">Modo de tema</string>
     <string name="system_default">Sistema</string>
     <string name="dark">Escuro</string>
@@ -53,14 +64,24 @@
     <string name="close">Fechar</string>
     <string name="app_language">Idioma da interface</string>
     <string name="lang_system">Sistema</string>
-
     <string name="app_text_size">Tamanho de texto</string>
-
+    <string name="drawer_list_empty_hint">No apps found</string>
     <string name="hidden_apps">Aplicações escondidas</string>
-    
+    <string name="auto_open_apps">Auto open apps</string>
     <string name="show">Show</string>
     <string name="reset">Reset</string>
     <string name="cancel">Cancel</string>
-
-    
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="show_notifications">Show Notification</string>
+    <string name="show_app_list">Show App List</string>
+    <string name="open_app">Open App</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="open_quick_settings">Quick Settings</string>
+    <string name="show_recents">Show Recents</string>
+    <string name="backup">Backup</string>
+    <string name="load_backup">Load Backup</string>
+    <string name="store_backup">Store Backup</string>
 </resources>

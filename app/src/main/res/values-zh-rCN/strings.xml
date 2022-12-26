@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Olauncher Clutter Free</string>
     <string name="accessibility_service_name">OlauncherCF 操作服务</string>
@@ -30,15 +31,6 @@
     <string name="clock_click_app">单击时钟启动的应用</string>
     <string name="date_click_app">单击日期启动的应用</string>
     <string name="double_tap">轻按两次启动的应用</string>
-    <string name="_0" translatable="false">0</string>
-    <string name="_1" translatable="false">1</string>
-    <string name="_2" translatable="false">2</string>
-    <string name="_3" translatable="false">3</string>
-    <string name="_4" translatable="false">4</string>
-    <string name="_5" translatable="false">5</string>
-    <string name="_6" translatable="false">6</string>
-    <string name="_7" translatable="false">7</string>
-    <string name="_8" translatable="false">8</string>
     <string name="save">保存</string>
     <string name="app_drawer_tips">提示：下滑不予理会。滚动隐藏键盘。</string>
     <string name="okay">好的</string>
@@ -72,28 +64,24 @@
     <string name="close">关闭</string>
     <string name="app_language">应用界面语言</string>
     <string name="lang_system">系统</string>
-
     <string name="app_text_size">文本尺寸</string>
     <string name="drawer_list_empty_hint">未找到应用</string>
-    
     <string name="hidden_apps">隐藏的应用</string>
     <string name="auto_open_apps">自动打开应用</string>
-    
     <string name="show">显示</string>
     <string name="reset">重置</string>
     <string name="cancel">取消</string>
-    
     <string name="enable">启用</string>
     <string name="disable">禁用</string>
     <string name="enabled">已开启</string>
     <string name="disabled">已禁用</string>
-    
     <string name="show_notifications">显示通知</string>
     <string name="show_app_list">显示应用列表</string>
     <string name="open_app">打开应用</string>
     <string name="lock_screen">锁定屏幕</string>
     <string name="open_quick_settings">快速设置</string>
     <string name="show_recents">显示最近用过的应用</string>
-    
-    
+    <string name="backup">Backup</string>
+    <string name="load_backup">Load Backup</string>
+    <string name="store_backup">Store Backup</string>
 </resources>

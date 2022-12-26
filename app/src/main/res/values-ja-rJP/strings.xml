@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">デフォルトのランチャーとして設定</string>
     <string name="app_text_color">テキストの色</string>
     <string name="double_tap_to_lock_screen">ダブルタップしてロック</string>
-    <string name="experimental_">(実験的)</string>
-    <string name="admin_permission_message">Olauncher は、ロック画面の許可を責任を持って使用することを約束します。</string>
-    <string name="about">約</string>
     <string name="off">オフ</string>
     <string name="on">の上</string>
     <string name="black">黒</string>
@@ -34,7 +31,6 @@
     <string name="save">保存</string>
     <string name="app_drawer_tips">ヒント: 下にスワイプして閉じます。スクロールしてキーボードを非表示にします。</string>
     <string name="okay">わかった</string>
-    <string name="double_tap_lock_is_enabled_message">ダブルタップ ロックによって指紋または顔認証が無効になる場合は、Olauncher の設定を開き、[実験的] をタップして、指示に従います。ありがとうございました。</string>
     <string name="triple_tap_lock_message">使い方：
         \nダブルタップすると、画面が暗くなり、5 秒後に電話がロックされます。
         \n\nこの間、ダブルタップして<b>ロックを解除</b> またはいつでもトリプルタップして、電話をすぐに完全にロックします。

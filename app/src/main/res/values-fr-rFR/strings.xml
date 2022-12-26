@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">Définir comme lanceur par défaut</string>
     <string name="app_text_color">Couleur du texte</string>
     <string name="double_tap_to_lock_screen">Tapoter deux fois pour verrouiller</string>
-    <string name="experimental_">(expérimental)</string>
-    <string name="admin_permission_message">Olauncher promet d\'utiliser l\'autorisation d\'accès au verrouillage de l\'écran de manière responsable.</string>
-    <string name="about">À Propos</string>
     <string name="off">Non</string>
     <string name="on">Oui</string>
     <string name="black">Noir</string>
@@ -34,7 +31,6 @@
     <string name="save">Appliquer</string>
     <string name="app_drawer_tips">Conseil: balayez vers le bas pour ignorer. Faites défiler pour masquer le clavier.</string>
     <string name="okay">Okay</string>
-    <string name="double_tap_lock_is_enabled_message">Si le verrouillage par double tapotement désactive le déverrouillage biométrique (par empreinte ou par visage), ouvrez les paramètres d\'Olauncher, toucher \'expérimental\' et suivez les instructions. Merci.</string>
     <string name="triple_tap_lock_message">Comment cela fonctionne t-il:
         \nLorsque vous appuyez deux fois, l\'écran s\'éteint et le téléphone se verrouille dans les 5 secondes.
         \n\nPendant ce temps, vous pouvez double-taper pour <b>déverrouiller</b> ou triple-taper à tout moment pour verrouiller immédiatement et complètement le téléphone.

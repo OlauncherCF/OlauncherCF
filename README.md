@@ -1,7 +1,7 @@
-<h1 align="center">Based on OlauncherAF. Minimal and clutter free</h1>  
+<h1 align="center">Based on OlauncherAF. Minimal and clutter free</h1>
 </p><h3 align="center">Olauncher is a minimal app launcher for Android.
 
-We try to balance customizability and clutter :)</h3>  
+We try to balance customizability and clutter :)</h3>
 
 
 <img src="art/Header.png" width="1000">
@@ -10,16 +10,29 @@ We try to balance customizability and clutter :)</h3>
 
 - Removed clutter, like ads and links
 - You can rename apps in the app-drawer _(Renaming apps on the home screen is already supported. Just long-click on an app on the home screen and start typing)_
-- Ability to change the app that opens when clicking on the clock
-- Ability to change the app that opens when clicking on the date
-- Much more customizability on home screen gestures
-- Align clock independently of home apps
+- We have added a lot more options for gestures on the home screen:
+    - Gestures are now:
+        - Swiping up, down, left, right
+        - Clicking on the clock
+        - Clicking on the Date
+    - Possible actions now include:
+        - Open specified app
+        - Locking the screen
+        - Opening the notification drawer
+        - Opening the quick settings
+- You can also position the clock independently of the home apps
 - Change alignment of apps in app-drawer
 - Change font size
+- Removed internet permission. You never know what an app developer wants to know about you.
+
+
+## Translations:
+
 - A lot of people have translated the app to the following languages. Many thanks to you ❤️
   - Arabic
   - Chinese
   - Croatian
+  - Dutch
   - English
   - Estonian
   - French
@@ -37,10 +50,10 @@ We try to balance customizability and clutter :)</h3>
   - Swedish
   - Thai
   - Turkish
-- Removed internet permission
 
 
 ## Installation
+
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
     height="80">](https://f-droid.org/packages/app.olaunchercf/)

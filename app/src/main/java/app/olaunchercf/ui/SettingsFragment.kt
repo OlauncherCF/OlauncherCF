@@ -1,6 +1,7 @@
 package app.olaunchercf.ui
 
 import SettingsTheme
+import android.app.Activity
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
 import android.content.Context
@@ -8,6 +9,7 @@ import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +32,6 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.os.bundleOf
-import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -51,6 +52,7 @@ import app.olaunchercf.ui.compose.SettingsComposable.SettingsItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsNumberItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsToggle
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsTopView
+import app.olaunchercf.ui.compose.SettingsComposable.SettingsTwoButtonRow
 import app.olaunchercf.ui.compose.SettingsComposable.SimpleTextButton
 
 class SettingsFragment : Fragment() {
@@ -355,6 +357,21 @@ class SettingsFragment : Fragment() {
                     }
                 )
             )
+            SettingsArea(title = getString(R.string.backup),
+                selected = selected,
+                items = arrayOf(
+                    { _, _ ->
+                        SettingsTwoButtonRow(
+                            firstButtonText = getString(R.string.load_backup),
+                            secondButtonText = getString(R.string.store_backup),
+                            firstButtonAction = { loadFile(requireActivity()) },
+                            secondButtonAction = { storeFile(requireActivity()) },
+                        )
+                    }
+                )
+            )
+
+            // version number
             Text(
                 modifier = Modifier
                     .align(Alignment.End)

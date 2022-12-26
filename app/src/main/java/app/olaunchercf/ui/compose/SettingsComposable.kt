@@ -243,6 +243,35 @@ object SettingsComposable {
     }
 
     @Composable
+    fun SettingsTwoButtonRow(
+        firstButtonText: String,
+        secondButtonText: String,
+        firstButtonAction: () -> Unit,
+        secondButtonAction: () -> Unit,
+    ) {
+        Row {
+            Spacer(Modifier.weight(1f))
+            TextButton(
+                onClick = firstButtonAction,
+            ) {
+                Text(
+                    firstButtonText,
+                    style = SettingsTheme.typography.button,
+                )
+            }
+
+            TextButton(
+                onClick = secondButtonAction,
+            ) {
+                Text(
+                    secondButtonText,
+                    style = SettingsTheme.typography.button,
+                )
+            }
+        }
+    }
+
+    @Composable
     private fun SettingsRow(
         title: String,
         onClick: () -> Unit,

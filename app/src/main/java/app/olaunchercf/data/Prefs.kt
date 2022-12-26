@@ -3,7 +3,10 @@ package app.olaunchercf.data
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.UserHandle
+import android.util.Log
 import app.olaunchercf.helper.getUserHandleFromString
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 private const val APP_LANGUAGE = "app_language"
 private const val PREFS_FILENAME = "app.olauncher"
@@ -55,6 +58,31 @@ private const val TEXT_SIZE = "text_size"
 class Prefs(val context: Context) {
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
+
+    fun saveToString(): String {
+        val all: HashMap<String, Any?> = HashMap(prefs.all)
+        return Gson().toJson(all)
+    }
+
+    fun loadFromString(json: String) {
+        val editor = prefs.edit()
+        val all: HashMap<String, Any?> = Gson().fromJson(json, object : TypeToken<HashMap<String, Any?>>() {}.type)
+        for ((key, value) in all) {
+            when (value) {
+                is String -> editor.putString(key, value)
+                is Boolean -> editor.putBoolean(key, value)
+                is Int -> editor.putInt(key, value)
+                is Double -> editor.putInt(key, value.toInt()) // we store everything as int
+                is Float -> editor.putInt(key, value.toInt())
+                is MutableSet<*> -> {
+                    val list = value.filterIsInstance<String>().toSet()
+                    editor.putStringSet(key, list)
+                }
+                else ->  { Log.d("backup error", "$value") }
+            }
+        }
+        editor.apply()
+    }
 
     var firstOpen: Boolean
         get() = prefs.getBoolean(FIRST_OPEN, true)
@@ -231,10 +259,6 @@ class Prefs(val context: Context) {
         get() = prefs.getBoolean(HIDDEN_APPS_UPDATED, false)
         set(value) = prefs.edit().putBoolean(HIDDEN_APPS_UPDATED, value).apply()
 
-    var toShowHintCounter: Int
-        get() = prefs.getInt(SHOW_HINT_COUNTER, 1)
-        set(value) = prefs.edit().putInt(SHOW_HINT_COUNTER, value).apply()
-
     fun getHomeAppModel(i:Int): AppModel {
         return loadApp("$i")
     }
@@ -326,5 +350,9 @@ class Prefs(val context: Context) {
     }
     fun setAppAlias(appPackage: String, appAlias: String) {
         prefs.edit().putString(appPackage, appAlias).apply()
+    }
+
+    fun clear() {
+        prefs.edit().clear().apply()
     }
 }

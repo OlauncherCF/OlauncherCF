@@ -27,12 +27,18 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.core.app.ActivityCompat
 import app.olaunchercf.BuildConfig
 import app.olaunchercf.R
 import app.olaunchercf.data.AppModel
+import app.olaunchercf.data.Constants.BACKUP_READ
+import app.olaunchercf.data.Constants.BACKUP_WRITE
 import app.olaunchercf.data.Prefs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.*
 import java.text.Collator
 import java.util.*
 import kotlin.math.pow
@@ -111,6 +117,7 @@ suspend fun getAppsList(context: Context, showHiddenApps: Boolean = false): Muta
             }
 
         } catch (e: java.lang.Exception) {
+            Log.d("backup", "$e")
         }
         appList
     }
@@ -366,4 +373,20 @@ fun dp2px(resources: Resources, dp: Int): Int {
         dp.toFloat(),
         resources.displayMetrics
     ).toInt()
+}
+fun storeFile(activity: Activity) {
+    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+        addCategory(Intent.CATEGORY_OPENABLE)
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TITLE, "backup.txt")
+    }
+    ActivityCompat.startActivityForResult(activity, intent, BACKUP_WRITE, null)
+}
+
+fun loadFile(activity: Activity) {
+    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+        addCategory(Intent.CATEGORY_OPENABLE)
+        type = "text/plain"
+    }
+    ActivityCompat.startActivityForResult(activity, intent, BACKUP_READ, null)
 }

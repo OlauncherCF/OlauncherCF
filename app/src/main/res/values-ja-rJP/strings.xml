@@ -52,8 +52,6 @@
     <string name="system_default">システム</string>
     <string name="dark">暗い</string>
     <string name="light">光</string>
-    <string name="double_tap_lock_uninstall_message">ダブルタップするとロックが有効になります。
-        \n\n注: Olauncher を削除する場合は、まずこれをオフにしてください。</string>
     <string name="accessibility_service_description">ダブルタップしてロックするには、アクセシビリティ権限が必要です。サービスによって取得されたデータは、デバイスから離れることはありません。</string>
     <string name="open">リンクを開く</string>
     <string name="copy">コピー</string>

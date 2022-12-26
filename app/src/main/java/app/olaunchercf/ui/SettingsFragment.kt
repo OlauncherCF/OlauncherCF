@@ -55,6 +55,7 @@ import app.olaunchercf.ui.compose.SettingsComposable.SettingsItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsNumberItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsToggle
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsTopView
+import app.olaunchercf.ui.compose.SettingsComposable.SettingsTwoButtonRow
 import app.olaunchercf.ui.compose.SettingsComposable.SimpleTextButton
 
 class SettingsFragment : Fragment() {

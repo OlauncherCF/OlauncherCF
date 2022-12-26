@@ -1,66 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Olauncher Clutter Free</string>
+    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
     <string name="app">Aplikasi</string>
-    <string name="set_as_default_launcher">Atur sebagai launcher default</string>
-    <string name="app_text_color">Warna teks</string>
-    <string name="double_tap_to_lock_screen">Ketuk dua kali untuk mengunci layar</string>
-    <string name="experimental_">(eksperimental)</string>
-    <string name="admin_permission_message">Olauncher akan menggunakan izin layar dengan penuh tanggung jawab</string>
-    <string name="about">Tentang</string>
+    <string name="set_as_default_launcher">Set as default launcher</string>
+    <string name="app_text_color">Text color</string>
+    <string name="double_tap_to_lock_screen">Double tap to lock</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
     <string name="off">Off</string>
     <string name="on">On</string>
-    <string name="black">Hitam</string>
-    <string name="white">Putih</string>
-    <string name="change_default_launcher">Ubah launcher default</string>
-    <string name="long_press_for_settings">Tahan dimana saja untuk membuka pengaturan</string>
-    <string name="swipe_up_for_apps">Geser ke atas untuk buka semua aplikasi</string>
-    <string name="apps_on_home_screen">Aplikasi dalam tampilan depan</string>
-    <string name="left">Kiri</string>
-    <string name="right">Kanan</string>
-    <string name="center">Tengah</string>
-    <string name="home_alignment">Posisi aplikasi</string>
-    <string name="clock_alignment">Posisi jam</string>
-    <string name="drawer_alignment">Posisi drawer aplikasi</string>
-    <string name="swipe_left_app">Geser ke kiri</string>
-    <string name="swipe_right_app">Geser ke kanan</string>
-    <string name="clock_click_app">Aplikasi ketika menekan jam </string>
-    <string name="date_click_app">Aplikasi ketika menekan tanggal</string>
-    <string name="commit">Lakukan</string>
-    <string name="app_drawer_tips">Tip: Geser ke bawah untuk menutup. Scroll untuk menyembunyikan papan ketik.</string>
-    <string name="okay">OK</string>
-    <string name="double_tap_lock_is_enabled_message">Jika mengunci layar dengan mengetuk dua kali akan menonaktifkan fingerprint atau face unlock, buka pengaturan Olauncher, tekan \'eksperimental\' dan ikuti instruksinya. Terima kasih.</string>
-    <string name="triple_tap_lock_message">Cara kerja:
-        \nSaat Anda mengetuk dua kali, layar akan menjadi gelap dan perangkat Anda akan terkunci dalam 5 detik.
-        \n\nDi saat itu, Anda dapat mengetuk dua kali untuk <b>membuka</b> atau ketuk tiga kali untuk mengunci perangkat dengan langsung.
-        \n\nCatatan: MATIKAN opsi ini apabila Anda akan menghapus Olauncher. Terima kasih.</string>
-    <string name="auto_show_keyboard">Otomatis tampilkan papan ketik</string>
-    <string name="hide">Sembunyikan</string>
-    <string name="status_bar">Tampilkan status bar</string>
-    <string name="rename">Ganti nama</string>
+    <string name="black">Black</string>
+    <string name="white">White</string>
+    <string name="change_default_launcher">Change default launcher</string>
+    <string name="long_press_for_settings">Long press anywhere for settings</string>
+    <string name="swipe_up_for_apps">Swipe up for all apps</string>
+    <string name="apps_on_home_screen">Number of shortcuts</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="center">Center</string>
+    <string name="home_alignment">Apps home screen</string>
+    <string name="home_alignment_bottom">Apps home screen bottom</string>
+    <string name="clock_alignment">Clock and date</string>
+    <string name="drawer_alignment">Apps in app drawer</string>
+    <string name="swipe_left_app">Swipe left</string>
+    <string name="swipe_right_app">Swipe right</string>
+    <string name="swipe_down_app">Swipe down</string>
+    <string name="swipe_up_app">Swipe Up</string>
+    <string name="clock_click_app">Click on Clock</string>
+    <string name="date_click_app">Click on Date</string>
+    <string name="double_tap">Double Tap</string>
+    <string name="save">Save</string>
+    <string name="app_drawer_tips">Tip: Swipe down to dismiss. Scroll to hide keyboard.</string>
+    <string name="okay">Okay</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
+    <string name="triple_tap_lock_message">How it works:
+        \nOnce you double-tap, screen will go dark and the phone will lock itself in 5 seconds.
+        \n\nDuring this time, you can double-tap to <b>unlock</b> or triple-tap anytime to fully lock the phone immediately.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher. Thank you.</string>
+    <string name="auto_show_keyboard">Auto show keyboard</string>
+    <string name="hide">Hide</string>
+    <string name="status_bar">Show status bar</string>
+    <string name="rename">Rename</string>
     <string name="show_time">Show time</string>
     <string name="show_date">Show date</string>
-    <string name="appearance">Tampilan</string>
-    <string name="gestures">Gestur</string>
-    <string name="theme_mode">Mode tema</string>
-    <string name="system_default">Sistem</string>
-    <string name="dark">Gelap</string>
-    <string name="light">Terang</string>
-    <string name="double_tap_lock_uninstall_message">\'Ketuk dua kali untuk mengunci\' telah diaktifkan.
-        \n\nCatatan: MATIKAN opsi ini apabila Anda akan menghapus Olauncher.</string>
-    <string name="accessibility_service_description">Izin aksesibilitas diperlukan untuk mengaktifkan fitur \'Kunci layar menggunakan 2 kali ketukan\'. Data apapun yang diperoleh layanan kami tidak akan meninggalkan perangkat Anda.</string>
-    <string name="open">Buka tautan</string>
-    <string name="copy">Salin</string>
-    <string name="close">Tutup</string>
-    <string name="app_language">Bahasa antarmuka</string>
-    <string name="lang_system">Sistem</string>
-
-    <string name="app_text_size">Ukuran teks</string>
-
-    <string name="hidden_apps">Aplikasi tersembunyi</string>
-    
+    <string name="lock_home_apps">Lock Apps</string>
+    <string name="extend_home_apps_area">Extend clickable area on home apps</string>
+    <string name="appearance">Appearance</string>
+    <string name="gestures">Gestures</string>
+    <string name="behavior">Behavior</string>
+    <string name="homescreen">Homescreen</string>
+    <string name="alignment">Alignment</string>
+    <string name="theme_mode">Theme mode</string>
+    <string name="system_default">System</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
+    <string name="accessibility_service_description">This accessibility service allows OlauncherCF to do certain actions such as locking the screen or opening the quick settings.</string>
+    <string name="open">Open link</string>
+    <string name="copy">Copy</string>
+    <string name="close">Close</string>
+    <string name="app_language">Interface Language</string>
+    <string name="lang_system">System</string>
+    <string name="app_text_size">Text Size</string>
+    <string name="drawer_list_empty_hint">No apps found</string>
+    <string name="hidden_apps">Hidden apps</string>
+    <string name="auto_open_apps">Auto open apps</string>
     <string name="show">Show</string>
     <string name="reset">Reset</string>
     <string name="cancel">Cancel</string>
-    
-
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="show_notifications">Show Notification</string>
+    <string name="show_app_list">Show App List</string>
+    <string name="open_app">Open App</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="open_quick_settings">Quick Settings</string>
+    <string name="show_recents">Show Recents</string>
+    <string name="backup">Backup</string>
+    <string name="load_backup">Load Backup</string>
+    <string name="store_backup">Store Backup</string>
 </resources>

@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">Establecer como lanzador predeterminado</string>
     <string name="app_text_color">Color de texto</string>
     <string name="double_tap_to_lock_screen">Doble toque para bloqueo</string>
-    <string name="experimental_">(experimental)</string>
-    <string name="admin_permission_message">Olauncher promete usar el permiso de bloqueo de manera responsable.</string>
-    <string name="about">Acerca de</string>
     <string name="off">Ocultar</string>
     <string name="on">Mostrar</string>
     <string name="black">Negro</string>
@@ -34,7 +31,6 @@
     <string name="save">Save</string>
     <string name="app_drawer_tips">Sugerencia: deslice hacia abajo para descartar. Desplace para ocultar el teclado.</string>
     <string name="okay">OK</string>
-    <string name="double_tap_lock_is_enabled_message">Si el bloqueo con doble toque desactiva la huella digital o el desbloqueo facial, abra la configuración de Olauncher, toque \'experimental\' y sigua las instrucciones. Gracias.</string>
     <string name="triple_tap_lock_message">Cómo funciona:
         \nUna vez toque dos veces, la pantalla se oscurecerá y el teléfono se bloqueará en 5 segundos.
         \n\nDurante este tiempo, puede tocar dos veces para <b>unlock</b> o toque tres veces en cualquier momento para bloquear el teléfono inmediatamente.

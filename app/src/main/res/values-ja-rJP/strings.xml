@@ -1,86 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">オランチャークラッターフリー</string>
-    <string name="app">アプリ</string>
-    <string name="set_as_default_launcher">デフォルトのランチャーとして設定</string>
-    <string name="app_text_color">テキストの色</string>
-    <string name="double_tap_to_lock_screen">ダブルタップしてロック</string>
-    <string name="experimental_">(実験的)</string>
-    <string name="admin_permission_message">Olauncher は、ロック画面の許可を責任を持って使用することを約束します。</string>
-    <string name="about">約</string>
-    <string name="off">オフ</string>
-    <string name="on">の上</string>
-    <string name="black">黒</string>
-    <string name="white">白</string>
-    <string name="change_default_launcher">デフォルトのランチャーを変更する</string>
-    <string name="long_press_for_settings">任意の場所を長押しして設定します</string>
-    <string name="swipe_up_for_apps">すべてのアプリを上にスワイプ</string>
-    <string name="apps_on_home_screen">ショートカットの数</string>
-    <string name="left">左</string>
-    <string name="right">右</string>
-    <string name="center">中心</string>
-    <string name="home_alignment">アプリのホーム画面</string>
-    <string name="home_alignment_bottom">アプリのホーム画面下</string>
-    <string name="clock_alignment">時計と日付</string>
-    <string name="drawer_alignment">アプリ ドロワー内のアプリ</string>
-    <string name="swipe_left_app">アプリを左にスワイプ</string>
-    <string name="swipe_right_app">アプリを右にスワイプ</string>
-    <string name="clock_click_app">時計クリックアプリ</string>
-    <string name="date_click_app">日付クリックアプリ</string>
-    <string name="_0" translatable="false">0</string>
-    <string name="_1" translatable="false">1</string>
-    <string name="_2" translatable="false">2</string>
-    <string name="_3" translatable="false">3</string>
-    <string name="_4" translatable="false">4</string>
-    <string name="_5" translatable="false">5</string>
-    <string name="_6" translatable="false">6</string>
-    <string name="_7" translatable="false">7</string>
-    <string name="_8" translatable="false">8</string>
-    <string name="save">保存</string>
-    <string name="app_drawer_tips">ヒント: 下にスワイプして閉じます。スクロールしてキーボードを非表示にします。</string>
-    <string name="okay">わかった</string>
-    <string name="double_tap_lock_is_enabled_message">ダブルタップ ロックによって指紋または顔認証が無効になる場合は、Olauncher の設定を開き、[実験的] をタップして、指示に従います。ありがとうございました。</string>
-    <string name="triple_tap_lock_message">使い方：
-        \nダブルタップすると、画面が暗くなり、5 秒後に電話がロックされます。
-        \n\nこの間、ダブルタップして<b>ロックを解除</b> またはいつでもトリプルタップして、電話をすぐに完全にロックします。
-        \n\n注: Olauncher を削除する場合は、まずこれをオフにしてください。ありがとうございました。</string>
-    <string name="auto_show_keyboard">キーボードを自動表示</string>
-    <string name="hide">隠れる</string>
-    <string name="status_bar">ステータスバーを表示</string>
-    <string name="rename">名前を変更</string>
-    <string name="show_time">ショータイム</string>
-    <string name="show_date">表示日</string>
-    <string name="lock_home_apps">アプリをロックする</string>
-    <string name="extend_home_apps_area">ホームアプリのクリック可能領域を拡張</string>
-    <string name="appearance">外観</string>
-    <string name="gestures">ジェスチャー</string>
-    <string name="homescreen">ホーム画面</string>
-    <string name="alignment">アライメント</string>
-    <string name="theme_mode">テーマモード</string>
-    <string name="system_default">システム</string>
-    <string name="dark">暗い</string>
-    <string name="light">光</string>
-    <string name="double_tap_lock_uninstall_message">ダブルタップするとロックが有効になります。
-        \n\n注: Olauncher を削除する場合は、まずこれをオフにしてください。</string>
-    <string name="accessibility_service_description">ダブルタップしてロックするには、アクセシビリティ権限が必要です。サービスによって取得されたデータは、デバイスから離れることはありません。</string>
-    <string name="open">リンクを開く</string>
-    <string name="copy">コピー</string>
-    <string name="close">近い</string>
-    <string name="app_language">インターフェイス言語</string>
-    <string name="lang_system">システム</string>
-
-    <string name="app_text_size">文字サイズ</string>
-    <string name="drawer_list_empty_hint">アプリが見つかりません</string>
-
-    <string name="hidden_apps">非表示のアプリ</string>
-
-    <string name="show">見せる</string>
-    <string name="reset">リセット</string>
-    <string name="cancel">キャンセル</string>
-
-    <string name="enable">有効</string>
-    <string name="disable">無効にする</string>
-    <string name="enabled">有効</string>
-    <string name="disabled">無効</string>
-
-
+    <string name="app_name">Olauncher Clutter Free</string>
+    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
+    <string name="app">App</string>
+    <string name="set_as_default_launcher">Set as default launcher</string>
+    <string name="app_text_color">Text color</string>
+    <string name="double_tap_to_lock_screen">Double tap to lock</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
+    <string name="black">Black</string>
+    <string name="white">White</string>
+    <string name="change_default_launcher">Change default launcher</string>
+    <string name="long_press_for_settings">Long press anywhere for settings</string>
+    <string name="swipe_up_for_apps">Swipe up for all apps</string>
+    <string name="apps_on_home_screen">Number of shortcuts</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="center">Center</string>
+    <string name="home_alignment">Apps home screen</string>
+    <string name="home_alignment_bottom">Apps home screen bottom</string>
+    <string name="clock_alignment">Clock and date</string>
+    <string name="drawer_alignment">Apps in app drawer</string>
+    <string name="swipe_left_app">Swipe left</string>
+    <string name="swipe_right_app">Swipe right</string>
+    <string name="swipe_down_app">Swipe down</string>
+    <string name="swipe_up_app">Swipe Up</string>
+    <string name="clock_click_app">Click on Clock</string>
+    <string name="date_click_app">Click on Date</string>
+    <string name="double_tap">Double Tap</string>
+    <string name="save">Save</string>
+    <string name="app_drawer_tips">Tip: Swipe down to dismiss. Scroll to hide keyboard.</string>
+    <string name="okay">Okay</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
+    <string name="triple_tap_lock_message">How it works:
+        \nOnce you double-tap, screen will go dark and the phone will lock itself in 5 seconds.
+        \n\nDuring this time, you can double-tap to <b>unlock</b> or triple-tap anytime to fully lock the phone immediately.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher. Thank you.</string>
+    <string name="auto_show_keyboard">Auto show keyboard</string>
+    <string name="hide">Hide</string>
+    <string name="status_bar">Show status bar</string>
+    <string name="rename">Rename</string>
+    <string name="show_time">Show time</string>
+    <string name="show_date">Show date</string>
+    <string name="lock_home_apps">Lock Apps</string>
+    <string name="extend_home_apps_area">Extend clickable area on home apps</string>
+    <string name="appearance">Appearance</string>
+    <string name="gestures">Gestures</string>
+    <string name="behavior">Behavior</string>
+    <string name="homescreen">Homescreen</string>
+    <string name="alignment">Alignment</string>
+    <string name="theme_mode">Theme mode</string>
+    <string name="system_default">System</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
+    <string name="accessibility_service_description">This accessibility service allows OlauncherCF to do certain actions such as locking the screen or opening the quick settings.</string>
+    <string name="open">Open link</string>
+    <string name="copy">Copy</string>
+    <string name="close">Close</string>
+    <string name="app_language">Interface Language</string>
+    <string name="lang_system">System</string>
+    <string name="app_text_size">Text Size</string>
+    <string name="drawer_list_empty_hint">No apps found</string>
+    <string name="hidden_apps">Hidden apps</string>
+    <string name="auto_open_apps">Auto open apps</string>
+    <string name="show">Show</string>
+    <string name="reset">Reset</string>
+    <string name="cancel">Cancel</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="show_notifications">Show Notification</string>
+    <string name="show_app_list">Show App List</string>
+    <string name="open_app">Open App</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="open_quick_settings">Quick Settings</string>
+    <string name="show_recents">Show Recents</string>
+    <string name="backup">Backup</string>
+    <string name="load_backup">Load Backup</string>
+    <string name="store_backup">Store Backup</string>
 </resources>

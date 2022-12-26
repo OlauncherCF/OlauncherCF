@@ -1,5 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Olauncher Clutter Free</string>
+    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
     <string name="app">App</string>
     <string name="set_as_default_launcher">Als Standard-Launcher wählen</string>
     <string name="app_text_color">Textfarbe</string>
@@ -19,13 +21,17 @@
     <string name="right">Rechts</string>
     <string name="center">Zentriert</string>
     <string name="home_alignment">Apps ausrichten</string>
+    <string name="home_alignment_bottom">Apps home screen bottom</string>
     <string name="clock_alignment">Uhr ausrichten</string>
     <string name="drawer_alignment">App-Übersicht ausrichten</string>
     <string name="swipe_left_app">App öffnen (links wischen)</string>
     <string name="swipe_right_app">App öffen (rechts wischen)</string>
+    <string name="swipe_down_app">Swipe down</string>
+    <string name="swipe_up_app">Swipe Up</string>
     <string name="clock_click_app">App öffnen (Tippen auf Uhr)</string>
     <string name="date_click_app">App öffnen (Tippen auf Datum)</string>
-    <string name="commit">Bestätigen</string>
+    <string name="double_tap">Double Tap</string>
+    <string name="save">Save</string>
     <string name="app_drawer_tips">Tipp! Zurück: nach unten wischen. Tastatur ausblenden: scrollen.</string>
     <string name="okay">OK</string>
     <string name="double_tap_lock_is_enabled_message">Wenn Doppeltippen das Entsperren mittels Fingerabdruck oder Gesicht deaktiviert: Olauncher-Einstellungen öffnen, auf \'experimentell\' tippen und Anweisungen befolgen. Danke!</string>
@@ -39,8 +45,13 @@
     <string name="rename">Umbenennen</string>
     <string name="show_time">Uhr anzeigen</string>
     <string name="show_date">Datum anzeigen</string>
+    <string name="lock_home_apps">Lock Apps</string>
+    <string name="extend_home_apps_area">Extend clickable area on home apps</string>
     <string name="appearance">Erscheinungsbild</string>
     <string name="gestures">Gesten</string>
+    <string name="behavior">Behavior</string>
+    <string name="homescreen">Homescreen</string>
+    <string name="alignment">Alignment</string>
     <string name="theme_mode">Modus</string>
     <string name="system_default">Design</string>
     <string name="dark">Dunkel</string>
@@ -50,16 +61,26 @@
     <string name="open">Link öffnen</string>
     <string name="copy">Kopieren</string>
     <string name="close">Schließen</string>
-    <string name="lang_system">System</string>
-    
-    <string name="hidden_apps">Versteckte Apps</string>
-    
     <string name="app_language">Sprache</string>
-    
+    <string name="lang_system">System</string>
+    <string name="app_text_size">Text Size</string>
+    <string name="drawer_list_empty_hint">No apps found</string>
+    <string name="hidden_apps">Versteckte Apps</string>
+    <string name="auto_open_apps">Auto open apps</string>
     <string name="show">Anzeigen</string>
     <string name="reset">Zurücksetzen</string>
     <string name="cancel">Abbrechen</string>
-
-
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="show_notifications">Show Notification</string>
+    <string name="show_app_list">Show App List</string>
+    <string name="open_app">Open App</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="open_quick_settings">Quick Settings</string>
+    <string name="show_recents">Show Recents</string>
+    <string name="backup">Backup</string>
+    <string name="load_backup">Load Backup</string>
+    <string name="store_backup">Store Backup</string>
 </resources>
-

@@ -1,23 +1,12 @@
 package app.olaunchercf.data
 
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
-import android.os.Bundle
 import android.os.UserHandle
 import android.util.Log
-import androidx.core.app.ActivityCompat.startActivityForResult
 import app.olaunchercf.helper.getUserHandleFromString
-import android.util.Log
-import androidx.core.app.ActivityCompat.startActivityForResult
-import app.olaunchercf.helper.getUserHandleFromString
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.encodeToString
-import kotlinx.serialization.json.Json
-import org.json.JSONArray
-import org.json.JSONObject
-import java.io.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 
 private const val APP_LANGUAGE = "app_language"
 private const val PREFS_FILENAME = "app.olauncher"
@@ -66,44 +55,32 @@ private const val DOUBLE_TAP = "DOUBLE_TAP"
 
 private const val TEXT_SIZE = "text_size"
 
-data class Preference(val value: String, val type: String)
-
 class Prefs(val context: Context) {
 
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_FILENAME, 0)
 
-    fun serialize(): String {
+    fun saveToString(): String {
         val all: HashMap<String, Any?> = HashMap(prefs.all)
-
-        val filtered: HashMap<String, Preference> = HashMap()
-        for ((key, value) in all) {
-            val type = when (value) {
-                is Boolean -> "Boolean"
-                is String -> "String"
-                else -> value.toString()
-            }
-            filtered[key] = Preference(value.toString(), type)
-        }
-        val bundle = Bundle().putSerializable("sp", filtered)
-
-        return Json.encodeToString(bundle)
+        return Gson().toJson(all)
     }
 
-    fun deserialize(json: String) {
+    fun loadFromString(json: String) {
         val editor = prefs.edit()
-        /*val all = Json.decodeFromString(json)
+        val all: HashMap<String, Any?> = Gson().fromJson(json, object : TypeToken<HashMap<String, Any?>>() {}.type)
         for ((key, value) in all) {
             when (value) {
                 is String -> editor.putString(key, value)
-                is Int -> editor.putInt(key, value)
                 is Boolean -> editor.putBoolean(key, value)
+                is Int -> editor.putInt(key, value)
+                is Double -> editor.putInt(key, value.toInt()) // we store everything as int
+                is Float -> editor.putInt(key, value.toInt())
                 is MutableSet<*> -> {
                     val list = value.filterIsInstance<String>().toSet()
                     editor.putStringSet(key, list)
                 }
-                else ->  { Log.d("backup", "$value") }
+                else ->  { Log.d("backup error", "$value") }
             }
-        }*/
+        }
         editor.apply()
     }
 
@@ -373,5 +350,9 @@ class Prefs(val context: Context) {
     }
     fun setAppAlias(appPackage: String, appAlias: String) {
         prefs.edit().putString(appPackage, appAlias).apply()
+    }
+
+    fun clear() {
+        prefs.edit().clear().apply()
     }
 }

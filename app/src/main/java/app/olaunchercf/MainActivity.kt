@@ -8,13 +8,10 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -24,7 +21,6 @@ import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.ActivityMainBinding
 import app.olaunchercf.helper.isTablet
 import app.olaunchercf.helper.showToastLong
-import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.FileOutputStream
 import java.io.InputStreamReader
@@ -183,7 +179,9 @@ class MainActivity : AppCompatActivity() {
                         }
 
                         val string = stringBuilder.toString()
-                        Prefs(applicationContext).deserialize(string)
+                        val prefs = Prefs(applicationContext)
+                        prefs.clear()
+                        prefs.loadFromString(string)
                     }
                 }
                 startActivity(Intent.makeRestartActivityTask(this.intent?.component))
@@ -192,7 +190,7 @@ class MainActivity : AppCompatActivity() {
                 data?.data?.also { uri ->
                     applicationContext.contentResolver.openFileDescriptor(uri, "w")?.use { file ->
                         FileOutputStream(file.fileDescriptor).use { stream ->
-                            val text = Prefs(applicationContext).serialize()
+                            val text = Prefs(applicationContext).saveToString()
                             stream.write( text.toByteArray() )
                             stream.channel.truncate(text.length.toLong())
                         }

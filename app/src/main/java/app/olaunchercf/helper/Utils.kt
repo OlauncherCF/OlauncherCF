@@ -376,6 +376,8 @@ fun dp2px(resources: Resources, dp: Int): Int {
         dp.toFloat(),
         resources.displayMetrics
     ).toInt()
+}
+
 fun storeFile(activity: Activity) {
     val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
         addCategory(Intent.CATEGORY_OPENABLE)

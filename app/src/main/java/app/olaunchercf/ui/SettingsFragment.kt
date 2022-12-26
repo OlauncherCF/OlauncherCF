@@ -364,17 +364,19 @@ class SettingsFragment : Fragment() {
             )
             SettingsArea(title = "Backup",
                 selected = selected,
-                arrayOf(
+                items = arrayOf(
                     { _, _ ->
                         SettingsTwoButtonRow(
-                            firstButtonText = "Load",
-                            secondButtonText = "Store",
+                            firstButtonText = getString(R.string.load_backup),
+                            secondButtonText = getString(R.string.store_backup),
                             firstButtonAction = { loadFile(requireActivity()) },
                             secondButtonAction = { storeFile(requireActivity()) },
                         )
                     }
                 )
             )
+
+            // version number
             Text(
                 modifier = Modifier
                     .align(Alignment.End)

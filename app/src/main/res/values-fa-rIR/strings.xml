@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">تنظیم به عنوان لانچر اصلی</string>
     <string name="app_text_color">رنگ متن</string>
     <string name="double_tap_to_lock_screen">دوبار ضربه زدن برای قفل</string>
-    <string name="experimental_">(آزمایشی)</string>
-    <string name="admin_permission_message">Olauncher قول می دهد که از مجوز قفل صفحه مسئولانه استفاده کند</string>
-    <string name="about">درباره</string>
     <string name="off">خاموش</string>
     <string name="on">روشن</string>
     <string name="black">سیاه</string>
@@ -34,7 +31,6 @@
     <string name="save">ذخیره</string>
     <string name="app_drawer_tips">نکته: برای ردکردن، انگشت خود را به پایین بکشید. برای مخفی کردن صفحه کلید، پیمایش کنید</string>
     <string name="okay">باشه</string>
-    <string name="double_tap_lock_is_enabled_message">اگر دوبار ضربه برای قفل صفحه، اثر انگشت یا قفل با چهره را غیرفعال می‌کند، تنظیمات Olauncher را باز کنید، روی «آزمایشی» ضربه بزنید و دستورالعمل‌ها را دنبال کنید. متشکرم.</string>
     <string name="triple_tap_lock_message">چگونه کار می کند:
         \nوقتی دوبار ضربه بزنید، صفحه تاریک می‌شود و گوشی در عرض 5 ثانیه قفل می‌شود.
         \n\nدر این مدت، می‌توانید برای <b>باز کردن قفل</b> دو بار ضربه بزنید یا هر زمان که بخواهید سه ضربه بزنید تا فوراً تلفن را کاملاً قفل کنید.

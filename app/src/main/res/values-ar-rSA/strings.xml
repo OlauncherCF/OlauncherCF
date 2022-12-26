@@ -52,8 +52,6 @@
     <string name="system_default">النظام</string>
     <string name="dark">مظلم</string>
     <string name="light">مضيء</string>
-    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
-        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">تتيح خدمة إمكانية الوصول هذه لـ OlauncherCF القيام ببعض الإجراءات مثل قفل الشاشة أو فتح الإعدادات السريعة.</string>
     <string name="open">فتح الرابط</string>
     <string name="copy">نسخ</string>

@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">Назначить главным лаунчером</string>
     <string name="app_text_color">Цвет текста</string>
     <string name="double_tap_to_lock_screen">Блокировка двойным тапом</string>
-    <string name="experimental_">(экспериментальный)</string>
-    <string name="admin_permission_message">Olauncher обещает ответственно использовать разрешение экрана блокировки.</string>
-    <string name="about">О приложении</string>
     <string name="off">Выкл</string>
     <string name="on">Вкл</string>
     <string name="black">Черный</string>
@@ -34,7 +31,6 @@
     <string name="save">Save</string>
     <string name="app_drawer_tips">Совет: Свайпните вниз, чтобы закрыть. Прокрутите, чтобы скрыть клавиатуру.</string>
     <string name="okay">Хорошо</string>
-    <string name="double_tap_lock_is_enabled_message">Если блокировка двойным тапом отключает разблокировку по отпечатку пальца или лицу, откройте настройки Olauncher, нажмите «Экспериментальный» и следуйте инструкциям. Спасибо.</string>
     <string name="triple_tap_lock_message">Как это работает:
         \nПосле двойного тапа экран погаснет, а телефон заблокируется через 5 секунд.
         \n\nВ это время вы можете дважды тапнуть, чтобы <b>разблокировать</b>, или трижды тапнуть, чтобы немедленно полностью заблокировать телефон.

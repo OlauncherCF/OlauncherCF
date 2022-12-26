@@ -437,4 +437,3 @@ object SettingsComposable {
         }
     }
 }
-

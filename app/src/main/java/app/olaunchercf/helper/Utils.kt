@@ -361,32 +361,15 @@ fun Context.getColorFromAttr(
     return typedValue.data
 }
 
+fun uninstallApp(context: Context, appPackage: String) {
+    val intent = Intent(Intent.ACTION_DELETE)
+    intent.data = Uri.parse("package:$appPackage")
+    context.startActivity(intent)
+}
+
 fun dp2px(resources: Resources, dp: Int): Int {
     return TypedValue.applyDimension(
         TypedValue.COMPLEX_UNIT_DIP,
         dp.toFloat(),
         resources.displayMetrics
     ).toInt()
-}
-
-fun storeFile(activity: Activity) {
-    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
-        addCategory(Intent.CATEGORY_OPENABLE)
-        type = "text/plain"
-        putExtra(Intent.EXTRA_TITLE, "backup.txt")
-    }
-    ActivityCompat.startActivityForResult(activity, intent, BACKUP_WRITE, null)
-}
-
-fun loadFile(activity: Activity) {
-    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
-        addCategory(Intent.CATEGORY_OPENABLE)
-        type = "text/plain"
-    }
-    ActivityCompat.startActivityForResult(activity, intent, BACKUP_READ, null)
-}
-fun uninstallApp(context: Context, appPackage: String) {
-    val intent = Intent(Intent.ACTION_DELETE)
-    intent.data = Uri.parse("package:$appPackage")
-    context.startActivity(intent)
-}

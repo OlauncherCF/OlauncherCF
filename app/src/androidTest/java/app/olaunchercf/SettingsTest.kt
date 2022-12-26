@@ -1,11 +1,16 @@
 package app.olaunchercf
 
+import android.content.Context
 import android.content.SharedPreferences
+import android.provider.Settings.Secure.getString
+import android.widget.ScrollView
+import android.widget.TextView
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.navigation.Navigation.findNavController
-import androidx.test.core.app.ApplicationProvider.getApplicationContext
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -14,6 +19,8 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.ui.AppDrawerAdapter
+import org.hamcrest.Matchers
+import org.hamcrest.Matchers.allOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -242,4 +249,3 @@ class SettingsTest {
         composeTestRule.onNodeWithText("Save").assertIsDisplayed().performClick()
         composeTestRule.onAllNodesWithText((i-1).toString())[0].assertIsDisplayed()
     }
-}

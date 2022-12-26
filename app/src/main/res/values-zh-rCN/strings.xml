@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">设为默认启动器</string>
     <string name="app_text_color">文本颜色</string>
     <string name="double_tap_to_lock_screen">轻按两次锁定</string>
-    <string name="experimental_">(实验性)</string>
-    <string name="admin_permission_message">Olauncher 承诺负责任地使用锁屏权限。</string>
-    <string name="about">关于</string>
     <string name="off">关</string>
     <string name="on">开</string>
     <string name="black">黑</string>
@@ -34,7 +31,6 @@
     <string name="save">保存</string>
     <string name="app_drawer_tips">提示：下滑不予理会。滚动隐藏键盘。</string>
     <string name="okay">好的</string>
-    <string name="double_tap_lock_is_enabled_message">如“轻按两次锁定”禁用指纹或面部解锁，打开 Olauncher 设置，轻按 \'实验性\' 并遵照指示去做。谢谢你。</string>
     <string name="triple_tap_lock_message">工作方式：
         \n轻按两次后，屏幕会变暗，手机会在5秒内自动锁定。
         \n\n在此期间，你可以轻按两次 <b>解除锁定</b> 或在任何时候轻按三次立即完全锁定手机。

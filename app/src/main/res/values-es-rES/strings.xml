@@ -52,8 +52,6 @@
     <string name="system_default">Por defecto</string>
     <string name="dark">Oscuro</string>
     <string name="light">Claro</string>
-    <string name="double_tap_lock_uninstall_message">Doble toque para bloqueo.
-        \n\nNota: Desactive esta opción antes de desinstalar Olauncher. Gracias.</string>
     <string name="accessibility_service_description">Se requiere el permiso de accesibilidad para habilitar el bloqueo por doble toque. Cualquier dato adquirido a través de este permiso no saldrá de su dispositivo.</string>
     <string name="open">Abrir enlace</string>
     <string name="copy">Copiar</string>

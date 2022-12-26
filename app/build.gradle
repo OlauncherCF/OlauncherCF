@@ -99,8 +99,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 
     implementation "androidx.constraintlayout:constraintlayout-compose:1.0.1"
-    implementation 'com.google.code.gson:gson:2.8.6'
-
+    implementation 'com.google.code.gson:gson:2.8.9'
 
 
     def androidx_test_espresso = "3.5.0"

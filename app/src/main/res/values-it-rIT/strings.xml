@@ -52,8 +52,6 @@
     <string name="system_default">Sistema</string>
     <string name="dark">Scuro</string>
     <string name="light">Chiaro</string>
-    <string name="double_tap_lock_uninstall_message">Doppio tocco per bloccare abilitato.
-        \n\nNote: Disabilita se vuoi rimuovere Olauncher.</string>
     <string name="accessibility_service_description">Il permesso è richiesto per abilitare il doppio tocco. I tuoi dati personali rimangono sul tuo telefono.</string>
     <string name="open">Apri link</string>
     <string name="copy">Copia</string>

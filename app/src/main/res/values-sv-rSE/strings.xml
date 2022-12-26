@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">Använd som startsida</string>
     <string name="app_text_color">Textfärg</string>
     <string name="double_tap_to_lock_screen">Dubbeltryck för att låsa</string>
-    <string name="experimental_">(experimentellt)</string>
-    <string name="admin_permission_message">Olauncher lovar att använda skärmens låsningsfunktion på ett ansvarsfullt sätt.</string>
-    <string name="about">Om</string>
     <string name="off">Av</string>
     <string name="on">På</string>
     <string name="black">Svart</string>
@@ -34,7 +31,6 @@
     <string name="save">Save</string>
     <string name="app_drawer_tips">Tip: Svep nedåt för att avvisa. Rulla för att dölja tangentbordet.</string>
     <string name="okay">OK</string>
-    <string name="double_tap_lock_is_enabled_message">Om dubbeltryckning avaktiverar upplåsning med fingeravtryck eller ansikte: öppna Olauncher inställningar, tryck på \'experimental\' och följ anvisningarna. Tack!</string>
     <string name="triple_tap_lock_message">Så här fungerar det: \nNär du dubbeltrycker blir skärmen svart och mobiltelefonen låses inom 5 sekunder. \n\nUnder denna tid kan du <b>dubbeltrycka för att låsa upp</b> eller trippeltrycka för att låsa mobiltelefonen omedelbart. \n\nNotera: Stäng AV detta först om du vill avinstallera Olauncher. Tack!</string>
     <string name="auto_show_keyboard">Visa tangentbord automatiskt</string>
     <string name="hide">Dölj</string>

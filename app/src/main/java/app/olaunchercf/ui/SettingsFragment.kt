@@ -54,7 +54,9 @@ import app.olaunchercf.ui.compose.SettingsComposable.SettingsGestureItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsNumberItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsToggle
+import app.olaunchercf.ui.compose.SettingsComposable.SettingsTopView
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsTwoButtonRow
+import app.olaunchercf.ui.compose.SettingsComposable.SimpleTextButton
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.FileOutputStream

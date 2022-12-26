@@ -424,3 +424,17 @@ object SettingsComposable {
         }
     }
 
+    @Composable
+    fun SimpleTextButton(title: String, fontSize: TextUnit = TextUnit.Unspecified, onClick: () -> Unit) {
+        TextButton(
+            onClick = onClick,
+        ){
+            Text(
+                title,
+                style = SettingsTheme.typography.item,
+                fontSize = fontSize,
+            )
+        }
+    }
+}
+

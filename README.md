@@ -18,6 +18,7 @@ We try to balance customizability and clutter :)</h3>
     - Possible actions now include:
         - Open specified app
         - Locking the screen
+        - Open app draw
         - Opening the notification drawer
         - Opening the quick settings
 - You can also position the clock independently of the home apps

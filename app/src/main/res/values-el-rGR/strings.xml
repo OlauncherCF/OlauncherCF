@@ -52,8 +52,6 @@
     <string name="system_default">Σύστημα</string>
     <string name="dark">Σκοτεινό</string>
     <string name="light">Φωτεινό</string>
-    <string name="double_tap_lock_uninstall_message">Ενεργοποιημένο το διπλό πάτημα για κλείδωμα.
-        \n\nΣημείωση: ΑΠΕΝΕΡΓΟΠΟΙΗΣΤΕ τη συγκεκριμένη επιλογή πριν απεγκαταστήσετε τον Olauncher.</string>
     <string name="accessibility_service_description">Το δικαίωμα προσβασιμότητας είναι απαραίτητο για την ενεργοποίηση του διπλού πατήματος για κλείδωμα. Ό,τι δεδομένα αποκτηθούνε από αυτή τη λειτουργία αυτή δεν θα φύγουν από την συσκευή σας.</string>
     <string name="open">Άνοιγμα συνδέσμου</string>
     <string name="copy">Αντιγραφή</string>

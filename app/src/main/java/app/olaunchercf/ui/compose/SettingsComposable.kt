@@ -21,6 +21,7 @@ import androidx.compose.ui.Alignment.Companion.TopEnd
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.onFocusEvent
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -312,6 +313,7 @@ object SettingsComposable {
                     text = if (active) buttonText else disabledText,
                     style = if (active) SettingsTheme.typography.button else SettingsTheme.typography.buttonDisabled,
                     fontSize = fontSize,
+                    modifier = Modifier.testTag("test$buttonText")
                 )
             }
         }

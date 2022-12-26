@@ -1,88 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">mLauncher</string>
-    <string name="app">Programėlė</string>
-    <string name="set_as_default_launcher">Nustatyti kaip numatomajį darbalaukį</string>
-    <string name="app_text_color">Teksto spalva</string>
-    <string name="double_tap_to_lock_screen">Dukart palieskite, kad užrakintumėte</string>
-    <string name="experimental_">(eksperimentinis)</string>
-    <string name="admin_permission_message">mLauncher prižada atsakingai naudoti ekrano užrakinimo leidimą.</string>
-    <string name="about">Apie</string>
-    <string name="off">Išjungtas</string>
-    <string name="on">Įjungtas</string>
-    <string name="black">Juoda</string>
-    <string name="white">Balta</string>
-    <string name="change_default_launcher">Keisti numatomajį darbalaukį</string>
-    <string name="long_press_for_settings">Norėdami keisti nustatymus, ilgai paspauskite bet kur</string>
-    <string name="swipe_up_for_apps">Braukite aukštyn, kad pamatytumėte visas programėlės</string>
-    <string name="apps_on_home_screen">Nuorodų skaičius</string>
-    <string name="left">Kairė</string>
-    <string name="right">Dešnė</string>
-    <string name="center">Centras</string>
-    <string name="home_alignment">Pagrindinis programėlių ekranas</string>
-    <string name="home_alignment_bottom">Pagrindinio programėlių ekrano apačia</string>
-    <string name="clock_alignment">Laikas ir data</string>
-    <string name="drawer_alignment">Programos programėlių saugykloje</string>
-    <string name="swipe_left_app">Braukite kairėn</string>
-    <string name="swipe_right_app">Braukite dešinėn</string>
-    <string name="swipe_down_app">Braukite žemyn</string>
-    <string name="swipe_up_app">Braukite į viršų</string>
-    <string name="clock_click_app">Spustelėkite ant laikrodžio</string>
-    <string name="date_click_app">Spustelėkite ant datos</string>
-    <string name="double_tap">Dukart paspauskite</string>
-    <string name="_0" translatable="false">0</string>
-    <string name="_1" translatable="false">1</string>
-    <string name="_2" translatable="false">2</string>
-    <string name="_3" translatable="false">3</string>
-    <string name="_4" translatable="false">4</string>
-    <string name="_5" translatable="false">5</string>
-    <string name="_6" translatable="false">6</string>
-    <string name="_7" translatable="false">7</string>
-    <string name="_8" translatable="false">8</string>
-    <string name="commit" translatable="false">Commit</string>
-    <string name="save">Įsaugoti</string>
-    <string name="app_drawer_tips">Patarimas: perbraukite žemyn, kad atsisakytumėte. Slinkite, kad paslėptumėte klaviatūrą.</string>
-    <string name="okay">Gerai</string>
-    <string name="double_tap_lock_is_enabled_message">Jei užraktas du kartus išjungia piršto atspaudą arba atrakinimą pagal veidą, atidarykite mLauncher nustatymus, bakstelėkite \'eksperimentinis\' ir vadovaukitės instrukcijomis. Ačiū.</string>
-    <string name="triple_tap_lock_message">Kaip tai veikia:
-         \nKai dukart paliesite, ekranas užtems, o telefonas užsirakins po 5 sekundžių.
-         \n\nPer šį laiką galite dukart paliesti, jei norite <b>atrakinti</b>, arba tris kartus paliesti bet kada, kad iš karto visiškai užrakintumėte telefoną.
-         \n\nPastaba: pirmiausia šitai IŠJUNKITE, jei nuspręsite ištrinti mLauncher. Ačiū.</string>
-    <string name="auto_show_keyboard">Automatiškai rodyti klaviatūrą</string>
-    <string name="hide">Slėpti</string>
-    <string name="status_bar">Rodyti būsenos juostą</string>
-    <string name="rename">Pervadyti</string>
-    <string name="show_time">Rodyti laiką</string>
-    <string name="show_date">Rodyti datą</string>
-    <string name="lock_home_apps">Užrakinti programėlės</string>
-    <string name="extend_home_apps_area">Išplėsti spustelėjamą sritį darbalaukio programėlėse</string>
-    <string name="appearance">Išvaizda</string>
-    <string name="gestures">Gestai</string>
-    <string name="homescreen">Pradinis ekranas</string>
-    <string name="alignment">Lygiavimas</string>
-    <string name="theme_mode">Temavimo režimas</string>
-    <string name="system_default">Sistema</string>
-    <string name="dark">Tamsus</string>
-    <string name="light">Šviesus</string>
-    <string name="double_tap_lock_uninstall_message" translatable="false">Double tap to lock enabled.
-        \n\nNote: Turn this OFF first if you decide to delete mLauncher.</string>
-    <string name="accessibility_service_description">Pritaikymo neįgaliesiems leidimas reikalingas norint įgalinti dukart bakstelėjimą užrakinti. Jokie duomenys, kurie bus surinkti, nepaliks jūsų įrenginio.</string>
-    <string name="open">Atidaryti nuorodą</string>
-    <string name="copy">Kopijuoti</string>
-    <string name="close">Uždaryti</string>
-    <string name="app_language">Sąsajos kalba</string>
-    <string name="lang_system">Sistema</string>
-    <string name="app_text_size">Teksto dydis</string>
-    <string name="drawer_list_empty_hint">Nerasta jokių programėlių</string>
-    <string name="hidden_apps">Paslėptos programėlės</string>
-    <string name="show">Rodyti</string>
-    <string name="reset">Nustatyti iš naujo</string>
-    <string name="cancel">Atšaukti</string>
-    <string name="enable">Išjungtas</string>
-    <string name="disable">Išjungti</string>
-    <string name="enabled">Įjungtas</string>
-    <string name="disabled">Išjungtas</string>
-    <string name="show_notifications">Rodyti pranešimus</string>
-    <string name="show_app_list">Rodyti programėlių sarašą</string>
-    <string name="open_app">Atidaryti programėlę</string>
-    <string name="lock_screen">Užrakinti ekraną</string>
+    <string name="app_name">Olauncher Clutter Free</string>
+    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
+    <string name="app">App</string>
+    <string name="set_as_default_launcher">Set as default launcher</string>
+    <string name="app_text_color">Text color</string>
+    <string name="double_tap_to_lock_screen">Double tap to lock</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
+    <string name="black">Black</string>
+    <string name="white">White</string>
+    <string name="change_default_launcher">Change default launcher</string>
+    <string name="long_press_for_settings">Long press anywhere for settings</string>
+    <string name="swipe_up_for_apps">Swipe up for all apps</string>
+    <string name="apps_on_home_screen">Number of shortcuts</string>
+    <string name="left">Left</string>
+    <string name="right">Right</string>
+    <string name="center">Center</string>
+    <string name="home_alignment">Apps home screen</string>
+    <string name="home_alignment_bottom">Apps home screen bottom</string>
+    <string name="clock_alignment">Clock and date</string>
+    <string name="drawer_alignment">Apps in app drawer</string>
+    <string name="swipe_left_app">Swipe left</string>
+    <string name="swipe_right_app">Swipe right</string>
+    <string name="swipe_down_app">Swipe down</string>
+    <string name="swipe_up_app">Swipe Up</string>
+    <string name="clock_click_app">Click on Clock</string>
+    <string name="date_click_app">Click on Date</string>
+    <string name="double_tap">Double Tap</string>
+    <string name="save">Save</string>
+    <string name="app_drawer_tips">Tip: Swipe down to dismiss. Scroll to hide keyboard.</string>
+    <string name="okay">Okay</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
+    <string name="triple_tap_lock_message">How it works:
+        \nOnce you double-tap, screen will go dark and the phone will lock itself in 5 seconds.
+        \n\nDuring this time, you can double-tap to <b>unlock</b> or triple-tap anytime to fully lock the phone immediately.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher. Thank you.</string>
+    <string name="auto_show_keyboard">Auto show keyboard</string>
+    <string name="hide">Hide</string>
+    <string name="status_bar">Show status bar</string>
+    <string name="rename">Rename</string>
+    <string name="show_time">Show time</string>
+    <string name="show_date">Show date</string>
+    <string name="lock_home_apps">Lock Apps</string>
+    <string name="extend_home_apps_area">Extend clickable area on home apps</string>
+    <string name="appearance">Appearance</string>
+    <string name="gestures">Gestures</string>
+    <string name="behavior">Behavior</string>
+    <string name="homescreen">Homescreen</string>
+    <string name="alignment">Alignment</string>
+    <string name="theme_mode">Theme mode</string>
+    <string name="system_default">System</string>
+    <string name="dark">Dark</string>
+    <string name="light">Light</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
+    <string name="accessibility_service_description">This accessibility service allows OlauncherCF to do certain actions such as locking the screen or opening the quick settings.</string>
+    <string name="open">Open link</string>
+    <string name="copy">Copy</string>
+    <string name="close">Close</string>
+    <string name="app_language">Interface Language</string>
+    <string name="lang_system">System</string>
+    <string name="app_text_size">Text Size</string>
+    <string name="drawer_list_empty_hint">No apps found</string>
+    <string name="hidden_apps">Hidden apps</string>
+    <string name="auto_open_apps">Auto open apps</string>
+    <string name="show">Show</string>
+    <string name="reset">Reset</string>
+    <string name="cancel">Cancel</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="show_notifications">Show Notification</string>
+    <string name="show_app_list">Show App List</string>
+    <string name="open_app">Open App</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="open_quick_settings">Quick Settings</string>
+    <string name="show_recents">Show Recents</string>
+    <string name="backup">Backup</string>
+    <string name="load_backup">Load Backup</string>
+    <string name="store_backup">Store Backup</string>
 </resources>

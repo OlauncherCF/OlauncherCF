@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">Definir como launcher predefinido</string>
     <string name="app_text_color">Cor do texto</string>
     <string name="double_tap_to_lock_screen">Toque duas vezes para bloquear</string>
-    <string name="experimental_">(experimental)</string>
-    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
-    <string name="about">About</string>
     <string name="off">Desligado</string>
     <string name="on">Ligado</string>
     <string name="black">Preto</string>
@@ -34,7 +31,6 @@
     <string name="save">Save</string>
     <string name="app_drawer_tips">Dica: Deslize para baixo para dispensar. Scroll para ocultar o teclado.</string>
     <string name="okay">Okay</string>
-    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">Como funciona:
     \nDepois de tocar duas vezes, o ecrã ficará escuro e o telemóvel será bloqueado em 5 segundos.
     \n\nDurante esse período, tu podes tocar duas vezes para <b>desbloquear</b> ou tocar três vezes a qualquer momento para bloquear totalmente o telemóvel imediatamente.
@@ -56,8 +52,6 @@
     <string name="system_default">Sistema</string>
     <string name="dark">Escuro</string>
     <string name="light">Claro</string>
-    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
-        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">A permissão de acessibilidade é necessária para ativar o toque duplo para bloquear. Quaisquer dados adquiridos pelo serviço não sairão do seu dispositivo.</string>
     <string name="open">Abrir link</string>
     <string name="copy">Copiar</string>

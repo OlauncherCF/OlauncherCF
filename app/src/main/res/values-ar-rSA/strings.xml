@@ -6,6 +6,9 @@
     <string name="set_as_default_launcher">تعيين كمشغل تطبيقات افتراضي</string>
     <string name="app_text_color">لون نص التطبيق</string>
     <string name="double_tap_to_lock_screen">انقر نقرًا مزدوجًا للقفل</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
     <string name="off">متوقف</string>
     <string name="on">مشغل</string>
     <string name="black">أسود</string>
@@ -31,6 +34,7 @@
     <string name="save">حفظ</string>
     <string name="app_drawer_tips">تلميح:اسحب لأسفل للأغلاق. قم بتمرير القائمة لإخفاء لوحة المفاتيح.</string>
     <string name="okay">حسنًا</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">كيف يعمل:\n \nبمجرد الضغط مرتين, الشاشة ستصبح سوداء و سوف يقفل الهاتف نفسه
         خلال 5 ثواني.\n \n\nخلال هذا الوقت, يمكنك الضغط مرتين لفك القفل او الضغط ثلاث مرات بأي وقت لقفل الهاتف مباشرة.\n
         \n\nملاحظة: ألغي هذا الخيار أولاً اذا قررت حذف Olauncher. شكراً لك.
@@ -52,6 +56,8 @@
     <string name="system_default">النظام</string>
     <string name="dark">مظلم</string>
     <string name="light">مضيء</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">تتيح خدمة إمكانية الوصول هذه لـ OlauncherCF القيام ببعض الإجراءات مثل قفل الشاشة أو فتح الإعدادات السريعة.</string>
     <string name="open">فتح الرابط</string>
     <string name="copy">نسخ</string>

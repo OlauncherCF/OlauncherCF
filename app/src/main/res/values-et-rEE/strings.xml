@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">Määra peamiseks avakuvarakenduseks</string>
     <string name="app_text_color">Teksti värvr</string>
     <string name="double_tap_to_lock_screen">Topeltvajutus ekraani lukustamiseks</string>
-    <string name="experimental_">(experimental)</string>
-    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
-    <string name="about">About</string>
     <string name="off">Sisse</string>
     <string name="on">Välja</string>
     <string name="black">Must</string>
@@ -34,7 +31,6 @@
     <string name="save">Save</string>
     <string name="app_drawer_tips">Nipp: Tühistamiseks tõmba näpuga alla. Tõmba näpuga klaviatuuri peitmiseks.</string>
     <string name="okay">Ok</string>
-    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">Selgitus:
         \nPeale topeltvajutuse tegemist läheb ekraan tumedaks ning telefon lukustub 5 sekundi pärast.
         \n\nSaad teha topeltvajutuse, et <b>avada</b> või kolmikvajutuse igal hetkel telefoni koheselt lukustamiseks.
@@ -56,8 +52,6 @@
     <string name="system_default">Süsteem</string>
     <string name="dark">Tume</string>
     <string name="light">Hele</string>
-    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
-        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">Ligipääsu luba on nõutud topeltvajutuse luku kasutamiseks. Rakenduse poolt kogutud andmed ei välju Teie süsteemist.</string>
     <string name="open">Ava viide</string>
     <string name="copy">Kopeeri</string>

@@ -6,6 +6,9 @@
     <string name="set_as_default_launcher">Atur sebagai launcher default</string>
     <string name="app_text_color">Warna teks</string>
     <string name="double_tap_to_lock_screen">Ketuk dua kali untuk mengunci layar</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
     <string name="off">Off</string>
     <string name="on">On</string>
     <string name="black">Hitam</string>
@@ -31,6 +34,7 @@
     <string name="save">Save</string>
     <string name="app_drawer_tips">Tip: Geser ke bawah untuk menutup. Scroll untuk menyembunyikan papan ketik.</string>
     <string name="okay">OK</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">Cara kerja:
         \nSaat Anda mengetuk dua kali, layar akan menjadi gelap dan perangkat Anda akan terkunci dalam 5 detik.
         \n\nDi saat itu, Anda dapat mengetuk dua kali untuk <b>membuka</b> atau ketuk tiga kali untuk mengunci perangkat dengan langsung.
@@ -52,6 +56,8 @@
     <string name="system_default">Sistem</string>
     <string name="dark">Gelap</string>
     <string name="light">Terang</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">Izin aksesibilitas diperlukan untuk mengaktifkan fitur \'Kunci layar menggunakan 2 kali ketukan\'. Data apapun yang diperoleh layanan kami tidak akan meninggalkan perangkat Anda.</string>
     <string name="open">Buka tautan</string>
     <string name="copy">Salin</string>

@@ -75,7 +75,9 @@
     <string name="lock_screen">锁定屏幕</string>
     <string name="open_quick_settings">快速设置</string>
     <string name="show_recents">显示最近用过的应用</string>
-    <string name="backup">Backup</string>
-    <string name="load_backup">Load Backup</string>
-    <string name="store_backup">Store Backup</string>
+
+    <string name="backup">备份</string>
+    <string name="load_backup">加载备份</string>
+    <string name="store_backup">存储备份</string>
+    
 </resources>

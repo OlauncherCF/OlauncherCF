@@ -6,6 +6,9 @@
     <string name="set_as_default_launcher">デフォルトのランチャーとして設定</string>
     <string name="app_text_color">テキストの色</string>
     <string name="double_tap_to_lock_screen">ダブルタップしてロック</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
     <string name="off">オフ</string>
     <string name="on">の上</string>
     <string name="black">黒</string>
@@ -31,6 +34,7 @@
     <string name="save">保存</string>
     <string name="app_drawer_tips">ヒント: 下にスワイプして閉じます。スクロールしてキーボードを非表示にします。</string>
     <string name="okay">わかった</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">使い方：
         \nダブルタップすると、画面が暗くなり、5 秒後に電話がロックされます。
         \n\nこの間、ダブルタップして<b>ロックを解除</b> またはいつでもトリプルタップして、電話をすぐに完全にロックします。
@@ -52,6 +56,8 @@
     <string name="system_default">システム</string>
     <string name="dark">暗い</string>
     <string name="light">光</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">ダブルタップしてロックするには、アクセシビリティ権限が必要です。サービスによって取得されたデータは、デバイスから離れることはありません。</string>
     <string name="open">リンクを開く</string>
     <string name="copy">コピー</string>

@@ -6,6 +6,9 @@
     <string name="set_as_default_launcher">기본 런처로 설정</string>
     <string name="app_text_color">텍스트 색상</string>
     <string name="double_tap_to_lock_screen">두번 탭하여 화면 잠그기</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
     <string name="off">꺼짐</string>
     <string name="on">켜짐</string>
     <string name="black">검정</string>
@@ -31,6 +34,7 @@
     <string name="save">Save</string>
     <string name="app_drawer_tips">팁: 아래로 스와이프 하면 무시할 수 있고, 키보드를 숨기려면 스크롤 하세요.</string>
     <string name="okay">네</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">어떻게 작동하나요?:
         \n당신이 두 번 탭 하면 화면이 어두워지고 기기가 스스로 5초 후에 잠깁니다.
         \n\n이 시간 동안 당신은 두 번 탭 하여 기기를 <b>잠금 해제</b> 할 수 있거나, 세 번 탭할 경우 기기를 바로 잠금 해제 할 수 있습니다.
@@ -52,6 +56,8 @@
     <string name="system_default">시스템 기본값</string>
     <string name="dark">어두움</string>
     <string name="light">밝음</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">두 번 탭하여 잠금 기능은 접근성 권한을 필요로 합니다. 획득한 어떠한 데이터도 당신의 단말기에서 외부로 나가지 않습니다.</string>
     <string name="open">링크 열기</string>
     <string name="copy">복사</string>

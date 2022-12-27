@@ -6,6 +6,9 @@
     <string name="set_as_default_launcher">Varsayılan başlatıcı olarak ayarla</string>
     <string name="app_text_color">Metin rengi</string>
     <string name="double_tap_to_lock_screen">Kilitlemek için iki kez dokunun</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
     <string name="off">Kapalı</string>
     <string name="on">Açık</string>
     <string name="black">Siyah</string>
@@ -31,6 +34,7 @@
     <string name="save">Kaydet</string>
     <string name="app_drawer_tips">İpucu: Kapatmak için aşağı kaydırın. Klavyeyi gizlemek için kaydırın.</string>
     <string name="okay">Tamam</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">Nasıl çalışır:
        \nÇift dokunduğunuzda ekran kararır ve telefon 5 saniye içinde kendini kilitler.
          \n\nBu süre boyunca, telefonu hemen tamamen kilitlemek için <b>kilidini açmak</b> için iki kez veya istediğiniz zaman üç kez dokunabilirsiniz.
@@ -52,6 +56,8 @@
     <string name="system_default">Sistem</string>
     <string name="dark">Koyu</string>
     <string name="light">Açık</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">Kilitlemek için çift dokunmayı etkinleştirmek için erişilebilirlik izni gereklidir. Servis tarafından alınan hiçbir veri cihazınızdan çıkmayacak.</string>
     <string name="open">Linki aç</string>
     <string name="copy">Kopyala</string>

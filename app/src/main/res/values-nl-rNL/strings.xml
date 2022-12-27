@@ -6,6 +6,9 @@
     <string name="set_as_default_launcher">Stel in als standaard launcher</string>
     <string name="app_text_color">Tekst kleur</string>
     <string name="double_tap_to_lock_screen">Dubbel tik om te vergrendelen</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
     <string name="off">Uit</string>
     <string name="on">Aan</string>
     <string name="black">Zwart</string>
@@ -31,6 +34,7 @@
     <string name="save">Opslaan</string>
     <string name="app_drawer_tips">Tip: Veeg naar beneden om te verwerpen. Veeg naar beneden om het toetsenbord te verbergen.</string>
     <string name="okay">Ok</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">Hoe het werkt:
         \nZodra je dubbel tikt, zal het scherm donker worden en de telefoon zal zichzel vergrendelen binnen 5 seconden.
         \n\nTijdens deze tijd kun je dubbel tikken om te  <b>ontgrendelen</b> of drie maal tikken om de telefoon onmiddelijk te vergrendelen.
@@ -52,6 +56,8 @@
     <string name="system_default">Systeem</string>
     <string name="dark">Donker</string>
     <string name="light">Licht</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">De toegankelijkheidstoestemming is vereist om dubbeltikken om te vergrendelen in te schakelen. Alle gegevens die door de dienst worden verkregen, zullen uw apparaat niet verlaten.</string>
     <string name="open">Open link</string>
     <string name="copy">Kopieer</string>

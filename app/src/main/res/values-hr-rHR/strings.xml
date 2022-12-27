@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">Postavi kao zadani pokretač</string>
     <string name="app_text_color">Boja teksta</string>
     <string name="double_tap_to_lock_screen">Dvostruki dodir za zaključavanje</string>
-    <string name="experimental_">(experimental)</string>
-    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
-    <string name="about">About</string>
     <string name="off">Isklj.</string>
     <string name="on">Uklj.</string>
     <string name="black">Crno</string>
@@ -34,7 +31,6 @@
     <string name="save">Save</string>
     <string name="app_drawer_tips">Savjet: Povuci prema dolje za zatvaranje. Pomakni zaslon za zatvaranje tipkovnice.</string>
     <string name="okay">U redu</string>
-    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">Kako funkcionira:
         \nNakon dvostrukog dodira, zaslon se isključuje i uređaj se zaključava nakon 5 sekundi.
         \n\nTijekom tog vremena može dva puta dodirnuti zaslon za <b>otključavanje</b> ili triputa dotaknuti bilo kada da se uređaj odmah potpuno zaključa.
@@ -56,8 +52,6 @@
     <string name="system_default">Sustav</string>
     <string name="dark">Tamna</string>
     <string name="light">Svijetla</string>
-    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
-        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">Dozvola za pristupačnost potrebna je za omogućavanje zaključavanja dvostrukim dodirom. Bilo koji podatci prikupljeni ovim servisom neće napustiti tvoj uređaj.</string>
     <string name="open">Otvori poveznicu</string>
     <string name="copy">Kopiraj</string>

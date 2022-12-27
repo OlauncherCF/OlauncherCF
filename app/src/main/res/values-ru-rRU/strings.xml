@@ -1,12 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Olauncher Clutter Free</string>
+    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
     <string name="app">Приложение</string>
     <string name="set_as_default_launcher">Назначить главным лаунчером</string>
     <string name="app_text_color">Цвет текста</string>
     <string name="double_tap_to_lock_screen">Блокировка двойным тапом</string>
-    <string name="experimental_">(экспериментальный)</string>
-    <string name="admin_permission_message">Olauncher обещает ответственно использовать разрешение экрана блокировки.</string>
-    <string name="about">О приложении</string>
     <string name="off">Выкл</string>
     <string name="on">Вкл</string>
     <string name="black">Черный</string>
@@ -19,16 +18,19 @@
     <string name="right">Справа</string>
     <string name="center">По центру</string>
     <string name="home_alignment">Выравнивание приложений</string>
+    <string name="home_alignment_bottom">Apps home screen bottom</string>
     <string name="clock_alignment">Выравнивание часов</string>
     <string name="drawer_alignment">Выравнивание ящика приложений</string>
     <string name="swipe_left_app">Свайпом влево открыть</string>
     <string name="swipe_right_app">Свайпом вправо открыть</string>
+    <string name="swipe_down_app">Swipe down</string>
+    <string name="swipe_up_app">Swipe Up</string>
     <string name="clock_click_app">Тапом часов открыть</string>
     <string name="date_click_app">Тапом даты открыть</string>
-    <string name="commit">Применить</string>
+    <string name="double_tap">Double Tap</string>
+    <string name="save">Save</string>
     <string name="app_drawer_tips">Совет: Свайпните вниз, чтобы закрыть. Прокрутите, чтобы скрыть клавиатуру.</string>
     <string name="okay">Хорошо</string>
-    <string name="double_tap_lock_is_enabled_message">Если блокировка двойным тапом отключает разблокировку по отпечатку пальца или лицу, откройте настройки Olauncher, нажмите «Экспериментальный» и следуйте инструкциям. Спасибо.</string>
     <string name="triple_tap_lock_message">Как это работает:
         \nПосле двойного тапа экран погаснет, а телефон заблокируется через 5 секунд.
         \n\nВ это время вы можете дважды тапнуть, чтобы <b>разблокировать</b>, или трижды тапнуть, чтобы немедленно полностью заблокировать телефон.
@@ -39,28 +41,41 @@
     <string name="rename">Переименовать</string>
     <string name="show_time">Показывать время</string>
     <string name="show_date">Показывать дату</string>
+    <string name="lock_home_apps">Lock Apps</string>
+    <string name="extend_home_apps_area">Extend clickable area on home apps</string>
     <string name="appearance">Внешний вид</string>
     <string name="gestures">Действия</string>
+    <string name="behavior">Behavior</string>
+    <string name="homescreen">Homescreen</string>
+    <string name="alignment">Alignment</string>
     <string name="theme_mode">Тема</string>
     <string name="system_default">Системная</string>
     <string name="dark">Темная</string>
     <string name="light">Светлая</string>
-    <string name="double_tap_lock_uninstall_message">Блокировка двойным тапом включена.
-        \n\nПримечание: Выключите это, если решите удалить Olauncher.</string>
     <string name="accessibility_service_description">Разрешение на специальные возможности требуется, чтобы включить двойное касание для блокировки. Любые данные, полученные службой, не покинут ваше устройство.</string>
     <string name="open">Открыть ссылку</string>
     <string name="copy">Копировать</string>
     <string name="close">Закрыть</string>
     <string name="app_language">Язык интерфейса</string>
     <string name="lang_system">Системный</string>
-
     <string name="app_text_size">Размер текста</string>
-
+    <string name="drawer_list_empty_hint">No apps found</string>
     <string name="hidden_apps">Скрытые приложения</string>
-
+    <string name="auto_open_apps">Auto open apps</string>
     <string name="show">Показывать</string>
     <string name="reset">Сбросить</string>
     <string name="cancel">Отмена</string>
-
-
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="show_notifications">Show Notification</string>
+    <string name="show_app_list">Show App List</string>
+    <string name="open_app">Open App</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="open_quick_settings">Quick Settings</string>
+    <string name="show_recents">Show Recents</string>
+    <string name="backup">Backup</string>
+    <string name="load_backup">Load Backup</string>
+    <string name="store_backup">Store Backup</string>
 </resources>

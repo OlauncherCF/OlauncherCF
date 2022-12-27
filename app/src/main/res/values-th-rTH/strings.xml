@@ -1,12 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Olauncher ยุ่งเหยิงฟรี</string>
+    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
     <string name="app">แอป</string>
     <string name="set_as_default_launcher">ตั้งเป็นตัวเรียกใช้งานเริ่มต้น</string>
     <string name="app_text_color">สีข้อความ</string>
     <string name="double_tap_to_lock_screen">แตะสองครั้งเพื่อล็อค</string>
-    <string name="experimental_">(ทดลอง)</string>
-    <string name="admin_permission_message">Olauncher สัญญาว่าจะใช้การอนุญาตล็อคหน้าจออย่างมีความรับผิดชอบ</string>
-    <string name="about">เกี่ยวกับ</string>
     <string name="off">ปิด</string>
     <string name="on">บน</string>
     <string name="black">สีดำ</string>
@@ -24,21 +23,14 @@
     <string name="drawer_alignment">แอปในลิ้นชักแอป</string>
     <string name="swipe_left_app">ปัดแอพไปทางซ้าย</string>
     <string name="swipe_right_app">ปัดแอพไปทางขวา</string>
+    <string name="swipe_down_app">Swipe down</string>
+    <string name="swipe_up_app">Swipe Up</string>
     <string name="clock_click_app">แอพคลิกนาฬิกา</string>
     <string name="date_click_app">แอปคลิกวันที่</string>
-    <string name="_0" translatable="false">0</string>
-    <string name="_1" translatable="false">1</string>
-    <string name="_2" translatable="false">2</string>
-    <string name="_3" translatable="false">3</string>
-    <string name="_4" translatable="false">4</string>
-    <string name="_5" translatable="false">5</string>
-    <string name="_6" translatable="false">6</string>
-    <string name="_7" translatable="false">7</string>
-    <string name="_8" translatable="false">8</string>
+    <string name="double_tap">Double Tap</string>
     <string name="save">บันทึก</string>
     <string name="app_drawer_tips">เคล็ดลับ: ปัดลงเพื่อปิด เลื่อนเพื่อซ่อนแป้นพิมพ์</string>
     <string name="okay">ตกลง</string>
-    <string name="double_tap_lock_is_enabled_message">หากการล็อกการแตะสองครั้งปิดใช้งานการปลดล็อกด้วยลายนิ้วมือหรือใบหน้า ให้เปิดการตั้งค่า Olauncher แตะ \'ทดลอง\' แล้วทำตามคำแนะนำ ขอขอบคุณ.</string>
     <string name="triple_tap_lock_message">มันทำงานอย่างไร:
         \nเมื่อคุณแตะสองครั้ง หน้าจอจะมืดและโทรศัพท์จะล็อกตัวเองใน 5 วินาที
         \n\nในระหว่างนี้ คุณสามารถแตะสองครั้งเพื่อ<b>ปลดล็อค</b> หรือแตะสามครั้งได้ตลอดเวลาเพื่อล็อคโทรศัพท์ทันที
@@ -53,34 +45,37 @@
     <string name="extend_home_apps_area">ขยายพื้นที่ที่คลิกได้บนโฮมแอพ</string>
     <string name="appearance">รูปร่าง</string>
     <string name="gestures">ท่าทาง</string>
+    <string name="behavior">Behavior</string>
     <string name="homescreen">หน้าจอหลัก</string>
     <string name="alignment">การจัดตำแหน่ง</string>
     <string name="theme_mode">โหมดธีม</string>
     <string name="system_default">ระบบ</string>
     <string name="dark">มืด</string>
     <string name="light">แสงสว่าง</string>
-    <string name="double_tap_lock_uninstall_message">แตะสองครั้งเพื่อล็อคเปิดใช้งาน
-        \n\nหมายเหตุ: ให้ปิดการทำงานนี้ก่อน หากคุณตัดสินใจที่จะลบ Olauncher</string>
     <string name="accessibility_service_description">ต้องได้รับอนุญาตการเข้าถึงเพื่อเปิดใช้งานการแตะสองครั้งเพื่อล็อค ข้อมูลใด ๆ ที่ได้รับจากบริการจะไม่ออกจากอุปกรณ์ของคุณ</string>
     <string name="open">เปิดลิ้งค์</string>
     <string name="copy">สำเนา</string>
     <string name="close">ปิด I</string>
     <string name="app_language">ภาษาอินเทอร์เฟซ</string>
     <string name="lang_system">ระบบ</string>
-
     <string name="app_text_size">ขนาดตัวอักษร</string>
     <string name="drawer_list_empty_hint">ไม่พบแอป</string>
-
     <string name="hidden_apps">แอพที่ซ่อนอยู่</string>
-
+    <string name="auto_open_apps">Auto open apps</string>
     <string name="show">แสดง</string>
     <string name="reset">รีเซ็ต</string>
     <string name="cancel">ยกเลิก</string>
-
     <string name="enable">เปิดใช้งาน</string>
     <string name="disable">ปิดการใช้งาน</string>
     <string name="enabled">เปิดใช้งาน</string>
     <string name="disabled">พิการ</string>
-
-
+    <string name="show_notifications">Show Notification</string>
+    <string name="show_app_list">Show App List</string>
+    <string name="open_app">Open App</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="open_quick_settings">Quick Settings</string>
+    <string name="show_recents">Show Recents</string>
+    <string name="backup">Backup</string>
+    <string name="load_backup">Load Backup</string>
+    <string name="store_backup">Store Backup</string>
 </resources>

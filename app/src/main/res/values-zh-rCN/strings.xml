@@ -95,5 +95,8 @@
     <string name="open_quick_settings">快速设置</string>
     <string name="show_recents">显示最近用过的应用</string>
     
+    <string name="backup">备份</string>
+    <string name="load_backup">加载备份</string>
+    <string name="store_backup">存储备份</string>
     
 </resources>

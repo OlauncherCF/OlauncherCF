@@ -28,16 +28,6 @@ class ActionService : AccessibilityService() {
         return performGlobalAction(GLOBAL_ACTION_RECENTS)
     }
 
-    @RequiresApi(Build.VERSION_CODES.P)
-    fun openNotifications(): Boolean {
-        return performGlobalAction(GLOBAL_ACTION_NOTIFICATIONS)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.P)
-    fun openQuickSettings(): Boolean {
-        return performGlobalAction(GLOBAL_ACTION_QUICK_SETTINGS)
-    }
-
     override fun onAccessibilityEvent(event: AccessibilityEvent?) {}
     override fun onInterrupt() { }
 

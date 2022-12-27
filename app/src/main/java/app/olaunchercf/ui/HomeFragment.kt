@@ -189,19 +189,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         }
     }
 
-    @SuppressLint("WrongConstant", "PrivateApi")
-    private fun expandNotificationDrawer(context: Context) {
-        // Source: https://stackoverflow.com/a/51132142
-        try {
-            val statusBarService = context.getSystemService("statusbar")
-            val statusBarManager = Class.forName("android.app.StatusBarManager")
-            val method = statusBarManager.getMethod("expandNotificationsPanel")
-            method.invoke(statusBarService)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
     private fun openSwipeRightApp() {
         if (prefs.appSwipeRight.appPackage.isNotEmpty())
             launchApp(prefs.appSwipeRight)
@@ -252,7 +239,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
             Action.LockScreen -> lockPhone()
             Action.ShowAppList -> showAppList(AppDrawerFlag.LaunchApp)
             Action.OpenApp -> {} // this should be handled in the respective onSwipe[Down,Right,Left] functions
-            Action.OpenQuickSettings -> initActionService(requireContext())?.openQuickSettings()
+            Action.OpenQuickSettings -> expandQuickSettings(requireContext())
             Action.ShowRecents -> initActionService(requireContext())?.showRecents()
             Action.Disabled -> {}
         }

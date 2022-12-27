@@ -1,5 +1,6 @@
 package app.olaunchercf.helper
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.*
 import android.content.pm.LauncherApps
@@ -389,4 +390,31 @@ fun loadFile(activity: Activity) {
         type = "text/plain"
     }
     ActivityCompat.startActivityForResult(activity, intent, BACKUP_READ, null)
+}
+
+@Suppress("SpellCheckingInspection")
+@SuppressLint("WrongConstant")
+fun expandNotificationDrawer(context: Context) {
+    // Source: https://stackoverflow.com/a/51132142
+    try {
+        val statusBarService = context.getSystemService("statusbar")
+        val statusBarManager = Class.forName("android.app.StatusBarManager")
+        val method = statusBarManager.getMethod("expandNotificationsPanel")
+        method.invoke(statusBarService)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+@Suppress("SpellCheckingInspection")
+@SuppressLint("WrongConstant")
+fun expandQuickSettings(context: Context) {
+    try {
+        val statusBarService = context.getSystemService("statusbar")
+        val statusBarManager = Class.forName("android.app.StatusBarManager")
+        val method = statusBarManager.getMethod("expandSettingsPanel")
+        method.invoke(statusBarService)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }

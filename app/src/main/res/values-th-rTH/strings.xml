@@ -6,9 +6,6 @@
     <string name="set_as_default_launcher">ตั้งเป็นตัวเรียกใช้งานเริ่มต้น</string>
     <string name="app_text_color">สีข้อความ</string>
     <string name="double_tap_to_lock_screen">แตะสองครั้งเพื่อล็อค</string>
-    <string name="experimental_">(experimental)</string>
-    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
-    <string name="about">About</string>
     <string name="off">ปิด</string>
     <string name="on">บน</string>
     <string name="black">สีดำ</string>
@@ -34,7 +31,6 @@
     <string name="save">บันทึก</string>
     <string name="app_drawer_tips">เคล็ดลับ: ปัดลงเพื่อปิด เลื่อนเพื่อซ่อนแป้นพิมพ์</string>
     <string name="okay">ตกลง</string>
-    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">มันทำงานอย่างไร:
         \nเมื่อคุณแตะสองครั้ง หน้าจอจะมืดและโทรศัพท์จะล็อกตัวเองใน 5 วินาที
         \n\nในระหว่างนี้ คุณสามารถแตะสองครั้งเพื่อ<b>ปลดล็อค</b> หรือแตะสามครั้งได้ตลอดเวลาเพื่อล็อคโทรศัพท์ทันที
@@ -56,8 +52,6 @@
     <string name="system_default">ระบบ</string>
     <string name="dark">มืด</string>
     <string name="light">แสงสว่าง</string>
-    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
-        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">ต้องได้รับอนุญาตการเข้าถึงเพื่อเปิดใช้งานการแตะสองครั้งเพื่อล็อค ข้อมูลใด ๆ ที่ได้รับจากบริการจะไม่ออกจากอุปกรณ์ของคุณ</string>
     <string name="open">เปิดลิ้งค์</string>
     <string name="copy">สำเนา</string>

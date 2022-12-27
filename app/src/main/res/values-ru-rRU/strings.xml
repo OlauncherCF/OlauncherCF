@@ -6,6 +6,9 @@
     <string name="set_as_default_launcher">Назначить главным лаунчером</string>
     <string name="app_text_color">Цвет текста</string>
     <string name="double_tap_to_lock_screen">Блокировка двойным тапом</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
     <string name="off">Выкл</string>
     <string name="on">Вкл</string>
     <string name="black">Черный</string>
@@ -31,6 +34,7 @@
     <string name="save">Save</string>
     <string name="app_drawer_tips">Совет: Свайпните вниз, чтобы закрыть. Прокрутите, чтобы скрыть клавиатуру.</string>
     <string name="okay">Хорошо</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">Как это работает:
         \nПосле двойного тапа экран погаснет, а телефон заблокируется через 5 секунд.
         \n\nВ это время вы можете дважды тапнуть, чтобы <b>разблокировать</b>, или трижды тапнуть, чтобы немедленно полностью заблокировать телефон.
@@ -52,6 +56,8 @@
     <string name="system_default">Системная</string>
     <string name="dark">Темная</string>
     <string name="light">Светлая</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">Разрешение на специальные возможности требуется, чтобы включить двойное касание для блокировки. Любые данные, полученные службой, не покинут ваше устройство.</string>
     <string name="open">Открыть ссылку</string>
     <string name="copy">Копировать</string>

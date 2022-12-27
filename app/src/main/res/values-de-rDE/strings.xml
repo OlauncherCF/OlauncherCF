@@ -6,6 +6,9 @@
     <string name="set_as_default_launcher">Als Standard-Launcher setzen</string>
     <string name="app_text_color">Textfarbe</string>
     <string name="double_tap_to_lock_screen">Zum Sperren doppelt tippen</string>
+    <string name="experimental_">(experimental)</string>
+    <string name="admin_permission_message">Olauncher promises to use lock screen permission responsibly.</string>
+    <string name="about">About</string>
     <string name="off">Aus</string>
     <string name="on">An</string>
     <string name="black">Schwarz</string>
@@ -31,6 +34,7 @@
     <string name="save">Speichern</string>
     <string name="app_drawer_tips">Tipp: Zurück: nach unten wischen.</string>
     <string name="okay">Okay</string>
+    <string name="double_tap_lock_is_enabled_message">If double tap lock disables fingerprint or face unlock, open Olauncher settings, tap on \'experimental\' and follow the instructions. Thank you.</string>
     <string name="triple_tap_lock_message">So geht es:
         \nNach dem Doppeltippen wird der Bildschirm schwarz und nach 5 Sekunden wird das Telefon gesperrt.
         \n\nIn dieser Zeit kann das Telefon durch <b>Doppeltippen entsperrt</b> oder durch Dreifachtippen sofort verriegelt werden.
@@ -52,6 +56,8 @@
     <string name="system_default">System</string>
     <string name="dark">Dunkel</string>
     <string name="light">Hell</string>
+    <string name="double_tap_lock_uninstall_message">Double tap to lock enabled.
+        \n\nNote: Turn this OFF first if you decide to delete Olauncher.</string>
     <string name="accessibility_service_description">Dieser Accessibility-Service ermöglicht es OlauncherCF, bestimmte Aktionen wie das Sperren des Bildschirms oder das Öffnen der Schnelleinstellungen durchzuführen.</string>
     <string name="open">Link öffnen</string>
     <string name="copy">Kopieren</string>

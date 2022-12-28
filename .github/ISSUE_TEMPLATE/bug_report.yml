@@ -1,0 +1,73 @@
+name: Bug report
+description: Create a report to help Olauncher CF improve
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping me to make Open Launcher better by reporting a bug. :hugs:
+        Please fill in as much information as possible about your bug so that I can fix it immediately.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have searched existing issues for this bug."
+          required: true
+        - label: "I know that if existing issues are available, this issue will be closed without comment, unless an explaination is given on why this new issue is needed."
+          required: true
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug description
+      placeholder: |
+        ...
+    validations:
+      required: true
+      
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce the bug
+      description: |
+        What did you do for the bug to show up?
+        If you can't cause the bug to show up again reliably (and hence don't have a proper set of steps to give us), please still try to give as many details as possible on how you think you encountered the bug.
+      placeholder: |
+        1. Go to '...'
+        2. Press on '....'
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment-information
+    attributes:
+      label: Environment information
+      placeholder: |
+        - Olauncher CF version:
+        - Device name:
+        - Android version:
+        - Other information:
+
+  - type: textarea
+    id: screen-media
+    attributes:
+      label: Screenshots/Screen recordings
+      description: |
+        A picture or video is worth a thousand words.
+        If applicable, share screenshots or a screen recording to help explain your problem.
+      placeholder: |
+        <details>
+          <summary>Context</summary>
+
+          screenshots go in here
+
+        </details>
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional information
+      description: |
+        Additional context (that might help us to solve your problem)

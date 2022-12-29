@@ -36,7 +36,7 @@ body:
       description: |
         Please describe your feature, and explain how it solves your problem from the motivation
       placeholder: |
-        With my feature X would become much easier, because ...
+        With my feature, X would become much easier, because ...
     validations:
       required: true
 

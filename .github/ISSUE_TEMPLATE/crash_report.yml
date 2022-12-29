@@ -34,7 +34,7 @@ body:
      placeholder: "Example: Android 10"
 
   - type: textarea
-    id: bug-description
+    id: crash-description
     attributes:
       label: Crash description
       description: |

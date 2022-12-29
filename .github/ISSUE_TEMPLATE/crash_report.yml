@@ -33,15 +33,14 @@ body:
       With what operating system (+ version) did you encounter the crash?
      placeholder: "Example: Android 10"
 
-  - type: dropdown
-    id: download
+  - type: textarea
+    id: bug-description
     attributes:
-      label: How did you download the software?
-      options:
-        - F-Droid
-        - Github (Release)
-        - Github (Action)
-        - Built from Source
+      label: Crash description
+      description: |
+        Please give us a description of what the crash is about.
+      placeholder: |
+        When I try to set the language to english, the app crashes.
     validations:
       required: true
 

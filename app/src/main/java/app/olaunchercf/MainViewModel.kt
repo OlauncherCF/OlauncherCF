@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.LauncherApps
+import android.os.Build
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -72,6 +73,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val userHandle = appModel.user
         val launcher = appContext.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
         val activityInfo = launcher.getActivityList(packageName, userHandle)
+
+        if (appModel.appLabel == "AAAA") {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                if (launcher.hasShortcutHostPermission()) {
+                    launcher.startShortcut(packageName, appModel.appAlias, null, null, userHandle)
+                }
+            }
+        }
 
         // TODO: Handle multiple launch activities in an app. This is NOT the way.
         val component = when (activityInfo.size) {

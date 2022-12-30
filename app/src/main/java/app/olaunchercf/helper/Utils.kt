@@ -75,7 +75,6 @@ suspend fun getAppsList(context: Context, showHiddenApps: Boolean = false): Muta
             for (profile in userManager.userProfiles) {
                 for (app in launcherApps.getActivityList(null, profile)) {
 
-
                     // we have changed the alias identifier from app.label to app.applicationInfo.packageName
                     // therefore, we check if the old one is set if the new one is empty
                     val appAlias = prefs.getAppAlias(app.applicationInfo.packageName).ifEmpty {

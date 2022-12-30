@@ -34,6 +34,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val homeAppsAlignment = MutableLiveData(Pair(prefs.homeAlignment, prefs.homeAlignmentBottom))
     val homeAppsCount = MutableLiveData(prefs.homeAppsNum)
 
+    val shortcuts: MutableList<AppModel> = mutableListOf()
+
     fun selectedApp(appModel: AppModel, flag: AppDrawerFlag, n: Int = 0) {
         when (flag) {
             AppDrawerFlag.LaunchApp, AppDrawerFlag.HiddenApps -> {
@@ -100,7 +102,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAppList(showHiddenApps: Boolean = false) {
         viewModelScope.launch {
-            appList.value = getAppsList(appContext, showHiddenApps)
+            val list = getAppsList(appContext, showHiddenApps) as MutableList<AppModel>
+            list.add(prefs.shortcut)
+            Log.d("shortcuts", "Loaded")
+            appList.value = list
         }
     }
 

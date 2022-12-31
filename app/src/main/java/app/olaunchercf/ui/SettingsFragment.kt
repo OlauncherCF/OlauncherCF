@@ -80,11 +80,6 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        if (prefs.firstSettingsOpen) {
-            prefs.firstSettingsOpen = false
-        }
-
         binding.testView.setContent {
 
             val isDark = when (prefs.appTheme) {

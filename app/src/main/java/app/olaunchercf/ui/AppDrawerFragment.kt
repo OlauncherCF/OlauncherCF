@@ -40,6 +40,13 @@ class AppDrawerFragment : Fragment() {
     ): View {
         // return inflater.inflate(R.layout.fragment_app_drawer, container, false)
         _binding = FragmentAppDrawerBinding.inflate(inflater, container, false)
+
+        context?.let{
+            if (Prefs(it).firstOpen()) {
+                binding.appDrawerTip.visibility = View.VISIBLE
+            }
+        }
+
         return binding.root
     }
 
@@ -130,10 +137,6 @@ class AppDrawerFragment : Fragment() {
                 populateAppList(appList, appAdapter)
             }
         })
-
-        viewModel.firstOpen.observe(viewLifecycleOwner) {
-            if (it) binding.appDrawerTip.visibility = View.VISIBLE
-        }
     }
 
     override fun onStart() {

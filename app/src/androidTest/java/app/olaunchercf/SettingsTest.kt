@@ -192,7 +192,6 @@ class SettingsTest {
         val prefs = Prefs(getApplicationContext())
 
         prefs.apply {
-            firstOpen = false
             homeAppsNum = 10
             homeAlignment = Constants.Gravity.Center
             swipeLeftAction = Constants.Action.OpenQuickSettings
@@ -202,8 +201,13 @@ class SettingsTest {
         clearSharedPreferences()
         prefs.loadFromString(string)
 
+        // these change values after saving
+        prefs.firstOpen()
+        prefs.firstSettingsOpen()
+
         prefs.apply {
-            assert(!firstOpen)
+            assert(firstOpen())
+            assert(firstSettingsOpen())
             assert(homeAppsNum == 10)
             assert(homeAlignment == Constants.Gravity.Center)
             assert(swipeLeftAction == Constants.Action.OpenQuickSettings)

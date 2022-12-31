@@ -84,14 +84,17 @@ class Prefs(val context: Context) {
         editor.apply()
     }
 
-    var firstOpen: Boolean
-        get() = prefs.getBoolean(FIRST_OPEN, true)
-        set(value) = prefs.edit().putBoolean(FIRST_OPEN, value).apply()
+    // this is a true-once-false-after variable
+    // e.g. it returns on first-ever read, and false everytime afterwards
+    fun firstOpen(): Boolean {
+        return firstTrueFalseAfter(FIRST_OPEN)
+    }
 
-    var firstSettingsOpen: Boolean
-        get() = prefs.getBoolean(FIRST_SETTINGS_OPEN, true)
-        set(value) = prefs.edit().putBoolean(FIRST_SETTINGS_OPEN, value).apply()
-
+    // this is a true-once-false-after variable
+    // e.g. it returns on first-ever read, and false everytime afterwards
+    fun firstSettingsOpen(): Boolean {
+        return firstTrueFalseAfter(FIRST_SETTINGS_OPEN)
+    }
 
     var lockModeOn: Boolean
         get() = prefs.getBoolean(LOCK_MODE, false)
@@ -350,6 +353,14 @@ class Prefs(val context: Context) {
     }
     fun setAppAlias(appPackage: String, appAlias: String) {
         prefs.edit().putString(appPackage, appAlias).apply()
+    }
+
+    private fun firstTrueFalseAfter(key: String): Boolean {
+        val first = prefs.getBoolean(key, true)  // this returns true if no value has been saved for `key`
+        if (first) {
+            prefs.edit().putBoolean(key, false).apply() // save false under `key`
+        }
+        return  first
     }
 
     fun clear() {

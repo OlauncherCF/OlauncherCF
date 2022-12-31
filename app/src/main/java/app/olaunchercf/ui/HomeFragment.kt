@@ -47,6 +47,11 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
         val view = binding.root
         prefs = Prefs(requireContext())
 
+        if (prefs.firstSettingsOpen()) {
+            binding.firstRunTips.visibility = View.VISIBLE
+            binding.setDefaultLauncher.visibility = View.GONE
+        }
+
         return view
     }
 
@@ -133,11 +138,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
     }
 
     private fun initObservers() {
-        if (prefs.firstSettingsOpen) {
-            binding.firstRunTips.visibility = View.VISIBLE
-            binding.setDefaultLauncher.visibility = View.GONE
-        } else binding.firstRunTips.visibility = View.GONE
-
         with(viewModel) {
             clockAlignment.observe(viewLifecycleOwner) { gravity ->
                 binding.dateTimeLayout.gravity = gravity.value()
@@ -311,7 +311,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 super.onLongClick()
                 try {
                     findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-                    viewModel.firstOpen(false)
+                    // viewModel.firstOpen(false)
                 } catch (e: java.lang.Exception) {
                 }
             }

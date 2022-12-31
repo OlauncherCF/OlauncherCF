@@ -20,7 +20,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val prefs = Prefs(appContext)
 
     // setup variables with initial values
-    val firstOpen = MutableLiveData<Boolean>()
     val showMessageDialog = MutableLiveData<String>()
 
     val appList = MutableLiveData<List<AppModel>?>()
@@ -50,10 +49,6 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             AppDrawerFlag.SetClickDate -> prefs.appClickDate = appModel
             AppDrawerFlag.SetDoubleTap -> prefs.appDoubleTap = appModel
         }
-    }
-
-    fun firstOpen(value: Boolean) {
-        firstOpen.postValue(value)
     }
 
     fun setShowDate(visibility: Boolean) {

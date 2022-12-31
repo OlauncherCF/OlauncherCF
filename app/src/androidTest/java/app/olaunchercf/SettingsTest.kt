@@ -198,12 +198,14 @@ class SettingsTest {
         }
 
         val string = prefs.saveToString()
-        clearSharedPreferences()
-        prefs.loadFromString(string)
 
         // these change values after saving
         prefs.firstOpen()
         prefs.firstSettingsOpen()
+
+        // load old config
+        clearSharedPreferences()
+        prefs.loadFromString(string)
 
         prefs.apply {
             assert(firstOpen())

@@ -21,4 +21,4 @@ jobs:
       
           git add -A
           git commit -m "Update CHANGELOG.md"
-          git push
+          git push origin HEAD:main

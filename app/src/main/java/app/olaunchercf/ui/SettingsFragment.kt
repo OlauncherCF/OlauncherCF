@@ -347,7 +347,7 @@ class SettingsFragment : Fragment() {
                             onChange = onChange,
                             currentAction = prefs.doubleTapAction,
                             onSelect = { j -> updateGesture(AppDrawerFlag.SetDoubleTap, j) },
-                            appLabel = prefs.appClickDate.appLabel
+                            appLabel = prefs.appDoubleTap.appLabel
                         )
                     }
                 )

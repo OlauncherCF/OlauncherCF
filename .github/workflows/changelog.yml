@@ -22,4 +22,4 @@ jobs:
           commit_author: Joscha Loos <joscha.loos@rwth-aachen.de>
           commit_message: 'bot: commit changelog.md'
           file_pattern: CHANGELOG.md
-
+          push_options: '--force'

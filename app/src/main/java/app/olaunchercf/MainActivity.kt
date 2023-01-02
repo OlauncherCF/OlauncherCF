@@ -8,6 +8,7 @@ import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 import androidx.appcompat.app.AppCompatActivity
@@ -187,8 +188,8 @@ class MainActivity : AppCompatActivity() {
                     applicationContext.contentResolver.openFileDescriptor(uri, "w")?.use { file ->
                         FileOutputStream(file.fileDescriptor).use { stream ->
                             val text = Prefs(applicationContext).saveToString()
+                            stream.channel.truncate(0)
                             stream.write( text.toByteArray() )
-                            stream.channel.truncate(text.length.toLong())
                         }
                     }
                 }

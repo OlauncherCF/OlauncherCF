@@ -371,7 +371,7 @@ class SettingsFragment : Fragment() {
                 modifier = Modifier
                     .align(Alignment.End)
                     .padding(10.dp, 5.dp),
-                text = "Version: ${requireContext().packageManager.getPackageInfo(requireContext().packageName, 0).versionName}",
+                text = "Version: ${BuildConfig.VERSION_NAME}",
 
                 color = Color.DarkGray
             )

@@ -315,7 +315,6 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                         findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
                         // viewModel.firstOpen(false)
                     } catch (e: java.lang.Exception) {
-                        Log.d("onLongClick", e.toString())
                     }
                 }
             }

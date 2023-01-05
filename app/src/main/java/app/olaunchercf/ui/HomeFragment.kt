@@ -313,7 +313,7 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
                 lifecycleScope.launch(Dispatchers.Main) {
                     try {
                         findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-                        viewModel.firstOpen(false)
+                        // viewModel.firstOpen(false)
                     } catch (e: java.lang.Exception) {
                         Log.d("onLongClick", e.toString())
                     }

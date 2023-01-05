@@ -309,10 +309,13 @@ class HomeFragment : Fragment(), View.OnClickListener, View.OnLongClickListener 
 
             override fun onLongClick() {
                 super.onLongClick()
-                try {
-                    findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
-                    // viewModel.firstOpen(false)
-                } catch (e: java.lang.Exception) {
+                lifecycleScope.launch(Dispatchers.Main) {
+                    try {
+                        findNavController().navigate(R.id.action_mainFragment_to_settingsFragment)
+                        viewModel.firstOpen(false)
+                    } catch (e: java.lang.Exception) {
+                        Log.d("onLongClick", e.toString())
+                    }
                 }
             }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Olauncher Clutter Free</string>
-    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
+    <string name="accessibility_service_name">OlauncherCF Служба действий</string>
     <string name="app">Приложение</string>
     <string name="set_as_default_launcher">Назначить главным лаунчером</string>
     <string name="app_text_color">Цвет текста</string>
@@ -18,16 +18,16 @@
     <string name="right">Справа</string>
     <string name="center">По центру</string>
     <string name="home_alignment">Выравнивание приложений</string>
-    <string name="home_alignment_bottom">Apps home screen bottom</string>
+    <string name="home_alignment_bottom">Приложения на главном экране внизу</string>
     <string name="clock_alignment">Выравнивание часов</string>
     <string name="drawer_alignment">Выравнивание ящика приложений</string>
     <string name="swipe_left_app">Свайпом влево открыть</string>
     <string name="swipe_right_app">Свайпом вправо открыть</string>
-    <string name="swipe_down_app">Swipe down</string>
-    <string name="swipe_up_app">Swipe Up</string>
+    <string name="swipe_down_app">Провести вниз</string>
+    <string name="swipe_up_app">Провести вверх</string>
     <string name="clock_click_app">Тапом часов открыть</string>
     <string name="date_click_app">Тапом даты открыть</string>
-    <string name="double_tap">Double Tap</string>
+    <string name="double_tap">Двойной тап</string>
     <string name="save">Save</string>
     <string name="app_drawer_tips">Совет: Свайпните вниз, чтобы закрыть. Прокрутите, чтобы скрыть клавиатуру.</string>
     <string name="okay">Хорошо</string>

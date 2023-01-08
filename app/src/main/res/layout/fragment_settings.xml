@@ -10,23 +10,28 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:overScrollMode="never"
-    android:paddingTop="20dp"
-    android:paddingBottom="20dp"
     android:scrollbars="none">
 
-    <LinearLayout
-        android:id="@+id/scrollLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/testView"
+        <LinearLayout
+            android:id="@+id/scrollLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="wrap_content"
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/testView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>

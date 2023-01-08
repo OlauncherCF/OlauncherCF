@@ -113,9 +113,7 @@ class SettingsFragment : Fragment() {
            R.string.set_as_default_launcher
         }
 
-        Column(
-            modifier = Modifier.verticalScroll(rememberScrollState())
-        ) {
+        Column {
             SettingsTopView(
                 stringResource(R.string.app_name),
                 onClick = { openAppInfo(requireContext(), android.os.Process.myUserHandle(), BuildConfig.APPLICATION_ID) },

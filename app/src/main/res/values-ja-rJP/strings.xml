@@ -51,11 +51,11 @@
     <string name="theme_mode">テーマモード</string>
     <string name="system_default">システム</string>
     <string name="dark">暗い</string>
-    <string name="light">光</string>
+    <string name="light">明るい</string>
     <string name="accessibility_service_description">ダブルタップしてロックするには、アクセシビリティ権限が必要です。サービスによって取得されたデータは、デバイスから離れることはありません。</string>
     <string name="open">リンクを開く</string>
     <string name="copy">コピー</string>
-    <string name="close">近い</string>
+    <string name="close">閉じる</string>
     <string name="app_language">インターフェイス言語</string>
     <string name="lang_system">システム</string>
     <string name="app_text_size">文字サイズ</string>
@@ -65,7 +65,7 @@
     <string name="show">見せる</string>
     <string name="reset">リセット</string>
     <string name="cancel">キャンセル</string>
-    <string name="enable">有効</string>
+    <string name="enable">有効にする</string>
     <string name="disable">無効にする</string>
     <string name="enabled">有効</string>
     <string name="disabled">無効</string>

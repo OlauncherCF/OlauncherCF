@@ -8,6 +8,7 @@ Forked from <a href="https://f-droid.org/packages/app.olauncher/">Olauncher</a> 
 - Change alignment of apps in app-drawer
 - Change font size
 - A lot of people have translated the app to the following languages. Many thanks to you ❤️
+  - Arabic
   - Chinese
   - Croatian
   - English

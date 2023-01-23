@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import app.olaunchercf.data.AppModel
 import app.olaunchercf.data.Constants
+import app.olaunchercf.data.Constants.AppDrawerFlag
 import app.olaunchercf.data.Prefs
 import app.olaunchercf.helper.*
 import kotlinx.coroutines.launch
@@ -18,89 +19,44 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val appContext by lazy { application.applicationContext }
     private val prefs = Prefs(appContext)
 
-    val firstOpen = MutableLiveData<Boolean>()
-    val refreshHome = MutableLiveData<Boolean>()
-    val timeVisible = MutableLiveData<Boolean>()
-    val dateVisible = MutableLiveData<Boolean>()
-    val updateSwipeApps = MutableLiveData<Any>()
-    val updateClickApps = MutableLiveData<Any>()
+    // setup variables with initial values
+    val showMessageDialog = MutableLiveData<String>()
+
     val appList = MutableLiveData<List<AppModel>?>()
     val hiddenApps = MutableLiveData<List<AppModel>?>()
     val isOlauncherDefault = MutableLiveData<Boolean>()
     val launcherResetFailed = MutableLiveData<Boolean>()
-    val homeAppAlignment = MutableLiveData<Constants.Gravity>()
-    val timeAlignment = MutableLiveData<Constants.Gravity>()
-    val showMessageDialog = MutableLiveData<String>()
-    val showSupportDialog = MutableLiveData<Boolean>()
 
-    fun selectedApp(appModel: AppModel, flag: Int, n: Int = 0) {
+    val showTime = MutableLiveData(prefs.showTime)
+    val showDate = MutableLiveData(prefs.showDate)
+    val clockAlignment = MutableLiveData(prefs.clockAlignment)
+    val homeAppsAlignment = MutableLiveData(Pair(prefs.homeAlignment, prefs.homeAlignmentBottom))
+    val homeAppsCount = MutableLiveData(prefs.homeAppsNum)
+
+    fun selectedApp(appModel: AppModel, flag: AppDrawerFlag, n: Int = 0) {
         when (flag) {
-            Constants.FLAG_LAUNCH_APP -> {
+            AppDrawerFlag.LaunchApp, AppDrawerFlag.HiddenApps -> {
                 launchApp(appModel)
             }
-            Constants.FLAG_HIDDEN_APPS -> {
-                launchApp(appModel)
+            AppDrawerFlag.SetHomeApp -> {
+                prefs.setHomeAppModel(n, appModel)
             }
-            Constants.FLAG_SET_HOME_APP -> {
-                Log.d("homeapps", "$n")
-                appModel.let {
-                    prefs.setHomeAppValues(n, it.appLabel, it.appPackage, it.user.toString(), it.appActivityName)
-                }
-                refreshHome(false)
-            }
-            Constants.FLAG_SET_SWIPE_LEFT_APP -> {
-                prefs.appNameSwipeLeft = appModel.appLabel
-                prefs.appPackageSwipeLeft = appModel.appPackage
-                prefs.appUserSwipeLeft = appModel.user.toString()
-                prefs.appActivitySwipeLeft = appModel.appActivityName
-                updateSwipeApps()
-            }
-            Constants.FLAG_SET_SWIPE_RIGHT_APP -> {
-                prefs.appNameSwipeRight = appModel.appLabel
-                prefs.appPackageSwipeRight = appModel.appPackage
-                prefs.appUserSwipeRight = appModel.user.toString()
-                prefs.appActivitySwipeRight = appModel.appActivityName
-                updateSwipeApps()
-            }
-            Constants.FLAG_SET_CLICK_CLOCK_APP -> {
-                prefs.appNameClickClock = appModel.appLabel
-                prefs.appPackageClickClock = appModel.appPackage
-                prefs.appUserClickClock = appModel.user.toString()
-                prefs.appActivityClickClock = appModel.appActivityName
-                updateClickApps()
-            }
-            Constants.FLAG_SET_CLICK_DATE_APP -> {
-                prefs.appNameClickDate = appModel.appLabel
-                prefs.appPackageClickDate = appModel.appPackage
-                prefs.appUserClickDate = appModel.user.toString()
-                prefs.appActivityClickDate = appModel.appActivityName
-                updateClickApps()
-            }
+            AppDrawerFlag.SetSwipeLeft -> prefs.appSwipeLeft = appModel
+            AppDrawerFlag.SetSwipeRight -> prefs.appSwipeRight = appModel
+            AppDrawerFlag.SetSwipeUp -> prefs.appSwipeUp = appModel
+            AppDrawerFlag.SetSwipeDown -> prefs.appSwipeDown = appModel
+            AppDrawerFlag.SetClickClock -> prefs.appClickClock = appModel
+            AppDrawerFlag.SetClickDate -> prefs.appClickDate = appModel
+            AppDrawerFlag.SetDoubleTap -> prefs.appDoubleTap = appModel
         }
     }
 
-    fun firstOpen(value: Boolean) {
-        firstOpen.postValue(value)
-    }
-
-    fun refreshHome(appCountUpdated: Boolean) {
-        refreshHome.value = appCountUpdated
-    }
-
     fun setShowDate(visibility: Boolean) {
-        dateVisible.value = visibility
+        showDate.value = visibility
     }
 
     fun setShowTime(visibility: Boolean) {
-        timeVisible.value = visibility
-    }
-
-    private fun updateSwipeApps() {
-        updateSwipeApps.postValue(Unit)
-    }
-
-    private fun updateClickApps() {
-        updateClickApps.postValue(Unit)
+        showTime.value = visibility
     }
 
     private fun launchApp(appModel: AppModel) {
@@ -160,26 +116,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         ).contains(".")
     }
 
-    fun updateHomeAlignment(gravity: Constants.Gravity) {
-        prefs.homeAlignment = gravity
-        homeAppAlignment.value = gravity
-    }
-
     fun updateDrawerAlignment(gravity: Constants.Gravity) {
         prefs.drawerAlignment = gravity
-        // drawerAppAlignment.value = gravity
     }
 
-    fun updateTimeAlignment(gravity: Constants.Gravity) {
-        prefs.timeAlignment = gravity
-        timeAlignment.value = gravity
+    fun updateClockAlignment(gravity: Constants.Gravity) {
+        clockAlignment.value = gravity
+    }
+
+    fun updateHomeAppsAlignment(gravity: Constants.Gravity, onBottom: Boolean) {
+        homeAppsAlignment.value = Pair(gravity, onBottom)
     }
 
     fun showMessageDialog(message: String) {
         showMessageDialog.postValue(message)
-    }
-
-    fun showSupportDialog(value: Boolean) {
-        showSupportDialog.postValue(value)
     }
 }

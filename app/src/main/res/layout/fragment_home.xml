@@ -8,12 +8,11 @@
     android:orientation="vertical"
     tools:context=".ui.HomeFragment">
 
-    <!-- Placeholder layout for locking screen-->
     <FrameLayout
-        android:id="@+id/lock"
+        android:id="@+id/touchArea"
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:contentDescription="@string/lock_layout_description" />
+        android:layout_height="match_parent"/>
 
     <!-- Clock and calendar-->
     <LinearLayout
@@ -52,14 +51,12 @@
     <LinearLayout
         android:id="@+id/homeAppsLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
-        android:orientation="vertical">
-
-    </LinearLayout>
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:paddingHorizontal="20dp"
+        android:paddingBottom="80dp"
+        android:paddingTop="112dp"/>
 
     <!-- First run tips -->
     <LinearLayout

@@ -1,0 +1,92 @@
+name: Bug report
+description: Create a report to help Olauncher CF improve
+labels: ['bug']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping us to make OlauncherCF better by reporting a bug. :hugs:
+        Please fill in as much information as possible so that we can fix it faster.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have searched for existing issues about this bug."
+          required: true
+        - label: "I know that if existing issues are available, this issue will be closed without comment, unless an explaination is given on why this new issue is needed."
+          required: true
+
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: Bug description
+      description: |
+        Please give us a description of what the bug is about.
+      placeholder: |
+        When I try to set the language to english, the app crashes.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce the bug
+      description: |
+        What did you do before you encoutered the bug?
+        If you cannot trigger the bug reliably, please still try to give us as many details as possible on how what think causes the bug.
+      placeholder: |
+        1. Go to '...'
+        2. Press on '....'
+    validations:
+      required: true
+
+  - type: input
+    id: environment-information-version
+    attributes:
+      label: OlauncherCF Version
+      placeholder: |
+        v1.0.0
+    validations:
+      required: true
+
+  - type: input
+    id: environment-information-android
+    attributes:
+      label: Android Version
+      placeholder: |
+        Android P / EMUI (e.g. Huawei)
+    validations:
+      required: true
+
+  - type: input
+    id: environment-information-phone
+    attributes:
+      label: Phone
+      placeholder: |
+        Huawei, Pixel, etc.
+    validations:
+      required: false
+
+  - type: textarea
+    id: environment-information
+    attributes:
+      label: Other environment information
+      placeholder: |
+        - Other information:
+
+  - type: textarea
+    id: screen-media
+    attributes:
+      label: Screenshots/Screen recordings
+      description: |
+        A picture or video is worth a thousand words.
+        If applicable, share screenshots or a screen recording to help explain your problem.
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional information
+      description: |
+        Additional context that might help us to solve your problem

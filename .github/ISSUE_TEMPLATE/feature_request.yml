@@ -1,0 +1,53 @@
+name: Feature request
+description: Suggest an idea or new feature for this project
+labels: ['feature']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping us to make OlauncherCF better by suggesting a feature :hugs:
+        Please describe your feature, and describe how it improves the user experience of OlauncherCF.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have searched for existing issues about this feature."
+          required: true
+        - label: "I know that if existing issues are available, this issue will be closed without comment, unless an explaination is given on why this new issue is needed."
+          required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Motivation
+      description: |
+        Please motivate your feature, and describe the problem it solves
+      placeholder: |
+        Currently, it is very complicated to do X.
+    validations:
+      required: true
+
+  - type: textarea
+    id: feature
+    attributes:
+      label: Feature description
+      description: |
+        Please describe your feature, and explain how it solves your problem from the motivation
+      placeholder: |
+        With my feature, X would become much easier, because ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives
+      description: |
+        If applicable, descibe alternatives, and why you think they are inferior
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional information

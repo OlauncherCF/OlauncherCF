@@ -1,10 +1,9 @@
 package app.olaunchercf.data
 
+import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ComposeCompilerApi
 import androidx.compose.ui.res.stringResource
 import app.olaunchercf.R
-import app.olaunchercf.data.Constants.toString
 import java.util.*
 
 interface EnumOption {
@@ -14,7 +13,7 @@ interface EnumOption {
 
 object Constants {
 
-    const val FLAG_LAUNCH_APP = 100
+    /*const val FLAG_LAUNCH_APP = 100
     const val FLAG_HIDDEN_APPS = 101
 
     const val FLAG_SET_HOME_APP = 1
@@ -23,7 +22,7 @@ object Constants {
     const val FLAG_SET_SWIPE_RIGHT_APP = 12
 
     const val FLAG_SET_CLICK_CLOCK_APP = 13
-    const val FLAG_SET_CLICK_DATE_APP = 14
+    const val FLAG_SET_CLICK_DATE_APP = 14*/
 
     const val REQUEST_CODE_ENABLE_ADMIN = 666
 
@@ -31,43 +30,73 @@ object Constants {
     const val LONG_PRESS_DELAY_MS = 500
 
     const val MAX_HOME_APPS = 15
-    const val TEXT_SIZE_MIN = 16
-    const val TEXT_SIZE_MAX = 30
+    const val TEXT_SIZE_MIN = 10
+    const val TEXT_SIZE_MAX = 60
+
+    const val BACKUP_WRITE = 1
+    const val BACKUP_READ = 2
+
+    enum class AppDrawerFlag {
+        LaunchApp,
+        HiddenApps,
+        SetHomeApp,
+        SetSwipeLeft,
+        SetSwipeRight,
+        SetSwipeUp,
+        SetSwipeDown,
+        SetClickClock,
+        SetClickDate,
+        SetDoubleTap,
+    }
 
     enum class Language: EnumOption {
         System,
+        Arabic,
         Chinese,
+        Croatian,
+        Dutch,
         English,
+        Estonian,
         French,
         German,
         Greek,
         Indonesian,
         Italian,
+        Japanese,
         Korean,
+        Lithuanian,
         Persian,
         Portuguese,
         Russian,
         Spanish,
         Swedish,
+        Thai,
         Turkish;
 
         @Composable
         override fun string(): String {
             return when(this) {
                 System -> stringResource(R.string.lang_system)
-                Chinese -> "中国人"
+                Arabic -> "العربية"
+                Chinese -> "中文"
+                Croatian -> "Hrvatski"
+                Dutch -> "Nederlands"
                 English -> "English"
+                Estonian -> "Eesti keel"
                 French -> "Français"
                 German -> "Deutsch"
                 Greek -> "Ελληνική"
                 Indonesian -> "Bahasa Indonesia"
                 Italian -> "Italiano"
-                Korean -> "조선말"
+                Japanese -> "日本"
+                Korean -> "한국어"
+                Lithuanian -> "Lietuvių"
                 Persian -> "فارسی"
                 Portuguese -> "Português"
                 Russian -> "Русский"
                 Spanish -> "Español"
                 Swedish -> "Svenska"
+                Thai -> "ไทย"
                 Turkish -> "Türkçe"
             }
         }
@@ -75,21 +104,28 @@ object Constants {
 
     fun Language.value(): String {
         return when(this) {
-            Language.System -> Locale(Locale.getDefault().language).toString()
+            Language.System -> Locale.getDefault().language
+            Language.Arabic -> "ar"
             Language.English -> "en"
             Language.German -> "de"
             Language.Spanish -> "es"
             Language.French -> "fr"
             Language.Italian -> "it"
+            Language.Japanese -> "ja"
             Language.Swedish -> "se"
             Language.Turkish -> "tr"
+            Language.Thai -> "th"
             Language.Greek -> "gr"
             Language.Chinese -> "cn"
             Language.Persian -> "fa"
             Language.Portuguese -> "pt"
             Language.Korean -> "ko"
+            Language.Lithuanian -> "lt"
             Language.Indonesian -> "id"
             Language.Russian -> "ru"
+            Language.Croatian -> "hr"
+            Language.Estonian -> "et"
+            Language.Dutch -> "nl"
         }
     }
 
@@ -104,6 +140,38 @@ object Constants {
                 Left -> stringResource(R.string.left)
                 Center -> stringResource(R.string.center)
                 Right -> stringResource(R.string.right)
+            }
+        }
+
+        @SuppressLint("RtlHardcoded")
+        fun value(): Int {
+            return when(this) {
+                Left -> android.view.Gravity.LEFT
+                Center -> android.view.Gravity.CENTER
+                Right -> android.view.Gravity.RIGHT
+            }
+        }
+    }
+
+    enum class Action: EnumOption {
+        Disabled,
+        OpenApp,
+        LockScreen,
+        ShowAppList,
+        OpenQuickSettings,
+        ShowRecents,
+        ShowNotification;
+
+        @Composable
+        override fun string(): String {
+            return when(this) {
+                OpenApp -> stringResource(R.string.open_app)
+                LockScreen -> stringResource(R.string.lock_screen)
+                ShowNotification -> stringResource(R.string.show_notifications)
+                ShowAppList -> stringResource(R.string.show_app_list)
+                OpenQuickSettings -> stringResource(R.string.open_quick_settings)
+                ShowRecents -> stringResource(R.string.show_recents)
+                Disabled -> stringResource(R.string.disabled)
             }
         }
     }

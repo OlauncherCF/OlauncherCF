@@ -1,11 +1,17 @@
 package app.olaunchercf.helper
 
+import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.*
 import android.content.pm.LauncherApps
 import android.content.pm.PackageManager
+import android.content.pm.PackageManager.NameNotFoundException
 import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import android.content.res.Resources
 import android.net.Uri
+import android.os.Build
+import android.os.Bundle
 import android.os.UserHandle
 import android.os.UserManager
 import android.provider.AlarmClock
@@ -16,20 +22,29 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.View
+import android.view.WindowInsets
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
+import androidx.core.app.ActivityCompat
 import app.olaunchercf.BuildConfig
 import app.olaunchercf.R
 import app.olaunchercf.data.AppModel
+import app.olaunchercf.data.Constants.BACKUP_READ
+import app.olaunchercf.data.Constants.BACKUP_WRITE
 import app.olaunchercf.data.Prefs
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.json.JSONArray
+import org.json.JSONObject
+import java.io.*
 import java.text.Collator
 import java.util.*
 import kotlin.math.pow
 import kotlin.math.sqrt
+
 
 fun showToastLong(context: Context, message: String) {
     val toast = Toast.makeText(context.applicationContext, message, Toast.LENGTH_LONG)
@@ -55,32 +70,42 @@ suspend fun getAppsList(context: Context, showHiddenApps: Boolean = false): Muta
             val launcherApps = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
             val collator = Collator.getInstance()
 
+            val prefs = Prefs(context)
+
             for (profile in userManager.userProfiles) {
                 for (app in launcherApps.getActivityList(null, profile)) {
-                    if (showHiddenApps && app.applicationInfo.packageName != BuildConfig.APPLICATION_ID)
-                        appList.add(
-                            AppModel(
-                                app.label.toString(),
-                                collator.getCollationKey(app.label.toString()),
-                                app.applicationInfo.packageName,
-                                app.componentName.className,
-                                profile,
-                                Prefs(context).getAppAlias(app.label.toString())
-                            )
+
+
+                    // we have changed the alias identifier from app.label to app.applicationInfo.packageName
+                    // therefore, we check if the old one is set if the new one is empty
+                    val appAlias = prefs.getAppAlias(app.applicationInfo.packageName).ifEmpty {
+                        prefs.getAppAlias(app.label.toString())
+                    }
+
+                    if (showHiddenApps && app.applicationInfo.packageName != BuildConfig.APPLICATION_ID) {
+                        val appModel = AppModel(
+                            app.label.toString(),
+                            collator.getCollationKey(app.label.toString()),
+                            app.applicationInfo.packageName,
+                            app.componentName.className,
+                            profile,
+                            appAlias,
                         )
-                    else if (!hiddenApps.contains(app.applicationInfo.packageName + "|" + profile.toString())
+                        appList.add(appModel)
+                    } else if (!hiddenApps.contains(app.applicationInfo.packageName + "|" + profile.toString())
                         && app.applicationInfo.packageName != BuildConfig.APPLICATION_ID
-                    )
-                        appList.add(
-                            AppModel(
-                                app.label.toString(),
-                                collator.getCollationKey(app.label.toString()),
-                                app.applicationInfo.packageName,
-                                app.componentName.className,
-                                profile,
-                                Prefs(context).getAppAlias(app.label.toString())
-                            )
+                    ) {
+                        val appModel = AppModel(
+                            app.label.toString(),
+                            collator.getCollationKey(app.label.toString()),
+                            app.applicationInfo.packageName,
+                            app.componentName.className,
+                            profile,
+                            appAlias,
                         )
+                        appList.add(appModel)
+                    }
+
                 }
             }
 
@@ -93,6 +118,7 @@ suspend fun getAppsList(context: Context, showHiddenApps: Boolean = false): Muta
             }
 
         } catch (e: java.lang.Exception) {
+            Log.d("backup", "$e")
         }
         appList
     }
@@ -110,21 +136,20 @@ suspend fun getHiddenAppsList(context: Context): MutableList<AppModel> {
         val userManager = context.getSystemService(Context.USER_SERVICE) as UserManager
         val collator = Collator.getInstance()
         for (hiddenPackage in hiddenAppsSet) {
+            val appPackage = hiddenPackage.split("|")[0]
+            val userString = hiddenPackage.split("|")[1]
+            var userHandle = android.os.Process.myUserHandle()
+            for (user in userManager.userProfiles) {
+                if (user.toString() == userString) userHandle = user
+            }
             try {
-                val appPackage = hiddenPackage.split("|")[0]
-                val userString = hiddenPackage.split("|")[1]
-                var userHandle = android.os.Process.myUserHandle()
-                for (user in userManager.userProfiles) {
-                    if (user.toString() == userString) userHandle = user
-                }
-
                 val appInfo = pm.getApplicationInfo(appPackage, 0)
                 val appName = pm.getApplicationLabel(appInfo).toString()
                 val appKey = collator.getCollationKey(appName)
                 // TODO: hidden apps settings ignore activity name for backward compatibility. Fix it.
                 appList.add(AppModel(appName, appKey, appPackage, "", userHandle, Prefs(context).getAppAlias(appName)))
-            } catch (e: Exception) {
-                e.printStackTrace()
+            } catch (e: NameNotFoundException) {
+
             }
         }
         appList.sort()
@@ -143,13 +168,6 @@ private fun upgradeHiddenApps(prefs: Prefs) {
     }
     prefs.hiddenApps = newHiddenAppsSet
     prefs.hiddenAppsUpdated = true
-}
-
-fun isPackageInstalled(context: Context, packageName: String, userString: String): Boolean {
-    val launcher = context.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
-    val activityInfo = launcher.getActivityList(packageName, getUserHandleFromString(context, userString))
-    if (activityInfo.size > 0) return true
-    return false
 }
 
 fun getUserHandleFromString(context: Context, userHandleString: String): UserHandle {
@@ -255,17 +273,6 @@ fun openCalendar(context: Context) {
     }
 }
 
-fun isAccessServiceEnabled(context: Context): Boolean {
-    val enabled =
-        Settings.Secure.getInt(context.applicationContext.contentResolver, Settings.Secure.ACCESSIBILITY_ENABLED)
-    if (enabled == 1) {
-        val prefString: String =
-            Settings.Secure.getString(context.contentResolver, Settings.Secure.ENABLED_ACCESSIBILITY_SERVICES)
-        return prefString.contains(context.packageName + "/" + MyAccessibilityService::class.java.name)
-    }
-    return false
-}
-
 fun isTablet(context: Context): Boolean {
     val windowManager = context.getSystemService(Context.WINDOW_SERVICE) as WindowManager
     val metrics = DisplayMetrics()
@@ -277,31 +284,108 @@ fun isTablet(context: Context): Boolean {
     return false
 }
 
-fun Context.isDarkThemeOn(): Boolean {
-    return resources.configuration.uiMode and
-            Configuration.UI_MODE_NIGHT_MASK == UI_MODE_NIGHT_YES
+fun initActionService(context: Context): ActionService? {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+        val actionService = ActionService.instance()
+        if (actionService != null) {
+            return actionService
+        } else {
+            openAccessibilitySettings(context)
+        }
+    } else {
+        showToastLong(context, "This action requires Android P (9) or higher" )
+    }
+
+    return null
 }
 
-fun Context.copyToClipboard(text: String) {
-    val clipboardManager = getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
-    val clipData = ClipData.newPlainText(getString(R.string.app_name), text)
-    clipboardManager.setPrimaryClip(clipData)
-    showToastShort(this, "Copied")
+fun openAccessibilitySettings(context: Context) {
+    val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
+    val cs = ComponentName(context.packageName, ActionService::class.java.name).flattenToString()
+    val bundle = Bundle()
+    bundle.putString(":settings:fragment_args_key", cs)
+    intent.apply {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        putExtra(":settings:fragment_args_key", cs)
+        putExtra(":settings:show_fragment_args", bundle)
+    }
+    context.startActivity(intent)
 }
 
-fun Context.openUrl(url: String) {
-    if (url.isEmpty()) return
-    val intent = Intent(Intent.ACTION_VIEW)
-    intent.data = Uri.parse(url)
-    startActivity(intent)
+fun showStatusBar(activity: Activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        activity.window.insetsController?.show(WindowInsets.Type.statusBars())
+    else
+        @Suppress("DEPRECATION", "InlinedApi")
+        activity.window.decorView.apply {
+            systemUiVisibility = View.SYSTEM_UI_FLAG_LAYOUT_STABLE or View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+        }
 }
 
-@ColorInt
-fun Context.getColorFromAttr(
-    @AttrRes attrColor: Int,
-    typedValue: TypedValue = TypedValue(),
-    resolveRefs: Boolean = true
-): Int {
-    theme.resolveAttribute(attrColor, typedValue, resolveRefs)
-    return typedValue.data
+fun hideStatusBar(activity: Activity) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R)
+        activity.window.insetsController?.hide(WindowInsets.Type.statusBars())
+    else {
+        @Suppress("DEPRECATION")
+        activity.window.decorView.apply {
+            systemUiVisibility = View.SYSTEM_UI_FLAG_IMMERSIVE or View.SYSTEM_UI_FLAG_FULLSCREEN
+        }
+    }
+}
+
+fun uninstallApp(context: Context, appPackage: String) {
+    val intent = Intent(Intent.ACTION_DELETE)
+    intent.data = Uri.parse("package:$appPackage")
+    context.startActivity(intent)
+}
+
+fun dp2px(resources: Resources, dp: Int): Int {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp.toFloat(),
+        resources.displayMetrics
+    ).toInt()
+}
+fun storeFile(activity: Activity) {
+    val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+        addCategory(Intent.CATEGORY_OPENABLE)
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TITLE, "backup.txt")
+    }
+    ActivityCompat.startActivityForResult(activity, intent, BACKUP_WRITE, null)
+}
+
+fun loadFile(activity: Activity) {
+    val intent = Intent(Intent.ACTION_OPEN_DOCUMENT).apply {
+        addCategory(Intent.CATEGORY_OPENABLE)
+        type = "text/plain"
+    }
+    ActivityCompat.startActivityForResult(activity, intent, BACKUP_READ, null)
+}
+
+@Suppress("SpellCheckingInspection")
+@SuppressLint("WrongConstant")
+fun expandNotificationDrawer(context: Context) {
+    // Source: https://stackoverflow.com/a/51132142
+    try {
+        val statusBarService = context.getSystemService("statusbar")
+        val statusBarManager = Class.forName("android.app.StatusBarManager")
+        val method = statusBarManager.getMethod("expandNotificationsPanel")
+        method.invoke(statusBarService)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+@Suppress("SpellCheckingInspection")
+@SuppressLint("WrongConstant")
+fun expandQuickSettings(context: Context) {
+    try {
+        val statusBarService = context.getSystemService("statusbar")
+        val statusBarManager = Class.forName("android.app.StatusBarManager")
+        val method = statusBarManager.getMethod("expandSettingsPanel")
+        method.invoke(statusBarService)
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }

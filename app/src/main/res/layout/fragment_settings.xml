@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollView"
@@ -10,76 +10,28 @@
     android:clipChildren="false"
     android:clipToPadding="false"
     android:overScrollMode="never"
-    android:paddingTop="64dp"
-    android:paddingBottom="56dp"
     android:scrollbars="none">
 
-    <LinearLayout
-        android:id="@+id/scrollLayout"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clipChildren="false"
-        android:clipToPadding="false"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/scrollLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:background="@drawable/rounded_rect_shade_color"
-            android:orientation="vertical"
-            android:padding="12dp">
+            android:paddingTop="20dp"
+            android:paddingBottom="10dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:orientation="vertical">
 
-            <FrameLayout
+            <androidx.compose.ui.platform.ComposeView
+                android:id="@+id/testView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/settingsTitle"
-                    style="@style/TextLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/app_name" />
-
-                <ImageView
-                    android:id="@+id/appInfo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="end|center_vertical"
-                    android:padding="4dp"
-                    android:src="@drawable/ic_outline_info_24"
-                    app:tint="?attr/primaryColor" />
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/olauncherHiddenApps"
-                style="@style/TextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/hidden_apps" />
-
-            <TextView
-                android:id="@+id/setLauncher"
-                style="@style/TextSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="8dp"
-                android:text="@string/set_as_default_launcher" />
+                android:layout_height="match_parent"/>
 
         </LinearLayout>
+    </ScrollView>
 
-        <androidx.compose.ui.platform.ComposeView
-            android:id="@+id/testView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-    </LinearLayout>
-
-</ScrollView>
+</LinearLayout>

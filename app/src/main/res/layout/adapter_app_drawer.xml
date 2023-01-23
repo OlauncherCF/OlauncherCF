@@ -5,25 +5,22 @@
     android:layout_height="wrap_content"
     android:animateLayoutChanges="true">
 
-    <TextView
-        android:id="@+id/appTitle"
-        style="@style/TextLarge"
+    <FrameLayout
+        android:id="@+id/appTitleFrame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:maxLines="1"
-        android:paddingHorizontal="24dp"
-        android:paddingVertical="@dimen/app_padding_vertical"
-        android:text="@string/app" />
+        android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/otherProfileIndicator"
-        android:layout_width="4dp"
-        android:layout_height="4dp"
-        android:layout_gravity="center_vertical"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="1dp"
-        android:gravity="center"
-        android:src="@drawable/ic_outline_info_24" />
+        <TextView
+            android:id="@+id/appTitle"
+            style="@style/TextLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="@dimen/app_padding_vertical"
+            android:text="@string/app" />
+
+    </FrameLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appHideLayout"
@@ -33,8 +30,7 @@
         android:background="?attr/primaryColorInverseTrans90"
         android:clickable="true"
         android:focusable="true"
-        android:paddingHorizontal="@dimen/app_padding_vertical"
-        android:visibility="gone">
+        android:paddingHorizontal="@dimen/app_padding_vertical">
 
         <EditText
             android:id="@+id/appRenameEdit"
@@ -44,7 +40,10 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@id/appRename"
-            android:padding="@dimen/app_padding_vertical"/>
+            android:imeOptions="actionDone"
+            android:padding="@dimen/app_padding_vertical"
+            android:inputType="textShortMessage"
+            android:importantForAutofill="no" />
 
         <TextView
             android:id="@+id/appRename"
@@ -58,17 +57,17 @@
             android:text="@string/rename"
             android:textAllCaps="true" />
 
-        <TextView
+        <ImageView
             android:id="@+id/appHide"
-            style="@style/TextSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/appInfo"
+            android:contentDescription="@string/hide"
             android:padding="@dimen/app_padding_vertical"
-            android:text="@string/hide"
-            android:textAllCaps="true" />
+            android:src="@drawable/visibility_off"
+            app:tint="?attr/primaryColor" />
 
         <ImageView
             android:id="@+id/appInfo"

@@ -1,0 +1,94 @@
+name: Crash Report
+description: Create a report with a generated crash log attached (if possible) to help OlauncherCF improve
+labels: ['Crash report']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping me to make OlauncherCF better by reporting a crash. :hugs:
+        Please fill in as much information as possible about your crash so that I can fix it immediately.
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "Checklist"
+      options:
+        - label: "I have updated the title to best match the issue."
+          required: true
+
+  - type: input
+    id: app-version
+    attributes:
+     label: App version
+     description: "In which version did you encounter the crash?"
+     placeholder: "xx.xx - Can be seen in the app from the 'Settings' section"
+    validations:
+      required: true
+
+  - type: input
+    id: device-os-info
+    attributes:
+     label: Android version
+     description: |
+      With what operating system (+ version) did you encounter the crash?
+     placeholder: "Example: Android 10"
+
+  - type: textarea
+    id: crash-description
+    attributes:
+      label: Crash description
+      description: |
+        Please give us a description of what the crash is about.
+      placeholder: |
+        When I try to set the language to english, the app crashes.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: Steps to reproduce the crash
+      description: |
+        What did you do for the crash to show up?
+        If you can't cause the crash to show up again reliably (and hence don't have a proper set of steps to give us), please still try to give as many details as possible on how you think you encountered the crash.
+      placeholder: |
+        1. Go to '...'
+        2. Press on '....'
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: |
+        Tell us what you expect to happen.
+
+  - type: textarea
+    id: screen-media
+    attributes:
+      label: Screenshots/Screen recordings
+      description: |
+        A picture or video is worth a thousand words.
+        If applicable, share screenshots or a screen recording to help explain your problem.
+      placeholder: |
+        <details>
+          <summary>Context</summary>
+
+          screenshots go in here
+
+        </details>
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        If you could catch the log of the crash, don't forget to share it. This is the best way to point out any crash.
+
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional information
+      description: |
+        Any other information you'd like to include.

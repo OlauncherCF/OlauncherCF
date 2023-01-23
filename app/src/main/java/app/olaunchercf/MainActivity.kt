@@ -1,17 +1,18 @@
 package app.olaunchercf
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.view.isVisible
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -21,6 +22,9 @@ import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.ActivityMainBinding
 import app.olaunchercf.helper.isTablet
 import app.olaunchercf.helper.showToastLong
+import java.io.BufferedReader
+import java.io.FileOutputStream
+import java.io.InputStreamReader
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -54,11 +58,7 @@ class MainActivity : AppCompatActivity() {
         setLanguage()
 
         navController = Navigation.findNavController(this, R.id.nav_host_fragment)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
-        if (prefs.firstOpen) {
-            viewModel.firstOpen(true)
-            prefs.firstOpen = false
-        }
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         initClickListeners()
         initObservers(viewModel)
@@ -71,7 +71,6 @@ class MainActivity : AppCompatActivity() {
     @Suppress("DEPRECATION")
     fun setLanguage() {
         val locale = Locale(prefs.language.value())
-        Locale.setDefault(locale)
         val config = resources.configuration
         config.locale = locale
         resources.updateConfiguration(config, resources.displayMetrics)
@@ -102,9 +101,6 @@ class MainActivity : AppCompatActivity() {
             binding.messageLayout.visibility = View.GONE
             viewModel.showMessageDialog("")
         }
-        binding.closeOneLink.setOnClickListener {
-            viewModel.showSupportDialog(false)
-        }
     }
 
     private fun initObservers(viewModel: MainViewModel) {
@@ -113,9 +109,6 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel.showMessageDialog.observe(this) {
             showMessage(it)
-        }
-        viewModel.showSupportDialog.observe(this) {
-            binding.supportOlauncherLayout.isVisible = it
         }
     }
 
@@ -156,14 +149,49 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode != Activity.RESULT_OK) {
+            // showToastLong(applicationContext, "Intent Error")
+            return
+        }
+
         when (requestCode) {
             Constants.REQUEST_CODE_ENABLE_ADMIN -> {
-                if (resultCode == RESULT_OK) {
-                    prefs.lockModeOn = true
-                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
-                        showMessage(getString(R.string.double_tap_lock_is_enabled_message))
-                    else
-                        showMessage(getString(R.string.double_tap_lock_uninstall_message))
+                prefs.lockModeOn = true
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P)
+                    showMessage(getString(R.string.double_tap_lock_is_enabled_message))
+                else
+                    showMessage(getString(R.string.double_tap_lock_uninstall_message))
+            }
+            Constants.BACKUP_READ -> {
+                data?.data?.also { uri ->
+                    applicationContext.contentResolver.openInputStream(uri).use { inputStream ->
+                        val stringBuilder = StringBuilder()
+                        BufferedReader(InputStreamReader(inputStream)).use { reader ->
+                            var line: String? = reader.readLine()
+                            while (line != null) {
+                                stringBuilder.append(line)
+                                line = reader.readLine()
+                            }
+                        }
+
+                        val string = stringBuilder.toString()
+                        val prefs = Prefs(applicationContext)
+                        prefs.clear()
+                        prefs.loadFromString(string)
+                    }
+                }
+                startActivity(Intent.makeRestartActivityTask(this.intent?.component))
+            }
+            Constants.BACKUP_WRITE -> {
+                data?.data?.also { uri ->
+                    applicationContext.contentResolver.openFileDescriptor(uri, "w")?.use { file ->
+                        FileOutputStream(file.fileDescriptor).use { stream ->
+                            val text = Prefs(applicationContext).saveToString()
+                            stream.channel.truncate(0)
+                            stream.write( text.toByteArray() )
+                        }
+                    }
                 }
             }
         }

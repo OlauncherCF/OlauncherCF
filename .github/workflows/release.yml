@@ -1,0 +1,41 @@
+name: Build & Publish Release APK
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch:
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: set up JDK 11
+      uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: 'temurin'
+        cache: gradle
+    - name: Make Gradle executable
+      run: chmod +x gradlew
+    - name: Build apk
+      run: ./gradlew build
+    - name: Sign apk
+      uses: r0adkll/sign-android-release@v1
+      id: sign_app # ID used to access action output
+      with:
+        releaseDirectory: app/build/outputs/apk/release
+        signingKeyBase64: ${{ secrets.KEY_STORE }}
+        alias: ${{ secrets.ALIAS }}
+        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        keyPassword: ${{ secrets.KEY_PASSWORD }}
+    - name: Release to GitHub
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{steps.sign_app.outputs.signedReleaseFile}}
+        asset_name: OlauncherCF-${{ github.ref_name }}.apk
+        tag: ${{ github.ref }}
+        overwrite: true
+        body: "OlauncherCF.apk Release"

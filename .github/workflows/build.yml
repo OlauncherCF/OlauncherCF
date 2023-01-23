@@ -1,4 +1,4 @@
-name: Android CI
+name: Build Project
 
 on:
   push:
@@ -24,4 +24,3 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
-

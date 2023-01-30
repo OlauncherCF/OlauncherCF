@@ -23,8 +23,8 @@
     <string name="drawer_alignment">قائمة التطبيقات</string>
     <string name="swipe_left_app">عند السحب لليسار</string>
     <string name="swipe_right_app">عند السحب لليمين</string>
-    <string name="swipe_down_app">السحب لأسفل</string>
-    <string name="swipe_up_app">Swipe Up</string>
+    <string name="swipe_down_app">عند السحب لأسفل</string>
+    <string name="swipe_up_app">عند السحب للأعلى</string>
     <string name="clock_click_app">عند الضغط على الساعة</string>
     <string name="date_click_app">عند الضغط على التاريخ</string>
     <string name="double_tap">اضغط مرتين</string>
@@ -45,7 +45,7 @@
     <string name="extend_home_apps_area">توسيع المنطقة القابلة للنقر على تطبيقات الشاشة الرئيسية</string>
     <string name="appearance">المظهر</string>
     <string name="gestures">إيماءات</string>
-    <string name="behavior">Behavior</string>
+    <string name="behavior">التصرف</string>
     <string name="homescreen">الشاشة الرئيسية</string>
     <string name="alignment">محاذاة</string>
     <string name="theme_mode">وضع السمة</string>
@@ -61,7 +61,7 @@
     <string name="app_text_size">حجم النص</string>
     <string name="drawer_list_empty_hint">لم يتم العثور على تطبيقات</string>
     <string name="hidden_apps">التطبيقات المخفية</string>
-    <string name="auto_open_apps">Auto open apps</string>
+    <string name="auto_open_apps">فتح التطبيقات تلقائياً</string>
     <string name="show">إظهار</string>
     <string name="reset">إعادة الضبط</string>
     <string name="cancel">إلغاء</string>
@@ -75,7 +75,7 @@
     <string name="lock_screen">قفل الشاشة</string>
     <string name="open_quick_settings">فتح الاعدادت السريعة</string>
     <string name="show_recents">إظهار اخر التطبيقات</string>
-    <string name="backup">Backup</string>
-    <string name="load_backup">Load Backup</string>
-    <string name="store_backup">Store Backup</string>
+    <string name="backup">نسخة احتياطية</string>
+    <string name="load_backup">تحميل نسخة احتياطية</string>
+    <string name="store_backup">تخزين نسخة احتياطية</string>
 </resources>

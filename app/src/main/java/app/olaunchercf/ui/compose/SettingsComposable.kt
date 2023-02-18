@@ -1,6 +1,5 @@
 package app.olaunchercf.ui.compose
 
-import SettingsTheme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -34,20 +33,23 @@ import app.olaunchercf.R
 import app.olaunchercf.data.Constants
 import app.olaunchercf.data.EnumOption
 import app.olaunchercf.style.CORNER_RADIUS
+import app.olaunchercf.style.SettingsTheme
 
 object SettingsComposable {
 
     // Most basic settings background tile
     @Composable
-    fun SettingsTile(content: @Composable () -> Unit) {
+    fun SettingsTile(content: @Composable () -> Unit, isTop: Boolean = false, isMiddle: Boolean = false, isBottom: Boolean = false) {
+
         Column(
             modifier = Modifier
-                .padding(12.dp, 12.dp, 12.dp, 0.dp)
-                .background(SettingsTheme.color.settings, SettingsTheme.shapes.settings)
+                //.padding(12.dp, 12.dp, 12.dp, 0.dp)
+                .padding(12.dp, 0.dp, 12.dp, 0.dp)
+                .background(SettingsTheme.color.settingsBackground, /*SettingsTheme.shapes.settings*/)
                 .border(
-                    0.5.dp,
-                    colorResource(R.color.blackInverseTrans50),
-                    RoundedCornerShape(CORNER_RADIUS),
+                    //0.5.dp,
+                    //colorResource(R.color.blackInverseTrans50),
+                    //RoundedCornerShape(CORNER_RADIUS),
                 )
                 .padding(20.dp)
                 .fillMaxWidth()
@@ -324,7 +326,7 @@ object SettingsComposable {
     private fun <T: EnumOption> SettingsSelector(options: Array<T>, fontSize: TextUnit = TextUnit.Unspecified, onSelect: (T) -> Unit) {
         Box(
             modifier = Modifier
-                .background(SettingsTheme.color.selector, SettingsTheme.shapes.settings)
+                .background(SettingsTheme.color.selectionBackground, SettingsTheme.shapes.settings)
                 .fillMaxWidth()
         ) {
             LazyRow(
@@ -361,7 +363,7 @@ object SettingsComposable {
     ) {
         ConstraintLayout(
             modifier = Modifier
-                .background(SettingsTheme.color.selector, SettingsTheme.shapes.settings)
+                .background(SettingsTheme.color.selectionBackground, SettingsTheme.shapes.settings)
                 .fillMaxWidth()
         ) {
             val (plus, minus, text, button) = createRefs()

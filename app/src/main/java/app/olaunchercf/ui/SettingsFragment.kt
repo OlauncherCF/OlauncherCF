@@ -1,6 +1,5 @@
 package app.olaunchercf.ui
 
-import SettingsTheme
 import android.app.Activity
 import android.app.admin.DevicePolicyManager
 import android.content.ComponentName
@@ -46,6 +45,8 @@ import app.olaunchercf.data.Prefs
 import app.olaunchercf.databinding.FragmentSettingsBinding
 import app.olaunchercf.helper.*
 import app.olaunchercf.listener.DeviceAdmin
+import app.olaunchercf.style.SettingsTheme
+import app.olaunchercf.style.SoftColors
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsArea
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsGestureItem
 import app.olaunchercf.ui.compose.SettingsComposable.SettingsItem
@@ -88,7 +89,7 @@ class SettingsFragment : Fragment() {
                 System -> isSystemInDarkTheme()
             }
 
-            SettingsTheme(isDark) {
+            SettingsTheme(isDark, colorScheme = SoftColors()) {
                 Settings((prefs.textSize - offset).sp)
             }
         }
@@ -97,15 +98,6 @@ class SettingsFragment : Fragment() {
     @Composable
     private fun Settings(fontSize: TextUnit = TextUnit.Unspecified) {
         val selected = remember { mutableStateOf("") }
-        /*val fs = remember { mutableStateOf(fontSize) }
-
-        val titleFs = if (fs.value.isSpecified) {
-            (fs.value.value * 2).sp
-        } else fs.value
-
-        val iconFs = if (fs.value.isSpecified) {
-            (fs.value.value * 1.5).sp
-        } else fs.value */
 
         val changeLauncherText = if (isOlauncherDefault(requireContext())) {
             R.string.change_default_launcher

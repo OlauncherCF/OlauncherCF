@@ -71,7 +71,8 @@ object Constants {
         Spanish,
         Swedish,
         Thai,
-        Turkish;
+        Turkish,
+        Vietnamese;
 
         @Composable
         override fun string(): String {
@@ -98,6 +99,7 @@ object Constants {
                 Swedish -> "Svenska"
                 Thai -> "ไทย"
                 Turkish -> "Türkçe"
+                Vietnamese -> "Tiếng Việt"
             }
         }
     }
@@ -106,26 +108,27 @@ object Constants {
         return when(this) {
             Language.System -> Locale.getDefault().language
             Language.Arabic -> "ar"
+            Language.Chinese -> "cn"
+            Language.Croatian -> "hr"
+            Language.Dutch -> "nl"
             Language.English -> "en"
-            Language.German -> "de"
-            Language.Spanish -> "es"
+            Language.Estonian -> "et"
             Language.French -> "fr"
+            Language.German -> "de"
+            Language.Greek -> "gr"
+            Language.Indonesian -> "id"
             Language.Italian -> "it"
             Language.Japanese -> "ja"
-            Language.Swedish -> "se"
-            Language.Turkish -> "tr"
-            Language.Thai -> "th"
-            Language.Greek -> "gr"
-            Language.Chinese -> "cn"
-            Language.Persian -> "fa"
-            Language.Portuguese -> "pt"
             Language.Korean -> "ko"
             Language.Lithuanian -> "lt"
-            Language.Indonesian -> "id"
+            Language.Persian -> "fa"
+            Language.Portuguese -> "pt"
             Language.Russian -> "ru"
-            Language.Croatian -> "hr"
-            Language.Estonian -> "et"
-            Language.Dutch -> "nl"
+            Language.Spanish -> "es"
+            Language.Swedish -> "se"
+            Language.Thai -> "th"
+            Language.Turkish -> "tr"
+            Language.Vietnamese -> "vi"
         }
     }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Olauncher Clutter Free</string>
-    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
-    <string name="app">App</string>
+    <string name="accessibility_service_name">Acciones de OlauncherCF</string>
+    <string name="app">Aplicación</string>
     <string name="set_as_default_launcher">Establecer como lanzador predeterminado</string>
     <string name="app_text_color">Color de texto</string>
     <string name="double_tap_to_lock_screen">Doble toque para bloqueo</string>
@@ -23,12 +23,12 @@
     <string name="drawer_alignment">Alineación de aplicaciones</string>
     <string name="swipe_left_app">Deslizar a izquierda</string>
     <string name="swipe_right_app">Deslizar a derecha</string>
-    <string name="swipe_down_app">Swipe down</string>
-    <string name="swipe_up_app">Swipe Up</string>
+    <string name="swipe_down_app">Deslizar abajo</string>
+    <string name="swipe_up_app">Deslizar arriba</string>
     <string name="clock_click_app">Pulsar reloj</string>
     <string name="date_click_app">Pulsar fecha</string>
-    <string name="double_tap">Double Tap</string>
-    <string name="save">Save</string>
+    <string name="double_tap">Doble Toque</string>
+    <string name="save">Guardar</string>
     <string name="app_drawer_tips">Sugerencia: deslice hacia abajo para descartar. Desplace para ocultar el teclado.</string>
     <string name="okay">OK</string>
     <string name="triple_tap_lock_message">Cómo funciona:
@@ -45,7 +45,7 @@
     <string name="extend_home_apps_area">Ampliar área de las aplicaciones de inicio</string>
     <string name="appearance">Apariencia</string>
     <string name="gestures">Gestos</string>
-    <string name="behavior">Behavior</string>
+    <string name="behavior">Comportamiento</string>
     <string name="homescreen">Inicio</string>
     <string name="alignment">Disposición</string>
     <string name="theme_mode">Tema</string>
@@ -59,23 +59,23 @@
     <string name="app_language">Idioma</string>
     <string name="lang_system">Sistema</string>
     <string name="app_text_size">Texto en pantalla</string>
-    <string name="drawer_list_empty_hint">No apps found</string>
+    <string name="drawer_list_empty_hint">Sin aplicaciones</string>
     <string name="hidden_apps">Aplicaciones ocultas</string>
-    <string name="auto_open_apps">Auto open apps</string>
-    <string name="show">Show</string>
-    <string name="reset">Reset</string>
-    <string name="cancel">Cancel</string>
+    <string name="auto_open_apps">Abrir aplicaciones</string>
+    <string name="show">Mostrar</string>
+    <string name="reset">Restablecer</string>
+    <string name="cancel">Cancelar</string>
     <string name="enable">Enable</string>
-    <string name="disable">Disable</string>
+    <string name="disable">Activado</string>
     <string name="enabled">Enabled</string>
-    <string name="disabled">Disabled</string>
-    <string name="show_notifications">Show Notification</string>
-    <string name="show_app_list">Show App List</string>
-    <string name="open_app">Open App</string>
-    <string name="lock_screen">Lock Screen</string>
-    <string name="open_quick_settings">Quick Settings</string>
-    <string name="show_recents">Show Recents</string>
-    <string name="backup">Backup</string>
-    <string name="load_backup">Load Backup</string>
-    <string name="store_backup">Store Backup</string>
+    <string name="disabled">Desactivado</string>
+    <string name="show_notifications">Mostrar notificación</string>
+    <string name="show_app_list">Lista de aplicaciones</string>
+    <string name="open_app">Abrir aplicación</string>
+    <string name="lock_screen">Bloquear pantalla</string>
+    <string name="open_quick_settings">Configuración rápida</string>
+    <string name="show_recents">Mostrar Recientes</string>
+    <string name="backup">Respaldar</string>
+    <string name="load_backup">Cargar respaldo</string>
+    <string name="store_backup">Guardar respaldo</string>
 </resources>

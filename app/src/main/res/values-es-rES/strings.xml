@@ -65,9 +65,9 @@
     <string name="show">Mostrar</string>
     <string name="reset">Restablecer</string>
     <string name="cancel">Cancelar</string>
-    <string name="enable">Enable</string>
-    <string name="disable">Activado</string>
-    <string name="enabled">Enabled</string>
+    <string name="enable">Activado</string>
+    <string name="disable">Desactivado</string>
+    <string name="enabled">Activado</string>
     <string name="disabled">Desactivado</string>
     <string name="show_notifications">Mostrar notificación</string>
     <string name="show_app_list">Lista de aplicaciones</string>

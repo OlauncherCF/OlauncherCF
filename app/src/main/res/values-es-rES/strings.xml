@@ -70,7 +70,7 @@
     <string name="enabled">Activado</string>
     <string name="disabled">Desactivado</string>
     <string name="show_notifications">Mostrar notificación</string>
-    <string name="show_app_list">Mostrar lista de aplicaciones</string>
+    <string name="show_app_list">Lista de aplicaciones</string>
     <string name="open_app">Abrir aplicación</string>
     <string name="lock_screen">Bloquear pantalla</string>
     <string name="open_quick_settings">Configuración rápida</string>

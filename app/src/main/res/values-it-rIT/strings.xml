@@ -2,8 +2,8 @@
 <resources>
     <string name="app_name">Olauncher Clutter Free</string>
     <string name="accessibility_service_name">Servizio Azioni OlauncherCF</string>
-    <string name="app">App</string>
-    <string name="set_as_default_launcher">Imposta come lauccher predefinito</string>
+    <string name="app">Applicazione</string>
+    <string name="set_as_default_launcher">Imposta come launcher predefinito</string>
     <string name="app_text_color">Colore del testo</string>
     <string name="double_tap_to_lock_screen">Doppio tocco per bloccare lo schermo</string>
     <string name="off">Disattivato</string>
@@ -12,11 +12,11 @@
     <string name="white">Bianco</string>
     <string name="change_default_launcher">Cambia il launcher predefinito</string>
     <string name="long_press_for_settings">Premi a lungo per le impostazioni</string>
-    <string name="swipe_up_for_apps">Scorri verso l\'alto per tutte le app</string>
+    <string name="swipe_up_for_apps">Scorri verso l\'alto per tutte le applicazioni</string>
     <string name="apps_on_home_screen">App nella schermata principale</string>
     <string name="left">Sinistra</string>
     <string name="right">Destra</string>
-    <string name="center">Centro</string>
+    <string name="center">Al centro</string>
     <string name="home_alignment">Allineamento App</string>
     <string name="home_alignment_bottom">App nella schermata home in basso</string>
     <string name="clock_alignment">Clock alignment</string>

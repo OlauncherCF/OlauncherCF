@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">Olauncher Clutter Free</string>
     <string name="accessibility_service_name">Служба дій OlauncherCF</string>
-    <string name="app">Додаток</string>
+    <string name="app">Застосунок</string>
     <string name="set_as_default_launcher">Установити як робочий стіл за замовчуванням</string>
     <string name="app_text_color">Колір тексту</string>
     <string name="double_tap_to_lock_screen">Блокування подвійним дотиком</string>
@@ -12,8 +12,8 @@
     <string name="white">Білий</string>
     <string name="change_default_launcher">Змінити робочий стіл за замовчуванням</string>
     <string name="long_press_for_settings">Затисніть будь-де для відкриття налаштувань</string>
-    <string name="swipe_up_for_apps">Свайп уверх для всіх додатків</string>
-    <string name="apps_on_home_screen">Додатки на головному екрані</string>
+    <string name="swipe_up_for_apps">Свайп вверх для всіх застосунків</string>
+    <string name="apps_on_home_screen">Застосунки на головному екрані</string>
     <string name="left">Ліворуч</string>
     <string name="right">Праворуч</string>
     <string name="center">По центрі</string>

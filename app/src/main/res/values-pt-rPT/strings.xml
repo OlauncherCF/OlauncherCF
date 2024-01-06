@@ -5,10 +5,7 @@
     <string name="app">App</string>
     <string name="set_as_default_launcher">Definir como launcher predefinido</string>
     <string name="app_text_color">Cor do texto</string>
-    <string name="double_tap_to_lock_screen">Toque duplo para bloquear</string>
-    <string name="experimental_">(experimental)</string>
-    <string name="admin_permission_message">Olauncher promete utilizar responsávelmente a permissõa do ecrã de bloqueio.</string>
-    <string name="about">Sobre</string>
+    <string name="double_tap_to_lock_screen">Toque duas vezes para bloquear</string>
     <string name="off">Desligado</string>
     <string name="on">Ligado</string>
     <string name="black">Preto</string>
@@ -21,20 +18,19 @@
     <string name="right">Direita</string>
     <string name="center">Centro</string>
     <string name="home_alignment">Alinhamento dos aplicativos</string>
-    <string name="home_alignment_bottom">Parte inferior do ecrã inicial de aplicativos</string>
+    <string name="home_alignment_bottom">Apps home screen bottom</string>
     <string name="clock_alignment">Alinhamento do relógio</string>
     <string name="drawer_alignment">Alinhamento da gaveta de aplicações</string>
     <string name="swipe_left_app">Deslize para a esquerda app</string>
     <string name="swipe_right_app">Deslize para a direita app</string>
-    <string name="swipe_down_app">Deslizar para baixo</string>
-    <string name="swipe_up_app">Deslizar para cima</string>
+    <string name="swipe_down_app">Swipe down</string>
+    <string name="swipe_up_app">Swipe Up</string>
     <string name="clock_click_app">Aplicativo de relógio</string>
     <string name="date_click_app">Aplicativo de calendário</string>
-    <string name="double_tap">Toque duplo</string>
-    <string name="save">Salvar</string>
+    <string name="double_tap">Double Tap</string>
+    <string name="save">Save</string>
     <string name="app_drawer_tips">Dica: Deslize para baixo para dispensar. Scroll para ocultar o teclado.</string>
     <string name="okay">Okay</string>
-    <string name="double_tap_lock_is_enabled_message">Se o bloqueio de toque duplo desativar a impressão digital ou o desbloqueio facial, abra as configurações do Olauncher, toque em \'experimental\' e siga as instruções. Obrigado.</string>
     <string name="triple_tap_lock_message">Como funciona:
     \nDepois de tocar duas vezes, o ecrã ficará escuro e o telemóvel será bloqueado em 5 segundos.
     \n\nDurante esse período, tu podes tocar duas vezes para <b>desbloquear</b> ou tocar três vezes a qualquer momento para bloquear totalmente o telemóvel imediatamente.
@@ -43,15 +39,15 @@
     <string name="hide">Ocultar</string>
     <string name="status_bar">Exbir barra de status</string>
     <string name="rename">Renomear</string>
-    <string name="show_time">Mostrar tempo</string>
-    <string name="show_date">Mostrar data</string>
-    <string name="lock_home_apps">Bloquear aplicações</string>
-    <string name="extend_home_apps_area">Estenda a área clicável em aplicações do ecrã inicial</string>
+    <string name="show_time">Show time</string>
+    <string name="show_date">Show date</string>
+    <string name="lock_home_apps">Lock Apps</string>
+    <string name="extend_home_apps_area">Extend clickable area on home apps</string>
     <string name="appearance">Aparência</string>
     <string name="gestures">Gestos</string>
-    <string name="behavior">Comportamento</string>
-    <string name="homescreen">Ecrã inicial</string>
-    <string name="alignment">Alinhamento</string>
+    <string name="behavior">Behavior</string>
+    <string name="homescreen">Homescreen</string>
+    <string name="alignment">Alignment</string>
     <string name="theme_mode">Modo de tema</string>
     <string name="system_default">Sistema</string>
     <string name="dark">Escuro</string>
@@ -62,30 +58,24 @@
     <string name="close">Fechar</string>
     <string name="app_language">Idioma da interface</string>
     <string name="lang_system">Sistema</string>
-
     <string name="app_text_size">Tamanho de texto</string>
-    <string name="drawer_list_empty_hint">Aplicações não encontradas</string>
-
+    <string name="drawer_list_empty_hint">No apps found</string>
     <string name="hidden_apps">Aplicações escondidas</string>
-    <string name="auto_open_apps">Abrir aplicações automaticamente</string>
-
-    <string name="show">Mostrar</string>
-    <string name="reset">Resetar</string>
-    <string name="cancel">Cancelar</string>
-
-    <string name="enable">Ativar</string>
-    <string name="disable">Desativar</string>
-    <string name="enabled">Ativado</string>
-    <string name="disabled">Desativado</string>
-
-    <string name="show_notifications">Mostrar Notificação</string>
-    <string name="show_app_list">Mostrar lista de aplicações</string>
-    <string name="open_app">Abrir app</string>
-    <string name="lock_screen">Ecrã de bloqueio</string>
-    <string name="open_quick_settings">Configurações Rápidas</string>
-    <string name="show_recents">Mostrar Recentes</string>
-
+    <string name="auto_open_apps">Auto open apps</string>
+    <string name="show">Show</string>
+    <string name="reset">Reset</string>
+    <string name="cancel">Cancel</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="enabled">Enabled</string>
+    <string name="disabled">Disabled</string>
+    <string name="show_notifications">Show Notification</string>
+    <string name="show_app_list">Show App List</string>
+    <string name="open_app">Open App</string>
+    <string name="lock_screen">Lock Screen</string>
+    <string name="open_quick_settings">Quick Settings</string>
+    <string name="show_recents">Show Recents</string>
     <string name="backup">Backup</string>
-    <string name="load_backup">Carregar Backup</string>
-    <string name="store_backup">Guardar Backup</string>
+    <string name="load_backup">Load Backup</string>
+    <string name="store_backup">Store Backup</string>
 </resources>

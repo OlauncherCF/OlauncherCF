@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Olauncher Clutter Gratis</string>
-    <string name="accessibility_service_name">OlauncherCF Actions Service</string>
-    <string name="app">App</string>
+    <string name="accessibility_service_name">OlauncherCF Acties Service</string>
+    <string name="app">Applicatie</string>
     <string name="set_as_default_launcher">Stel in als standaard launcher</string>
     <string name="app_text_color">Tekst kleur</string>
     <string name="double_tap_to_lock_screen">Dubbel tik om te vergrendelen</string>
@@ -30,7 +30,7 @@
     <string name="double_tap">Double Tap</string>
     <string name="save">Opslaan</string>
     <string name="app_drawer_tips">Tip: Veeg naar beneden om te verwerpen. Veeg naar beneden om het toetsenbord te verbergen.</string>
-    <string name="okay">Ok</string>
+    <string name="okay">Okay</string>
     <string name="triple_tap_lock_message">Hoe het werkt:
         \nZodra je dubbel tikt, zal het scherm donker worden en de telefoon zal zichzel vergrendelen binnen 5 seconden.
         \n\nTijdens deze tijd kun je dubbel tikken om te  <b>ontgrendelen</b> of drie maal tikken om de telefoon onmiddelijk te vergrendelen.
@@ -45,7 +45,7 @@
     <string name="extend_home_apps_area">Breid aanklikbaar gebied op thuis apps uit</string>
     <string name="appearance">Uiterlijk</string>
     <string name="gestures">Gebaren</string>
-    <string name="behavior">Behavior</string>
+    <string name="behavior">Gedrag</string>
     <string name="homescreen">Thuisscherm</string>
     <string name="alignment">Uitlijning</string>
     <string name="theme_mode">Thema mode</string>

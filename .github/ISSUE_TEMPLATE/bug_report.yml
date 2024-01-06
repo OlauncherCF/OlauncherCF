@@ -17,6 +17,8 @@ body:
           required: true
         - label: "I know that if existing issues are available, this issue will be closed without comment, unless an explaination is given on why this new issue is needed."
           required: true
+        - label: "I know that not filling out all information will greatly reduce the devolopers chances of debugging your issue"
+          required: true
 
   - type: textarea
     id: bug-description

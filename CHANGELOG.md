@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.6.6] - 2024-03-01
+
+### 🚀 Features
+
+- Generate changelog with git cliff
+
+### ⚙️ Miscellaneous Tasks
+
+- Bump version number
+
 ## [1.6.5] - 2023-03-25
 
 ### 🚀 Features

@@ -83,3 +83,7 @@ Olauncher CF uses the following permissions:
 	- Allows an application to broadcast an Intent to set an alarm for the user. Used to open the default alarm app if no other clock app is set in the settings.
 - `android.permission.REQUEST_DELETE_PACKAGES`
 	- Required for issuing the request to remove packages. This does not allow the app to remove apps directly; this only gives the permission to issue the request.
+
+## Support me personally
+
+<a href="https://www.buymeacoffee.com/jooooscha" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>

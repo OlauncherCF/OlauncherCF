@@ -82,7 +82,7 @@ jobs:
           asset-name: 'OlauncherCF.apk'
           github-token: ${{ secrets.GITHUB_TOKEN }}
           base64-keystore: ${{ secrets.KEY_STORE }}
-          key-file: ${{ secrets.APP_KEY_FILE }}
+          key-file: ${{ secrets.KEY_STORE }}
           keystore-password: ${{ secrets.KEY_STORE_PASSWORD }}
           keystore-alias: ${{ secrets.ALIAS }}
           key-password: ${{ secrets.KEY_PASSWORD }}

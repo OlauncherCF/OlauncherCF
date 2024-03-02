@@ -2,6 +2,52 @@
 
 All notable changes to this project will be documented in this file.
 
+## [unreleased]
+
+### 🐛 Bug Fixes
+
+- *(CI)* Changelog
+
+## [1.6.12] - 2024-03-02
+
+### 🐛 Bug Fixes
+
+- *(CI)* Changelog
+
+## [.1.6.11] - 2024-03-02
+
+### 🐛 Bug Fixes
+
+- *(CI)* Changelog generation
+
+## [1.6.10] - 2024-03-02
+
+### ⚙️ Miscellaneous Tasks
+
+- Replace images
+- Update english f-droid description
+- Remove unused file
+- *(CI)* Clean up old changelogs and auto generate changelogs
+
+## [1.6.9] - 2024-03-02
+
+### 🐛 Bug Fixes
+
+- *(CI)* Release action
+
+## [1.6.8] - 2024-03-02
+
+### 🐛 Bug Fixes
+
+- Name in relase action
+- Release action
+
+## [1.6.7] - 2024-03-02
+
+### 🐛 Bug Fixes
+
+- Release action
+
 ## [1.6.6] - 2024-03-01
 
 ### 🚀 Features

@@ -37,7 +37,7 @@ jobs:
         versionCode: ${{github.run_number}}
         versionName: ${{env.RELEASE_VERSION}}
 
-    - name: Build Debug APK
+    - name: Build APK
       # run: ./gradlew assembleDebug
       run: ./gradlew build
 

@@ -5,7 +5,7 @@ on:
     tags:
       - '*'
   workflow_dispatch:
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -19,23 +19,70 @@ jobs:
         cache: gradle
     - name: Make Gradle executable
       run: chmod +x gradlew
-    - name: Build apk
+
+    - name: Set output
+      id: vars
+      run: echo "tag=${GITHUB_REF#refs/*/}" >> $GITHUB_OUTPUT
+    - name: Check output
+      env:
+        RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
+      run: |
+        echo $RELEASE_VERSION
+        echo ${{ steps.vars.outputs.tag }}
+
+    - name: Bump version
+      uses: chkfung/android-version-actions@v1.2.1
+      with:
+        gradlePath: app/build.gradle # or app/build.gradle.kts
+        versionCode: ${{github.run_number}}
+        versionName: ${{env.RELEASE_VERSION}}
+
+    - name: Build Debug APK
+      # run: ./gradlew assembleDebug
       run: ./gradlew build
-    - name: Sign apk
-      uses: r0adkll/sign-android-release@v1
-      id: sign_app # ID used to access action output
+
+    - name: Upload artifact Debug APK
+      uses: actions/upload-artifact@v3
       with:
-        releaseDirectory: app/build/outputs/apk/release
-        signingKeyBase64: ${{ secrets.KEY_STORE }}
-        alias: ${{ secrets.ALIAS }}
-        keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
-        keyPassword: ${{ secrets.KEY_PASSWORD }}
-    - name: Release to GitHub
-      uses: svenstaro/upload-release-action@v2
-      with:
-        repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{steps.sign_app.outputs.signedReleaseFile}}
-        asset_name: OlauncherCF-${{ github.ref_name }}.apk
-        tag: ${{ github.ref }}
-        overwrite: true
-        body: "OlauncherCF.apk Release"
+        name: apk
+        path: app/build/outputs/apk/release/*.apk
+
+    # - name: Build apk
+      # run: ./gradlew build
+    # - name: Sign apk
+      # uses: r0adkll/sign-android-release@v1
+      # id: sign_app # ID used to access action output
+      # with:
+        # releaseDirectory: app/build/outputs/apk/release
+        # signingKeyBase64: ${{ secrets.KEY_STORE }}
+        # alias: ${{ secrets.ALIAS }}
+        # keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+        # keyPassword: ${{ secrets.KEY_PASSWORD }}
+
+    # - name: Release to GitHub
+      # uses: svenstaro/upload-release-action@v2
+      # with:
+        # repo_token: ${{ secrets.GITHUB_TOKEN }}
+        # file: ${{steps.sign_app.outputs.signedReleaseFile}}
+        # asset_name: OlauncherCF-${{ github.ref_name }}.apk
+        # tag: ${{ github.ref }}
+        # overwrite: true
+        # body: "OlauncherCF.apk Release"
+  release:
+    permissions:
+      contents: write
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3 # Necessary to access local action
+      - name: github-action-release-apk
+        uses: gogoadl/github-action-release-apk@v1.0.0-alpha09
+        with:
+          asset-name: 'OlauncherCF.apk'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          base64-keystore: ${{ secrets.KEY_STORE }}
+          key-file: ${{ secrets.APP_KEY_FILE }}
+          keystore-password: ${{ secrets.KEY_STORE_PASSWORD }}
+          keystore-alias: ${{ secrets.ALIAS }}
+          key-password: ${{ secrets.KEY_PASSWORD }}

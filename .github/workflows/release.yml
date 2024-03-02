@@ -32,10 +32,13 @@ jobs:
         config: cliff.toml
         args: -vv --latest --strip header
       env:
-        OUTPUT: fastlane/metadata/android/en-US/changelogs/${{ steps.vars.outputs.tag }}.md
+        OUTPUT: CHANGELOG_FDROID.md
 
     - name: Commit
+      env:
+        RELEASE_VERSION: ${{ steps.vars.outputs.tag }}
       run: |
+        mv CHANGELOG_FDROID.md fastlane/metadata/android/en-US/changelogs/"$RELEASE_VERSION".md
         git config user.name 'github-actions[bot]'
         git config user.email 'github-actions[bot]@users.noreply.github.com'
         set +e

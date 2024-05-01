@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
 import android.view.WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
 import androidx.appcompat.app.AppCompatActivity
@@ -66,6 +67,27 @@ class MainActivity : AppCompatActivity() {
         setupOrientation()
 
         window.addFlags(FLAG_LAYOUT_NO_LIMITS)
+    }
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return when (keyCode) {
+            KeyEvent.KEYCODE_MENU -> {
+                when (navController.currentDestination?.id) {
+                    R.id.mainFragment -> {
+                        Navigation.findNavController(this, R.id.nav_host_fragment)
+                            .navigate(R.id.action_mainFragment_to_appListFragment)
+                        true
+                    }
+
+                    else -> {
+                        false
+                    }
+                }
+            }
+            else -> {
+                super.onKeyDown(keyCode, event)
+            }
+        }
     }
 
     @Suppress("DEPRECATION")

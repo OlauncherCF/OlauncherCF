@@ -68,6 +68,27 @@ class MainActivity : AppCompatActivity() {
         window.addFlags(FLAG_LAYOUT_NO_LIMITS)
     }
 
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        return when (keyCode) {
+            KeyEvent.KEYCODE_MENU -> {
+                when (navController.currentDestination?.id) {
+                    R.id.mainFragment -> {
+                        Navigation.findNavController(this, R.id.nav_host_fragment)
+                            .navigate(R.id.action_mainFragment_to_appListFragment)
+                        true
+                    }
+
+                    else -> {
+                        false
+                    }
+                }
+            }
+            else -> {
+                super.onKeyDown(keyCode, event)
+            }
+        }
+    }
+
     @Suppress("DEPRECATION")
     fun setLanguage() {
         val locale = Locale(prefs.language.value())

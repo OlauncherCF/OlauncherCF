@@ -76,6 +76,6 @@
     <string name="open_quick_settings">Snelinstellingen</string>
     <string name="show_recents">Ontlangs gebruikte apps tonen</string>
     <string name="backup">Backup</string>
-    <string name="load_backup">Backup hervatten</string>
-    <string name="store_backup">Backup maken</string>
+    <string name="load_backup">Backup importeren</string>
+    <string name="store_backup">Backup exporteren</string>
 </resources>

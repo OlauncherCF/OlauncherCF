@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.LauncherApps
+import android.os.Build
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
@@ -32,6 +33,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     val clockAlignment = MutableLiveData(prefs.clockAlignment)
     val homeAppsAlignment = MutableLiveData(Pair(prefs.homeAlignment, prefs.homeAlignmentBottom))
     val homeAppsCount = MutableLiveData(prefs.homeAppsNum)
+
+    val shortcuts: MutableList<AppModel> = mutableListOf()
 
     fun selectedApp(appModel: AppModel, flag: AppDrawerFlag, n: Int = 0) {
         when (flag) {
@@ -66,6 +69,14 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         val launcher = appContext.getSystemService(Context.LAUNCHER_APPS_SERVICE) as LauncherApps
         val activityInfo = launcher.getActivityList(packageName, userHandle)
 
+        if (appModel.appLabel == "AAAA") {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N_MR1) {
+                if (launcher.hasShortcutHostPermission()) {
+                    launcher.startShortcut(packageName, appModel.appAlias, null, null, userHandle)
+                }
+            }
+        }
+
         // TODO: Handle multiple launch activities in an app. This is NOT the way.
         val component = when (activityInfo.size) {
             0 -> {
@@ -95,7 +106,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     fun getAppList(showHiddenApps: Boolean = false) {
         viewModelScope.launch {
-            appList.value = getAppsList(appContext, showHiddenApps)
+            val list = getAppsList(appContext, showHiddenApps) as MutableList<AppModel>
+            list.add(prefs.shortcut)
+            Log.d("shortcuts", "Loaded")
+            appList.value = list
         }
     }
 

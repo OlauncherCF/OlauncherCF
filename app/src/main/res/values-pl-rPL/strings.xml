@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Olauncher Clutter Free</string>
+    <string name="app_name">Olauncher Cluster Free</string>
     <string name="accessibility_service_name">OlauncherCF Actions Service</string>
-    <string name="app">App</string>
-    <string name="set_as_default_launcher">Set as default launcher</string>
-    <string name="app_text_color">Text color</string>
-    <string name="double_tap_to_lock_screen">Double tap to lock</string>
-    <string name="off">Off</string>
-    <string name="on">On</string>
-    <string name="black">Black</string>
-    <string name="white">White</string>
-    <string name="change_default_launcher">Change default launcher</string>
-    <string name="long_press_for_settings">Long press anywhere for settings</string>
-    <string name="swipe_up_for_apps">Swipe up for all apps</string>
-    <string name="apps_on_home_screen">Number of shortcuts</string>
+    <string name="app">Aplikacja</string>
+    <string name="set_as_default_launcher">Ustaw jako domyślny launcher</string>
+    <string name="app_text_color">Kolor tekstu</string>
+    <string name="double_tap_to_lock_screen">Dotknij dwukrotnie, aby zablokować</string>
+    <string name="off">Wył.</string>
+    <string name="on">Wł.</string>
+    <string name="black">Czarny</string>
+    <string name="white">Biały</string>
+    <string name="change_default_launcher">Zmień domyślny launcher</string>
+    <string name="long_press_for_settings">Naciśnij długo w dowolnym miejscu, aby wyświetlić ustawienia</string>
+    <string name="swipe_up_for_apps">Przesuń palcem w górę, aby zobaczyć wszystkie aplikacje</string>
+    <string name="apps_on_home_screen">Liczba skrótów</string>
     <string name="left">Left</string>
     <string name="right">Right</string>
     <string name="center">Center</string>

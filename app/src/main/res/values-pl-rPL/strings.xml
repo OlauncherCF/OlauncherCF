@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Olauncher Cluster Free</string>
+    <string name="app_name">Olauncher Clutter Free</string>
     <string name="accessibility_service_name">Usługa Akcji OlauncherCF</string>
     <string name="app">Aplikacja</string>
     <string name="set_as_default_launcher">Ustaw jako domyślny launcher</string>
